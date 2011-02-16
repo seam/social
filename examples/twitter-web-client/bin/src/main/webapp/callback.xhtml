@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/WEB-INF/templates/default.xhtml">
+	<ui:define name="content">
+		<f:metadata>
+			<f:viewParam name="oauth_verifier" value="#{twitterClient.verifier}"
+				required="true"
+				requiredMessage="We didn't get the authorization from Twitter. Please go back and Try Again !" />
+			<f:event type="preRenderView" listener="#{twitterClient.initAccessToken}" />
+		</f:metadata>
+		<h:messages />
+		<h1>Seam Social Twitter client Example</h1>
+		<p>Getting Authorization from Twitter</p>
+
+			You're back and your verifier is #{twitterClient.verifier}  !
+		<br/>
+			You're ready to use Seam Social <h:link outcome="openclient">Twitter client</h:link>
+
+	</ui:define>
+</ui:composition>

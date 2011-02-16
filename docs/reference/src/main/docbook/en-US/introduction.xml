@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
+   "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd" []>
+<preface>
+   <title>Introduction</title>
+   <para>
+      The goal of Seam Social is to provide CDI components to access mot of the social network services. Features include
+      OAuth protocol helpers, Twitter, Foursquare and LinkedIn clients.
+   </para>
+
+<!--
+vim:et:ts=3:sw=3:tw=120
+-->
+</preface>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!--
+JBoss, Home of Professional Open Source
+Copyright ${year}, Red Hat, Inc., and individual contributors
+by the @authors tag. See the copyright.txt in the distribution for a
+full listing of individual contributors.
+
+This is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License as
+published by the Free Software Foundation; either version 2.1 of
+the License, or (at your option) any later version.
+
+This software is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this software; if not, write to the Free
+Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+02110-1301 USA, or see the FSF site: http://www.fsf.org.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<artifactId>seam-social-parent</artifactId>
+		<groupId>org.jboss.seam.social</groupId>
+		<version>3.0.0-SNAPSHOT</version>
+
+	</parent>
+
+	<groupId>org.jboss.seam.social</groupId>
+	<artifactId>seam-social-impl</artifactId>
+	<version>3.0.0-SNAPSHOT</version>
+
+	<packaging>jar</packaging>
+	<name>Seam Social Module Core Implementation</name>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.jboss.seam.social</groupId>
+			<artifactId>seam-social-api</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.enterprise</groupId>
+			<artifactId>cdi-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jboss.logging</groupId>
+			<artifactId>jboss-logging</artifactId>
+			<version>3.0.0.Beta4</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.scribe</groupId>
+			<artifactId>scribe</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>1.7.1</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.seam.solder</groupId>
+			<artifactId>seam-solder</artifactId>
+			<scope>compile</scope>
+		</dependency>
+	</dependencies>
+
+	<scm>
+		<connection>scm:git:git://github.com/seam/servlet.git</connection>
+		<developerConnection>scm:git:git@github.com:seam/servlet.git</developerConnection>
+		<url>http://github.com/seam/servlet</url>
+	</scm>
+
+</project>
