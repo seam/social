@@ -21,30 +21,40 @@
  */
 package org.jboss.seam.social.oauth;
 
-
 /**
  * @author antoine
- *
+ * 
  */
 public interface OAuthServiceSettings
 {
 
-   /**
-    * @return
-    */
-   String getApiKey();
-
    
-   Provider getProvider(); 
+  
+   
+   
+   
+   /**
+    * @return
+    */
+   public String getApiKey();
+
 
    /**
     * @return
     */
-   String getApiSecret();
+   public String getApiSecret();
 
    /**
     * @return
     */
-   String getCallback();
+   public String getCallback();
+
+   public void setCallback(String callback);
+
+   public void setApiSecret(String apiSecret);
+
+   public void setApiKey(String apiKey);
+   
+  
 
 }

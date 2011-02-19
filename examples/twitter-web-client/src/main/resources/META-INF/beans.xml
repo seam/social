@@ -12,17 +12,17 @@
 	License along with this software; if not, write to the Free Software Foundation, 
 	Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA, or see the 
 	FSF site: http://www.fsf.org. -->
-<beans xmlns="http://java.sun.com/xml/ns/javaee"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:s="urn:java:ee"
-       xmlns:o="urn:java:org.jboss.seam.social.oauth">
-       
-       <o:OAuthServiceSettingsScribe>
-       <s:modifies/>
-       <o:apiKey>FQzlQC49UhvbMZoxUIvHTQ</o:apiKey>
-       <o:apiSecret>VQ5CZHG4qUoAkUUmckPn4iN4yyjBKcORTW0wnok4r1k</o:apiSecret>
-       <o:callback>http://localhost:8080/seam-social-twitter-web-client/callback.jsf</o:callback>
-       <o:provider>Twitter</o:provider>
-       </o:OAuthServiceSettingsScribe>
-
+<beans xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:s="urn:java:ee"
+	xmlns:o="urn:java:org.jboss.seam.social.oauth:java:org.jboss.seam.social.twitter">
+<!-- 
+	<o:OAuthServiceSettingsImpl>
+		<s:modifies />
+		<o:Twitter />
+		<o:apiKey>FQzlQC49UhvbMZoxUIvHTQ</o:apiKey>
+		<o:apiSecret>VQ5CZHG4qUoAkUUmckPn4iN4yyjBKcORTW0wnok4r1k</o:apiSecret>
+		<o:callback>http://localhost:8080/seam-social-twitter-web-client/callback.jsf
+		</o:callback>
+	</o:OAuthServiceSettingsImpl>
+ -->
 </beans>

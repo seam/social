@@ -57,5 +57,9 @@ public interface OAuthServiceHandler
    public String getVerifier();
 
    public String getAccessToken();
+   
+   public OAuthServiceSettings getSettings();
+   
+   public void setSettings(OAuthServiceSettings settings);
 
 }

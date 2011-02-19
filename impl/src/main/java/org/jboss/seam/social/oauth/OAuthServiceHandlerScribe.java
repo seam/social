@@ -7,9 +7,6 @@ import java.io.Serializable;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
-
 import org.scribe.builder.ServiceBuilder;
 import org.scribe.builder.api.Api;
 import org.scribe.model.OAuthRequest;
@@ -24,7 +21,7 @@ import org.scribe.oauth.OAuthService;
  * 
  */
 
-public class OAuthServiceHandlerScribe implements OAuthServiceHandler, Serializable
+public abstract class OAuthServiceHandlerScribe implements OAuthServiceHandler, Serializable
 {
 
    /**
@@ -32,48 +29,45 @@ public class OAuthServiceHandlerScribe implements OAuthServiceHandler, Serializa
     */
    private static final long serialVersionUID = -8423894021913341674L;
 
-   @Inject
-   private OAuthServiceSettings settings;
-
+  
    private OAuthService service;
 
    private Token requestToken;
    private Token accessToken;
 
    private Verifier verifier;
+   
+   private OAuthServiceSettings settings;
 
    @Override
-   @PostConstruct
    public void init()
    {
-      Class<? extends Api> apiClass = getApiClass(settings.getProvider());
-      ServiceBuilder serviceBuilder = new ServiceBuilder().provider(apiClass).apiKey(settings.getApiKey()).apiSecret(settings.getApiSecret());
-      if (settings.getCallback() != null && !("".equals(settings.getCallback())))
-         serviceBuilder.callback(settings.getCallback());
+      //Class<? extends Api> apiClass = getApiClass(getSettings().getProvider());
+      Class<? extends Api> apiClass = getApiClass();
+      ServiceBuilder serviceBuilder = new ServiceBuilder().provider(apiClass).apiKey(getSettings().getApiKey()).apiSecret(getSettings().getApiSecret());
+      if (getSettings().getCallback() != null && !("".equals(getSettings().getCallback())))
+         serviceBuilder.callback(getSettings().getCallback());
       service = serviceBuilder.build();
 
    }
-
-   /**
-    * @param provider
-    * @return
-    * @throws ClassNotFoundException
+   
+   /* (non-Javadoc)
+    * @see org.jboss.seam.social.oauth.OAuthServiceHandlerScribe#getSettings()
     */
-   @SuppressWarnings("unchecked")
-   private Class<? extends Api> getApiClass(Provider provider)
+   @Override
+   public OAuthServiceSettings getSettings()
    {
-      String className = provider.name().concat("Api");
-      Class<? extends Api> result;
-      try
-      {
-         result = (Class<? extends Api>) Class.forName("org.scribe.builder.api." + className);
-      }
-      catch (ClassNotFoundException e)
-      {
-         throw new IllegalArgumentException("Error producing OAuthService, class : " + className + " doesn't exist", e);
-      }
-      return result;
+      return settings;
    }
+
+
+
+   public void setSettings(OAuthServiceSettings settings)
+   {
+      this.settings = settings;
+   }
+   
+   protected abstract Class<? extends Api> getApiClass();
 
   
    @Override

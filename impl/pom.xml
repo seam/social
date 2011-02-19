@@ -73,6 +73,16 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 			<artifactId>seam-solder</artifactId>
 			<scope>compile</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.jboss.seam.config</groupId>
+			<artifactId>seam-config-xml</artifactId>
+			<exclusions>
+				<exclusion>
+					<artifactId>jboss-logging</artifactId>
+					<groupId>org.jboss.logging</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
 	</dependencies>
 
 	<scm>
