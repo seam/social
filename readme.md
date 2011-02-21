@@ -5,6 +5,8 @@ Provides CDI Beans and extensions to interact with major social network.
 Provides:
 
 + OAuth cconnectors to authentify to an OAuth provider
++ Support for Twitter only right now s
++ Status update
 + and more to come...
 
 Seam Social is independent of CDI implementation and fully portable between
