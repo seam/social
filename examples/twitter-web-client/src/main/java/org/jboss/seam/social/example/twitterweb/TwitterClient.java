@@ -59,11 +59,7 @@ public class TwitterClient implements Serializable
    @Setted(apiKey="FQzlQC49UhvbMZoxUIvHTQ", apiSecret="VQ5CZHG4qUoAkUUmckPn4iN4yyjBKcORTW0wnok4r1k",callback="http://localhost:8080/seam-social-twitter-web-client/callback.jsf")
    TwitterHandler service;
    
-   @PostConstruct
-   public void init()
-   {
-      service.init();
-   }
+   
    public String getAuthorizationURL()
    {
       return service.getAuthorizationUrl();

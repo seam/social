@@ -21,7 +21,10 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
 import javax.enterprise.util.Nonbinding;
+import javax.inject.Inject;
 import javax.inject.Qualifier;
+
+import org.jboss.seam.social.twitter.TwitterHandler;
 
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.METHOD;
@@ -29,14 +32,26 @@ import static java.lang.annotation.ElementType.PARAMETER;
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
+/**
+ * A CDI Qualifier annotation to qualify and set OAuthServiceHandler directly in the code
+ * It can be used like this :
+ *<pre>
+ *    &#64;Inject
+ *    &#64;Setted(apiKey="a consumer key", apiSecret="a consumer secret", callback="a call back URL")
+ *    TwitterHandler service;
+ *</pre>    
+ * 
+ * It's one of the alternates solution intitialize an OAuth service configuration
+ * 
+ * @author Antoine Sabot-Durand
+ *
+ */
+
 @Qualifier
 @Target({ TYPE, METHOD, PARAMETER, FIELD })
 @Retention(RUNTIME)
 @Documented
-/**
- * @author antoine
- *
- */
+
 public @interface Setted
 {
 

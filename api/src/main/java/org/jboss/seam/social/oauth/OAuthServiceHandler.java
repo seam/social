@@ -26,35 +26,73 @@ import java.util.Map;
 public interface OAuthServiceHandler
 {
 
-   public void init();
+   /**
+    * 
+    * @return the access token for the OAuth service
+    */
+   public String getAccessToken();
+
+   /**
+    * Returns the url to the OAuth service to ask an authorization to access the service.
+    * @return the REST URL to use request access
+    */
+   public String getAuthorizationUrl();
+
+   /**
+    * 
+    * @return the settings of the service
+    */
+   public OAuthServiceSettings getSettings();
+
+   /**
+    * Access to OAuth verifier
+    * @return the OAUth verifier
+    */
+   public String getVerifier();
+
+
+   /**
+    * Initialize the OAuth access token after the service gave an authorization with the Verifier
+    */
+   public void initAccessToken();
 
    /**
     * Send an OAuth request signed without any parameter
     * @param verb a REST verb
-    * @param uri
+    * @param uri the REST address of the request
     * @return an Object containing the response. It could be in various format (json, xml, string)
     */
    public Object sendSignedRequest(RestVerb verb, String uri);
 
    /**
-    * Initialize the OAuth access token 
+    * Send an OAuth request signed with a list a parameter
+    * @param verb a REST verb
+    * @param uri the REST address of the request
+    * @param params a Map of key value parameters to send in the header of the request
+    * @return an Object containing the response. It could be in various format (json, xml, string)
     */
-   public void initAccessToken();
-
-   public String getAuthorizationUrl();
-
    public Object sendSignedRequest(RestVerb verb, String uri, Map<String, Object> params);
 
+   /**
+    * Send an OAuth request signed with a single parameter
+    * @param verb a REST verb
+    * @param uri the REST address of the request
+    * @param key name of the parameter
+    * @param value value of the parameter
+    * @return an Object containing the response. It could be in various format (json, xml, string)
+    */
    public Object sendSignedRequest(RestVerb verb, String uri, String key, Object value);
-
-   public void setVerifier(String verifierStr);
-
-   public String getVerifier();
-
-   public String getAccessToken();
    
-   public OAuthServiceSettings getSettings();
-   
+   /**
+    * Initialize OAuth settings
+    * @param settings
+    */
    public void setSettings(OAuthServiceSettings settings);
+   
+   /**
+    * Used to initialize verifier code returned by OAuth service
+    * @param verifierStr
+    */
+   public void setVerifier(String verifierStr);
 
 }

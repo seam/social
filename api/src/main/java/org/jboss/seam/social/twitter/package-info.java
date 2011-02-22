@@ -14,16 +14,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social.oauth;
+package org.jboss.seam.social.twitter;
 
 /**
- * Enum containing the verb used in REST request. Used mainly in {@link OAuthServiceHandler#OAuthServiceHandler#sendSignedRequest(RestVerb, String, java.util.Map)}
- * and other sendSignedRequest method.
- * to set REST verb to add to request
- * 
- * @author Antoine Sabot-Durand
- */
-public enum RestVerb
-{
-   GET, POST, PUT, DELETE
-}
+* This package contains API elements to manage interactions with Twitter thru CDI Beans 
+*/

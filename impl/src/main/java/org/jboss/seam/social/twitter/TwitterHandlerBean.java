@@ -22,7 +22,6 @@ import javax.inject.Inject;
 import org.jboss.seam.social.oauth.OAuthServiceHandlerScribe;
 import org.jboss.seam.social.oauth.OAuthServiceSettings;
 import org.jboss.seam.social.oauth.RestVerb;
-import org.jboss.seam.social.twitter.domain.SearchResult;
 import org.scribe.builder.api.Api;
 import org.scribe.builder.api.TwitterApi;
 
@@ -61,25 +60,6 @@ public class TwitterHandlerBean extends OAuthServiceHandlerScribe implements Twi
   {
      return sendSignedRequest(RestVerb.POST, TWEET_URL, "status", message);
   }
-
-
-
-
-
-
-
-/* (non-Javadoc)
- * @see org.jboss.seam.social.twitter.TwitterHandler#search(java.lang.String)
- */
-@Override
-public SearchResult search(String string)
-{
-   // TODO Auto-generated method stub
-   return null;
-}
-
-
-
 
 
 

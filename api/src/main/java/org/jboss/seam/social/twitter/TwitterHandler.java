@@ -19,11 +19,23 @@ package org.jboss.seam.social.twitter;
 import org.jboss.seam.social.oauth.OAuthServiceHandler;
 import org.jboss.seam.social.twitter.domain.SearchResult;
 
+
+/**
+ * A specialization of {@link OAuthServiceHandler} to add Twitter specific methods
+ * 
+ * @author Antoine Sabot-Durand
+ *
+ */
 public interface TwitterHandler extends OAuthServiceHandler
 {
 
-   SearchResult search(String string);
-
+   /**
+    * 
+    * Update the Twitter Status
+    * 
+    * @param message to tweet
+    * @return the tweet sent in Twitter
+    */
    public Object updateStatus(String message);
 
 }

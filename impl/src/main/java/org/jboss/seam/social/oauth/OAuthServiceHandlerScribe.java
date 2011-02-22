@@ -52,10 +52,17 @@ public abstract class OAuthServiceHandlerScribe implements OAuthServiceHandler, 
    
    private OAuthServiceSettings settings;
 
-   @Override
-   public void init()
+   
+   private OAuthService getService()
    {
-      //Class<? extends Api> apiClass = getApiClass(getSettings().getProvider());
+      if (service == null)
+      initService();
+      return service;
+   }
+   
+   
+   private void initService()
+   {
       Class<? extends Api> apiClass = getApiClass();
       ServiceBuilder serviceBuilder = new ServiceBuilder().provider(apiClass).apiKey(getSettings().getApiKey()).apiSecret(getSettings().getApiSecret());
       if (getSettings().getCallback() != null && !("".equals(getSettings().getCallback())))
@@ -87,22 +94,22 @@ public abstract class OAuthServiceHandlerScribe implements OAuthServiceHandler, 
    public String getAuthorizationUrl()
    {
       if(requestToken==null)
-         requestToken = service.getRequestToken();
-      return service.getAuthorizationUrl(requestToken);
+         requestToken = getService().getRequestToken();
+      return getService().getAuthorizationUrl(requestToken);
    }
 
    @Override
    public void initAccessToken()
    {
       if(accessToken==null)
-      accessToken = service.getAccessToken(requestToken, verifier);
+      accessToken = getService().getAccessToken(requestToken, verifier);
    }
 
    @Override
    public Object sendSignedRequest(RestVerb verb, String uri)
    {
       OAuthRequest request = new OAuthRequest(Verb.valueOf(verb.toString()), uri);
-      service.signRequest(accessToken, request);
+      getService().signRequest(accessToken, request);
       return request.send();
 
    }
@@ -115,7 +122,7 @@ public abstract class OAuthServiceHandlerScribe implements OAuthServiceHandler, 
 
       request.addBodyParameter(key, value.toString());
 
-      service.signRequest(accessToken, request);
+      getService().signRequest(accessToken, request);
       resp = request.send();
       return resp;
 
@@ -129,7 +136,7 @@ public abstract class OAuthServiceHandlerScribe implements OAuthServiceHandler, 
       {
          request.addBodyParameter(ent.getKey(), ent.getValue().toString());
       }
-      service.signRequest(accessToken, request);
+      getService().signRequest(accessToken, request);
       return request.send();
 
    }

@@ -17,37 +17,48 @@
 package org.jboss.seam.social.oauth;
 
 /**
- * @author antoine
+ * Interface for model containing settings to access to an OAuth 1.0a service
+ * It's used by {@link OAuthServiceHandler} to setup connexion to OAuth Service
  * 
+ * @author Antoine Sabot-Durand
+ * @see OAuthServiceHandler
  */
 public interface OAuthServiceSettings
 {
 
-   
   
-   
-   
-   
    /**
-    * @return
+    * @return the key consumer key for the OAuth service
     */
    public String getApiKey();
 
 
    /**
-    * @return
+    * @return the consumer secret key for the OAuth service
     */
    public String getApiSecret();
 
    /**
-    * @return
+    * @return the call back URL for the OAuth service
     */
    public String getCallback();
 
+   /**
+    * 
+    * @param callback call back URL registered for this OAuth service
+    */
    public void setCallback(String callback);
 
+   /**
+    * 
+    * @param apiSecret consumer secret for this OAuth service
+    */
    public void setApiSecret(String apiSecret);
 
+   /**
+    * 
+    * @param apiKey consumer key for this OAuth service
+    */
    public void setApiKey(String apiKey);
    
   
