@@ -16,12 +16,19 @@
  */
 package org.jboss.seam.social.twitter;
 
+import java.io.IOException;
+
 import javax.enterprise.inject.Typed;
 import javax.inject.Inject;
 
+import org.codehaus.jackson.JsonParseException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.jboss.seam.social.oauth.HttpResponse;
 import org.jboss.seam.social.oauth.OAuthServiceHandlerScribe;
 import org.jboss.seam.social.oauth.OAuthServiceSettings;
 import org.jboss.seam.social.oauth.RestVerb;
+import org.jboss.seam.social.twitter.domain.Credential;
 import org.scribe.builder.api.Api;
 import org.scribe.builder.api.TwitterApi;
 
@@ -44,7 +51,8 @@ public class TwitterHandlerBean extends OAuthServiceHandlerScribe implements Twi
    static final String RETWEET_URL = "https://api.twitter.com/1/statuses/retweet/{tweet_id}.json";
    static final Class<? extends Api> API_CLASS = TwitterApi.class;
 
-   
+   @Inject
+   ObjectMapper jsonMapper;
    
    @Override @Inject 
    public void setSettings(@Twitter OAuthServiceSettings settings)
@@ -71,6 +79,38 @@ public class TwitterHandlerBean extends OAuthServiceHandlerScribe implements Twi
 protected Class<? extends Api> getApiClass()
 {
  return API_CLASS;
+}
+
+
+
+/* (non-Javadoc)
+ * @see org.jboss.seam.social.twitter.TwitterHandler#verifyCrendentials()
+ */
+@Override
+public Object verifyCrendentials()
+{
+   HttpResponse resp = sendSignedRequest(RestVerb.GET, VERIFY_CREDENTIALS_URL);
+   Credential credential=null;
+   try
+   {
+      credential=jsonMapper.readValue(resp.getStream(), Credential.class);
+   }
+   catch (JsonParseException e)
+   {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+   }
+   catch (JsonMappingException e)
+   {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+   }
+   catch (IOException e)
+   {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+   }
+   return credential;
 }
    
    

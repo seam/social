@@ -37,5 +37,15 @@ public interface TwitterHandler extends OAuthServiceHandler
     * @return the tweet sent in Twitter
     */
    public Object updateStatus(String message);
+   
+   
+   
+   /**
+    * 
+    * Check the credential of the user 
+    * 
+    * @return the crendential of the user
+    */
+   public Object verifyCrendentials();
 
 }

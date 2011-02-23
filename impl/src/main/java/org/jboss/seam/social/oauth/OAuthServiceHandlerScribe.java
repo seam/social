@@ -16,6 +16,7 @@
  */
 package org.jboss.seam.social.oauth;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -105,26 +106,40 @@ public abstract class OAuthServiceHandlerScribe implements OAuthServiceHandler, 
       accessToken = getService().getAccessToken(requestToken, verifier);
    }
 
+   
+   public HttpResponse sendSignedRequest(OAuthRequest request)
+   {
+      getService().signRequest(accessToken, request);
+      HttpResponse resp=null;
+      try
+      {
+         resp= new HttpResponseScribe(request.send());
+      }
+      catch (IOException e)
+      {
+         // TODO Auto-generated catch block
+         e.printStackTrace();
+      }
+      return resp;
+   }
+   
    @Override
-   public Object sendSignedRequest(RestVerb verb, String uri)
+   public HttpResponse sendSignedRequest(RestVerb verb, String uri)
    {
       OAuthRequest request = new OAuthRequest(Verb.valueOf(verb.toString()), uri);
-      getService().signRequest(accessToken, request);
-      return request.send();
+    
+     return sendSignedRequest(request);
 
    }
 
    @Override
-   public Object sendSignedRequest(RestVerb verb, String uri, String key, Object value)
+   public HttpResponse sendSignedRequest(RestVerb verb, String uri, String key, Object value)
    {
-      Response resp;
       OAuthRequest request = new OAuthRequest(Verb.valueOf(verb.toString()), uri);
 
       request.addBodyParameter(key, value.toString());
 
-      getService().signRequest(accessToken, request);
-      resp = request.send();
-      return resp;
+      return sendSignedRequest(request);
 
    }
 
@@ -136,8 +151,7 @@ public abstract class OAuthServiceHandlerScribe implements OAuthServiceHandler, 
       {
          request.addBodyParameter(ent.getKey(), ent.getValue().toString());
       }
-      getService().signRequest(accessToken, request);
-      return request.send();
+      return sendSignedRequest(request);
 
    }
    

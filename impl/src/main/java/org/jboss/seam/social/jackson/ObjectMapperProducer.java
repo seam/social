@@ -16,6 +16,7 @@
  */
 package org.jboss.seam.social.jackson;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 
 import org.codehaus.jackson.map.ObjectMapper;
@@ -26,7 +27,7 @@ import org.codehaus.jackson.map.ObjectMapper;
  */
 public class ObjectMapperProducer
 {
-   @Produces
+   @Produces @ApplicationScoped
    public ObjectMapper produce()
    {
       return new ObjectMapper();
