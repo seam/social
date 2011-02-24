@@ -17,10 +17,14 @@
 -->
 <beans xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:s="urn:java:ee"
-	xmlns:o="urn:java:org.jboss.seam.social.oauth:java:org.jboss.seam.social.twitter">
+	xmlns:o="urn:java:org.jboss.seam.social.oauth:java:org.jboss.seam.social.twitter:java:org.jboss.seam.social.linkedin">
  
 	<o:OAuthServiceSettingsImpl>
 		<s:modifies />
 		<o:Twitter />
+	</o:OAuthServiceSettingsImpl>
+	<o:OAuthServiceSettingsImpl>
+		<s:modifies />
+		<o:LinkedIn />
 	</o:OAuthServiceSettingsImpl>
 </beans>

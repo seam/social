@@ -45,7 +45,6 @@ public class OAuthServiceSettingsImpl implements OAuthServiceSettings,Serializab
    public void setApiKey(String apiKey)
    {
       this.apiKey = apiKey;
-      System.out.println("****** " +apiKey+" *********");
    }
 
    public String getApiSecret()

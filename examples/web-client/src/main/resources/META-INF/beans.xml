@@ -24,7 +24,7 @@
 		<o:Twitter />
 		<o:apiKey>FQzlQC49UhvbMZoxUIvHTQ</o:apiKey>
 		<o:apiSecret>VQ5CZHG4qUoAkUUmckPn4iN4yyjBKcORTW0wnok4r1k</o:apiSecret>
-		<o:callback>http://localhost:8080/seam-social-twitter-web-client/callback.jsf
+		<o:callback>http://localhost:8080/seam-social-web-client/callback.jsf
 		</o:callback>
 	</o:OAuthServiceSettingsImpl>
  -->

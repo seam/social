@@ -6,16 +6,16 @@
 	template="/WEB-INF/templates/default.xhtml">
 	<ui:define name="content">
 		<f:metadata>
-			<f:viewParam name="oauth_verifier" value="#{twitterClient.verifier}"
+			<f:viewParam name="oauth_verifier" value="#{socialClient.verifier}"
 				required="true"
 				requiredMessage="We didn't get the authorization from Twitter. Please go back and Try Again !" />
-			<f:event type="preRenderView" listener="#{twitterClient.initAccessToken}" />
+			<f:event type="preRenderView" listener="#{socialClient.initAccessToken}" />
 		</f:metadata>
 		<h:messages />
 		<h1>Seam Social Twitter client Example</h1>
 		<p>Getting Authorization from Twitter</p>
 
-			You're back and your verifier is #{twitterClient.verifier}  !
+			You're back and your verifier is #{socialClient.verifier}  !
 		<br/>
 			You're ready to use Seam Social <h:link outcome="openclient">Twitter client</h:link>
 

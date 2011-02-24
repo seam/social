@@ -9,10 +9,8 @@
 		<h1>Seam Social Twitter client Example</h1>
 		<p>Your (future) Timeline</p>
 		<h:form>
-		Welcome #{twitterClient.cred.name}<br/>
-		<img src="#{twitterClient.cred.profileImageUrl}" />
-			<h:inputTextarea value="#{twitterClient.status}" cols="80" rows="5" />
-			<h:commandButton action="#{twitterClient.updateStatus}"
+			<h:inputTextarea value="#{socialClient.status}" cols="80" rows="5" />
+			<h:commandButton action="#{socialClient.updateStatus}"
 				value="Update your status" />
 		</h:form>
 	</ui:define>
