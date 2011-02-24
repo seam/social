@@ -18,13 +18,14 @@ package org.jboss.seam.social.example.twitterweb;
 
 import java.io.Serializable;
 
-import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.jboss.seam.social.oauth.Setted;
+import org.jboss.seam.social.twitter.Twitter;
 import org.jboss.seam.social.twitter.TwitterHandler;
+import org.jboss.seam.social.twitter.domain.Credential;
 
 
 
@@ -34,6 +35,8 @@ public class TwitterClient implements Serializable
 {
 
    private String status;
+   
+   private Credential cred;
   
    public String getAccessToken()
    {
@@ -91,6 +94,18 @@ public String updateStatus()
    service.updateStatus(status);
    return "ok";
 }
+
+public Credential getCred()
+{
+   if (cred==null)
+      cred=service.verifyCrendentials();
+   return cred;
+}
+
+
+
+
   
+
    
 }

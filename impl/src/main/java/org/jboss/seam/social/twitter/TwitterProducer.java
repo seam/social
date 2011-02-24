@@ -30,7 +30,7 @@ import org.jboss.seam.social.oauth.Setted;
 public class TwitterProducer
 {
    @Produces @Setted
-   public TwitterHandler produceTwitterHandler(InjectionPoint ip,TwitterHandler twitterHdl)
+   public TwitterHandler produceTwitterHandler(InjectionPoint ip, TwitterHandler twitterHdl)
    {
       Setted setted=ip.getAnnotated().getAnnotation(Setted.class);
       

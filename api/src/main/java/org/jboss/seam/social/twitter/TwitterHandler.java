@@ -17,7 +17,9 @@
 package org.jboss.seam.social.twitter;
 
 import org.jboss.seam.social.oauth.OAuthServiceHandler;
+import org.jboss.seam.social.twitter.domain.Credential;
 import org.jboss.seam.social.twitter.domain.SearchResult;
+import org.jboss.seam.social.twitter.domain.Tweet;
 
 
 /**
@@ -36,7 +38,7 @@ public interface TwitterHandler extends OAuthServiceHandler
     * @param message to tweet
     * @return the tweet sent in Twitter
     */
-   public Object updateStatus(String message);
+   public Tweet updateStatus(String message);
    
    
    
@@ -46,6 +48,6 @@ public interface TwitterHandler extends OAuthServiceHandler
     * 
     * @return the crendential of the user
     */
-   public Object verifyCrendentials();
+   public Credential verifyCrendentials();
 
 }

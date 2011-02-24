@@ -14,23 +14,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social.jackson;
-
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.inject.Produces;
-
-import org.codehaus.jackson.map.ObjectMapper;
+package org.jboss.seam.social.twitter.domain;
 
 /**
- * @author antoine
- *
- */
-public class ObjectMapperProducer
-{
-   @Produces @ApplicationScoped
-   public ObjectMapper produce()
-   {
-      return new ObjectMapper();
-   }
-
-}
+* This package contains model elements to store and send data to Twitter
+*/

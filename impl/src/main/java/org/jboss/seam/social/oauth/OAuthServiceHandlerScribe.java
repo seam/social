@@ -21,6 +21,8 @@ import java.io.Serializable;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import javax.inject.Inject;
+
 import org.scribe.builder.ServiceBuilder;
 import org.scribe.builder.api.Api;
 import org.scribe.model.OAuthRequest;
@@ -50,6 +52,9 @@ public abstract class OAuthServiceHandlerScribe implements OAuthServiceHandler, 
    private Token accessToken;
 
    private Verifier verifier;
+   
+   @Inject
+   protected JsonMapper jsonMapper;
    
    private OAuthServiceSettings settings;
 
@@ -107,7 +112,7 @@ public abstract class OAuthServiceHandlerScribe implements OAuthServiceHandler, 
    }
 
    
-   public HttpResponse sendSignedRequest(OAuthRequest request)
+   protected HttpResponse sendSignedRequest(OAuthRequest request)
    {
       getService().signRequest(accessToken, request);
       HttpResponse resp=null;
@@ -144,7 +149,7 @@ public abstract class OAuthServiceHandlerScribe implements OAuthServiceHandler, 
    }
 
    @Override
-   public Object sendSignedRequest(RestVerb verb, String uri, Map<String, Object> params)
+   public HttpResponse sendSignedRequest(RestVerb verb, String uri, Map<String, Object> params)
    {
       OAuthRequest request = new OAuthRequest(Verb.valueOf(verb.toString()), uri);
       for (Entry<String, Object> ent : params.entrySet())

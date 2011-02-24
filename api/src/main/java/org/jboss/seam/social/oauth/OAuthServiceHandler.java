@@ -60,18 +60,18 @@ public interface OAuthServiceHandler
     * Send an OAuth request signed without any parameter
     * @param verb a REST verb
     * @param uri the REST address of the request
-    * @return an Object containing the response. It could be in various format (json, xml, string)
+    * @return an HttpResponse containing the response. It could be in various format (json, xml, string)
     */
-   public Object sendSignedRequest(RestVerb verb, String uri);
+   public HttpResponse sendSignedRequest(RestVerb verb, String uri);
 
    /**
     * Send an OAuth request signed with a list a parameter
     * @param verb a REST verb
     * @param uri the REST address of the request
     * @param params a Map of key value parameters to send in the header of the request
-    * @return an Object containing the response. It could be in various format (json, xml, string)
+    * @return an HttpResponse containing the response. It could be in various format (json, xml, string)
     */
-   public Object sendSignedRequest(RestVerb verb, String uri, Map<String, Object> params);
+   public HttpResponse sendSignedRequest(RestVerb verb, String uri, Map<String, Object> params);
 
    /**
     * Send an OAuth request signed with a single parameter
@@ -79,9 +79,9 @@ public interface OAuthServiceHandler
     * @param uri the REST address of the request
     * @param key name of the parameter
     * @param value value of the parameter
-    * @return an Object containing the response. It could be in various format (json, xml, string)
+    * @return an HttpResponse containing the response. It could be in various format (json, xml, string)
     */
-   public Object sendSignedRequest(RestVerb verb, String uri, String key, Object value);
+   public HttpResponse sendSignedRequest(RestVerb verb, String uri, String key, Object value);
    
    /**
     * Initialize OAuth settings
