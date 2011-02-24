@@ -13,29 +13,9 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */package org.jboss.seam.social.oauth;
-
-import java.io.InputStream;
-import java.util.Map;
+ */
+package org.jboss.seam.social.linkedin;
 
 /**
- * 
- * Implementation of this interface represent an Http Response
- * 
- * @author Antoine Sabot-Durand
- *
- */
-public interface HttpResponse
-{
-
-   public String getBody();
-
-   public InputStream getStream();
-
-   public int getCode();
-
-   public Map<String, String> getHeaders();
-
-   public String getHeader(String name);
-
-}
+* This package contains API elements to manage interactions with LinkedIn thru CDI Beans 
+*/

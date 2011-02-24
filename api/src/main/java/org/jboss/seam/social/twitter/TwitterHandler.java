@@ -18,7 +18,6 @@ package org.jboss.seam.social.twitter;
 
 import org.jboss.seam.social.oauth.OAuthServiceHandler;
 import org.jboss.seam.social.twitter.domain.Credential;
-import org.jboss.seam.social.twitter.domain.SearchResult;
 import org.jboss.seam.social.twitter.domain.Tweet;
 
 

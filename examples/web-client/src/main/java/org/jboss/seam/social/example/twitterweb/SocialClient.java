@@ -23,7 +23,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.jboss.seam.social.oauth.Setted;
-import org.jboss.seam.social.twitter.Twitter;
 import org.jboss.seam.social.twitter.TwitterHandler;
 import org.jboss.seam.social.twitter.domain.Credential;
 

@@ -20,7 +20,6 @@ import javax.enterprise.inject.Typed;
 import javax.inject.Inject;
 
 import org.jboss.seam.social.oauth.HttpResponse;
-import org.jboss.seam.social.oauth.JsonMapper;
 import org.jboss.seam.social.oauth.OAuthServiceHandlerScribe;
 import org.jboss.seam.social.oauth.OAuthServiceSettings;
 import org.jboss.seam.social.oauth.RestVerb;
