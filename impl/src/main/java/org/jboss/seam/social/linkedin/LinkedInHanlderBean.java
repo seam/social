@@ -35,6 +35,7 @@ public class LinkedInHanlderBean extends OAuthServiceHandlerScribe implements Li
   
    private static final long serialVersionUID = -6718362913575146613L;
    static final Class<? extends Api> API_CLASS = LinkedInApi.class;
+   static final String LOGO_URL = "https://d2l6uygi1pgnys.cloudfront.net/1-9-05/images/buttons/linkedin_connect.png";
 
    
 
@@ -53,6 +54,15 @@ public class LinkedInHanlderBean extends OAuthServiceHandlerScribe implements Li
    protected Class<? extends Api> getApiClass()
    {
       return API_CLASS;
+   }
+
+   /* (non-Javadoc)
+    * @see org.jboss.seam.social.oauth.OAuthServiceHandler#getServiceLogo()
+    */
+   @Override
+   public String getServiceLogo()
+   {
+      return LOGO_URL;
    }
 
 }

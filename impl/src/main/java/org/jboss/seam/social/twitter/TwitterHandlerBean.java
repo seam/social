@@ -45,6 +45,7 @@ public class TwitterHandlerBean extends OAuthServiceHandlerScribe implements Twi
    static final String TWEET_URL = "https://api.twitter.com/1/statuses/update.json";
    static final String RETWEET_URL = "https://api.twitter.com/1/statuses/retweet/{tweet_id}.json";
    static final Class<? extends Api> API_CLASS = TwitterApi.class;
+   static final String LOGO_URL = "http://twitter-badges.s3.amazonaws.com/twitter-a.png";
 
   
 
@@ -62,6 +63,7 @@ public class TwitterHandlerBean extends OAuthServiceHandlerScribe implements Twi
    public Tweet updateStatus(String message)
    {
       HttpResponse resp = sendSignedRequest(RestVerb.POST, TWEET_URL, "status", message);
+      System.out.println("update satus is " + message);
       return jsonMapper.readValue(resp, TweetJackson.class);      
 
      }
@@ -88,6 +90,17 @@ public class TwitterHandlerBean extends OAuthServiceHandlerScribe implements Twi
       HttpResponse resp = sendSignedRequest(RestVerb.GET, VERIFY_CREDENTIALS_URL);
       
       return jsonMapper.readValue(resp, CredentialJackson.class); 
+   }
+
+
+
+   /* (non-Javadoc)
+    * @see org.jboss.seam.social.oauth.OAuthServiceHandler#getServiceLogo()
+    */
+   @Override
+   public String getServiceLogo()
+   {
+      return LOGO_URL;
    }
 
 }

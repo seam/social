@@ -94,5 +94,12 @@ public interface OAuthServiceHandler
     * @param verifierStr
     */
    public void setVerifier(String verifierStr);
+   
+   
+   /**
+    * Gives the logo of the service
+    * @return the URL of the logo for the service
+    */
+   public String getServiceLogo();
 
 }
