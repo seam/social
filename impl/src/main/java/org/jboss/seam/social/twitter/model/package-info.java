@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social.twitter.domain;
+package org.jboss.seam.social.twitter.model;
 
 /**
 * This package contains model elements to store and send data to Twitter

@@ -14,12 +14,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social.twitter.domain;
+package org.jboss.seam.social.twitter.model;
 
 import java.util.List;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
+import org.jboss.seam.social.twitter.domain.SearchResult;
+import org.jboss.seam.social.twitter.domain.Tweet;
 
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class SearchResultJackson implements SearchResult

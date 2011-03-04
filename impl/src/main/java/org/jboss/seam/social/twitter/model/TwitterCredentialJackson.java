@@ -14,10 +14,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social.twitter.domain;
+package org.jboss.seam.social.twitter.model;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
+import org.jboss.seam.social.oauth.OAuthUser;
+import org.jboss.seam.social.twitter.domain.TwitterCredential;
 
 /**
  * 
@@ -89,7 +91,7 @@ import org.codehaus.jackson.annotate.JsonProperty;
  */
 
 @JsonIgnoreProperties(ignoreUnknown=true)
-public class CredentialJackson implements Credential
+public class TwitterCredentialJackson implements TwitterCredential
 {
    private String name;
    
@@ -151,6 +153,15 @@ public class CredentialJackson implements Credential
    public void setProfileImageUrl(String profileImageUrl)
    {
       this.profileImageUrl = profileImageUrl;
+   }
+
+   /* (non-Javadoc)
+    * @see org.jboss.seam.social.oauth.OAuthUserProfile#getFullName()
+    */
+   @Override
+   public String getFullName()
+   {
+      return getName();
    }
    
    

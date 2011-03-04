@@ -13,31 +13,27 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */package org.jboss.seam.social.twitter.domain;
+ */
+package org.jboss.seam.social.oauth;
 
-import org.jboss.seam.social.twitter.TwitterHandler;
+import org.scribe.model.Token;
 
 /**
- *
- * Implementation of this interface contains information about Twitter Credential of the current user
- * It is returned by {@link TwitterHandler#verifyCrendentials()}
- * 
- * @author Antoine Sabot-Durand
+ * @author antoine
  *
  */
-public interface Credential
+public class OAuthTokenScribe extends Token implements OAuthToken
 {
 
-   public String getName();
+   private static final long serialVersionUID = 6598671815429418539L;
 
-   public void setName(String name);
-
-   public String getScreenName();
-
-   public void setScreenName(String screenName);
-
-   public String getProfileImageUrl();
-
-   public void setProfileImageUrl(String profileImageUrl);
+   /**
+    * @param token
+    * @param secret
+    */
+   public OAuthTokenScribe(String token, String secret)
+   {
+      super(token, secret);
+   }
 
 }

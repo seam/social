@@ -101,5 +101,10 @@ public interface OAuthServiceHandler
     * @return the URL of the logo for the service
     */
    public String getServiceLogo();
+   
+   public Boolean isConnected();
+      
+   public OAuthUser getUser();
+   
 
 }

@@ -19,14 +19,15 @@ package org.jboss.seam.social.twitter;
 import javax.enterprise.inject.Typed;
 import javax.inject.Inject;
 
+import org.jboss.seam.social.oauth.JsonMapper;
+import org.jboss.seam.social.oauth.OAuthUser;
 import org.jboss.seam.social.oauth.HttpResponse;
 import org.jboss.seam.social.oauth.OAuthServiceHandlerScribe;
 import org.jboss.seam.social.oauth.OAuthServiceSettings;
 import org.jboss.seam.social.oauth.RestVerb;
-import org.jboss.seam.social.twitter.domain.Credential;
-import org.jboss.seam.social.twitter.domain.CredentialJackson;
 import org.jboss.seam.social.twitter.domain.Tweet;
-import org.jboss.seam.social.twitter.domain.TweetJackson;
+import org.jboss.seam.social.twitter.model.TweetJackson;
+import org.jboss.seam.social.twitter.model.TwitterCredentialJackson;
 import org.scribe.builder.api.Api;
 import org.scribe.builder.api.TwitterApi;
 
@@ -34,7 +35,7 @@ import org.scribe.builder.api.TwitterApi;
  * @author antoine
  * 
  */
-@Typed(TwitterHandler.class)
+//@Typed(TwitterHandler.class)
 public class TwitterHandlerBean extends OAuthServiceHandlerScribe implements TwitterHandler
 {
 
@@ -47,8 +48,10 @@ public class TwitterHandlerBean extends OAuthServiceHandlerScribe implements Twi
    static final Class<? extends Api> API_CLASS = TwitterApi.class;
    static final String LOGO_URL = "http://twitter-badges.s3.amazonaws.com/twitter-a.png";
 
-  
-
+   
+   @Inject
+   private JsonMapper jsonMapper;
+   
    @Override
    @Inject
    public void setSettings(@Twitter OAuthServiceSettings settings)
@@ -57,16 +60,14 @@ public class TwitterHandlerBean extends OAuthServiceHandlerScribe implements Twi
 
    }
 
-
-
    @Override
    public Tweet updateStatus(String message)
    {
       HttpResponse resp = sendSignedRequest(RestVerb.POST, TWEET_URL, "status", message);
       System.out.println("update satus is " + message);
-      return jsonMapper.readValue(resp, TweetJackson.class);      
+      return jsonMapper.readValue(resp, TweetJackson.class);
 
-     }
+   }
 
    /*
     * (non-Javadoc)
@@ -85,22 +86,37 @@ public class TwitterHandlerBean extends OAuthServiceHandlerScribe implements Twi
     * @see org.jboss.seam.social.twitter.TwitterHandler#verifyCrendentials()
     */
    @Override
-   public Credential verifyCrendentials()
+   public OAuthUser verifyCrendentials()
    {
-      HttpResponse resp = sendSignedRequest(RestVerb.GET, VERIFY_CREDENTIALS_URL);
-      
-      return jsonMapper.readValue(resp, CredentialJackson.class); 
+
+      return getUser();
    }
 
-
-
-   /* (non-Javadoc)
+   /*
+    * (non-Javadoc)
+    * 
     * @see org.jboss.seam.social.oauth.OAuthServiceHandler#getServiceLogo()
     */
    @Override
    public String getServiceLogo()
    {
       return LOGO_URL;
+   }
+
+   /*
+    * (non-Javadoc)
+    * 
+    * @see org.jboss.seam.social.oauth.OAuthServiceHandler#getUserProfile()
+    */
+   @Override
+   public OAuthUser getUser()
+   {
+      if (userProfile == null)
+      {
+         HttpResponse resp = sendSignedRequest(RestVerb.GET, VERIFY_CREDENTIALS_URL);
+         userProfile = jsonMapper.readValue(resp, TwitterCredentialJackson.class);
+      }
+      return userProfile;
    }
 
 }

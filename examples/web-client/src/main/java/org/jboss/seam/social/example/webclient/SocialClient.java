@@ -14,17 +14,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social.example.twitterweb;
+package org.jboss.seam.social.example.webclient;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
+import javax.enterprise.inject.Any;
+import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.jboss.seam.social.oauth.Setted;
-import org.jboss.seam.social.twitter.TwitterHandler;
-import org.jboss.seam.social.twitter.domain.Credential;
+import org.jboss.seam.social.oauth.OAuthServiceHandler;
+import org.jboss.seam.social.oauth.OAuthUser;
+
+import com.google.common.collect.Lists;
 
 
 
@@ -33,43 +38,62 @@ import org.jboss.seam.social.twitter.domain.Credential;
 public class SocialClient implements Serializable
 {
 
-   private String status;
-   
-   private Credential cred;
-  
-   public String getAccessToken()
-   {
-      return service.getAccessToken();
-   }
-   
-   public String getVerifier()
-   {
-      return service.getVerifier();
-   }
-
-   public void setVerifier(String verifier)
-   {
-      service.setVerifier(verifier);
-   }
-
    /**
     * 
     */
    private static final long serialVersionUID = 3723552335163650582L;
+     
    
-   @Inject
-   @Setted(apiKey="FQzlQC49UhvbMZoxUIvHTQ", apiSecret="VQ5CZHG4qUoAkUUmckPn4iN4yyjBKcORTW0wnok4r1k",callback="http://localhost:8080/seam-social-web-client/callback.jsf")
-   TwitterHandler service;
+   @Inject @Any
+   private Instance<OAuthServiceHandler> serviceHandlerInstances;
+  
+  OAuthServiceHandler currentServiceHdl;
+   private String status;
    
+
+  private List<OAuthServiceHandler> serviceHandlers;
+
+  public List<OAuthServiceHandler> getServiceHandlers()
+{
+   return serviceHandlers;
+}
+
+
+
+  
+  @PostConstruct
+  public void init()
+  {
+   
+    serviceHandlers=Lists.newArrayList(serviceHandlerInstances);
+  
+  }
+  
+
+   public String getAccessToken()
+   {
+      return currentServiceHdl.getAccessToken();
+   }
+   
+   public String getVerifier()
+   {
+      return currentServiceHdl.getVerifier();
+   }
+
+   public void setVerifier(String verifier)
+   {
+      currentServiceHdl.setVerifier(verifier);
+   }
+
    
    public String getAuthorizationURL()
    {
-      return service.getAuthorizationUrl();
+      return currentServiceHdl.getAuthorizationUrl();
    }
 
   public void initAccessToken()
   {
-     service.initAccessToken();
+     currentServiceHdl.initAccessToken();
   }
 
 /**
@@ -87,18 +111,22 @@ public String getStatus()
 {
    return status;
 }
-
+/*
 public String updateStatus()
 {
-   service.updateStatus(status);
+   twitterHdl.updateStatus(status);
+   status="";
    return "ok";
+}*/
+
+public OAuthUser getUser()
+{
+      return currentServiceHdl.getUser();
 }
 
-public Credential getCred()
+public OAuthServiceHandler getCurrentServiceHdl()
 {
-   if (cred==null)
-      cred=service.verifyCrendentials();
-   return cred;
+   return currentServiceHdl;
 }
 
 

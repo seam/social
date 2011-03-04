@@ -44,28 +44,31 @@ public abstract class OAuthServiceHandlerScribe implements OAuthServiceHandler, 
     */
    private static final long serialVersionUID = -8423894021913341674L;
 
-  
    private OAuthService service;
 
    private Token requestToken;
    private Token accessToken;
 
    private Verifier verifier;
+
+   private Boolean connected = Boolean.FALSE;
+
+   protected OAuthUser userProfile;
+
+  
+
    
-   @Inject
-   protected JsonMapper jsonMapper;
+   
    
    private OAuthServiceSettings settings;
 
-   
    private OAuthService getService()
    {
       if (service == null)
-      initService();
+         initService();
       return service;
    }
-   
-   
+
    private void initService()
    {
       Class<? extends Api> apiClass = getApiClass();
@@ -75,8 +78,10 @@ public abstract class OAuthServiceHandlerScribe implements OAuthServiceHandler, 
       service = serviceBuilder.build();
 
    }
-   
-   /* (non-Javadoc)
+
+   /*
+    * (non-Javadoc)
+    * 
     * @see org.jboss.seam.social.oauth.OAuthServiceHandlerScribe#getSettings()
     */
    @Override
@@ -85,20 +90,17 @@ public abstract class OAuthServiceHandlerScribe implements OAuthServiceHandler, 
       return settings;
    }
 
-
-
    public void setSettings(OAuthServiceSettings settings)
    {
       this.settings = settings;
    }
-   
+
    protected abstract Class<? extends Api> getApiClass();
 
-  
    @Override
    public String getAuthorizationUrl()
    {
-      if(requestToken==null)
+      if (requestToken == null)
          requestToken = getService().getRequestToken();
       return getService().getAuthorizationUrl(requestToken);
    }
@@ -106,18 +108,28 @@ public abstract class OAuthServiceHandlerScribe implements OAuthServiceHandler, 
    @Override
    public void initAccessToken()
    {
-      if(accessToken==null)
-      accessToken = getService().getAccessToken(requestToken, verifier);
+      if (accessToken == null)
+      {
+         accessToken = getService().getAccessToken(requestToken, verifier);
+         if (accessToken != null)
+         {
+            connected = Boolean.TRUE;
+         }
+         else
+         {
+            //Launch an exception !!
+         }
+      }
+
    }
 
-   
    protected HttpResponse sendSignedRequest(OAuthRequest request)
    {
       getService().signRequest(accessToken, request);
-      HttpResponse resp=null;
+      HttpResponse resp = null;
       try
       {
-         resp= new HttpResponseScribe(request.send());
+         resp = new HttpResponseScribe(request.send());
       }
       catch (IOException e)
       {
@@ -126,13 +138,13 @@ public abstract class OAuthServiceHandlerScribe implements OAuthServiceHandler, 
       }
       return resp;
    }
-   
+
    @Override
    public HttpResponse sendSignedRequest(RestVerb verb, String uri)
    {
       OAuthRequest request = new OAuthRequest(Verb.valueOf(verb.toString()), uri);
-    
-     return sendSignedRequest(request);
+
+      return sendSignedRequest(request);
 
    }
 
@@ -158,18 +170,17 @@ public abstract class OAuthServiceHandlerScribe implements OAuthServiceHandler, 
       return sendSignedRequest(request);
 
    }
-   
+
    @Override
    public void setVerifier(String verifierStr)
    {
-      verifier=new Verifier(verifierStr);
+      verifier = new Verifier(verifierStr);
    }
 
-   
    @Override
    public String getVerifier()
    {
-      return verifier==null ?null:verifier.getValue();
+      return verifier == null ? null : verifier.getValue();
    }
 
    @Override
@@ -177,7 +188,11 @@ public abstract class OAuthServiceHandlerScribe implements OAuthServiceHandler, 
    {
       return accessToken.toString();
    }
-   
-   
+
+   @Override
+   public Boolean isConnected()
+   {
+      return connected;
+   }
 
 }

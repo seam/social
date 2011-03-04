@@ -17,8 +17,8 @@
 -->
 <beans xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:s="urn:java:ee"
-	xmlns:o="urn:java:org.jboss.seam.social.oauth:java:org.jboss.seam.social.twitter">
-<!-- 
+	xmlns:o="urn:java:org.jboss.seam.social.oauth:java:org.jboss.seam.social.twitter:java:org.jboss.seam.social.linkedin">
+
 	<o:OAuthServiceSettingsImpl>
 		<s:modifies />
 		<o:Twitter />
@@ -27,5 +27,14 @@
 		<o:callback>http://localhost:8080/seam-social-web-client/callback.jsf
 		</o:callback>
 	</o:OAuthServiceSettingsImpl>
- -->
+	
+	<o:OAuthServiceSettingsImpl>
+		<s:modifies />
+		<o:LinkedIn />
+		<o:apiKey>ympq1JR_oxeC3qZE4VwiDEr-9Rc9Am0YE1AJwwXJNREfqaF7J6hXfsncu_JFd13W</o:apiKey>
+		<o:apiSecret>RwDk21M6qQeGT_zi2icmZV6tc5VsjRZPm7DWDIVt0Wsqu2eYBXt4Csg-FUbBZIIH</o:apiSecret>
+		<o:callback>http://localhost:8080/seam-social-web-client/callback.jsf
+		</o:callback>
+	</o:OAuthServiceSettingsImpl>
+
 </beans>

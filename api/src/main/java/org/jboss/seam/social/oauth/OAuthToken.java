@@ -14,25 +14,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social.linkedin;
+package org.jboss.seam.social.oauth;
 
-import javax.enterprise.inject.Produces;
-import javax.enterprise.inject.spi.InjectionPoint;
-
-import org.jboss.seam.social.oauth.Setted;
-import org.jboss.seam.social.oauth.SettedHandlerProducer;
+import java.io.Serializable;
 
 /**
- * @author antoine
+ * 
+ * Implementation of this interface represents an OAuth Token
+ * 
+ * @author Antoine Sabot-Durand
  *
  */
-public class LinkedInProducer extends SettedHandlerProducer
+public interface OAuthToken extends Serializable
 {
 
-  // @Produces @Setted
-   public LinkedInHandler produceLinkedInHandler(InjectionPoint ip, LinkedInHandler hdl)
-   {
-      return setService(ip, hdl);
-   }
+   public String getToken();
    
+   public String getSecret();
 }

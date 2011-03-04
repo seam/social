@@ -26,6 +26,8 @@ public abstract class SettedHandlerProducer
 
    protected <T extends OAuthServiceHandler> T setService(InjectionPoint ip, T hdl)
    {
+     if(ip==null || ip.getAnnotated()==null || hdl==null)
+        return null;
       Setted setted = ip.getAnnotated().getAnnotation(Setted.class);
       OAuthServiceSettings settings=hdl.getSettings();
 

@@ -5,10 +5,14 @@
    xmlns:h="http://java.sun.com/jsf/html"
    template="/WEB-INF/templates/default.xhtml">
    <ui:define name="content">
-      <h1>Seam Social Twitter client Example</h1>
-      <p>Please click the URL Below to Authorize Seam Social to use your twitter account</p>
+      <h1>Seam Social client Example</h1>
+      <p>Please click on the button Below to connect Seam Social to your account on the given service</p>
 
-    <a href="#{socialClient.authorizationURL}">#{socialClient.authorizationURL}</a>
+<ui:repeat var="service" value="#{socialClient.serviceHandlers}">
+<a href="#{service.authorizationUrl}"><img src="#{service.serviceLogo}" /></a>
+
+</ui:repeat>
+
     
    </ui:define>
 </ui:composition>
