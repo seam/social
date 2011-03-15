@@ -22,6 +22,7 @@
 		<artifactId>seam-social-parent</artifactId>
 		<groupId>org.jboss.seam.social</groupId>
 		<version>3.0.0-SNAPSHOT</version>
+		<relativePath>../../pom.xml</relativePath>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.jboss.seam</groupId>
@@ -44,8 +45,20 @@
       </dependencies>
    </dependencyManagement>
 
-	<dependencies>
+  <build>
+    <finalName>seam-social-web-client</finalName>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <skip>true</skip>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 
+	<dependencies>
 		<!-- This imports the Java EE 6 runtime libraries provided by GlassFish 
 			Embedded -->
 		<dependency>
@@ -99,7 +112,29 @@
       	<artifactId>guava</artifactId>
       	<version>r08</version>
       </dependency>
+
+      <dependency>
+        <groupId>org.seleniumhq.selenium.client-drivers</groupId>
+        <artifactId>selenium-java-client-driver</artifactId>
+        <version>${selenium.java.client.version}</version>
+        <scope>test</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>org.jboss.test</groupId>
+        <artifactId>richfaces-selenium</artifactId>
+        <version>${richfaces.selenium.version}</version>
+        <scope>test</scope>
+      </dependency>
 	</dependencies>
-	
+
+   <profiles>
+     <profile>
+       <id>ftest</id>
+       <properties>
+         <selenium.browser>*chrome</selenium.browser>
+       </properties>
+     </profile>
+   </profiles>	
 
 </project>
