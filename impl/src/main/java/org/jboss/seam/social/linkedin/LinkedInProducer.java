@@ -16,10 +16,8 @@
  */
 package org.jboss.seam.social.linkedin;
 
-import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
 
-import org.jboss.seam.social.oauth.Setted;
 import org.jboss.seam.social.oauth.SettedHandlerProducer;
 
 /**

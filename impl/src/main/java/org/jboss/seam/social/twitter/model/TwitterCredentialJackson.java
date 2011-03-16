@@ -18,8 +18,6 @@ package org.jboss.seam.social.twitter.model;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
-import org.jboss.seam.social.oauth.User;
-import org.jboss.seam.social.twitter.model.TwitterCredential;
 
 /**
  * 

@@ -16,8 +16,6 @@
  */
 package org.jboss.seam.social.linkedin;
 
-import javax.annotation.PostConstruct;
-import javax.enterprise.inject.Typed;
 import javax.inject.Inject;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -26,9 +24,8 @@ import javax.xml.bind.Unmarshaller;
 import org.jboss.seam.social.oauth.HttpResponse;
 import org.jboss.seam.social.oauth.OAuthServiceHandlerScribe;
 import org.jboss.seam.social.oauth.OAuthServiceSettings;
-import org.jboss.seam.social.oauth.User;
 import org.jboss.seam.social.oauth.RestVerb;
-import org.jboss.seam.social.twitter.model.TwitterCredentialJackson;
+import org.jboss.seam.social.oauth.User;
 import org.scribe.builder.api.Api;
 import org.scribe.builder.api.LinkedInApi;
 

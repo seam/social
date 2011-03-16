@@ -16,15 +16,14 @@
  */
 package org.jboss.seam.social.twitter;
 
-import javax.enterprise.inject.Typed;
 import javax.inject.Inject;
 
-import org.jboss.seam.social.oauth.JsonMapper;
-import org.jboss.seam.social.oauth.User;
 import org.jboss.seam.social.oauth.HttpResponse;
+import org.jboss.seam.social.oauth.JsonMapper;
 import org.jboss.seam.social.oauth.OAuthServiceHandlerScribe;
 import org.jboss.seam.social.oauth.OAuthServiceSettings;
 import org.jboss.seam.social.oauth.RestVerb;
+import org.jboss.seam.social.oauth.User;
 import org.jboss.seam.social.twitter.model.Tweet;
 import org.jboss.seam.social.twitter.model.TweetJackson;
 import org.jboss.seam.social.twitter.model.TwitterCredentialJackson;
