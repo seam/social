@@ -22,10 +22,12 @@ import org.scribe.model.Token;
  * @author antoine
  *
  */
-public class OAuthTokenScribe extends Token implements OAuthToken
+public class OAuthTokenScribe  implements OAuthToken
 {
 
    private static final long serialVersionUID = 6598671815429418539L;
+   
+   protected Token delegate;
 
    /**
     * @param token
@@ -33,7 +35,37 @@ public class OAuthTokenScribe extends Token implements OAuthToken
     */
    public OAuthTokenScribe(String token, String secret)
    {
-      super(token, secret);
+      delegate = new Token(token, secret);
+   }
+
+   protected OAuthTokenScribe(Token delegate)
+   {
+      this.delegate = delegate;
+   }
+
+   public String getToken()
+   {
+      return delegate.getToken();
+   }
+
+   public String getSecret()
+   {
+      return delegate.getSecret();
+   }
+
+   public String toString()
+   {
+      return delegate.toString();
+   }
+
+   public int hashCode()
+   {
+      return delegate.hashCode();
+   }
+
+   public boolean equals(Object obj)
+   {
+      return delegate.equals(obj);
    }
 
 }

@@ -17,8 +17,8 @@
 package org.jboss.seam.social.oauth;
 
 /**
- * Interface for model containing settings to access to an OAuth 1.0a service
- * It's used by {@link OAuthServiceHandler} to setup connexion to OAuth Service
+ * Interface for model containing settings needed to access to an OAuth 1.0a service
+ * It's used by {@link OAuthServiceHandler} to setup connection to OAuth Service
  * 
  * @author Antoine Sabot-Durand
  * @see OAuthServiceHandler

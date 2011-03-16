@@ -20,8 +20,8 @@ import java.util.List;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
-import org.jboss.seam.social.twitter.domain.SearchResult;
-import org.jboss.seam.social.twitter.domain.Tweet;
+import org.jboss.seam.social.twitter.model.SearchResult;
+import org.jboss.seam.social.twitter.model.Tweet;
 
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class SearchResultJackson implements SearchResult

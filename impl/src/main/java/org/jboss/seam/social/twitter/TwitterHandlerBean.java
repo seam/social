@@ -20,12 +20,12 @@ import javax.enterprise.inject.Typed;
 import javax.inject.Inject;
 
 import org.jboss.seam.social.oauth.JsonMapper;
-import org.jboss.seam.social.oauth.OAuthUser;
+import org.jboss.seam.social.oauth.User;
 import org.jboss.seam.social.oauth.HttpResponse;
 import org.jboss.seam.social.oauth.OAuthServiceHandlerScribe;
 import org.jboss.seam.social.oauth.OAuthServiceSettings;
 import org.jboss.seam.social.oauth.RestVerb;
-import org.jboss.seam.social.twitter.domain.Tweet;
+import org.jboss.seam.social.twitter.model.Tweet;
 import org.jboss.seam.social.twitter.model.TweetJackson;
 import org.jboss.seam.social.twitter.model.TwitterCredentialJackson;
 import org.scribe.builder.api.Api;
@@ -47,6 +47,7 @@ public class TwitterHandlerBean extends OAuthServiceHandlerScribe implements Twi
    static final String RETWEET_URL = "https://api.twitter.com/1/statuses/retweet/{tweet_id}.json";
    static final Class<? extends Api> API_CLASS = TwitterApi.class;
    static final String LOGO_URL = "http://twitter-badges.s3.amazonaws.com/twitter-a.png";
+   static final String TYPE="Twitter";
 
    
    @Inject
@@ -86,7 +87,7 @@ public class TwitterHandlerBean extends OAuthServiceHandlerScribe implements Twi
     * @see org.jboss.seam.social.twitter.TwitterHandler#verifyCrendentials()
     */
    @Override
-   public OAuthUser verifyCrendentials()
+   public User verifyCrendentials()
    {
 
       return getUser();
@@ -109,7 +110,7 @@ public class TwitterHandlerBean extends OAuthServiceHandlerScribe implements Twi
     * @see org.jboss.seam.social.oauth.OAuthServiceHandler#getUserProfile()
     */
    @Override
-   public OAuthUser getUser()
+   public User getUser()
    {
       if (userProfile == null)
       {
@@ -117,6 +118,15 @@ public class TwitterHandlerBean extends OAuthServiceHandlerScribe implements Twi
          userProfile = jsonMapper.readValue(resp, TwitterCredentialJackson.class);
       }
       return userProfile;
+   }
+
+   /* (non-Javadoc)
+    * @see org.jboss.seam.social.oauth.OAuthServiceHandler#getType()
+    */
+   @Override
+   public String getType()
+   {
+      return TYPE;
    }
 
 }

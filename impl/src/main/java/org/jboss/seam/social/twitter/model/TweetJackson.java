@@ -18,7 +18,7 @@ package org.jboss.seam.social.twitter.model;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
-import org.jboss.seam.social.twitter.domain.Tweet;
+import org.jboss.seam.social.twitter.model.Tweet;
 
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class TweetJackson implements Tweet

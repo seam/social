@@ -16,9 +16,9 @@
  */
 package org.jboss.seam.social.twitter;
 
-import org.jboss.seam.social.oauth.OAuthUser;
+import org.jboss.seam.social.oauth.User;
 import org.jboss.seam.social.oauth.OAuthServiceHandler;
-import org.jboss.seam.social.twitter.domain.Tweet;
+import org.jboss.seam.social.twitter.model.Tweet;
 
 
 /**
@@ -47,6 +47,6 @@ public interface TwitterHandler extends OAuthServiceHandler
     * 
     * @return the crendential of the user
     */
-   public OAuthUser verifyCrendentials();
+   public User verifyCrendentials();
 
 }

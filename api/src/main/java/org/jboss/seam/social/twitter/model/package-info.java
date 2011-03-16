@@ -13,14 +13,9 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */package org.jboss.seam.social.oauth;
+ */
+package org.jboss.seam.social.twitter.model;
 
-import org.jboss.seam.social.twitter.TwitterHandler;
-
-
-public interface OAuthUser
-{
-
-   public String getFullName();
-
-}
+/**
+* This package contains model elements to store and send data to Twitter
+*/

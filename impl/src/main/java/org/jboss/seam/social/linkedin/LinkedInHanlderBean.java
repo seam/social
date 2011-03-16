@@ -26,7 +26,7 @@ import javax.xml.bind.Unmarshaller;
 import org.jboss.seam.social.oauth.HttpResponse;
 import org.jboss.seam.social.oauth.OAuthServiceHandlerScribe;
 import org.jboss.seam.social.oauth.OAuthServiceSettings;
-import org.jboss.seam.social.oauth.OAuthUser;
+import org.jboss.seam.social.oauth.User;
 import org.jboss.seam.social.oauth.RestVerb;
 import org.jboss.seam.social.twitter.model.TwitterCredentialJackson;
 import org.scribe.builder.api.Api;
@@ -45,7 +45,8 @@ public class LinkedInHanlderBean extends OAuthServiceHandlerScribe implements Li
    static final String USER_PROFILE_URL = "http://api.linkedin.com/v1/people/~";
    static final Class<? extends Api> API_CLASS = LinkedInApi.class;
    static final String LOGO_URL = "https://d2l6uygi1pgnys.cloudfront.net/1-9-05/images/buttons/linkedin_connect.png";
-
+   static final String TYPE="LinkedIn";
+   
    JAXBContext context;
    Unmarshaller unmarshaller;
 
@@ -100,14 +101,14 @@ public class LinkedInHanlderBean extends OAuthServiceHandlerScribe implements Li
     * @see org.jboss.seam.social.oauth.OAuthServiceHandler#getUserProfile()
     */
    @Override
-   public OAuthUser getUser()
+   public User getUser()
    {
       if (userProfile == null)
       {
          HttpResponse resp = sendSignedRequest(RestVerb.GET, USER_PROFILE_URL);
          try
          {
-            userProfile = (OAuthUser) unmarshaller.unmarshal(resp.getStream());
+            userProfile = (User) unmarshaller.unmarshal(resp.getStream());
          }
          catch (JAXBException e)
          {
@@ -116,6 +117,15 @@ public class LinkedInHanlderBean extends OAuthServiceHandlerScribe implements Li
          }
       }
       return userProfile;
+   }
+
+   /* (non-Javadoc)
+    * @see org.jboss.seam.social.oauth.OAuthServiceHandler#getType()
+    */
+   @Override
+   public String getType()
+   {
+     return TYPE;
    }
 
 }

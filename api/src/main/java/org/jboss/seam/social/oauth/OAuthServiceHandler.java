@@ -30,7 +30,7 @@ public interface OAuthServiceHandler
     * 
     * @return the access token for the OAuth service
     */
-   public String getAccessToken();
+   public OAuthToken getAccessToken();
 
    /**
     * Returns the url to the OAuth service to ask an authorization to access the service.
@@ -104,7 +104,13 @@ public interface OAuthServiceHandler
    
    public Boolean isConnected();
       
-   public OAuthUser getUser();
+   public User getUser();
+   
+   public String getType();
+   
+   public void setAccessToken(String api, String secret);
+   
+   public void setAccessToken(OAuthToken token);
    
 
 }

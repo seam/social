@@ -1,9 +1,9 @@
 /**
  * 
  */
-package org.jboss.seam.social.twitter.domain;
+package org.jboss.seam.social.twitter.model;
 
-import org.jboss.seam.social.oauth.OAuthUser;
+import org.jboss.seam.social.oauth.User;
 import org.jboss.seam.social.twitter.TwitterHandler;
 
 /**
@@ -14,7 +14,7 @@ import org.jboss.seam.social.twitter.TwitterHandler;
 * @author Antoine Sabot-Durand
 *
 */
-public interface TwitterCredential extends OAuthUser
+public interface TwitterCredential extends User
 {
 
 

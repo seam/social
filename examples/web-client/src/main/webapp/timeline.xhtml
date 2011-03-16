@@ -6,14 +6,29 @@
 	template="/WEB-INF/templates/default.xhtml">
 	<ui:define name="content">
 		<h:messages />
-		<h1>Seam Social Twitter client Example</h1>
+		<h1>Seam Social client Example</h1>
 		<p>Your (future) Timeline</p>
 		<h:form>
-		Welcome #{socialClient.cred.name}<br/>
+		Welcome #{socialClient.currentServiceHdl.user.fullName}<br/>
+		You can add those social network :
+		<ui:repeat var="service" value="#{socialClient.unconnectedServices}">
+		<h:commandLink action="#{socialClient.gotoAuthorizationURL(service)}" >
+<img src="#{service.serviceLogo}" />
+</h:commandLink>
+		</ui:repeat>
+		
+		Or choose the Social network you want to work with :
+		<h:selectOneRadio value="#{socialClient.currentServiceHdl}" >
+		<f:selectItems value="#{socialClient.connectedServices}" var="serv" itemLabel="#{serv.type}"/>
+		<f:ajax execute="@this" event="valueChange"/>
+		</h:selectOneRadio>
+		<ui:remove>
 		<img src="#{socialClient.cred.profileImageUrl}" />
+		
 			<h:inputTextarea value="#{socialClient.status}" cols="80" rows="5" />
 			<h:commandButton action="#{socialClient.updateStatus}"
 				value="Update your status" />
+				</ui:remove>
 		</h:form>
 	</ui:define>
 </ui:composition>

@@ -12,12 +12,9 @@
 			<f:event type="preRenderView" listener="#{socialClient.initAccessToken}" />
 		</f:metadata>
 		<h:messages />
-		<h1>Seam Social Twitter client Example</h1>
-		<p>Getting Authorization from Twitter</p>
-
-			You're back and your verifier is #{socialClient.verifier}  !
-		<br/>
-			You're ready to use Seam Social <h:link outcome="openclient">Twitter client</h:link>
+		<h1>Seam Social client Example</h1>
+		<p>Getting Authorization from #{socialClient.currentServiceHdl.type}</p>
+			You're ready to use Seam Social <h:link outcome="openclient">client</h:link>
 
 	</ui:define>
 </ui:composition>

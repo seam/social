@@ -16,6 +16,7 @@
  */
 package org.jboss.seam.social.example.webclient;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 
@@ -23,12 +24,17 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.enterprise.inject.Any;
 import javax.enterprise.inject.Instance;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.jboss.seam.social.oauth.OAuthServiceHandler;
-import org.jboss.seam.social.oauth.OAuthUser;
+import org.jboss.seam.social.oauth.OAuthToken;
+import org.jboss.seam.social.oauth.User;
 
+import com.google.common.base.Predicate;
+import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
 
@@ -51,26 +57,55 @@ public class SocialClient implements Serializable
    private String status;
    
 
+  
   private List<OAuthServiceHandler> serviceHandlers;
-
+  
+  
+  
   public List<OAuthServiceHandler> getServiceHandlers()
 {
    return serviceHandlers;
 }
 
 
-
   
   @PostConstruct
   public void init()
   {
-   
+     
     serviceHandlers=Lists.newArrayList(serviceHandlerInstances);
   
   }
   
+  
+  public List<OAuthServiceHandler> getConnectedServices()
+  {
+     return Lists.newArrayList(Iterables.filter(serviceHandlers, new Predicate<OAuthServiceHandler>()
+   {
 
-   public String getAccessToken()
+      @Override
+      public boolean apply(OAuthServiceHandler arg0)
+      {
+         return arg0.isConnected();
+      }
+   }));
+  }
+  
+  
+  public List<OAuthServiceHandler> getUnconnectedServices()
+  {
+     return Lists.newArrayList(Iterables.filter(serviceHandlers, new Predicate<OAuthServiceHandler>()
+   {
+
+      @Override
+      public boolean apply(OAuthServiceHandler arg0)
+      {
+         return !arg0.isConnected();
+      }
+   }));
+  }
+
+   public OAuthToken getAccessToken()
    {
       return currentServiceHdl.getAccessToken();
    }
@@ -85,6 +120,8 @@ public class SocialClient implements Serializable
       currentServiceHdl.setVerifier(verifier);
    }
 
+   
+   
    
    public String getAuthorizationURL()
    {
@@ -119,7 +156,7 @@ public String updateStatus()
    return "ok";
 }*/
 
-public OAuthUser getUser()
+public User getUser()
 {
       return currentServiceHdl.getUser();
 }
@@ -132,6 +169,18 @@ public OAuthServiceHandler getCurrentServiceHdl()
 
 
 
+public void setCurrentServiceHdl(OAuthServiceHandler currentServiceHdl)
+{
+   this.currentServiceHdl = currentServiceHdl;
+}
+
+
+public void gotoAuthorizationURL(OAuthServiceHandler service) throws IOException
+{
+   setCurrentServiceHdl(service);
+   ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+   externalContext.redirect(getAuthorizationURL());
+}
   
 
    

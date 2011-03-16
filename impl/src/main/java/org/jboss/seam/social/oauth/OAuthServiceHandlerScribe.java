@@ -21,8 +21,6 @@ import java.io.Serializable;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import javax.inject.Inject;
-
 import org.scribe.builder.ServiceBuilder;
 import org.scribe.builder.api.Api;
 import org.scribe.model.OAuthRequest;
@@ -46,14 +44,14 @@ public abstract class OAuthServiceHandlerScribe implements OAuthServiceHandler, 
 
    private OAuthService service;
 
-   private Token requestToken;
-   private Token accessToken;
+   private OAuthTokenScribe requestToken;
+   private OAuthTokenScribe accessToken;
 
    private Verifier verifier;
 
    private Boolean connected = Boolean.FALSE;
 
-   protected OAuthUser userProfile;
+   protected User userProfile;
 
   
 
@@ -100,9 +98,8 @@ public abstract class OAuthServiceHandlerScribe implements OAuthServiceHandler, 
    @Override
    public String getAuthorizationUrl()
    {
-      if (requestToken == null)
-         requestToken = getService().getRequestToken();
-      return getService().getAuthorizationUrl(requestToken);
+      requestToken=new OAuthTokenScribe(getService().getRequestToken());
+      return getService().getAuthorizationUrl(requestToken.delegate);
    }
 
    @Override
@@ -110,7 +107,7 @@ public abstract class OAuthServiceHandlerScribe implements OAuthServiceHandler, 
    {
       if (accessToken == null)
       {
-         accessToken = getService().getAccessToken(requestToken, verifier);
+         accessToken= new OAuthTokenScribe(getService().getAccessToken(requestToken.delegate, verifier));
          if (accessToken != null)
          {
             connected = Boolean.TRUE;
@@ -125,7 +122,7 @@ public abstract class OAuthServiceHandlerScribe implements OAuthServiceHandler, 
 
    protected HttpResponse sendSignedRequest(OAuthRequest request)
    {
-      getService().signRequest(accessToken, request);
+      getService().signRequest(accessToken.delegate, request);
       HttpResponse resp = null;
       try
       {
@@ -184,9 +181,9 @@ public abstract class OAuthServiceHandlerScribe implements OAuthServiceHandler, 
    }
 
    @Override
-   public String getAccessToken()
+   public OAuthToken getAccessToken()
    {
-      return accessToken.toString();
+      return accessToken;
    }
 
    @Override
@@ -194,5 +191,21 @@ public abstract class OAuthServiceHandlerScribe implements OAuthServiceHandler, 
    {
       return connected;
    }
+
+   @Override
+   public void setAccessToken(String api, String secret)
+   {
+     accessToken=new OAuthTokenScribe(api, secret);
+      
+   }
+
+   @Override
+   public void setAccessToken(OAuthToken token)
+   {
+     accessToken=new OAuthTokenScribe(token.getToken(), token.getSecret());
+      
+   }
+   
+
 
 }
