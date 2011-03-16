@@ -65,4 +65,10 @@
       <artifactId>seam-social-impl</artifactId>
     </dependency>
   </dependencies>
+  
+  <scm>
+		<connection>scm:git:git://github.com/seam/social.git</connection>
+		<developerConnection>scm:git:git@github.com:seam/social.git</developerConnection>
+		<url>http://github.com/seam/social</url> 
+	</scm>
 </project>
