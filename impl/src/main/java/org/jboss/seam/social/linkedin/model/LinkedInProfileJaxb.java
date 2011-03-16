@@ -16,13 +16,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class LinkedInProfileJaxb implements LinkedInProfile
 {
 
-   @XmlElement(name="first-name")
+  
    private String firstName;
    
-   @XmlElement(name="last-name")
+  
    private String lastName;
    
-   @XmlElement
+
    private String headline;
    
    
@@ -36,6 +36,7 @@ public class LinkedInProfileJaxb implements LinkedInProfile
    }
 
 
+   @XmlElement(name="first-name")
    public String getFirstName()
    {
       return firstName;
@@ -50,6 +51,7 @@ public class LinkedInProfileJaxb implements LinkedInProfile
 
 
    @Override
+   @XmlElement(name="last-name")
    public String getLastName()
    {
       return lastName;

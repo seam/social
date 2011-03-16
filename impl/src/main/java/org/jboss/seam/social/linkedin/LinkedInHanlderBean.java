@@ -16,6 +16,7 @@
  */
 package org.jboss.seam.social.linkedin;
 
+import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -47,12 +48,12 @@ public class LinkedInHanlderBean extends OAuthServiceHandlerScribe implements Li
    JAXBContext context;
    Unmarshaller unmarshaller;
 
-  /*@PostConstruct
+  @PostConstruct
    protected void init()
    {
       try
       {
-         context = JAXBContext.newInstance("org.jboss.seam.social.linkedIn");
+         context = JAXBContext.newInstance("org.jboss.seam.social.linkedin.model");
          unmarshaller = context.createUnmarshaller();
       }
       catch (JAXBException e)
@@ -60,7 +61,7 @@ public class LinkedInHanlderBean extends OAuthServiceHandlerScribe implements Li
          // TODO Auto-generated catch block
          e.printStackTrace();
       }
-   }*/
+   }
 
    @Override
    @Inject
