@@ -16,12 +16,19 @@
  */
 package org.jboss.seam.social.linkedin;
 
+import java.io.StringWriter;
+
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
+import org.jboss.seam.social.linkedin.model.Update;
+import org.jboss.seam.social.linkedin.model.UpdateJaxb;
 import org.jboss.seam.social.oauth.HttpResponse;
 import org.jboss.seam.social.oauth.OAuthServiceHandlerScribe;
 import org.jboss.seam.social.oauth.OAuthServiceSettings;
@@ -35,18 +42,22 @@ import org.scribe.builder.api.LinkedInApi;
  * 
  */
 //@Typed(LinkedInHandler.class)
+@Named("linkedHdl")
+@SessionScoped
 public class LinkedInHanlderBean extends OAuthServiceHandlerScribe implements LinkedInHandler
 {
 
    private static final long serialVersionUID = -6718362913575146613L;
 
-   static final String USER_PROFILE_URL = "http://api.linkedin.com/v1/people/~";
+   static final String USER_PROFILE_URL = "http://api.linkedin.com/v1/people/~:(picture-url)";
    static final Class<? extends Api> API_CLASS = LinkedInApi.class;
    static final String LOGO_URL = "https://d2l6uygi1pgnys.cloudfront.net/1-9-05/images/buttons/linkedin_connect.png";
    static final String TYPE="LinkedIn";
+   static final String NETWORK_UPDATE_URL="http://api.linkedin.com/v1/people/~/person-activities";
    
    JAXBContext context;
    Unmarshaller unmarshaller;
+   Marshaller marshaller;
 
   @PostConstruct
    protected void init()
@@ -55,6 +66,7 @@ public class LinkedInHanlderBean extends OAuthServiceHandlerScribe implements Li
       {
          context = JAXBContext.newInstance("org.jboss.seam.social.linkedin.model");
          unmarshaller = context.createUnmarshaller();
+         marshaller=context.createMarshaller();
       }
       catch (JAXBException e)
       {
@@ -124,6 +136,39 @@ public class LinkedInHanlderBean extends OAuthServiceHandlerScribe implements Li
    public String getType()
    {
      return TYPE;
+   }
+
+   /* (non-Javadoc)
+    * @see org.jboss.seam.social.oauth.HasStatus#updateStatus()
+    */
+   @Override
+   public Object updateStatus()
+   {
+     
+      return updateStatus(getStatus());
+   }
+
+   /* (non-Javadoc)
+    * @see org.jboss.seam.social.oauth.HasStatus#updateStatus(java.lang.String)
+    */
+   @Override
+   public Update updateStatus(String message)
+   {
+     Update upd=new UpdateJaxb();
+     upd.setBody(message);
+     StringWriter writer=new StringWriter();
+     try
+   {
+      marshaller.marshal(upd, writer);
+   }
+   catch (JAXBException e)
+   {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+   }
+   String msg=writer.toString();
+     HttpResponse resp = sendSignedRequest(RestVerb.POST, NETWORK_UPDATE_URL, msg);
+      return upd;
    }
 
 }

@@ -91,13 +91,14 @@ import org.codehaus.jackson.annotate.JsonProperty;
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class TwitterCredentialJackson implements TwitterCredential
 {
+   @JsonProperty
    private String name;
    
    @JsonProperty("screen_name")
    private String screenName;
    
    @JsonProperty("profile_image_url")
-   private String profileImageUrl;
+   private String pictureUrl;
 
    /* (non-Javadoc)
     * @see org.jboss.seam.social.twitter.domain.Credential#getName()
@@ -108,15 +109,7 @@ public class TwitterCredentialJackson implements TwitterCredential
       return name;
    }
 
-   /* (non-Javadoc)
-    * @see org.jboss.seam.social.twitter.domain.Credential#setName(java.lang.String)
-    */
-   @Override
-   public void setName(String name)
-   {
-      this.name = name;
-   }
-
+  
    /* (non-Javadoc)
     * @see org.jboss.seam.social.twitter.domain.Credential#getScreenName()
     */
@@ -126,32 +119,12 @@ public class TwitterCredentialJackson implements TwitterCredential
       return screenName;
    }
 
-   /* (non-Javadoc)
-    * @see org.jboss.seam.social.twitter.domain.Credential#setScreenName(java.lang.String)
-    */
-   @Override
-   public void setScreenName(String screenName)
-   {
-      this.screenName = screenName;
-   }
+   
 
    /* (non-Javadoc)
     * @see org.jboss.seam.social.twitter.domain.Credential#getProfileImageUrl()
     */
-   @Override
-   public String getProfileImageUrl()
-   {
-      return profileImageUrl;
-   }
-
-   /* (non-Javadoc)
-    * @see org.jboss.seam.social.twitter.domain.Credential#setProfileImageUrl(java.lang.String)
-    */
-   @Override
-   public void setProfileImageUrl(String profileImageUrl)
-   {
-      this.profileImageUrl = profileImageUrl;
-   }
+  
 
    /* (non-Javadoc)
     * @see org.jboss.seam.social.oauth.OAuthUserProfile#getFullName()
@@ -160,6 +133,15 @@ public class TwitterCredentialJackson implements TwitterCredential
    public String getFullName()
    {
       return getName();
+   }
+
+   /* (non-Javadoc)
+    * @see org.jboss.seam.social.oauth.User#getPictureUrl()
+    */
+   @Override
+   public String getPictureUrl()
+   {
+     return pictureUrl;
    }
    
    

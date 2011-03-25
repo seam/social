@@ -28,5 +28,7 @@ public interface User
 {
 
    public String getFullName();
+   
+   public String getPictureUrl();
 
 }

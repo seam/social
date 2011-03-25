@@ -112,5 +112,15 @@ public interface OAuthServiceHandler
    
    public void setAccessToken(OAuthToken token);
    
+   public void resetConnexion();
+
+   /**
+    * @param verb
+    * @param uri
+    * @param payload
+    * @return
+    */
+   HttpResponse sendSignedRequest(RestVerb verb, String uri, String payload);
+   
 
 }

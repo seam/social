@@ -16,7 +16,9 @@
  */
 package org.jboss.seam.social.twitter;
 
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.jboss.seam.social.oauth.HttpResponse;
 import org.jboss.seam.social.oauth.JsonMapper;
@@ -35,6 +37,8 @@ import org.scribe.builder.api.TwitterApi;
  * 
  */
 //@Typed(TwitterHandler.class)
+@Named("twitterHdl")
+@SessionScoped
 public class TwitterHandlerBean extends OAuthServiceHandlerScribe implements TwitterHandler
 {
 
@@ -47,6 +51,7 @@ public class TwitterHandlerBean extends OAuthServiceHandlerScribe implements Twi
    static final Class<? extends Api> API_CLASS = TwitterApi.class;
    static final String LOGO_URL = "http://twitter-badges.s3.amazonaws.com/twitter-a.png";
    static final String TYPE="Twitter";
+
 
    
    @Inject
@@ -65,6 +70,7 @@ public class TwitterHandlerBean extends OAuthServiceHandlerScribe implements Twi
    {
       HttpResponse resp = sendSignedRequest(RestVerb.POST, TWEET_URL, "status", message);
       System.out.println("update satus is " + message);
+      setStatus("");
       return jsonMapper.readValue(resp, TweetJackson.class);
 
    }
@@ -126,6 +132,17 @@ public class TwitterHandlerBean extends OAuthServiceHandlerScribe implements Twi
    public String getType()
    {
       return TYPE;
+   }
+
+  
+
+   /* (non-Javadoc)
+    * @see org.jboss.seam.social.twitter.TwitterHandler#updateStatus()
+    */
+   @Override
+   public Tweet updateStatus()
+   {
+      return updateStatus(getStatus());
    }
 
 }

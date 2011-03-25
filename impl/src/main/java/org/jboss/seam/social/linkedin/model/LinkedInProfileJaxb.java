@@ -8,6 +8,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 
 
+
 /**
  * @author antoine
  *
@@ -25,7 +26,16 @@ public class LinkedInProfileJaxb implements LinkedInProfile
 
    private String headline;
    
+   private String pictureUrl;
    
+   @Override
+   @XmlElement(name="picture-url")
+   public String getPictureUrl()
+   {
+      return pictureUrl;
+   }
+
+
    /* (non-Javadoc)
     * @see org.jboss.seam.social.oauth.OAuthUserProfile#getFullName()
     */

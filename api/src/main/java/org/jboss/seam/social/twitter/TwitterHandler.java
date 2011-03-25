@@ -16,6 +16,9 @@
  */
 package org.jboss.seam.social.twitter;
 
+
+
+import org.jboss.seam.social.oauth.HasStatus;
 import org.jboss.seam.social.oauth.User;
 import org.jboss.seam.social.oauth.OAuthServiceHandler;
 import org.jboss.seam.social.twitter.model.Tweet;
@@ -27,7 +30,8 @@ import org.jboss.seam.social.twitter.model.Tweet;
  * @author Antoine Sabot-Durand
  *
  */
-public interface TwitterHandler extends OAuthServiceHandler
+
+public interface TwitterHandler extends OAuthServiceHandler, HasStatus
 {
 
    /**
@@ -38,6 +42,9 @@ public interface TwitterHandler extends OAuthServiceHandler
     * @return the tweet sent in Twitter
     */
    public Tweet updateStatus(String message);
+   
+   
+   public Tweet updateStatus();
    
    
    

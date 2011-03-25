@@ -14,19 +14,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social.linkedin;
 
 
-import org.jboss.seam.social.oauth.HasStatus;
-import org.jboss.seam.social.oauth.OAuthServiceHandler;
+@Veto
+package org.jboss.seam.social.linkedin.model;
 
-/**
- * A specialization of {@link OAuthServiceHandler} to add LinkedIn specific methods
- * 
- * @author Antoine Sabot-Durand
- *
- */
-public interface LinkedInHandler extends OAuthServiceHandler, HasStatus
-{
-
-}
+import org.jboss.seam.solder.core.Veto;

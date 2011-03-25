@@ -21,6 +21,7 @@ import java.io.Serializable;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.codehaus.jackson.map.Module.SetupContext;
 import org.scribe.builder.ServiceBuilder;
 import org.scribe.builder.api.Api;
 import org.scribe.model.OAuthRequest;
@@ -52,12 +53,10 @@ public abstract class OAuthServiceHandlerScribe implements OAuthServiceHandler, 
 
    protected User userProfile;
 
-  
-
-   
-   
-   
    private OAuthServiceSettings settings;
+   
+   private String status;
+   
 
    private OAuthService getService()
    {
@@ -97,7 +96,7 @@ public abstract class OAuthServiceHandlerScribe implements OAuthServiceHandler, 
    @Override
    public String getAuthorizationUrl()
    {
-      requestToken=new OAuthTokenScribe(getService().getRequestToken());
+      requestToken = new OAuthTokenScribe(getService().getRequestToken());
       return getService().getAuthorizationUrl(requestToken.delegate);
    }
 
@@ -106,16 +105,27 @@ public abstract class OAuthServiceHandlerScribe implements OAuthServiceHandler, 
    {
       if (accessToken == null)
       {
-         accessToken= new OAuthTokenScribe(getService().getAccessToken(requestToken.delegate, verifier));
+         accessToken = new OAuthTokenScribe(getService().getAccessToken(requestToken.delegate, verifier));
          if (accessToken != null)
          {
             connected = Boolean.TRUE;
          }
          else
          {
-            //Launch an exception !!
+            // Launch an exception !!
          }
       }
+
+   }
+
+   @Override
+   public void resetConnexion()
+   {
+      userProfile = null;
+      requestToken = null;
+      accessToken = null;
+      verifier = null;
+      connected = Boolean.FALSE;
 
    }
 
@@ -150,10 +160,24 @@ public abstract class OAuthServiceHandlerScribe implements OAuthServiceHandler, 
       OAuthRequest request = new OAuthRequest(Verb.valueOf(verb.toString()), uri);
 
       request.addBodyParameter(key, value.toString());
+      
 
       return sendSignedRequest(request);
 
    }
+   
+   @Override
+   public HttpResponse sendSignedRequest(RestVerb verb, String uri, String payload)
+   {
+      OAuthRequest request = new OAuthRequest(Verb.valueOf(verb.toString()), uri);
+
+      request.addPayload(payload);
+      
+
+      return sendSignedRequest(request);
+
+   }
+   
 
    @Override
    public HttpResponse sendSignedRequest(RestVerb verb, String uri, Map<String, Object> params)
@@ -194,17 +218,37 @@ public abstract class OAuthServiceHandlerScribe implements OAuthServiceHandler, 
    @Override
    public void setAccessToken(String api, String secret)
    {
-     accessToken=new OAuthTokenScribe(api, secret);
-      
+      accessToken = new OAuthTokenScribe(api, secret);
+
    }
 
    @Override
    public void setAccessToken(OAuthToken token)
    {
-     accessToken=new OAuthTokenScribe(token.getToken(), token.getSecret());
-      
-   }
-   
+      accessToken = new OAuthTokenScribe(token.getToken(), token.getSecret());
 
+   }
+
+   @Override
+   public String toString()
+   {
+      return getType();
+   }
+
+   /**
+    * @param status the status to set
+    */
+   public void setStatus(String status)
+   {
+      this.status = status;
+   }
+
+   /**
+    * @return the status
+    */
+   public String getStatus()
+   {
+      return status;
+   }
 
 }
