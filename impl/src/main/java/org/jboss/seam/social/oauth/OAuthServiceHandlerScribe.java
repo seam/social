@@ -24,6 +24,7 @@ import java.util.Map.Entry;
 import org.codehaus.jackson.map.Module.SetupContext;
 import org.scribe.builder.ServiceBuilder;
 import org.scribe.builder.api.Api;
+import org.scribe.exceptions.OAuthException;
 import org.scribe.model.OAuthRequest;
 import org.scribe.model.Verb;
 import org.scribe.model.Verifier;
@@ -96,7 +97,16 @@ public abstract class OAuthServiceHandlerScribe implements OAuthServiceHandler, 
    @Override
    public String getAuthorizationUrl()
    {
-      requestToken = new OAuthTokenScribe(getService().getRequestToken());
+      
+      try
+      {
+         requestToken = new OAuthTokenScribe(getService().getRequestToken());
+      }
+      catch (OAuthException e)
+      {
+        //Something bad happened during OAUth excahnge we should rethrow our own exception
+         e.printStackTrace();
+      }
       return getService().getAuthorizationUrl(requestToken.delegate);
    }
 

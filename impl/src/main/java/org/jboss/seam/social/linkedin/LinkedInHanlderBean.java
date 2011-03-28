@@ -36,12 +36,14 @@ import org.jboss.seam.social.oauth.RestVerb;
 import org.jboss.seam.social.oauth.User;
 import org.scribe.builder.api.Api;
 import org.scribe.builder.api.LinkedInApi;
+import org.scribe.utils.StreamUtils;
+
 
 /**
  * @author antoine
  * 
  */
-//@Typed(LinkedInHandler.class)
+// @Typed(LinkedInHandler.class)
 @Named("linkedHdl")
 @SessionScoped
 public class LinkedInHanlderBean extends OAuthServiceHandlerScribe implements LinkedInHandler
@@ -49,24 +51,24 @@ public class LinkedInHanlderBean extends OAuthServiceHandlerScribe implements Li
 
    private static final long serialVersionUID = -6718362913575146613L;
 
-   static final String USER_PROFILE_URL = "http://api.linkedin.com/v1/people/~:(picture-url)";
+   static final String USER_PROFILE_URL = "http://api.linkedin.com/v1/people/~:(first-name,last-name,headline,picture-url)";
    static final Class<? extends Api> API_CLASS = LinkedInApi.class;
    static final String LOGO_URL = "https://d2l6uygi1pgnys.cloudfront.net/1-9-05/images/buttons/linkedin_connect.png";
-   static final String TYPE="LinkedIn";
-   static final String NETWORK_UPDATE_URL="http://api.linkedin.com/v1/people/~/person-activities";
-   
+   static final String TYPE = "LinkedIn";
+   static final String NETWORK_UPDATE_URL = "http://api.linkedin.com/v1/people/~/person-activities";
+
    JAXBContext context;
    Unmarshaller unmarshaller;
    Marshaller marshaller;
 
-  @PostConstruct
+   @PostConstruct
    protected void init()
    {
       try
       {
          context = JAXBContext.newInstance("org.jboss.seam.social.linkedin.model");
          unmarshaller = context.createUnmarshaller();
-         marshaller=context.createMarshaller();
+         marshaller = context.createMarshaller();
       }
       catch (JAXBException e)
       {
@@ -118,6 +120,8 @@ public class LinkedInHanlderBean extends OAuthServiceHandlerScribe implements Li
          HttpResponse resp = sendSignedRequest(RestVerb.GET, USER_PROFILE_URL);
          try
          {
+            //System.out.println(StreamUtils.getStreamContents(resp.getStream()));
+            
             userProfile = (User) unmarshaller.unmarshal(resp.getStream());
          }
          catch (JAXBException e)
@@ -129,45 +133,52 @@ public class LinkedInHanlderBean extends OAuthServiceHandlerScribe implements Li
       return userProfile;
    }
 
-   /* (non-Javadoc)
+   /*
+    * (non-Javadoc)
+    * 
     * @see org.jboss.seam.social.oauth.OAuthServiceHandler#getType()
     */
    @Override
    public String getType()
    {
-     return TYPE;
+      return TYPE;
    }
 
-   /* (non-Javadoc)
+   /*
+    * (non-Javadoc)
+    * 
     * @see org.jboss.seam.social.oauth.HasStatus#updateStatus()
     */
    @Override
    public Object updateStatus()
    {
-     
+
       return updateStatus(getStatus());
    }
 
-   /* (non-Javadoc)
+   /*
+    * (non-Javadoc)
+    * 
     * @see org.jboss.seam.social.oauth.HasStatus#updateStatus(java.lang.String)
     */
    @Override
    public Update updateStatus(String message)
    {
-     Update upd=new UpdateJaxb();
-     upd.setBody(message);
-     StringWriter writer=new StringWriter();
-     try
-   {
-      marshaller.marshal(upd, writer);
-   }
-   catch (JAXBException e)
-   {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-   }
-   String msg=writer.toString();
-     HttpResponse resp = sendSignedRequest(RestVerb.POST, NETWORK_UPDATE_URL, msg);
+      Update upd = new UpdateJaxb();
+      upd.setBody(message);
+      StringWriter writer = new StringWriter();
+      try
+      {
+         marshaller.marshal(upd, writer);
+      }
+      catch (JAXBException e)
+      {
+         // TODO Auto-generated catch block
+         e.printStackTrace();
+      }
+      String msg = writer.toString();
+      HttpResponse resp = sendSignedRequest(RestVerb.POST, NETWORK_UPDATE_URL, msg);
+      System.out.println(StreamUtils.getStreamContents(resp.getStream()));
       return upd;
    }
 

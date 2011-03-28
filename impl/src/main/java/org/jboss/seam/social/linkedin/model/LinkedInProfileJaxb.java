@@ -3,6 +3,8 @@
  */
 package org.jboss.seam.social.linkedin.model;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -14,22 +16,27 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  */
 @XmlRootElement(name="person")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class LinkedInProfileJaxb implements LinkedInProfile
 {
 
-  
+   @XmlElement(name="first-name")
    private String firstName;
    
-  
+   @XmlElement(name="last-name")
    private String lastName;
    
 
    private String headline;
    
+   @XmlElement(name="picture-url")
    private String pictureUrl;
    
+ 
+
+
    @Override
-   @XmlElement(name="picture-url")
+  
    public String getPictureUrl()
    {
       return pictureUrl;
@@ -46,7 +53,7 @@ public class LinkedInProfileJaxb implements LinkedInProfile
    }
 
 
-   @XmlElement(name="first-name")
+
    public String getFirstName()
    {
       return firstName;
@@ -61,7 +68,7 @@ public class LinkedInProfileJaxb implements LinkedInProfile
 
 
    @Override
-   @XmlElement(name="last-name")
+  
    public String getLastName()
    {
       return lastName;
