@@ -3,6 +3,8 @@
  */
 package org.jboss.seam.social.linkedin.model;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -12,16 +14,20 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  */
 @XmlRootElement(name="activity")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class UpdateJaxb implements Update
 {
+   @XmlAttribute(required=true)
    private String locale="en_US";
    
+   @XmlElement(name="content-type",required=true)
    private String contentType="linkedin-html";
    
+   @XmlElement(name="body", required=true)
    private String body;
 
    @Override
-   @XmlAttribute(required=true)
+  
    public String getLocale()
    {
       return locale;
@@ -35,7 +41,7 @@ public class UpdateJaxb implements Update
    }
 
    @Override
-   @XmlElement(name="content_type",required=true)
+  
    public String getContentType()
    {
       return contentType;
@@ -48,7 +54,7 @@ public class UpdateJaxb implements Update
    }
 
    @Override
-   @XmlElement(required=true)
+   
    public String getBody()
    {
       return body;

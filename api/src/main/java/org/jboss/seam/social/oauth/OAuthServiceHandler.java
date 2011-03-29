@@ -120,7 +120,7 @@ public interface OAuthServiceHandler
     * @param payload
     * @return
     */
-   HttpResponse sendSignedRequest(RestVerb verb, String uri, String payload);
+   HttpResponse sendSignedXmlRequest(RestVerb verb, String uri, String payload);
    
 
 }

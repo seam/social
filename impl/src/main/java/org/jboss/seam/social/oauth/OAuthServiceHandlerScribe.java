@@ -21,7 +21,6 @@ import java.io.Serializable;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.codehaus.jackson.map.Module.SetupContext;
 import org.scribe.builder.ServiceBuilder;
 import org.scribe.builder.api.Api;
 import org.scribe.exceptions.OAuthException;
@@ -177,9 +176,11 @@ public abstract class OAuthServiceHandlerScribe implements OAuthServiceHandler, 
    }
    
    @Override
-   public HttpResponse sendSignedRequest(RestVerb verb, String uri, String payload)
+   public HttpResponse sendSignedXmlRequest(RestVerb verb, String uri, String payload)
    {
       OAuthRequest request = new OAuthRequest(Verb.valueOf(verb.toString()), uri);
+     request.addHeader("Content-Length", Integer.toString(payload.length()));
+      request.addHeader("Content-Type", "text/xml");
 
       request.addPayload(payload);
       

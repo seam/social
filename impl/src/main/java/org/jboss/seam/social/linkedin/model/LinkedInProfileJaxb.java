@@ -3,9 +3,13 @@
  */
 package org.jboss.seam.social.linkedin.model;
 
+import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlRootElement;
 
 
@@ -31,6 +35,10 @@ public class LinkedInProfileJaxb implements LinkedInProfile
    
    @XmlElement(name="picture-url")
    private String pictureUrl;
+   
+   @XmlElementWrapper(name="site-standard-profile-request")
+   @XmlElements({@XmlElement(name="url")})
+   private List<String> standardProfileUrl;
    
  
 
@@ -93,6 +101,18 @@ public class LinkedInProfileJaxb implements LinkedInProfile
    public void setHeadline(String headline)
    {
       this.headline = headline;
+   }
+
+
+ 
+
+   /**
+    * @return the standardProfileUrl
+    */
+   @Override
+   public String getStandardProfileUrl()
+   {
+      return standardProfileUrl.get(0);
    }
 
    

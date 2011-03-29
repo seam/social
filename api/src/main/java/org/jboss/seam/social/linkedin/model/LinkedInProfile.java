@@ -38,4 +38,9 @@ public interface LinkedInProfile extends User
 
    public void setFirstName(String firstName);
 
+   /**
+    * @return
+    */
+   String getStandardProfileUrl();
+
 }
