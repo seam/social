@@ -4,3 +4,4 @@ target
 .settings
 rebel.xml
 *.sw?
+*/src/main/java/META-INF

@@ -17,12 +17,10 @@
 		<artifactId>seam-social-parent</artifactId>
 		<groupId>org.jboss.seam.social</groupId>
 		<version>3.0.0-SNAPSHOT</version>
-
 	</parent>
 
 	<groupId>org.jboss.seam.social</groupId>
 	<artifactId>seam-social-impl</artifactId>
-	<version>3.0.0-SNAPSHOT</version>
 
 	<packaging>jar</packaging>
 	<name>Seam Social Module Core Implementation</name>
@@ -36,13 +34,6 @@
 		<dependency>
 			<groupId>javax.enterprise</groupId>
 			<artifactId>cdi-api</artifactId>
-			<scope>provided</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.jboss.logging</groupId>
-			<artifactId>jboss-logging</artifactId>
-			<version>3.0.0.Beta4</version>
 			<scope>provided</scope>
 		</dependency>
 
@@ -65,18 +56,6 @@
 		<dependency>
 			<groupId>org.jboss.seam.config</groupId>
 			<artifactId>seam-config-xml</artifactId>
-			<exclusions>
-				<exclusion>
-					<artifactId>jboss-logging</artifactId>
-					<groupId>org.jboss.logging</groupId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 	</dependencies>
-	<scm>
-		<connection>scm:git:git://github.com/seam/social.git</connection>
-		<developerConnection>scm:git:git@github.com:seam/social.git</developerConnection>
-		<url>http://github.com/seam/social</url>
-	</scm>
-
 </project>

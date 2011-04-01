@@ -16,7 +16,7 @@
 	<parent>
 		<groupId>org.jboss.seam</groupId>
 		<artifactId>seam-parent</artifactId>
-		<version>9</version>
+		<version>10</version>
 	</parent>
 
 	<artifactId>seam-social-parent</artifactId>
@@ -44,12 +44,9 @@
 	</modules>
 
 	<properties>
-		<seam.version>3.0.0.CR9</seam.version>
+		<seam.version>3.0.0.Final</seam.version>
 		<scribe.version>1.1.0</scribe.version>
 	</properties>
-
-
-
 
 	<dependencyManagement>
 		<dependencies>
@@ -88,9 +85,6 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
-
-
-
 
 	<developers>
 		<developer>
@@ -156,7 +150,6 @@
 			</pluginRepositories>
 		</profile>
 	</profiles>
-
 
 	<scm>
 		<connection>scm:git:git://github.com/seam/social.git</connection>

@@ -23,21 +23,6 @@
 	<artifactId>seam-social-web-client</artifactId>
 	<packaging>war</packaging>
 	<name>seam-social-web-client</name>
-	<version>3.0.0-SNAPSHOT</version>
-
-
-	<dependencyManagement>
-		<dependencies>
-			<!-- Import scope will provide versions for dependencies below. -->
-			<dependency>
-				<groupId>org.jboss.weld</groupId>
-				<artifactId>weld-extensions-bom</artifactId>
-				<version>1.0.0-CR2</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
 
 	<build>
 		<finalName>seam-social-web-client</finalName>
@@ -86,12 +71,6 @@
 		<dependency>
 			<groupId>org.jboss.seam.config</groupId>
 			<artifactId>seam-config-xml</artifactId>
-			<exclusions>
-				<exclusion>
-					<artifactId>jboss-logging</artifactId>
-					<groupId>org.jboss.logging</groupId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 
 		<dependency>
@@ -101,7 +80,7 @@
 
 		<!-- JSF -->
 		<dependency>
-			<groupId>javax.faces</groupId>
+			<groupId>com.sun.faces</groupId>
 			<artifactId>jsf-api</artifactId>
 			<scope>provided</scope>
 		</dependency>

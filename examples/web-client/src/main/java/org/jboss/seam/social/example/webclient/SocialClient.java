@@ -31,7 +31,6 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.apache.commons.lang.StringUtils;
 import org.jboss.seam.social.oauth.OAuthServiceHandler;
 import org.jboss.seam.social.oauth.OAuthToken;
 import org.jboss.seam.social.oauth.User;
@@ -201,7 +200,7 @@ public class SocialClient implements Serializable
    public String getTimeLineUrl()
    {
       if (isCurrentServiceOk())
-         return "/WEB-INF/fragments/" + currentServiceHdl.getType() + ".xhtml";
+         return "/WEB-INF/fragments/" + currentServiceHdl.getType().toLowerCase() + ".xhtml";
       return "";
    }
 }
