@@ -45,7 +45,7 @@
 
 	<properties>
 		<seam.version>3.0.0.Final</seam.version>
-		<scribe.version>1.1.0</scribe.version>
+		<scribe.version>1.1.2</scribe.version>
 	</properties>
 
 	<dependencyManagement>

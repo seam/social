@@ -39,7 +39,7 @@ import org.scribe.builder.api.TwitterApi;
 //@Typed(TwitterHandler.class)
 @Named("twitterHdl")
 @SessionScoped
-public class TwitterHandlerBean extends OAuthServiceHandlerScribe implements TwitterHandler
+public class TwitterHandlerScribe extends OAuthServiceHandlerScribe implements TwitterHandler
 {
 
    private static final long serialVersionUID = 6806035986656777834L;

@@ -46,7 +46,7 @@ import org.scribe.builder.api.LinkedInApi;
 // @Typed(LinkedInHandler.class)
 @Named("linkedHdl")
 @SessionScoped
-public class LinkedInHanlderBean extends OAuthServiceHandlerScribe implements LinkedInHandler
+public class LinkedInHanlderScribe extends OAuthServiceHandlerScribe implements LinkedInHandler
 {
 
    private static final long serialVersionUID = -6718362913575146613L;
