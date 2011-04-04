@@ -27,14 +27,14 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
-import org.jboss.seam.social.linkedin.model.LinkedInProfile;
+import org.jboss.seam.social.linkedin.model.Profile;
 import org.jboss.seam.social.linkedin.model.Update;
 import org.jboss.seam.social.linkedin.model.UpdateJaxb;
 import org.jboss.seam.social.oauth.HttpResponse;
 import org.jboss.seam.social.oauth.OAuthServiceHandlerScribe;
 import org.jboss.seam.social.oauth.OAuthServiceSettings;
 import org.jboss.seam.social.oauth.RestVerb;
-import org.jboss.seam.social.oauth.User;
+import org.jboss.seam.social.oauth.UserProfile;
 import org.scribe.builder.api.Api;
 import org.scribe.builder.api.LinkedInApi;
 
@@ -114,7 +114,7 @@ public class LinkedInHanlderScribe extends OAuthServiceHandlerScribe implements 
     * @see org.jboss.seam.social.oauth.OAuthServiceHandler#getUserProfile()
     */
    @Override
-   public User getUser()
+   public UserProfile getUser()
    {
       if (userProfile == null)
       {
@@ -122,7 +122,7 @@ public class LinkedInHanlderScribe extends OAuthServiceHandlerScribe implements 
          try
          {
           //System.out.println(StreamUtils.getStreamContents(resp.getStream()));
-            userProfile = (User) unmarshaller.unmarshal(resp.getStream());
+            userProfile = (UserProfile) unmarshaller.unmarshal(resp.getStream());
          }
          catch (JAXBException e)
          {
@@ -135,9 +135,9 @@ public class LinkedInHanlderScribe extends OAuthServiceHandlerScribe implements 
    
    
    
-   protected LinkedInProfile getLinkedInProfile()
+   protected Profile getLinkedInProfile()
    {
-      return (LinkedInProfile) getUser();
+      return (Profile) getUser();
    }
    /*
     * (non-Javadoc)

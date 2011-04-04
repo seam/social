@@ -25,10 +25,10 @@ import org.jboss.seam.social.oauth.JsonMapper;
 import org.jboss.seam.social.oauth.OAuthServiceHandlerScribe;
 import org.jboss.seam.social.oauth.OAuthServiceSettings;
 import org.jboss.seam.social.oauth.RestVerb;
-import org.jboss.seam.social.oauth.User;
+import org.jboss.seam.social.oauth.UserProfile;
 import org.jboss.seam.social.twitter.model.Tweet;
 import org.jboss.seam.social.twitter.model.TweetJackson;
-import org.jboss.seam.social.twitter.model.TwitterCredentialJackson;
+import org.jboss.seam.social.twitter.model.CredentialJackson;
 import org.scribe.builder.api.Api;
 import org.scribe.builder.api.TwitterApi;
 
@@ -49,11 +49,11 @@ public class TwitterHandlerScribe extends OAuthServiceHandlerScribe implements T
    static final String TWEET_URL = "https://api.twitter.com/1/statuses/update.json";
    static final String RETWEET_URL = "https://api.twitter.com/1/statuses/retweet/{tweet_id}.json";
    static final Class<? extends Api> API_CLASS = TwitterApi.class;
-   static final String LOGO_URL = "http://twitter-badges.s3.amazonaws.com/twitter-a.png";
+   static final String LOGO_URL = "https://d2l6uygi1pgnys.cloudfront.net/2-2-08/images/buttons/twitter_connect.png";
    static final String TYPE="Twitter";
-
-
    
+  
+
    @Inject
    private JsonMapper jsonMapper;
    
@@ -92,7 +92,7 @@ public class TwitterHandlerScribe extends OAuthServiceHandlerScribe implements T
     * @see org.jboss.seam.social.twitter.TwitterHandler#verifyCrendentials()
     */
    @Override
-   public User verifyCrendentials()
+   public UserProfile verifyCrendentials()
    {
 
       return getUser();
@@ -115,12 +115,12 @@ public class TwitterHandlerScribe extends OAuthServiceHandlerScribe implements T
     * @see org.jboss.seam.social.oauth.OAuthServiceHandler#getUserProfile()
     */
    @Override
-   public User getUser()
+   public UserProfile getUser()
    {
       if (userProfile == null)
       {
          HttpResponse resp = sendSignedRequest(RestVerb.GET, VERIFY_CREDENTIALS_URL);
-         userProfile = jsonMapper.readValue(resp, TwitterCredentialJackson.class);
+         userProfile = jsonMapper.readValue(resp, CredentialJackson.class);
       }
       return userProfile;
    }

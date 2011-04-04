@@ -6,9 +6,9 @@
 	template="/WEB-INF/templates/default.xhtml">
 	<ui:define name="content">
 		<f:metadata>
-			<f:viewParam name="oauth_verifier" value="#{socialClient.verifier}"
+			<f:viewParam name="#{socialClient.currentServiceHdl.verifierParamName}" value="#{socialClient.verifier}"
 				required="true"
-				requiredMessage="We didn't get the authorization from Twitter. Please go back and Try Again !" />
+				requiredMessage="We didn't get the authorization from #{socialClient.currentServiceHdl.type}. Please go back and Try Again !" />
 			<f:event type="preRenderView" listener="#{socialClient.initAccessToken}" />
 		</f:metadata>
 		<h:messages />

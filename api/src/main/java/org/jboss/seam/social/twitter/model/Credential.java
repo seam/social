@@ -3,7 +3,7 @@
  */
 package org.jboss.seam.social.twitter.model;
 
-import org.jboss.seam.social.oauth.User;
+import org.jboss.seam.social.oauth.UserProfile;
 import org.jboss.seam.social.twitter.TwitterHandler;
 
 /**
@@ -14,7 +14,7 @@ import org.jboss.seam.social.twitter.TwitterHandler;
 * @author Antoine Sabot-Durand
 *
 */
-public interface TwitterCredential extends User
+public interface Credential extends UserProfile
 {
 
 

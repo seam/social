@@ -89,7 +89,7 @@ import org.codehaus.jackson.annotate.JsonProperty;
  */
 
 @JsonIgnoreProperties(ignoreUnknown=true)
-public class TwitterCredentialJackson implements TwitterCredential
+public class CredentialJackson implements Credential
 {
    @JsonProperty
    private String name;

@@ -14,33 +14,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social.linkedin.model;
+package org.jboss.seam.social.oauth;
 
-import org.jboss.seam.social.oauth.User;
 
 /**
  * 
- * Implementation of this interface will contain a LinkedIn Profile 
+ * Interface defining an user 
  * 
  * @author Antoine Sabot-Durand
- * 
+ *
  */
-public interface LinkedInProfile extends User
+public interface UserProfile
 {
 
-   public void setHeadline(String headline);
-
-   public String getHeadline();
-
-   public void setLastName(String lastName);
-
-   public String getLastName();
-
-   public void setFirstName(String firstName);
-
-   /**
-    * @return
-    */
-   String getStandardProfileUrl();
+   public String getFullName();
+   
+   public String getPictureUrl();
 
 }

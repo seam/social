@@ -23,7 +23,6 @@ import java.util.Map.Entry;
 
 import org.scribe.builder.ServiceBuilder;
 import org.scribe.builder.api.Api;
-import org.scribe.exceptions.OAuthException;
 import org.scribe.model.OAuthRequest;
 import org.scribe.model.Verb;
 import org.scribe.model.Verifier;
@@ -41,24 +40,39 @@ public abstract class OAuthServiceHandlerScribe implements OAuthServiceHandler, 
     * 
     */
    private static final long serialVersionUID = -8423894021913341674L;
-
+   private static final String VERIFIER_PARAM_NAME = "oauth_verifier";
+   
    private OAuthService service;
 
-   private OAuthTokenScribe requestToken;
-   private OAuthTokenScribe accessToken;
+   protected OAuthTokenScribe requestToken;
+   protected OAuthTokenScribe accessToken;
 
    private Verifier verifier;
 
    private Boolean connected = Boolean.FALSE;
 
-   protected User userProfile;
+   protected UserProfile userProfile;
 
    private OAuthServiceSettings settings;
    
-   private String status;
-   
+ private String status;
 
-   private OAuthService getService()
+
+   
+   public String getStatus()
+   {
+      return status;
+   }
+
+   public void setStatus(String status)
+   {
+      this.status = status;
+   }
+
+
+
+
+   protected OAuthService getService()
    {
       if (service == null)
          initService();
@@ -96,17 +110,14 @@ public abstract class OAuthServiceHandlerScribe implements OAuthServiceHandler, 
    @Override
    public String getAuthorizationUrl()
    {
-      
-      try
-      {
+      return getService().getAuthorizationUrl(getRequestToken().delegate);
+   }
+
+   protected OAuthTokenScribe getRequestToken()
+   {
+      if (requestToken == null)
          requestToken = new OAuthTokenScribe(getService().getRequestToken());
-      }
-      catch (OAuthException e)
-      {
-        //Something bad happened during OAUth excahnge we should rethrow our own exception
-         e.printStackTrace();
-      }
-      return getService().getAuthorizationUrl(requestToken.delegate);
+      return requestToken;
    }
 
    @Override
@@ -114,10 +125,11 @@ public abstract class OAuthServiceHandlerScribe implements OAuthServiceHandler, 
    {
       if (accessToken == null)
       {
-         accessToken = new OAuthTokenScribe(getService().getAccessToken(requestToken.delegate, verifier));
+         accessToken = new OAuthTokenScribe(getService().getAccessToken(getRequestToken().delegate, verifier));
          if (accessToken != null)
          {
             connected = Boolean.TRUE;
+            requestToken=null;
          }
          else
          {
@@ -131,7 +143,6 @@ public abstract class OAuthServiceHandlerScribe implements OAuthServiceHandler, 
    public void resetConnexion()
    {
       userProfile = null;
-      requestToken = null;
       accessToken = null;
       verifier = null;
       connected = Boolean.FALSE;
@@ -169,26 +180,23 @@ public abstract class OAuthServiceHandlerScribe implements OAuthServiceHandler, 
       OAuthRequest request = new OAuthRequest(Verb.valueOf(verb.toString()), uri);
 
       request.addBodyParameter(key, value.toString());
-      
 
       return sendSignedRequest(request);
 
    }
-   
+
    @Override
    public HttpResponse sendSignedXmlRequest(RestVerb verb, String uri, String payload)
    {
       OAuthRequest request = new OAuthRequest(Verb.valueOf(verb.toString()), uri);
-     request.addHeader("Content-Length", Integer.toString(payload.length()));
+      request.addHeader("Content-Length", Integer.toString(payload.length()));
       request.addHeader("Content-Type", "text/xml");
 
       request.addPayload(payload);
-      
 
       return sendSignedRequest(request);
 
    }
-   
 
    @Override
    public HttpResponse sendSignedRequest(RestVerb verb, String uri, Map<String, Object> params)
@@ -246,20 +254,12 @@ public abstract class OAuthServiceHandlerScribe implements OAuthServiceHandler, 
       return getType();
    }
 
-   /**
-    * @param status the status to set
-    */
-   public void setStatus(String status)
+   
+   
+   @Override
+   public String getVerifierParamName()
    {
-      this.status = status;
-   }
-
-   /**
-    * @return the status
-    */
-   public String getStatus()
-   {
-      return status;
+      return VERIFIER_PARAM_NAME;
    }
 
 }

@@ -104,7 +104,7 @@ public interface OAuthServiceHandler
    
    public Boolean isConnected();
       
-   public User getUser();
+   public UserProfile getUser();
    
    public String getType();
    
@@ -121,6 +121,11 @@ public interface OAuthServiceHandler
     * @return
     */
    HttpResponse sendSignedXmlRequest(RestVerb verb, String uri, String payload);
+
+   /**
+    * @return
+    */
+   String getVerifierParamName();
    
 
 }

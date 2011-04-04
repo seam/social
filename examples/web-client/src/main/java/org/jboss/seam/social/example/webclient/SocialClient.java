@@ -25,7 +25,6 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.enterprise.inject.Any;
 import javax.enterprise.inject.Instance;
-import javax.enterprise.inject.Produces;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -33,7 +32,7 @@ import javax.inject.Named;
 
 import org.jboss.seam.social.oauth.OAuthServiceHandler;
 import org.jboss.seam.social.oauth.OAuthToken;
-import org.jboss.seam.social.oauth.User;
+import org.jboss.seam.social.oauth.UserProfile;
 
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
@@ -157,9 +156,9 @@ public class SocialClient implements Serializable
     * return "ok"; }
     */
 
-   public User getUser()
+   public UserProfile getUser()
    {
-      User res = currentServiceHdl == null ? null : currentServiceHdl.getUser();
+      UserProfile res = currentServiceHdl == null ? null : currentServiceHdl.getUser();
 
       return res;
    }

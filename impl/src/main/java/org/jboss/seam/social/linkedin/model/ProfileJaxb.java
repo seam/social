@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement(name="person")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class LinkedInProfileJaxb implements LinkedInProfile
+public class ProfileJaxb implements Profile
 {
 
    @XmlElement(name="first-name")
