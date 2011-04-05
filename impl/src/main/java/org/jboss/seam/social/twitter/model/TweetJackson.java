@@ -19,6 +19,12 @@ package org.jboss.seam.social.twitter.model;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 
+/**
+ * 
+ * @author Antoine Sabot-Durand
+ *
+ */
+
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class TweetJackson implements Tweet
 {

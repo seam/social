@@ -18,7 +18,7 @@
 import javax.enterprise.inject.spi.InjectionPoint;
 
 /**
- * @author antoine
+ * @author Antoine Sabot-Durand
  * 
  */
 public abstract class SettedHandlerProducer

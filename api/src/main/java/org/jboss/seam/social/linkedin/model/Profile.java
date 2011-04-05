@@ -20,7 +20,7 @@ import org.jboss.seam.social.oauth.UserProfile;
 
 /**
  * 
- * Implementation of this interface will contain a LinkedIn Profile 
+ * Implementation of this interface will contain a LinkedIn Profile
  * 
  * @author Antoine Sabot-Durand
  * 
@@ -28,19 +28,28 @@ import org.jboss.seam.social.oauth.UserProfile;
 public interface Profile extends UserProfile
 {
 
-   public void setHeadline(String headline);
-
+   /**
+    * 
+    * @return the Headline (position) of the profile
+    */
    public String getHeadline();
 
-   public void setLastName(String lastName);
-
+   /**
+    * 
+    * @return the Lastname of the profile
+    */
    public String getLastName();
 
-   public void setFirstName(String firstName);
+   /**
+    * 
+    * @return the Firstname of the profile
+    */
+   public String getFirstName();
 
    /**
-    * @return
+    * 
+    * @return the public URL to access this profile on LinkedIn
     */
-   String getStandardProfileUrl();
+   public String getStandardProfileUrl();
 
 }

@@ -33,11 +33,11 @@ import javax.inject.Qualifier;
 @Retention(RUNTIME)
 @Documented
 /**
- * A CDI qualifier annotation to qualify bean being released to Twitter configuration 
+ * A CDI qualifier annotation to qualify bean being related to Twitter 
  * @author Antoine Sabot-Durand
  *
  */
 public @interface Twitter
 {
-   
+
 }

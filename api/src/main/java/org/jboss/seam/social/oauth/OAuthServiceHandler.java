@@ -20,6 +20,7 @@ import java.util.Map;
 
 /**
  * Implementation of this interface is used to manage a generic OAuth Service
+ * 
  * @author Antoine Sabot-Durand
  * 
  */
@@ -33,7 +34,9 @@ public interface OAuthServiceHandler
    public OAuthToken getAccessToken();
 
    /**
-    * Returns the url to the OAuth service to ask an authorization to access the service.
+    * Returns the url to the OAuth service to ask an authorization to access the
+    * service.
+    * 
     * @return the REST URL to use request access
     */
    public String getAuthorizationUrl();
@@ -46,86 +49,131 @@ public interface OAuthServiceHandler
 
    /**
     * Access to OAuth verifier
+    * 
     * @return the OAUth verifier
     */
    public String getVerifier();
 
-
    /**
-    * Initialize the OAuth access token after the service gave an authorization with the Verifier
+    * Initialize the OAuth access token after the service gave an authorization
+    * with the Verifier
     */
    public void initAccessToken();
 
    /**
     * Send an OAuth request signed without any parameter
+    * 
     * @param verb a REST verb
     * @param uri the REST address of the request
-    * @return an HttpResponse containing the response. It could be in various format (json, xml, string)
+    * @return an HttpResponse containing the response. It could be in various
+    *         format (json, xml, string)
     */
    public HttpResponse sendSignedRequest(RestVerb verb, String uri);
 
    /**
     * Send an OAuth request signed with a list a parameter
+    * 
     * @param verb a REST verb
     * @param uri the REST address of the request
-    * @param params a Map of key value parameters to send in the header of the request
-    * @return an HttpResponse containing the response. It could be in various format (json, xml, string)
+    * @param params a Map of key value parameters to send in the header of the
+    *           request
+    * @return an HttpResponse containing the response. It could be in various
+    *         format (json, xml, string)
     */
    public HttpResponse sendSignedRequest(RestVerb verb, String uri, Map<String, Object> params);
 
    /**
     * Send an OAuth request signed with a single parameter
+    * 
     * @param verb a REST verb
     * @param uri the REST address of the request
     * @param key name of the parameter
     * @param value value of the parameter
-    * @return an HttpResponse containing the response. It could be in various format (json, xml, string)
+    * @return an HttpResponse containing the response. It could be in various
+    *         format (json, xml, string)
     */
    public HttpResponse sendSignedRequest(RestVerb verb, String uri, String key, Object value);
-   
+
    /**
     * Initialize OAuth settings
+    * 
     * @param settings
     */
    public void setSettings(OAuthServiceSettings settings);
-   
+
    /**
     * Used to initialize verifier code returned by OAuth service
+    * 
     * @param verifierStr
     */
    public void setVerifier(String verifierStr);
-   
-   
+
    /**
-    * Gives the logo of the service
+    * Returns the logo of the service
+    * 
     * @return the URL of the logo for the service
     */
    public String getServiceLogo();
-   
+
+   /**
+    * Returns the status of this ServiceHndler
+    * 
+    * @return true if the connection process is over and successful
+    */
    public Boolean isConnected();
-      
+
+   /**
+    * Returns the user who performed the connection
+    * 
+    * @return an object corresponding to the connected user
+    */
    public UserProfile getUser();
-   
+
+   /**
+    * Returns the name/type of the Social Network we're connected to
+    * 
+    * @return name of the network
+    */
    public String getType();
-   
-   public void setAccessToken(String api, String secret);
-   
+
+   /**
+    * 
+    * Initialize and set an OAuth access token from its public and private keys
+    * 
+    * @param token public key
+    * @param secret secret keys
+    */
+   public void setAccessToken(String token, String secret);
+
+   /**
+    * 
+    * Set the Access Token with for an OAuth access
+    * 
+    * @param token the token to set
+    */
    public void setAccessToken(OAuthToken token);
-   
+
+   /**
+    * Close connexion and reste all token (logout)
+    * 
+    */
    public void resetConnexion();
 
    /**
-    * @param verb
-    * @param uri
-    * @param payload
-    * @return
+    * 
+    * Send an OAuth request signed with an XML Paylad as content
+    * 
+    * @param verb the REST verb of the request
+    * @param uri the url of the remote request
+    * @param payload the content of the XML payload to send to the service
+    * @return an HttpResponse containing the response. It could be in various
+    *         format (json, xml, string)
     */
-   HttpResponse sendSignedXmlRequest(RestVerb verb, String uri, String payload);
+   public HttpResponse sendSignedXmlRequest(RestVerb verb, String uri, String payload);
 
    /**
-    * @return
+    * @return the name of the URL param name containing verifier code sent bakc by the remote service
     */
-   String getVerifierParamName();
-   
+   public String getVerifierParamName();
 
 }

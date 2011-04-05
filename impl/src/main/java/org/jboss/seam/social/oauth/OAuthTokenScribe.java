@@ -19,7 +19,7 @@ package org.jboss.seam.social.oauth;
 import org.scribe.model.Token;
 
 /**
- * @author antoine
+ * @author Antoine Sabot-Durand
  *
  */
 public class OAuthTokenScribe  implements OAuthToken

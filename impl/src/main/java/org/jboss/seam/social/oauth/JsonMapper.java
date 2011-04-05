@@ -26,7 +26,7 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
 /**
- * @author antoine
+ * @author Antoine Sabot-Durand
  *
  */
 @ApplicationScoped

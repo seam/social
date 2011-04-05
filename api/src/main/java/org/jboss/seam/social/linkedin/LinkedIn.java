@@ -33,7 +33,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Retention(RUNTIME)
 @Documented
 /**
- * A CDI qualifier annotation to qualify bean being released to LinkedIn configuration 
+ * A CDI qualifier annotation to qualify bean being related to LinkedIn 
  * @author Antoine Sabot-Durand
  *
  */

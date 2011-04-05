@@ -14,9 +14,5 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social.linkedin;
 
-/**
- * This package contains API elements to manage interactions with LinkedIn thru
- * CDI Beans
- */
+package org.jboss.seam.social.facebook;

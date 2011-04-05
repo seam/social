@@ -40,10 +40,9 @@ import org.scribe.builder.api.LinkedInApi;
 
 
 /**
- * @author antoine
+ * @author Antoine Sabot-Durand
  * 
  */
-// @Typed(LinkedInHandler.class)
 @Named("linkedHdl")
 @SessionScoped
 public class LinkedInHanlderScribe extends OAuthServiceHandlerScribe implements LinkedInHandler

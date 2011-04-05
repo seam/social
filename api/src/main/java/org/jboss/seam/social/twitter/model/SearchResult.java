@@ -20,13 +20,13 @@ import java.util.List;
 import org.jboss.seam.social.twitter.TwitterHandler;
 
 /**
-*
-* Implementation of this interface contains a Twitter search result
-* It is returned by {@link TwitterHandler#search()}
-* 
-* @author Antoine Sabot-Durand
-*
-*/
+ * 
+ * Implementation of this interface contains a Twitter search result It is
+ * returned by {@link TwitterHandler#search()}
+ * 
+ * @author Antoine Sabot-Durand
+ * 
+ */
 public interface SearchResult
 {
 

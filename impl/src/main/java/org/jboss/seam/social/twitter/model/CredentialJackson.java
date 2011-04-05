@@ -100,15 +100,6 @@ public class CredentialJackson implements Credential
    @JsonProperty("profile_image_url")
    private String pictureUrl;
 
-   /* (non-Javadoc)
-    * @see org.jboss.seam.social.twitter.domain.Credential#getName()
-    */
-   @Override
-   public String getName()
-   {
-      return name;
-   }
-
   
    /* (non-Javadoc)
     * @see org.jboss.seam.social.twitter.domain.Credential#getScreenName()
@@ -119,20 +110,14 @@ public class CredentialJackson implements Credential
       return screenName;
    }
 
-   
-
-   /* (non-Javadoc)
-    * @see org.jboss.seam.social.twitter.domain.Credential#getProfileImageUrl()
-    */
   
-
    /* (non-Javadoc)
     * @see org.jboss.seam.social.oauth.OAuthUserProfile#getFullName()
     */
    @Override
    public String getFullName()
    {
-      return getName();
+      return name;
    }
 
    /* (non-Javadoc)

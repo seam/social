@@ -16,44 +16,18 @@
  */
 package org.jboss.seam.social.twitter;
 
-
-
 import org.jboss.seam.social.oauth.HasStatus;
-import org.jboss.seam.social.oauth.UserProfile;
 import org.jboss.seam.social.oauth.OAuthServiceHandler;
-import org.jboss.seam.social.twitter.model.Tweet;
-
 
 /**
- * A specialization of {@link OAuthServiceHandler} to add Twitter specific methods
+ * A specialization of {@link OAuthServiceHandler} to add Twitter specific
+ * methods
  * 
  * @author Antoine Sabot-Durand
- *
+ * 
  */
 
 public interface TwitterHandler extends OAuthServiceHandler, HasStatus
 {
-
-   /**
-    * 
-    * Update the Twitter Status
-    * 
-    * @param message to tweet
-    * @return the tweet sent in Twitter
-    */
-   public Tweet updateStatus(String message);
-   
-   
-   public Tweet updateStatus();
-   
-   
-   
-   /**
-    * 
-    * Check the credential of the user 
-    * 
-    * @return the crendential of the user
-    */
-   public UserProfile verifyCrendentials();
 
 }

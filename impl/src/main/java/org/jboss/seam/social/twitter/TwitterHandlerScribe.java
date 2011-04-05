@@ -33,10 +33,9 @@ import org.scribe.builder.api.Api;
 import org.scribe.builder.api.TwitterApi;
 
 /**
- * @author antoine
+ * @author Antoine Sabot-Durand
  * 
  */
-//@Typed(TwitterHandler.class)
 @Named("twitterHdl")
 @SessionScoped
 public class TwitterHandlerScribe extends OAuthServiceHandlerScribe implements TwitterHandler
@@ -86,18 +85,7 @@ public class TwitterHandlerScribe extends OAuthServiceHandlerScribe implements T
       return API_CLASS;
    }
 
-   /*
-    * (non-Javadoc)
-    * 
-    * @see org.jboss.seam.social.twitter.TwitterHandler#verifyCrendentials()
-    */
-   @Override
-   public UserProfile verifyCrendentials()
-   {
-
-      return getUser();
-   }
-
+   
    /*
     * (non-Javadoc)
     * 

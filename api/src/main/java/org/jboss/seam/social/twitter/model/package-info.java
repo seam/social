@@ -17,5 +17,5 @@
 package org.jboss.seam.social.twitter.model;
 
 /**
-* This package contains model elements to store and send data to Twitter
-*/
+ * This package contains model elements to store and send data to Twitter
+ */

@@ -16,15 +16,15 @@
  */
 package org.jboss.seam.social.linkedin;
 
-
 import org.jboss.seam.social.oauth.HasStatus;
 import org.jboss.seam.social.oauth.OAuthServiceHandler;
 
 /**
- * A specialization of {@link OAuthServiceHandler} to add LinkedIn specific methods
+ * A specialization of {@link OAuthServiceHandler} to add LinkedIn specific
+ * methods
  * 
  * @author Antoine Sabot-Durand
- *
+ * 
  */
 public interface LinkedInHandler extends OAuthServiceHandler, HasStatus
 {

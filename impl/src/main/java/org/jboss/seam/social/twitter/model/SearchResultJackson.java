@@ -20,6 +20,11 @@ import java.util.List;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
+/**
+ * 
+ * @author Antoine Sabot-Durand
+ *
+ */
 
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class SearchResultJackson implements SearchResult

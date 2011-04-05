@@ -30,34 +30,34 @@ import javax.enterprise.util.Nonbinding;
 import javax.inject.Qualifier;
 
 /**
- * A CDI Qualifier annotation to qualify and set OAuthServiceHandler directly in the code
- * It can be used like this :
- *<pre>
- *    &#64;Inject
- *    &#64;Setted(apiKey="a consumer key", apiSecret="a consumer secret", callback="a call back URL")
- *    TwitterHandler service;
- *</pre>    
+ * A CDI Qualifier annotation to qualify and set OAuthServiceHandler directly in
+ * the code It can be used like this :
+ * 
+ * <pre>
+ * &#064;Inject
+ * &#064;Setted(apiKey = &quot;a consumer key&quot;, apiSecret = &quot;a consumer secret&quot;, callback = &quot;a call back URL&quot;)
+ * TwitterHandler service;
+ * </pre>
  * 
  * It's one of the alternates solution initialize an OAuth service configuration
  * 
  * @author Antoine Sabot-Durand
- *
+ * 
  */
 
 @Qualifier
 @Target({ TYPE, METHOD, PARAMETER, FIELD })
 @Retention(RUNTIME)
 @Documented
-
 public @interface Setted
 {
 
    @Nonbinding
    String apiKey() default "";
-   
+
    @Nonbinding
    String apiSecret() default "";
-   
+
    @Nonbinding
    String callback() default "oob";
 }

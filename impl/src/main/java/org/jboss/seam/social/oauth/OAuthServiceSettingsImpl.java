@@ -20,7 +20,7 @@ import java.io.Serializable;
 
 
 /**
- * @author antoine
+ * @author Antoine Sabot-Durand
  *
  */
 public class OAuthServiceSettingsImpl implements OAuthServiceSettings,Serializable

@@ -29,7 +29,7 @@ import org.scribe.model.Verifier;
 import org.scribe.oauth.OAuthService;
 
 /**
- * @author antoine
+ * @author Antoine Sabot-Durand
  * 
  */
 
@@ -235,9 +235,9 @@ public abstract class OAuthServiceHandlerScribe implements OAuthServiceHandler, 
    }
 
    @Override
-   public void setAccessToken(String api, String secret)
+   public void setAccessToken(String token, String secret)
    {
-      accessToken = new OAuthTokenScribe(api, secret);
+      accessToken = new OAuthTokenScribe(token, secret);
 
    }
 

@@ -21,7 +21,7 @@ import javax.enterprise.inject.spi.InjectionPoint;
 import org.jboss.seam.social.oauth.SettedHandlerProducer;
 
 /**
- * @author antoine
+ * @author Antoine Sabot-Durand
  *
  */
 public class TwitterProducer extends SettedHandlerProducer

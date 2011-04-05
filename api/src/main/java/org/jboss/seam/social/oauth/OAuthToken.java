@@ -23,12 +23,20 @@ import java.io.Serializable;
  * Implementation of this interface represents an OAuth Token
  * 
  * @author Antoine Sabot-Durand
- *
+ * 
  */
 public interface OAuthToken extends Serializable
 {
 
+   /**
+    * 
+    * @return api key of the OAuth application
+    */
    public String getToken();
-   
+
+   /**
+    * 
+    * @return api secret of the OAuth application
+    */
    public String getSecret();
 }
