@@ -20,7 +20,7 @@
 	</parent>
 	
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.jboss.seam</groupId>
+	<groupId>org.jboss.seam.social</groupId>
 	<artifactId>seam-social-example-web-client</artifactId>
 	<packaging>war</packaging>
 	<name>seam-social-example-web-client</name>
