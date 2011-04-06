@@ -31,9 +31,11 @@
       <fileSet>
          <directory>src/main/assembly</directory>
          <outputDirectory>.</outputDirectory>
+         <filtered>true</filtered>
          <includes>
             <include>readme.txt</include>
             <include>license.txt</include>
+            <include>notice.txt</include>
          </includes>
       </fileSet>
    </fileSets>
@@ -48,6 +50,7 @@
          </includes>
          <outputFileNameMapping>${artifact.artifactId}${dashClassifier?}.${artifact.extension}</outputFileNameMapping>
       </dependencySet>
+      
       <!-- Add necessary dependencies -->
       <dependencySet>
          <outputDirectory>lib</outputDirectory>
@@ -58,6 +61,7 @@
          </excludes>
          <outputFileNameMapping>${artifact.artifactId}${dashClassifier?}.${artifact.extension}</outputFileNameMapping>
       </dependencySet>
+      
       <!-- Pull in javadoc for api -->
       <dependencySet>
          <outputDirectory>doc/api</outputDirectory>
@@ -67,5 +71,20 @@
             <include>org.jboss.seam.social:seam-social-api:jar:javadoc</include>
          </includes>
       </dependencySet>
+      
+      <!-- Pull in docbook artifacts -->
+      <dependencySet>
+         <outputDirectory>doc/reference</outputDirectory>
+         <unpack>true</unpack>
+         <useProjectArtifact>false</useProjectArtifact>
+         <includes>
+            <include>org.jboss.seam.social:seam-social-reference-guide</include>
+         </includes>
+         <unpackOptions>
+            <excludes>
+               <exclude>META-INF/</exclude>
+            </excludes>
+         </unpackOptions>
+      </dependencySet>      
    </dependencySets>
 </assembly>

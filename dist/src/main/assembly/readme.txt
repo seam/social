@@ -1,6 +1,6 @@
 
                               Seam Social Module
-                               3.0.0 SNAPSHOT
+                               ${project.version}
 
  What is it?
  ===========
@@ -26,7 +26,7 @@
  =========
 
  This distribution, as a whole, is licensed under the terms of the Apache
- License, Version 2.0 (see apl.txt).
+ License, Version 2.0 (see license.txt).
 
  Seam Social URLs
  ===============
