@@ -104,6 +104,41 @@
                </options>
             </configuration>
          </plugin>
+         
+         <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>build-helper-maven-plugin</artifactId>
+            <executions>
+               <execution>
+                  <id>attach-zip</id>
+                  <phase>package</phase>
+                  <goals>
+                     <goal>attach-artifact</goal>
+                  </goals>
+                  <configuration>
+                     <artifacts>
+                        <artifact>
+                           <file>${project.build.outputDirectory}/${project.artifactId}-${project.version}.war</file>
+                           <type>war</type>
+                        </artifact>
+                     </artifacts>
+                  </configuration>
+               </execution>
+               
+               <execution>
+                 <id>attach-source</id>
+                 <phase>generate-sources</phase>
+                 <goals>
+                   <goal>add-source</goal>
+                 </goals>
+                 <configuration>
+                   <sources>
+                     <source>src/main/docbook/en-US</source>
+                   </sources>
+                 </configuration>
+               </execution>                
+            </executions>
+         </plugin>         
       </plugins>
    </build>
 </project>

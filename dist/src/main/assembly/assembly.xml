@@ -33,7 +33,7 @@
          <outputDirectory>.</outputDirectory>
          <includes>
             <include>readme.txt</include>
-            <include>apl.txt</include>
+            <include>license.txt</include>
          </includes>
       </fileSet>
    </fileSets>
@@ -44,7 +44,6 @@
          <outputDirectory>artifacts</outputDirectory>
          <useProjectArtifact>false</useProjectArtifact>
          <includes>
-            <include>org.jboss.seam.social:seam-social-api</include>
             <include>org.jboss.seam.social:seam-social</include>
          </includes>
          <outputFileNameMapping>${artifact.artifactId}${dashClassifier?}.${artifact.extension}</outputFileNameMapping>
@@ -61,7 +60,7 @@
       </dependencySet>
       <!-- Pull in javadoc for api -->
       <dependencySet>
-         <outputDirectory>doc/apidocs</outputDirectory>
+         <outputDirectory>doc/api</outputDirectory>
          <unpack>true</unpack>
          <useProjectArtifact>false</useProjectArtifact>
          <includes>
