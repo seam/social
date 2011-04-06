@@ -62,6 +62,16 @@
          <outputFileNameMapping>${artifact.artifactId}${dashClassifier?}.${artifact.extension}</outputFileNameMapping>
       </dependencySet>
       
+      <!-- Pull in the example projects -->
+      <dependencySet>
+         <outputDirectory>examples</outputDirectory>
+         <unpack>true</unpack>
+         <useProjectArtifact>false</useProjectArtifact>
+         <includes>
+            <include>org.jboss.seam.social:seam-social-example-web-client</include>
+         </includes>
+      </dependencySet>      
+      
       <!-- Pull in javadoc for api -->
       <dependencySet>
          <outputDirectory>doc/api</outputDirectory>
