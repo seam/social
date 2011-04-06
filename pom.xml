@@ -20,7 +20,7 @@
 
 	<artifactId>seam-social-parent</artifactId>
 	<groupId>org.jboss.seam.social</groupId>
-	<version>3.0.0-SNAPSHOT</version>
+	<version>3.0.0.Alpha1</version>
 	<packaging>pom</packaging>
 	<name>Seam Social Module</name>
 	<description>Integration of social networks with CDI</description>
