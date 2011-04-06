@@ -18,14 +18,15 @@
 		<version>3.0.0-SNAPSHOT</version>
 		<relativePath>../../pom.xml</relativePath>
 	</parent>
+	
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.jboss.seam</groupId>
-	<artifactId>seam-social-web-client</artifactId>
+	<artifactId>seam-social-example-web-client</artifactId>
 	<packaging>war</packaging>
-	<name>seam-social-web-client</name>
+	<name>seam-social-example-web-client</name>
 
 	<build>
-		<finalName>seam-social-web-client</finalName>
+		<finalName>social-web-client</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -113,6 +114,23 @@
 				<selenium.browser>*chrome</selenium.browser>
 			</properties>
 		</profile>
+		
+      <profile>
+         <id>distribution</id>
+         <activation>
+            <property>
+               <name>release</name>
+            </property>
+         </activation>
+         <build>
+            <plugins>
+               <plugin>
+                  <groupId>org.apache.maven.plugins</groupId>
+                  <artifactId>maven-assembly-plugin</artifactId>
+               </plugin>
+            </plugins>
+         </build>
+      </profile>   		
 	</profiles>
 
 </project>
