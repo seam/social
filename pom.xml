@@ -40,7 +40,6 @@
 		<module>api</module>
 		<module>impl</module>
 		<module>combined</module>
-		<module>examples/web-client</module>
 	</modules>
 
 	<properties>
@@ -106,8 +105,9 @@
 				</property>
 			</activation>
 			<modules>
-				<module>docs/reference</module>
+				<module>docs</module>
 				<module>dist</module>
+				<module>examples/web-client</module>
 			</modules>
 		</profile>
 		<profile>
