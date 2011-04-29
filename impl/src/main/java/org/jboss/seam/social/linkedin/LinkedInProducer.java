@@ -21,16 +21,14 @@ import javax.enterprise.inject.spi.InjectionPoint;
 import org.jboss.seam.social.oauth.SettedHandlerProducer;
 
 /**
- * @author Antoine Sabot-Durand 
- *
+ * @author Antoine Sabot-Durand
+ * 
  */
-public class LinkedInProducer extends SettedHandlerProducer
-{
+public class LinkedInProducer extends SettedHandlerProducer {
 
-  // @Produces @Setted
-   public LinkedInHandler produceLinkedInHandler(InjectionPoint ip, LinkedInHandler hdl)
-   {
-      return setService(ip, hdl);
-   }
-   
+    // @Produces @Setted
+    public LinkedInHandler produceLinkedInHandler(InjectionPoint ip, LinkedInHandler hdl) {
+        return setService(ip, hdl);
+    }
+
 }

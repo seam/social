@@ -25,7 +25,6 @@ import org.jboss.seam.social.oauth.UserProfile;
  * @author Antoine Sabot-Durand
  * 
  */
-public interface User extends UserProfile
-{
+public interface User extends UserProfile {
 
 }

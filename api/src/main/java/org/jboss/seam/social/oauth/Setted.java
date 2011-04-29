@@ -30,8 +30,7 @@ import javax.enterprise.util.Nonbinding;
 import javax.inject.Qualifier;
 
 /**
- * A CDI Qualifier annotation to qualify and set OAuthServiceHandler directly in
- * the code It can be used like this :
+ * A CDI Qualifier annotation to qualify and set OAuthServiceHandler directly in the code It can be used like this :
  * 
  * <pre>
  * &#064;Inject
@@ -49,15 +48,14 @@ import javax.inject.Qualifier;
 @Target({ TYPE, METHOD, PARAMETER, FIELD })
 @Retention(RUNTIME)
 @Documented
-public @interface Setted
-{
+public @interface Setted {
 
-   @Nonbinding
-   String apiKey() default "";
+    @Nonbinding
+    String apiKey() default "";
 
-   @Nonbinding
-   String apiSecret() default "";
+    @Nonbinding
+    String apiSecret() default "";
 
-   @Nonbinding
-   String callback() default "oob";
+    @Nonbinding
+    String callback() default "oob";
 }

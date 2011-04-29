@@ -23,19 +23,18 @@ package org.jboss.seam.social.oauth;
  * @author Antoine Sabot-Durand
  * 
  */
-public interface UserProfile
-{
+public interface UserProfile {
 
-   /**
-    * 
-    * @return the user's full name 
-    */
-   public String getFullName();
+    /**
+     * 
+     * @return the user's full name
+     */
+    public String getFullName();
 
-   /**
-    * 
-    * @return the user's picture url
-    */
-   public String getPictureUrl();
+    /**
+     * 
+     * @return the user's picture url
+     */
+    public String getPictureUrl();
 
 }

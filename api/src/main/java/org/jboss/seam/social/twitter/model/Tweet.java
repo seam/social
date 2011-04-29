@@ -24,47 +24,46 @@ package org.jboss.seam.social.twitter.model;
  * @author Antoine Sabot-Durand
  * 
  */
-public interface Tweet
-{
+public interface Tweet {
 
-   public long getId();
+    public long getId();
 
-   public void setId(long id);
+    public void setId(long id);
 
-   public String getText();
+    public String getText();
 
-   public void setText(String text);
+    public void setText(String text);
 
-   public String getCreatedAt();
+    public String getCreatedAt();
 
-   public void setCreatedAt(String createdAt);
+    public void setCreatedAt(String createdAt);
 
-   public String getFromUser();
+    public String getFromUser();
 
-   public void setFromUser(String fromUser);
+    public void setFromUser(String fromUser);
 
-   public String getProfileImageUrl();
+    public String getProfileImageUrl();
 
-   public void setProfileImageUrl(String profileImageUrl);
+    public void setProfileImageUrl(String profileImageUrl);
 
-   public Long getToUserId();
+    public Long getToUserId();
 
-   public void setToUserId(Long toUserId);
+    public void setToUserId(Long toUserId);
 
-   public long getFromUserId();
+    public long getFromUserId();
 
-   public void setFromUserId(long fromUserId);
+    public void setFromUserId(long fromUserId);
 
-   public String getLanguageCode();
+    public String getLanguageCode();
 
-   public void setLanguageCode(String languageCode);
+    public void setLanguageCode(String languageCode);
 
-   public String getSource();
+    public String getSource();
 
-   public void setSource(String source);
+    public void setSource(String source);
 
-   public String getFromUserIdStr();
+    public String getFromUserIdStr();
 
-   public void setFromUserIdStr(String fromUserIdStr);
+    public void setFromUserIdStr(String fromUserIdStr);
 
 }

@@ -25,39 +25,38 @@ import java.util.Map;
  * @author Antoine Sabot-Durand
  * 
  */
-public interface HttpResponse
-{
+public interface HttpResponse {
 
-   /**
-    * 
-    * @return the body of the response in a {@link String}
-    */
-   public String getBody();
+    /**
+     * 
+     * @return the body of the response in a {@link String}
+     */
+    public String getBody();
 
-   /**
-    * 
-    * @return the body of the response in a {@link InputStream}
-    */
-   public InputStream getStream();
+    /**
+     * 
+     * @return the body of the response in a {@link InputStream}
+     */
+    public InputStream getStream();
 
-   /**
-    * 
-    * @return the HTTP return code of the response
-    */
-   public int getCode();
+    /**
+     * 
+     * @return the HTTP return code of the response
+     */
+    public int getCode();
 
-   /**
-    * 
-    * @return the HTTP Response headers in {@link Map}
-    */
-   public Map<String, String> getHeaders();
+    /**
+     * 
+     * @return the HTTP Response headers in {@link Map}
+     */
+    public Map<String, String> getHeaders();
 
-   /**
-    * 
-    * 
-    * @param name of the HTTP header
-    * @return the value of the HTTP header
-    */
-   public String getHeader(String name);
+    /**
+     * 
+     * 
+     * @param name of the HTTP header
+     * @return the value of the HTTP header
+     */
+    public String getHeader(String name);
 
 }

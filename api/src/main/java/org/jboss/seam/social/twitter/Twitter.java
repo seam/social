@@ -37,7 +37,6 @@ import javax.inject.Qualifier;
  * @author Antoine Sabot-Durand
  *
  */
-public @interface Twitter
-{
+public @interface Twitter {
 
 }

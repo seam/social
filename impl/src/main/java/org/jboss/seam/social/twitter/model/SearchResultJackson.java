@@ -20,76 +20,81 @@ import java.util.List;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
+
 /**
  * 
  * @author Antoine Sabot-Durand
- *
+ * 
  */
 
-@JsonIgnoreProperties(ignoreUnknown=true)
-public class SearchResultJackson implements SearchResult
-{
-   private List<Tweet> results;
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class SearchResultJackson implements SearchResult {
+    private List<Tweet> results;
 
-   @JsonProperty(value = "max_id")
-   private long maxId;
+    @JsonProperty(value = "max_id")
+    private long maxId;
 
-   @JsonProperty(value = "since_id")
-   private long sinceId;
+    @JsonProperty(value = "since_id")
+    private long sinceId;
 
-   /* (non-Javadoc)
-    * @see org.jboss.seam.social.twitter.domain.SearchResult#getResults()
-    */
-   @Override
-   public List<Tweet> getResults()
-   {
-      return results;
-   }
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.jboss.seam.social.twitter.domain.SearchResult#getResults()
+     */
+    @Override
+    public List<Tweet> getResults() {
+        return results;
+    }
 
-   /* (non-Javadoc)
-    * @see org.jboss.seam.social.twitter.domain.SearchResult#setResults(java.util.List)
-    */
-   @Override
-   public void setResults(List<Tweet> results)
-   {
-      this.results = results;
-   }
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.jboss.seam.social.twitter.domain.SearchResult#setResults(java.util.List)
+     */
+    @Override
+    public void setResults(List<Tweet> results) {
+        this.results = results;
+    }
 
-   /* (non-Javadoc)
-    * @see org.jboss.seam.social.twitter.domain.SearchResult#getMaxId()
-    */
-   @Override
-   public long getMaxId()
-   {
-      return maxId;
-   }
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.jboss.seam.social.twitter.domain.SearchResult#getMaxId()
+     */
+    @Override
+    public long getMaxId() {
+        return maxId;
+    }
 
-   /* (non-Javadoc)
-    * @see org.jboss.seam.social.twitter.domain.SearchResult#setMaxId(long)
-    */
-   @Override
-   public void setMaxId(long maxId)
-   {
-      this.maxId = maxId;
-   }
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.jboss.seam.social.twitter.domain.SearchResult#setMaxId(long)
+     */
+    @Override
+    public void setMaxId(long maxId) {
+        this.maxId = maxId;
+    }
 
-   /* (non-Javadoc)
-    * @see org.jboss.seam.social.twitter.domain.SearchResult#getSinceId()
-    */
-   @Override
-   public long getSinceId()
-   {
-      return sinceId;
-   }
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.jboss.seam.social.twitter.domain.SearchResult#getSinceId()
+     */
+    @Override
+    public long getSinceId() {
+        return sinceId;
+    }
 
-   /* (non-Javadoc)
-    * @see org.jboss.seam.social.twitter.domain.SearchResult#setSinceId(long)
-    */
-   @Override
-   public void setSinceId(long sinceId)
-   {
-      this.sinceId = sinceId;
-   }
-   
-   
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.jboss.seam.social.twitter.domain.SearchResult#setSinceId(long)
+     */
+    @Override
+    public void setSinceId(long sinceId) {
+        this.sinceId = sinceId;
+    }
+
 }

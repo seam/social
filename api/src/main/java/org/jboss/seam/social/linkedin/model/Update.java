@@ -18,49 +18,47 @@ package org.jboss.seam.social.linkedin.model;
 
 /**
  * 
- * Implementation of this Interface will contain an update ready to be sent to
- * LinkedIn
+ * Implementation of this Interface will contain an update ready to be sent to LinkedIn
  * 
  * @author Antoine Sabot-Durand
  * 
  */
-public interface Update
-{
+public interface Update {
 
-   /**
-    * 
-    * @return
-    */
-   public String getLocale();
+    /**
+     * 
+     * @return
+     */
+    public String getLocale();
 
-   /**
-    * 
-    * @param locale
-    */
-   public void setLocale(String locale);
+    /**
+     * 
+     * @param locale
+     */
+    public void setLocale(String locale);
 
-   /**
-    * 
-    * @return
-    */
-   public String getContentType();
+    /**
+     * 
+     * @return
+     */
+    public String getContentType();
 
-   /**
-    * 
-    * @param contentType
-    */
-   public void setContentType(String contentType);
+    /**
+     * 
+     * @param contentType
+     */
+    public void setContentType(String contentType);
 
-   /**
-    * 
-    * @return
-    */
-   public String getBody();
+    /**
+     * 
+     * @return
+     */
+    public String getBody();
 
-   /**
-    * 
-    * @param body
-    */
-   public void setBody(String body);
+    /**
+     * 
+     * @param body
+     */
+    public void setBody(String body);
 
 }

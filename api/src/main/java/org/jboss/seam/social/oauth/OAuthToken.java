@@ -25,18 +25,17 @@ import java.io.Serializable;
  * @author Antoine Sabot-Durand
  * 
  */
-public interface OAuthToken extends Serializable
-{
+public interface OAuthToken extends Serializable {
 
-   /**
-    * 
-    * @return api key of the OAuth application
-    */
-   public String getToken();
+    /**
+     * 
+     * @return api key of the OAuth application
+     */
+    public String getToken();
 
-   /**
-    * 
-    * @return api secret of the OAuth application
-    */
-   public String getSecret();
+    /**
+     * 
+     * @return api secret of the OAuth application
+     */
+    public String getSecret();
 }

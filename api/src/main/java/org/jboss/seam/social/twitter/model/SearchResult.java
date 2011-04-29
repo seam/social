@@ -21,25 +21,23 @@ import org.jboss.seam.social.twitter.TwitterHandler;
 
 /**
  * 
- * Implementation of this interface contains a Twitter search result It is
- * returned by {@link TwitterHandler#search()}
+ * Implementation of this interface contains a Twitter search result It is returned by {@link TwitterHandler#search()}
  * 
  * @author Antoine Sabot-Durand
  * 
  */
-public interface SearchResult
-{
+public interface SearchResult {
 
-   public List<Tweet> getResults();
+    public List<Tweet> getResults();
 
-   public void setResults(List<Tweet> results);
+    public void setResults(List<Tweet> results);
 
-   public long getMaxId();
+    public long getMaxId();
 
-   public void setMaxId(long maxId);
+    public void setMaxId(long maxId);
 
-   public long getSinceId();
+    public long getSinceId();
 
-   public void setSinceId(long sinceId);
+    public void setSinceId(long sinceId);
 
 }

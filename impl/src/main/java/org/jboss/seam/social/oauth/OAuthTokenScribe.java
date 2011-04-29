@@ -20,52 +20,44 @@ import org.scribe.model.Token;
 
 /**
  * @author Antoine Sabot-Durand
- *
+ * 
  */
-public class OAuthTokenScribe  implements OAuthToken
-{
+public class OAuthTokenScribe implements OAuthToken {
 
-   private static final long serialVersionUID = 6598671815429418539L;
-   
-   protected Token delegate;
+    private static final long serialVersionUID = 6598671815429418539L;
 
-   /**
-    * @param token
-    * @param secret
-    */
-   public OAuthTokenScribe(String token, String secret)
-   {
-      delegate = new Token(token, secret);
-   }
+    protected Token delegate;
 
-   protected OAuthTokenScribe(Token delegate)
-   {
-      this.delegate = delegate;
-   }
+    /**
+     * @param token
+     * @param secret
+     */
+    public OAuthTokenScribe(String token, String secret) {
+        delegate = new Token(token, secret);
+    }
 
-   public String getToken()
-   {
-      return delegate.getToken();
-   }
+    protected OAuthTokenScribe(Token delegate) {
+        this.delegate = delegate;
+    }
 
-   public String getSecret()
-   {
-      return delegate.getSecret();
-   }
+    public String getToken() {
+        return delegate.getToken();
+    }
 
-   public String toString()
-   {
-      return delegate.toString();
-   }
+    public String getSecret() {
+        return delegate.getSecret();
+    }
 
-   public int hashCode()
-   {
-      return delegate.hashCode();
-   }
+    public String toString() {
+        return delegate.toString();
+    }
 
-   public boolean equals(Object obj)
-   {
-      return delegate.equals(obj);
-   }
+    public int hashCode() {
+        return delegate.hashCode();
+    }
+
+    public boolean equals(Object obj) {
+        return delegate.equals(obj);
+    }
 
 }

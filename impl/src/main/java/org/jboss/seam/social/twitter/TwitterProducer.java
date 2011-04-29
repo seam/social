@@ -22,14 +22,12 @@ import org.jboss.seam.social.oauth.SettedHandlerProducer;
 
 /**
  * @author Antoine Sabot-Durand
- *
+ * 
  */
-public class TwitterProducer extends SettedHandlerProducer
-{
-  // @Produces @Setted
-   public TwitterHandler produceTwitterHandler(InjectionPoint ip, TwitterHandler hdl)
-   {
-      return setService(ip, hdl);
-   }
+public class TwitterProducer extends SettedHandlerProducer {
+    // @Produces @Setted
+    public TwitterHandler produceTwitterHandler(InjectionPoint ip, TwitterHandler hdl) {
+        return setService(ip, hdl);
+    }
 
 }

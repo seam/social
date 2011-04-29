@@ -22,220 +22,237 @@ import org.codehaus.jackson.annotate.JsonProperty;
 /**
  * 
  * @author Antoine Sabot-Durand
- *
+ * 
  */
 
-@JsonIgnoreProperties(ignoreUnknown=true)
-public class TweetJackson implements Tweet
-{
-   
-   private long id;
-   
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class TweetJackson implements Tweet {
 
-   private String text;
-   
-   @JsonProperty(value="created_at")
-   private String createdAt;
-   
-   @JsonProperty(value="from_user")
-   private String fromUser;
-   
-   @JsonProperty(value="profile_image_url")
-   private String profileImageUrl;
-   
-   @JsonProperty(value="to_user_id")
-   private Long toUserId;
-   
-   @JsonProperty(value="from_user_id")
-   private long fromUserId;
-   
-   @JsonProperty(value="language_code")
-   private String languageCode;
-   
-   private String source;
+    private long id;
 
-   @JsonProperty(value="from_user_id_str")
-   private String fromUserIdStr;
+    private String text;
 
-   /* (non-Javadoc)
-    * @see org.jboss.seam.social.twitter.domain.Tweet#getId()
-    */
-   @Override
-   public long getId()
-   {
-      return id;
-   }
+    @JsonProperty(value = "created_at")
+    private String createdAt;
 
-   /* (non-Javadoc)
-    * @see org.jboss.seam.social.twitter.domain.Tweet#setId(long)
-    */
-   @Override
-   public void setId(long id)
-   {
-      this.id = id;
-   }
+    @JsonProperty(value = "from_user")
+    private String fromUser;
 
-   /* (non-Javadoc)
-    * @see org.jboss.seam.social.twitter.domain.Tweet#getText()
-    */
-   @Override
-   public String getText()
-   {
-      return text;
-   }
+    @JsonProperty(value = "profile_image_url")
+    private String profileImageUrl;
 
-   /* (non-Javadoc)
-    * @see org.jboss.seam.social.twitter.domain.Tweet#setText(java.lang.String)
-    */
-   @Override
-   public void setText(String text)
-   {
-      this.text = text;
-   }
+    @JsonProperty(value = "to_user_id")
+    private Long toUserId;
 
-   /* (non-Javadoc)
-    * @see org.jboss.seam.social.twitter.domain.Tweet#getCreatedAt()
-    */
-   @Override
-   public String getCreatedAt()
-   {
-      return createdAt;
-   }
+    @JsonProperty(value = "from_user_id")
+    private long fromUserId;
 
-   /* (non-Javadoc)
-    * @see org.jboss.seam.social.twitter.domain.Tweet#setCreatedAt(java.lang.String)
-    */
-   @Override
-   public void setCreatedAt(String createdAt)
-   {
-      this.createdAt = createdAt;
-   }
+    @JsonProperty(value = "language_code")
+    private String languageCode;
 
-   /* (non-Javadoc)
-    * @see org.jboss.seam.social.twitter.domain.Tweet#getFromUser()
-    */
-   @Override
-   public String getFromUser()
-   {
-      return fromUser;
-   }
+    private String source;
 
-   /* (non-Javadoc)
-    * @see org.jboss.seam.social.twitter.domain.Tweet#setFromUser(java.lang.String)
-    */
-   @Override
-   public void setFromUser(String fromUser)
-   {
-      this.fromUser = fromUser;
-   }
+    @JsonProperty(value = "from_user_id_str")
+    private String fromUserIdStr;
 
-   /* (non-Javadoc)
-    * @see org.jboss.seam.social.twitter.domain.Tweet#getProfileImageUrl()
-    */
-   @Override
-   public String getProfileImageUrl()
-   {
-      return profileImageUrl;
-   }
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.jboss.seam.social.twitter.domain.Tweet#getId()
+     */
+    @Override
+    public long getId() {
+        return id;
+    }
 
-   /* (non-Javadoc)
-    * @see org.jboss.seam.social.twitter.domain.Tweet#setProfileImageUrl(java.lang.String)
-    */
-   @Override
-   public void setProfileImageUrl(String profileImageUrl)
-   {
-      this.profileImageUrl = profileImageUrl;
-   }
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.jboss.seam.social.twitter.domain.Tweet#setId(long)
+     */
+    @Override
+    public void setId(long id) {
+        this.id = id;
+    }
 
-   /* (non-Javadoc)
-    * @see org.jboss.seam.social.twitter.domain.Tweet#getToUserId()
-    */
-   @Override
-   public Long getToUserId()
-   {
-      return toUserId;
-   }
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.jboss.seam.social.twitter.domain.Tweet#getText()
+     */
+    @Override
+    public String getText() {
+        return text;
+    }
 
-   /* (non-Javadoc)
-    * @see org.jboss.seam.social.twitter.domain.Tweet#setToUserId(java.lang.Long)
-    */
-   @Override
-   public void setToUserId(Long toUserId)
-   {
-      this.toUserId = toUserId;
-   }
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.jboss.seam.social.twitter.domain.Tweet#setText(java.lang.String)
+     */
+    @Override
+    public void setText(String text) {
+        this.text = text;
+    }
 
-   /* (non-Javadoc)
-    * @see org.jboss.seam.social.twitter.domain.Tweet#getFromUserId()
-    */
-   @Override
-   public long getFromUserId()
-   {
-      return fromUserId;
-   }
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.jboss.seam.social.twitter.domain.Tweet#getCreatedAt()
+     */
+    @Override
+    public String getCreatedAt() {
+        return createdAt;
+    }
 
-   /* (non-Javadoc)
-    * @see org.jboss.seam.social.twitter.domain.Tweet#setFromUserId(long)
-    */
-   @Override
-   public void setFromUserId(long fromUserId)
-   {
-      this.fromUserId = fromUserId;
-   }
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.jboss.seam.social.twitter.domain.Tweet#setCreatedAt(java.lang.String)
+     */
+    @Override
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
 
-   /* (non-Javadoc)
-    * @see org.jboss.seam.social.twitter.domain.Tweet#getLanguageCode()
-    */
-   @Override
-   public String getLanguageCode()
-   {
-      return languageCode;
-   }
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.jboss.seam.social.twitter.domain.Tweet#getFromUser()
+     */
+    @Override
+    public String getFromUser() {
+        return fromUser;
+    }
 
-   /* (non-Javadoc)
-    * @see org.jboss.seam.social.twitter.domain.Tweet#setLanguageCode(java.lang.String)
-    */
-   @Override
-   public void setLanguageCode(String languageCode)
-   {
-      this.languageCode = languageCode;
-   }
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.jboss.seam.social.twitter.domain.Tweet#setFromUser(java.lang.String)
+     */
+    @Override
+    public void setFromUser(String fromUser) {
+        this.fromUser = fromUser;
+    }
 
-   /* (non-Javadoc)
-    * @see org.jboss.seam.social.twitter.domain.Tweet#getSource()
-    */
-   @Override
-   public String getSource()
-   {
-      return source;
-   }
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.jboss.seam.social.twitter.domain.Tweet#getProfileImageUrl()
+     */
+    @Override
+    public String getProfileImageUrl() {
+        return profileImageUrl;
+    }
 
-   /* (non-Javadoc)
-    * @see org.jboss.seam.social.twitter.domain.Tweet#setSource(java.lang.String)
-    */
-   @Override
-   public void setSource(String source)
-   {
-      this.source = source;
-   }
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.jboss.seam.social.twitter.domain.Tweet#setProfileImageUrl(java.lang.String)
+     */
+    @Override
+    public void setProfileImageUrl(String profileImageUrl) {
+        this.profileImageUrl = profileImageUrl;
+    }
 
-   /* (non-Javadoc)
-    * @see org.jboss.seam.social.twitter.domain.Tweet#getFromUserIdStr()
-    */
-   @Override
-   public String getFromUserIdStr()
-   {
-      return fromUserIdStr;
-   }
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.jboss.seam.social.twitter.domain.Tweet#getToUserId()
+     */
+    @Override
+    public Long getToUserId() {
+        return toUserId;
+    }
 
-   /* (non-Javadoc)
-    * @see org.jboss.seam.social.twitter.domain.Tweet#setFromUserIdStr(java.lang.String)
-    */
-   @Override
-   public void setFromUserIdStr(String fromUserIdStr)
-   {
-      this.fromUserIdStr = fromUserIdStr;
-   }
-   
-   
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.jboss.seam.social.twitter.domain.Tweet#setToUserId(java.lang.Long)
+     */
+    @Override
+    public void setToUserId(Long toUserId) {
+        this.toUserId = toUserId;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.jboss.seam.social.twitter.domain.Tweet#getFromUserId()
+     */
+    @Override
+    public long getFromUserId() {
+        return fromUserId;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.jboss.seam.social.twitter.domain.Tweet#setFromUserId(long)
+     */
+    @Override
+    public void setFromUserId(long fromUserId) {
+        this.fromUserId = fromUserId;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.jboss.seam.social.twitter.domain.Tweet#getLanguageCode()
+     */
+    @Override
+    public String getLanguageCode() {
+        return languageCode;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.jboss.seam.social.twitter.domain.Tweet#setLanguageCode(java.lang.String)
+     */
+    @Override
+    public void setLanguageCode(String languageCode) {
+        this.languageCode = languageCode;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.jboss.seam.social.twitter.domain.Tweet#getSource()
+     */
+    @Override
+    public String getSource() {
+        return source;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.jboss.seam.social.twitter.domain.Tweet#setSource(java.lang.String)
+     */
+    @Override
+    public void setSource(String source) {
+        this.source = source;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.jboss.seam.social.twitter.domain.Tweet#getFromUserIdStr()
+     */
+    @Override
+    public String getFromUserIdStr() {
+        return fromUserIdStr;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.jboss.seam.social.twitter.domain.Tweet#setFromUserIdStr(java.lang.String)
+     */
+    @Override
+    public void setFromUserIdStr(String fromUserIdStr) {
+        this.fromUserIdStr = fromUserIdStr;
+    }
+
 }

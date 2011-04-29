@@ -38,163 +38,139 @@ import org.jboss.seam.social.oauth.UserProfile;
 import org.scribe.builder.api.Api;
 import org.scribe.builder.api.LinkedInApi;
 
-
 /**
  * @author Antoine Sabot-Durand
  * 
  */
 @Named("linkedHdl")
 @SessionScoped
-public class LinkedInHanlderScribe extends OAuthServiceHandlerScribe implements LinkedInHandler
-{
+public class LinkedInHanlderScribe extends OAuthServiceHandlerScribe implements LinkedInHandler {
 
-   private static final long serialVersionUID = -6718362913575146613L;
+    private static final long serialVersionUID = -6718362913575146613L;
 
-   static final String USER_PROFILE_URL = "http://api.linkedin.com/v1/people/~:(first-name,last-name,headline,picture-url,site-standard-profile-request:(url))";
-   static final Class<? extends Api> API_CLASS = LinkedInApi.class;
-   static final String LOGO_URL = "https://d2l6uygi1pgnys.cloudfront.net/1-9-05/images/buttons/linkedin_connect.png";
-   static final String TYPE = "LinkedIn";
-   static final String NETWORK_UPDATE_URL = "http://api.linkedin.com/v1/people/~/person-activities";
+    static final String USER_PROFILE_URL = "http://api.linkedin.com/v1/people/~:(first-name,last-name,headline,picture-url,site-standard-profile-request:(url))";
+    static final Class<? extends Api> API_CLASS = LinkedInApi.class;
+    static final String LOGO_URL = "https://d2l6uygi1pgnys.cloudfront.net/1-9-05/images/buttons/linkedin_connect.png";
+    static final String TYPE = "LinkedIn";
+    static final String NETWORK_UPDATE_URL = "http://api.linkedin.com/v1/people/~/person-activities";
 
-   JAXBContext context;
-   Unmarshaller unmarshaller;
-   Marshaller marshaller;
+    JAXBContext context;
+    Unmarshaller unmarshaller;
+    Marshaller marshaller;
 
-   @PostConstruct
-   protected void init()
-   {
-      try
-      {
-         context = JAXBContext.newInstance("org.jboss.seam.social.linkedin.model");
-         unmarshaller = context.createUnmarshaller();
-         marshaller = context.createMarshaller();
-         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-      }
-      catch (JAXBException e)
-      {
-         // TODO Auto-generated catch block
-         e.printStackTrace();
-      }
-   }
-
-   @Override
-   @Inject
-   public void setSettings(@LinkedIn OAuthServiceSettings settings)
-   {
-      super.setSettings(settings);
-
-   }
-
-   /*
-    * (non-Javadoc)
-    * 
-    * @see org.jboss.seam.social.oauth.OAuthServiceHandlerScribe#getApiClass()
-    */
-   @Override
-   protected Class<? extends Api> getApiClass()
-   {
-      return API_CLASS;
-   }
-
-   /*
-    * (non-Javadoc)
-    * 
-    * @see org.jboss.seam.social.oauth.OAuthServiceHandler#getServiceLogo()
-    */
-   @Override
-   public String getServiceLogo()
-   {
-      return LOGO_URL;
-   }
-
-   /*
-    * (non-Javadoc)
-    * 
-    * @see org.jboss.seam.social.oauth.OAuthServiceHandler#getUserProfile()
-    */
-   @Override
-   public UserProfile getUser()
-   {
-      if (userProfile == null)
-      {
-         HttpResponse resp = sendSignedRequest(RestVerb.GET, USER_PROFILE_URL);
-         try
-         {
-          //System.out.println(StreamUtils.getStreamContents(resp.getStream()));
-            userProfile = (UserProfile) unmarshaller.unmarshal(resp.getStream());
-         }
-         catch (JAXBException e)
-         {
+    @PostConstruct
+    protected void init() {
+        try {
+            context = JAXBContext.newInstance("org.jboss.seam.social.linkedin.model");
+            unmarshaller = context.createUnmarshaller();
+            marshaller = context.createMarshaller();
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+        } catch (JAXBException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-         }
-      }
-      return userProfile;
-   }
-   
-   
-   
-   protected Profile getLinkedInProfile()
-   {
-      return (Profile) getUser();
-   }
-   /*
-    * (non-Javadoc)
-    * 
-    * @see org.jboss.seam.social.oauth.OAuthServiceHandler#getType()
-    */
-   @Override
-   public String getType()
-   {
-      return TYPE;
-   }
+        }
+    }
 
-   /*
-    * (non-Javadoc)
-    * 
-    * @see org.jboss.seam.social.oauth.HasStatus#updateStatus()
-    */
-   @Override
-   public Object updateStatus()
-   {
+    @Override
+    @Inject
+    public void setSettings(@LinkedIn OAuthServiceSettings settings) {
+        super.setSettings(settings);
 
-      return updateStatus(getStatus());
-   }
+    }
 
-   /*
-    * (non-Javadoc)
-    * 
-    * @see org.jboss.seam.social.oauth.HasStatus#updateStatus(java.lang.String)
-    */
-   @Override
-   public Update updateStatus(String message)
-   {
-      Update upd = new UpdateJaxb();
-      String msg="<a href=\""+getLinkedInProfile().getStandardProfileUrl() +"\">"+ getUser().getFullName()+"</a> "+message;
-      upd.setBody(msg);
-      StringWriter writer = new StringWriter();
-      try
-      {
-         marshaller.marshal(upd, writer);
-      }
-      catch (JAXBException e)
-      {
-         // TODO Auto-generated catch block
-         e.printStackTrace();
-      }
-      String update = writer.toString();
- 
-      HttpResponse resp = sendSignedXmlRequest(RestVerb.POST, NETWORK_UPDATE_URL,update);
-      if (resp.getCode()==201)
-      {
-         setStatus("");
-         //everything is ok should notify caller
-      }
-      else
-      {
-         //something went wrong should we throw an exception ?
-      }
-      return upd;
-   }
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.jboss.seam.social.oauth.OAuthServiceHandlerScribe#getApiClass()
+     */
+    @Override
+    protected Class<? extends Api> getApiClass() {
+        return API_CLASS;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.jboss.seam.social.oauth.OAuthServiceHandler#getServiceLogo()
+     */
+    @Override
+    public String getServiceLogo() {
+        return LOGO_URL;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.jboss.seam.social.oauth.OAuthServiceHandler#getUserProfile()
+     */
+    @Override
+    public UserProfile getUser() {
+        if (userProfile == null) {
+            HttpResponse resp = sendSignedRequest(RestVerb.GET, USER_PROFILE_URL);
+            try {
+                // System.out.println(StreamUtils.getStreamContents(resp.getStream()));
+                userProfile = (UserProfile) unmarshaller.unmarshal(resp.getStream());
+            } catch (JAXBException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+        return userProfile;
+    }
+
+    protected Profile getLinkedInProfile() {
+        return (Profile) getUser();
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.jboss.seam.social.oauth.OAuthServiceHandler#getType()
+     */
+    @Override
+    public String getType() {
+        return TYPE;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.jboss.seam.social.oauth.HasStatus#updateStatus()
+     */
+    @Override
+    public Object updateStatus() {
+
+        return updateStatus(getStatus());
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.jboss.seam.social.oauth.HasStatus#updateStatus(java.lang.String)
+     */
+    @Override
+    public Update updateStatus(String message) {
+        Update upd = new UpdateJaxb();
+        String msg = "<a href=\"" + getLinkedInProfile().getStandardProfileUrl() + "\">" + getUser().getFullName() + "</a> "
+                + message;
+        upd.setBody(msg);
+        StringWriter writer = new StringWriter();
+        try {
+            marshaller.marshal(upd, writer);
+        } catch (JAXBException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        String update = writer.toString();
+
+        HttpResponse resp = sendSignedXmlRequest(RestVerb.POST, NETWORK_UPDATE_URL, update);
+        if (resp.getCode() == 201) {
+            setStatus("");
+            // everything is ok should notify caller
+        } else {
+            // something went wrong should we throw an exception ?
+        }
+        return upd;
+    }
 
 }

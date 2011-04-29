@@ -15,89 +15,90 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
- 
-   <modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-   <parent>
-      <groupId>org.jboss.seam.social</groupId>
-      <artifactId>seam-social-parent</artifactId>
-      <version>3.0.0-SNAPSHOT</version>
-   </parent>
+    <modelVersion>4.0.0</modelVersion>
 
-   <artifactId>seam-social-distribution</artifactId>
-   <name>Seam Social Distribution</name>
-   <description>Builds a Seam Social release distribution</description>
-   <packaging>pom</packaging>
+    <parent>
+        <groupId>org.jboss.seam.social</groupId>
+        <artifactId>seam-social-parent</artifactId>
+        <version>3.0.0-SNAPSHOT</version>
+    </parent>
 
-   <properties>
-      <maven.deploy.skip>true</maven.deploy.skip>
-   </properties>
+    <artifactId>seam-social-distribution</artifactId>
+    <name>Seam Social Distribution</name>
+    <description>Builds a Seam Social release distribution</description>
+    <packaging>pom</packaging>
 
-   <dependencies>
-      <dependency>
-         <groupId>org.jboss.seam.social</groupId>
-         <artifactId>seam-social</artifactId>
-      </dependency>
+    <properties>
+        <maven.deploy.skip>true</maven.deploy.skip>
+    </properties>
 
-      <dependency>
-         <groupId>org.jboss.seam.social</groupId>
-         <artifactId>seam-social-api</artifactId>
-      </dependency>
-      
-      <dependency>
-         <groupId>org.jboss.seam.social</groupId>
-         <artifactId>seam-social-impl</artifactId>
-      </dependency>      
-      
-      <dependency>
-         <groupId>org.jboss.seam.social</groupId>
-         <artifactId>seam-social-api</artifactId>
-         <version>${project.version}</version>
-         <classifier>sources</classifier>
-         <optional>true</optional>
-      </dependency>
+    <dependencies>
+        <dependency>
+            <groupId>org.jboss.seam.social</groupId>
+            <artifactId>seam-social</artifactId>
+        </dependency>
 
-      <dependency>
-         <groupId>org.jboss.seam.social</groupId>
-         <artifactId>seam-social-impl</artifactId>
-         <version>${project.version}</version>
-         <classifier>sources</classifier>
-         <optional>true</optional>
-      </dependency>
+        <dependency>
+            <groupId>org.jboss.seam.social</groupId>
+            <artifactId>seam-social-api</artifactId>
+        </dependency>
 
-      <dependency>
-         <groupId>org.jboss.seam.social</groupId>
-         <artifactId>seam-social-api</artifactId>
-         <version>${project.version}</version>
-         <classifier>javadoc</classifier>
-      </dependency>
+        <dependency>
+            <groupId>org.jboss.seam.social</groupId>
+            <artifactId>seam-social-impl</artifactId>
+        </dependency>
 
-      <dependency>
-         <groupId>org.jboss.seam.social</groupId>
-         <artifactId>seam-social-reference-guide</artifactId>
-         <version>${project.version}</version>
-         <type>war</type>
-         <optional>true</optional>
-      </dependency>      
-      
-      <dependency>
-         <groupId>org.jboss.seam.social</groupId>
-         <artifactId>seam-social-example-web-client</artifactId>
-         <version>${project.version}</version>
-         <type>zip</type>
-         <optional>true</optional>
-      </dependency>
-     
-   </dependencies>
+        <dependency>
+            <groupId>org.jboss.seam.social</groupId>
+            <artifactId>seam-social-api</artifactId>
+            <version>${project.version}</version>
+            <classifier>sources</classifier>
+            <optional>true</optional>
+        </dependency>
 
-   <build>
-      <finalName>seam-social</finalName>
-      <plugins>
-         <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-assembly-plugin</artifactId>
-         </plugin>
-      </plugins>
-   </build>
+        <dependency>
+            <groupId>org.jboss.seam.social</groupId>
+            <artifactId>seam-social-impl</artifactId>
+            <version>${project.version}</version>
+            <classifier>sources</classifier>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jboss.seam.social</groupId>
+            <artifactId>seam-social-api</artifactId>
+            <version>${project.version}</version>
+            <classifier>javadoc</classifier>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jboss.seam.social</groupId>
+            <artifactId>seam-social-reference-guide</artifactId>
+            <version>${project.version}</version>
+            <type>war</type>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jboss.seam.social</groupId>
+            <artifactId>seam-social-example-web-client</artifactId>
+            <version>${project.version}</version>
+            <type>zip</type>
+            <optional>true</optional>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <finalName>seam-social</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 </project>

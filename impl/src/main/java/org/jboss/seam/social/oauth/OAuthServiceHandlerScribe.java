@@ -33,233 +33,195 @@ import org.scribe.oauth.OAuthService;
  * 
  */
 
-public abstract class OAuthServiceHandlerScribe implements OAuthServiceHandler, Serializable
-{
+public abstract class OAuthServiceHandlerScribe implements OAuthServiceHandler, Serializable {
 
-   /**
+    /**
     * 
     */
-   private static final long serialVersionUID = -8423894021913341674L;
-   private static final String VERIFIER_PARAM_NAME = "oauth_verifier";
-   
-   private OAuthService service;
+    private static final long serialVersionUID = -8423894021913341674L;
+    private static final String VERIFIER_PARAM_NAME = "oauth_verifier";
 
-   protected OAuthTokenScribe requestToken;
-   protected OAuthTokenScribe accessToken;
+    private OAuthService service;
 
-   private Verifier verifier;
+    protected OAuthTokenScribe requestToken;
+    protected OAuthTokenScribe accessToken;
 
-   private Boolean connected = Boolean.FALSE;
+    private Verifier verifier;
 
-   protected UserProfile userProfile;
+    private Boolean connected = Boolean.FALSE;
 
-   private OAuthServiceSettings settings;
-   
- private String status;
+    protected UserProfile userProfile;
 
+    private OAuthServiceSettings settings;
 
-   
-   public String getStatus()
-   {
-      return status;
-   }
+    private String status;
 
-   public void setStatus(String status)
-   {
-      this.status = status;
-   }
+    public String getStatus() {
+        return status;
+    }
 
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
+    protected OAuthService getService() {
+        if (service == null)
+            initService();
+        return service;
+    }
 
+    private void initService() {
+        Class<? extends Api> apiClass = getApiClass();
+        ServiceBuilder serviceBuilder = new ServiceBuilder().provider(apiClass).apiKey(getSettings().getApiKey())
+                .apiSecret(getSettings().getApiSecret());
+        if (getSettings().getCallback() != null && !("".equals(getSettings().getCallback())))
+            serviceBuilder.callback(getSettings().getCallback());
+        service = serviceBuilder.build();
 
-   protected OAuthService getService()
-   {
-      if (service == null)
-         initService();
-      return service;
-   }
+    }
 
-   private void initService()
-   {
-      Class<? extends Api> apiClass = getApiClass();
-      ServiceBuilder serviceBuilder = new ServiceBuilder().provider(apiClass).apiKey(getSettings().getApiKey()).apiSecret(getSettings().getApiSecret());
-      if (getSettings().getCallback() != null && !("".equals(getSettings().getCallback())))
-         serviceBuilder.callback(getSettings().getCallback());
-      service = serviceBuilder.build();
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.jboss.seam.social.oauth.OAuthServiceHandlerScribe#getSettings()
+     */
+    @Override
+    public OAuthServiceSettings getSettings() {
+        return settings;
+    }
 
-   }
+    public void setSettings(OAuthServiceSettings settings) {
+        this.settings = settings;
+    }
 
-   /*
-    * (non-Javadoc)
-    * 
-    * @see org.jboss.seam.social.oauth.OAuthServiceHandlerScribe#getSettings()
-    */
-   @Override
-   public OAuthServiceSettings getSettings()
-   {
-      return settings;
-   }
+    protected abstract Class<? extends Api> getApiClass();
 
-   public void setSettings(OAuthServiceSettings settings)
-   {
-      this.settings = settings;
-   }
+    @Override
+    public String getAuthorizationUrl() {
+        return getService().getAuthorizationUrl(getRequestToken().delegate);
+    }
 
-   protected abstract Class<? extends Api> getApiClass();
+    protected OAuthTokenScribe getRequestToken() {
+        if (requestToken == null)
+            requestToken = new OAuthTokenScribe(getService().getRequestToken());
+        return requestToken;
+    }
 
-   @Override
-   public String getAuthorizationUrl()
-   {
-      return getService().getAuthorizationUrl(getRequestToken().delegate);
-   }
+    @Override
+    public void initAccessToken() {
+        if (accessToken == null) {
+            accessToken = new OAuthTokenScribe(getService().getAccessToken(getRequestToken().delegate, verifier));
+            if (accessToken != null) {
+                connected = Boolean.TRUE;
+                requestToken = null;
+            } else {
+                // Launch an exception !!
+            }
+        }
 
-   protected OAuthTokenScribe getRequestToken()
-   {
-      if (requestToken == null)
-         requestToken = new OAuthTokenScribe(getService().getRequestToken());
-      return requestToken;
-   }
+    }
 
-   @Override
-   public void initAccessToken()
-   {
-      if (accessToken == null)
-      {
-         accessToken = new OAuthTokenScribe(getService().getAccessToken(getRequestToken().delegate, verifier));
-         if (accessToken != null)
-         {
-            connected = Boolean.TRUE;
-            requestToken=null;
-         }
-         else
-         {
-            // Launch an exception !!
-         }
-      }
+    @Override
+    public void resetConnexion() {
+        userProfile = null;
+        accessToken = null;
+        verifier = null;
+        connected = Boolean.FALSE;
 
-   }
+    }
 
-   @Override
-   public void resetConnexion()
-   {
-      userProfile = null;
-      accessToken = null;
-      verifier = null;
-      connected = Boolean.FALSE;
+    protected HttpResponse sendSignedRequest(OAuthRequest request) {
+        getService().signRequest(accessToken.delegate, request);
+        HttpResponse resp = null;
+        try {
+            resp = new HttpResponseScribe(request.send());
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return resp;
+    }
 
-   }
+    @Override
+    public HttpResponse sendSignedRequest(RestVerb verb, String uri) {
+        OAuthRequest request = new OAuthRequest(Verb.valueOf(verb.toString()), uri);
 
-   protected HttpResponse sendSignedRequest(OAuthRequest request)
-   {
-      getService().signRequest(accessToken.delegate, request);
-      HttpResponse resp = null;
-      try
-      {
-         resp = new HttpResponseScribe(request.send());
-      }
-      catch (IOException e)
-      {
-         // TODO Auto-generated catch block
-         e.printStackTrace();
-      }
-      return resp;
-   }
+        return sendSignedRequest(request);
 
-   @Override
-   public HttpResponse sendSignedRequest(RestVerb verb, String uri)
-   {
-      OAuthRequest request = new OAuthRequest(Verb.valueOf(verb.toString()), uri);
+    }
 
-      return sendSignedRequest(request);
+    @Override
+    public HttpResponse sendSignedRequest(RestVerb verb, String uri, String key, Object value) {
+        OAuthRequest request = new OAuthRequest(Verb.valueOf(verb.toString()), uri);
 
-   }
+        request.addBodyParameter(key, value.toString());
 
-   @Override
-   public HttpResponse sendSignedRequest(RestVerb verb, String uri, String key, Object value)
-   {
-      OAuthRequest request = new OAuthRequest(Verb.valueOf(verb.toString()), uri);
+        return sendSignedRequest(request);
 
-      request.addBodyParameter(key, value.toString());
+    }
 
-      return sendSignedRequest(request);
+    @Override
+    public HttpResponse sendSignedXmlRequest(RestVerb verb, String uri, String payload) {
+        OAuthRequest request = new OAuthRequest(Verb.valueOf(verb.toString()), uri);
+        request.addHeader("Content-Length", Integer.toString(payload.length()));
+        request.addHeader("Content-Type", "text/xml");
 
-   }
+        request.addPayload(payload);
 
-   @Override
-   public HttpResponse sendSignedXmlRequest(RestVerb verb, String uri, String payload)
-   {
-      OAuthRequest request = new OAuthRequest(Verb.valueOf(verb.toString()), uri);
-      request.addHeader("Content-Length", Integer.toString(payload.length()));
-      request.addHeader("Content-Type", "text/xml");
+        return sendSignedRequest(request);
 
-      request.addPayload(payload);
+    }
 
-      return sendSignedRequest(request);
+    @Override
+    public HttpResponse sendSignedRequest(RestVerb verb, String uri, Map<String, Object> params) {
+        OAuthRequest request = new OAuthRequest(Verb.valueOf(verb.toString()), uri);
+        for (Entry<String, Object> ent : params.entrySet()) {
+            request.addBodyParameter(ent.getKey(), ent.getValue().toString());
+        }
+        return sendSignedRequest(request);
 
-   }
+    }
 
-   @Override
-   public HttpResponse sendSignedRequest(RestVerb verb, String uri, Map<String, Object> params)
-   {
-      OAuthRequest request = new OAuthRequest(Verb.valueOf(verb.toString()), uri);
-      for (Entry<String, Object> ent : params.entrySet())
-      {
-         request.addBodyParameter(ent.getKey(), ent.getValue().toString());
-      }
-      return sendSignedRequest(request);
+    @Override
+    public void setVerifier(String verifierStr) {
+        verifier = new Verifier(verifierStr);
+    }
 
-   }
+    @Override
+    public String getVerifier() {
+        return verifier == null ? null : verifier.getValue();
+    }
 
-   @Override
-   public void setVerifier(String verifierStr)
-   {
-      verifier = new Verifier(verifierStr);
-   }
+    @Override
+    public OAuthToken getAccessToken() {
+        return accessToken;
+    }
 
-   @Override
-   public String getVerifier()
-   {
-      return verifier == null ? null : verifier.getValue();
-   }
+    @Override
+    public Boolean isConnected() {
+        return connected;
+    }
 
-   @Override
-   public OAuthToken getAccessToken()
-   {
-      return accessToken;
-   }
+    @Override
+    public void setAccessToken(String token, String secret) {
+        accessToken = new OAuthTokenScribe(token, secret);
 
-   @Override
-   public Boolean isConnected()
-   {
-      return connected;
-   }
+    }
 
-   @Override
-   public void setAccessToken(String token, String secret)
-   {
-      accessToken = new OAuthTokenScribe(token, secret);
+    @Override
+    public void setAccessToken(OAuthToken token) {
+        accessToken = new OAuthTokenScribe(token.getToken(), token.getSecret());
 
-   }
+    }
 
-   @Override
-   public void setAccessToken(OAuthToken token)
-   {
-      accessToken = new OAuthTokenScribe(token.getToken(), token.getSecret());
+    @Override
+    public String toString() {
+        return getType();
+    }
 
-   }
-
-   @Override
-   public String toString()
-   {
-      return getType();
-   }
-
-   
-   
-   @Override
-   public String getVerifierParamName()
-   {
-      return VERIFIER_PARAM_NAME;
-   }
+    @Override
+    public String getVerifierParamName() {
+        return VERIFIER_PARAM_NAME;
+    }
 
 }

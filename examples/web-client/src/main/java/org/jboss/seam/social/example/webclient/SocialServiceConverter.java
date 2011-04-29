@@ -22,54 +22,53 @@ import com.google.common.collect.Maps;
 
 /**
  * @author antoine
- *
+ * 
  */
-@FacesConverter(value="socialConverter",forClass=OAuthServiceHandler.class)
-public class SocialServiceConverter implements Converter
-{
+@FacesConverter(value = "socialConverter", forClass = OAuthServiceHandler.class)
+public class SocialServiceConverter implements Converter {
 
-   @Inject @Any
-   private Instance<OAuthServiceHandler> serviceHandlerInstances;
-   
-   private Map<String, OAuthServiceHandler> services;
-   
-  
-   private  Map<String, OAuthServiceHandler> getServices()
-   {
-      if (services==null)
-      {
-      services=Maps.uniqueIndex(serviceHandlerInstances, new Function<OAuthServiceHandler, String>()
-      {
+    @Inject
+    @Any
+    private Instance<OAuthServiceHandler> serviceHandlerInstances;
 
-         @Override
-         public String apply(OAuthServiceHandler arg0)
-         {
-       
-            return arg0.getType();
-         }
-      });
-      }
-      return services;
-   }
-   
-   /* (non-Javadoc)
-    * @see javax.faces.convert.Converter#getAsObject(javax.faces.context.FacesContext, javax.faces.component.UIComponent, java.lang.String)
-    */
-   @Override
-   public Object getAsObject(FacesContext arg0, UIComponent arg1, String arg2)
-   {
-      Object res=getServices().get(arg2);
-      return ((OAuthServiceHandler) res);
-   }
+    private Map<String, OAuthServiceHandler> services;
 
-   /* (non-Javadoc)
-    * @see javax.faces.convert.Converter#getAsString(javax.faces.context.FacesContext, javax.faces.component.UIComponent, java.lang.Object)
-    */
-   @Override
-   public String getAsString(FacesContext arg0, UIComponent arg1, Object arg2)
-   {
-      String res = ((OAuthServiceHandler)arg2).getType();
-      return res;
-   }
+    private Map<String, OAuthServiceHandler> getServices() {
+        if (services == null) {
+            services = Maps.uniqueIndex(serviceHandlerInstances, new Function<OAuthServiceHandler, String>() {
+
+                @Override
+                public String apply(OAuthServiceHandler arg0) {
+
+                    return arg0.getType();
+                }
+            });
+        }
+        return services;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see javax.faces.convert.Converter#getAsObject(javax.faces.context.FacesContext, javax.faces.component.UIComponent,
+     * java.lang.String)
+     */
+    @Override
+    public Object getAsObject(FacesContext arg0, UIComponent arg1, String arg2) {
+        Object res = getServices().get(arg2);
+        return ((OAuthServiceHandler) res);
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see javax.faces.convert.Converter#getAsString(javax.faces.context.FacesContext, javax.faces.component.UIComponent,
+     * java.lang.Object)
+     */
+    @Override
+    public String getAsString(FacesContext arg0, UIComponent arg1, Object arg2) {
+        String res = ((OAuthServiceHandler) arg2).getType();
+        return res;
+    }
 
 }

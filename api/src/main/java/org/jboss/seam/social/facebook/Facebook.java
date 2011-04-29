@@ -37,7 +37,6 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * @author Antoine Sabot-Durand
  *
  */
-public @interface Facebook
-{
+public @interface Facebook {
 
 }

@@ -8,20 +8,18 @@ import org.jboss.seam.social.twitter.TwitterHandler;
 
 /**
  * 
- * Implementation of this interface contains information about Twitter
- * Credential of the current user It is returned by
+ * Implementation of this interface contains information about Twitter Credential of the current user It is returned by
  * {@link TwitterHandler#verifyCrendentials()}
  * 
  * @author Antoine Sabot-Durand
  * 
  */
-public interface Credential extends UserProfile
-{
+public interface Credential extends UserProfile {
 
-  /**
-   * 
-   * @return the Twitter screen Name
-   */
-   public String getScreenName();
+    /**
+     * 
+     * @return the Twitter screen Name
+     */
+    public String getScreenName();
 
 }

@@ -38,99 +38,89 @@ import org.scribe.builder.api.TwitterApi;
  */
 @Named("twitterHdl")
 @SessionScoped
-public class TwitterHandlerScribe extends OAuthServiceHandlerScribe implements TwitterHandler
-{
+public class TwitterHandlerScribe extends OAuthServiceHandlerScribe implements TwitterHandler {
 
-   private static final long serialVersionUID = 6806035986656777834L;
-   static final String VERIFY_CREDENTIALS_URL = "https://api.twitter.com/1/account/verify_credentials.json";
-   static final String FRIENDS_STATUSES_URL = "https://api.twitter.com/1/statuses/friends.json?screen_name={screen_name}";
-   static final String SEARCH_URL = "https://search.twitter.com/search.json?q={query}&rpp={rpp}&page={page}";
-   static final String TWEET_URL = "https://api.twitter.com/1/statuses/update.json";
-   static final String RETWEET_URL = "https://api.twitter.com/1/statuses/retweet/{tweet_id}.json";
-   static final Class<? extends Api> API_CLASS = TwitterApi.class;
-   static final String LOGO_URL = "https://d2l6uygi1pgnys.cloudfront.net/2-2-08/images/buttons/twitter_connect.png";
-   static final String TYPE="Twitter";
-   
-  
+    private static final long serialVersionUID = 6806035986656777834L;
+    static final String VERIFY_CREDENTIALS_URL = "https://api.twitter.com/1/account/verify_credentials.json";
+    static final String FRIENDS_STATUSES_URL = "https://api.twitter.com/1/statuses/friends.json?screen_name={screen_name}";
+    static final String SEARCH_URL = "https://search.twitter.com/search.json?q={query}&rpp={rpp}&page={page}";
+    static final String TWEET_URL = "https://api.twitter.com/1/statuses/update.json";
+    static final String RETWEET_URL = "https://api.twitter.com/1/statuses/retweet/{tweet_id}.json";
+    static final Class<? extends Api> API_CLASS = TwitterApi.class;
+    static final String LOGO_URL = "https://d2l6uygi1pgnys.cloudfront.net/2-2-08/images/buttons/twitter_connect.png";
+    static final String TYPE = "Twitter";
 
-   @Inject
-   private JsonMapper jsonMapper;
-   
-   @Override
-   @Inject
-   public void setSettings(@Twitter OAuthServiceSettings settings)
-   {
-      super.setSettings(settings);
+    @Inject
+    private JsonMapper jsonMapper;
 
-   }
+    @Override
+    @Inject
+    public void setSettings(@Twitter OAuthServiceSettings settings) {
+        super.setSettings(settings);
 
-   @Override
-   public Tweet updateStatus(String message)
-   {
-      HttpResponse resp = sendSignedRequest(RestVerb.POST, TWEET_URL, "status", message);
-      System.out.println("update satus is " + message);
-      setStatus("");
-      return jsonMapper.readValue(resp, TweetJackson.class);
+    }
 
-   }
+    @Override
+    public Tweet updateStatus(String message) {
+        HttpResponse resp = sendSignedRequest(RestVerb.POST, TWEET_URL, "status", message);
+        System.out.println("update satus is " + message);
+        setStatus("");
+        return jsonMapper.readValue(resp, TweetJackson.class);
 
-   /*
-    * (non-Javadoc)
-    * 
-    * @see org.jboss.seam.social.oauth.OAuthServiceHandlerScribe#getApiClass()
-    */
-   @Override
-   protected Class<? extends Api> getApiClass()
-   {
-      return API_CLASS;
-   }
+    }
 
-   
-   /*
-    * (non-Javadoc)
-    * 
-    * @see org.jboss.seam.social.oauth.OAuthServiceHandler#getServiceLogo()
-    */
-   @Override
-   public String getServiceLogo()
-   {
-      return LOGO_URL;
-   }
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.jboss.seam.social.oauth.OAuthServiceHandlerScribe#getApiClass()
+     */
+    @Override
+    protected Class<? extends Api> getApiClass() {
+        return API_CLASS;
+    }
 
-   /*
-    * (non-Javadoc)
-    * 
-    * @see org.jboss.seam.social.oauth.OAuthServiceHandler#getUserProfile()
-    */
-   @Override
-   public UserProfile getUser()
-   {
-      if (userProfile == null)
-      {
-         HttpResponse resp = sendSignedRequest(RestVerb.GET, VERIFY_CREDENTIALS_URL);
-         userProfile = jsonMapper.readValue(resp, CredentialJackson.class);
-      }
-      return userProfile;
-   }
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.jboss.seam.social.oauth.OAuthServiceHandler#getServiceLogo()
+     */
+    @Override
+    public String getServiceLogo() {
+        return LOGO_URL;
+    }
 
-   /* (non-Javadoc)
-    * @see org.jboss.seam.social.oauth.OAuthServiceHandler#getType()
-    */
-   @Override
-   public String getType()
-   {
-      return TYPE;
-   }
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.jboss.seam.social.oauth.OAuthServiceHandler#getUserProfile()
+     */
+    @Override
+    public UserProfile getUser() {
+        if (userProfile == null) {
+            HttpResponse resp = sendSignedRequest(RestVerb.GET, VERIFY_CREDENTIALS_URL);
+            userProfile = jsonMapper.readValue(resp, CredentialJackson.class);
+        }
+        return userProfile;
+    }
 
-  
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.jboss.seam.social.oauth.OAuthServiceHandler#getType()
+     */
+    @Override
+    public String getType() {
+        return TYPE;
+    }
 
-   /* (non-Javadoc)
-    * @see org.jboss.seam.social.twitter.TwitterHandler#updateStatus()
-    */
-   @Override
-   public Tweet updateStatus()
-   {
-      return updateStatus(getStatus());
-   }
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.jboss.seam.social.twitter.TwitterHandler#updateStatus()
+     */
+    @Override
+    public Tweet updateStatus() {
+        return updateStatus(getStatus());
+    }
 
 }

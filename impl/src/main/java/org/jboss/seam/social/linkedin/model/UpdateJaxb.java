@@ -24,63 +24,48 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * @author Antoine Sabot-Durand
- *
+ * 
  */
-@XmlRootElement(name="activity")
+@XmlRootElement(name = "activity")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class UpdateJaxb implements Update
-{
-   @XmlAttribute(required=true)
-   private String locale="en_US";
-   
-   @XmlElement(name="content-type",required=true)
-   private String contentType="linkedin-html";
-   
-   @XmlElement(name="body", required=true)
-   private String body;
+public class UpdateJaxb implements Update {
+    @XmlAttribute(required = true)
+    private String locale = "en_US";
 
-   @Override
-  
-   public String getLocale()
-   {
-      return locale;
-   }
+    @XmlElement(name = "content-type", required = true)
+    private String contentType = "linkedin-html";
 
-   
-   @Override
-   public void setLocale(String locale)
-   {
-      this.locale = locale;
-   }
+    @XmlElement(name = "body", required = true)
+    private String body;
 
-   @Override
-  
-   public String getContentType()
-   {
-      return contentType;
-   }
+    @Override
+    public String getLocale() {
+        return locale;
+    }
 
-   @Override
-   public void setContentType(String contentType)
-   {
-      this.contentType = contentType;
-   }
+    @Override
+    public void setLocale(String locale) {
+        this.locale = locale;
+    }
 
-   @Override
-   
-   public String getBody()
-   {
-      return body;
-   }
+    @Override
+    public String getContentType() {
+        return contentType;
+    }
 
+    @Override
+    public void setContentType(String contentType) {
+        this.contentType = contentType;
+    }
 
+    @Override
+    public String getBody() {
+        return body;
+    }
 
-   @Override
-   public void setBody(String body)
-   {
-      this.body = body;
-   }
-   
-   
+    @Override
+    public void setBody(String body) {
+        this.body = body;
+    }
 
 }
