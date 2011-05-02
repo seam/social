@@ -32,7 +32,7 @@
     <name>seam-social-example-web-client</name>
 
     <build>
-        <finalName>social-web-client</finalName>
+        <finalName>seam-social-web-client</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
