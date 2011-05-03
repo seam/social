@@ -28,8 +28,8 @@ public class SocialTest extends AbstractTestCase {
     protected final XpathLocator HOME_TWITTER_LINK = xp("//a/img[contains(@src,'twitter')]/..");
     protected final XpathLocator HOME_LINKEDIN_LINK = xp("//a/img[contains(@src,'linkedin')]/..");
 
-    protected final XpathLocator CALLBACK_TWITTER_HEADER = xp("//h1[text()='Seam Social Twitter client Example']");
-    protected final XpathLocator CALLBACK_TWITTER_CLIENT = xp("//a[text()='Twitter client']");
+    protected final XpathLocator CALLBACK_TWITTER_HEADER = xp("//h1[text()='Seam Social SetTwitter client Example']");
+    protected final XpathLocator CALLBACK_TWITTER_CLIENT = xp("//a[text()='SetTwitter client']");
 
     protected final XpathLocator TWITTER_USERNAME = xp("//input[contains(@id,'username')]");
     protected final XpathLocator TWITTER_PASSWORD = xp("//input[contains(@id,'password')]");

@@ -16,27 +16,16 @@
  */
 package org.jboss.seam.social.twitter;
 
-import static java.lang.annotation.ElementType.FIELD;
-import static java.lang.annotation.ElementType.METHOD;
-import static java.lang.annotation.ElementType.PARAMETER;
-import static java.lang.annotation.ElementType.TYPE;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
+import org.jboss.seam.social.oauth.HasStatus;
+import org.jboss.seam.social.oauth.OAuthService;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.Retention;
-import java.lang.annotation.Target;
-
-import javax.inject.Qualifier;
-
-@Qualifier
-@Target({ TYPE, METHOD, PARAMETER, FIELD })
-@Retention(RUNTIME)
-@Documented
 /**
- * A CDI qualifier annotation to qualify bean being related to Twitter 
+ * A specialization of {@link OAuthService} to add SetTwitter specific methods
+ * 
  * @author Antoine Sabot-Durand
- *
+ * 
  */
-public @interface Twitter {
+
+public interface Twitter extends OAuthService, HasStatus {
 
 }

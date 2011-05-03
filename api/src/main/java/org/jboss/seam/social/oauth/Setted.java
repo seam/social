@@ -35,7 +35,7 @@ import javax.inject.Qualifier;
  * <pre>
  * &#064;Inject
  * &#064;Setted(apiKey = &quot;a consumer key&quot;, apiSecret = &quot;a consumer secret&quot;, callback = &quot;a call back URL&quot;)
- * TwitterHandler service;
+ * Twitter service;
  * </pre>
  * 
  * It's one of the alternates solution initialize an OAuth service configuration

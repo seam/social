@@ -36,9 +36,9 @@ import org.scribe.builder.api.TwitterApi;
  * @author Antoine Sabot-Durand
  * 
  */
-@Named("twitterHdl")
+@Named("twitter")
 @SessionScoped
-public class TwitterHandlerScribe extends OAuthServiceScribe implements TwitterHandler {
+public class TwitterScribe extends OAuthServiceScribe implements Twitter {
 
     private static final long serialVersionUID = 6806035986656777834L;
     static final String VERIFY_CREDENTIALS_URL = "https://api.twitter.com/1/account/verify_credentials.json";
@@ -48,14 +48,14 @@ public class TwitterHandlerScribe extends OAuthServiceScribe implements TwitterH
     static final String RETWEET_URL = "https://api.twitter.com/1/statuses/retweet/{tweet_id}.json";
     static final Class<? extends Api> API_CLASS = TwitterApi.class;
     static final String LOGO_URL = "https://d2l6uygi1pgnys.cloudfront.net/2-2-08/images/buttons/twitter_connect.png";
-    static final String TYPE = "Twitter";
+    static final String TYPE = "SetTwitter";
 
     @Inject
     private JsonMapper jsonMapper;
 
     @Override
     @Inject
-    public void setSettings(@Twitter OAuthServiceSettings settings) {
+    public void setSettings(@SetTwitter OAuthServiceSettings settings) {
         super.setSettings(settings);
 
     }
@@ -116,7 +116,7 @@ public class TwitterHandlerScribe extends OAuthServiceScribe implements TwitterH
     /*
      * (non-Javadoc)
      * 
-     * @see org.jboss.seam.social.twitter.TwitterHandler#updateStatus()
+     * @see org.jboss.seam.social.twitter.Twitter#updateStatus()
      */
     @Override
     public Tweet updateStatus() {

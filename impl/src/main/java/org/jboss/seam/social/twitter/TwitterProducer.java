@@ -26,7 +26,7 @@ import org.jboss.seam.social.oauth.SettedHandlerProducer;
  */
 public class TwitterProducer extends SettedHandlerProducer {
     // @Produces @Setted
-    public TwitterHandler produceTwitterHandler(InjectionPoint ip, TwitterHandler hdl) {
+    public Twitter produceTwitterHandler(InjectionPoint ip, Twitter hdl) {
         return setService(ip, hdl);
     }
 

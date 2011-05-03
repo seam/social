@@ -17,11 +17,11 @@
 
 import java.util.List;
 
-import org.jboss.seam.social.twitter.TwitterHandler;
+import org.jboss.seam.social.twitter.Twitter;
 
 /**
  * 
- * Implementation of this interface contains a Twitter search result It is returned by {@link TwitterHandler#search()}
+ * Implementation of this interface contains a SetTwitter search result It is returned by {@link Twitter#search()}
  * 
  * @author Antoine Sabot-Durand
  * 
