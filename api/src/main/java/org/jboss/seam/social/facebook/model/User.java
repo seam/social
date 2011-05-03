@@ -20,7 +20,7 @@ import org.jboss.seam.social.oauth.UserProfile;
 
 /**
  * 
- * Implementation of this interface will contain Facebook Profile
+ * Implementation of this interface will contain SetFacebook Profile
  * 
  * @author Antoine Sabot-Durand
  * 

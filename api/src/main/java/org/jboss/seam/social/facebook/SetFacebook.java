@@ -14,28 +14,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social.oauth;
+package org.jboss.seam.social.facebook;
 
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
+
+import javax.inject.Qualifier;
+
+import static java.lang.annotation.ElementType.FIELD;
+import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.ElementType.PARAMETER;
+import static java.lang.annotation.ElementType.TYPE;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+
+@Qualifier
+@Target({ TYPE, METHOD, PARAMETER, FIELD })
+@Retention(RUNTIME)
+@Documented
 /**
+ *  A CDI qualifier annotation to qualify bean being related to SetFacebook
  * @author Antoine Sabot-Durand
- * 
+ *
  */
-public abstract class OAuth2ServiceHandlerScribe extends OAuthServiceScribe {
-
-    /**
-    * 
-    */
-    private static final long serialVersionUID = 3436501339795099869L;
-    private static final String VERIFIER_PARAM_NAME = "code";
-
-    @Override
-    protected OAuthTokenScribe getRequestToken() {
-        return new OAuthTokenScribe(null);
-    }
-
-    @Override
-    public String getVerifierParamName() {
-        return VERIFIER_PARAM_NAME;
-    }
+public @interface SetFacebook {
 
 }

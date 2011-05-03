@@ -17,6 +17,6 @@
 package org.jboss.seam.social.facebook;
 
 /**
- * This package contains API elements to manage interactions with Facebook thru
+ * This package contains API elements to manage interactions with SetFacebook thru
  * CDI Beans
  */
