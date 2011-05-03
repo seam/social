@@ -24,7 +24,7 @@ import java.util.Map;
  * @author Antoine Sabot-Durand
  * 
  */
-public interface OAuthServiceHandler {
+public interface OAuthService {
 
     /**
      * 

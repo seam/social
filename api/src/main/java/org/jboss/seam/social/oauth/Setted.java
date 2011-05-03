@@ -30,7 +30,7 @@ import javax.enterprise.util.Nonbinding;
 import javax.inject.Qualifier;
 
 /**
- * A CDI Qualifier annotation to qualify and set OAuthServiceHandler directly in the code It can be used like this :
+ * A CDI Qualifier annotation to qualify and set OAuthService directly in the code It can be used like this :
  * 
  * <pre>
  * &#064;Inject

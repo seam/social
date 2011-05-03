@@ -17,15 +17,15 @@
 package org.jboss.seam.social.twitter;
 
 import org.jboss.seam.social.oauth.HasStatus;
-import org.jboss.seam.social.oauth.OAuthServiceHandler;
+import org.jboss.seam.social.oauth.OAuthService;
 
 /**
- * A specialization of {@link OAuthServiceHandler} to add Twitter specific methods
+ * A specialization of {@link OAuthService} to add Twitter specific methods
  * 
  * @author Antoine Sabot-Durand
  * 
  */
 
-public interface TwitterHandler extends OAuthServiceHandler, HasStatus {
+public interface TwitterHandler extends OAuthService, HasStatus {
 
 }

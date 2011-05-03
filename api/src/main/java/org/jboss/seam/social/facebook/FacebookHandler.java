@@ -18,15 +18,15 @@
 package org.jboss.seam.social.facebook;
 
 import org.jboss.seam.social.oauth.HasStatus;
-import org.jboss.seam.social.oauth.OAuthServiceHandler;
+import org.jboss.seam.social.oauth.OAuthService;
 
 /**
  * 
- * A specialization of {@link OAuthServiceHandler} to add Facebook specific methods
+ * A specialization of {@link OAuthService} to add Facebook specific methods
  * 
  * @author Antoine Sabot-Durand
  * 
  */
-public interface FacebookHandler extends OAuthServiceHandler, HasStatus {
+public interface FacebookHandler extends OAuthService, HasStatus {
 
 }

@@ -91,7 +91,7 @@ public class LinkedInHanlderScribe extends OAuthServiceHandlerScribe implements 
     /*
      * (non-Javadoc)
      * 
-     * @see org.jboss.seam.social.oauth.OAuthServiceHandler#getServiceLogo()
+     * @see org.jboss.seam.social.oauth.OAuthService#getServiceLogo()
      */
     @Override
     public String getServiceLogo() {
@@ -101,7 +101,7 @@ public class LinkedInHanlderScribe extends OAuthServiceHandlerScribe implements 
     /*
      * (non-Javadoc)
      * 
-     * @see org.jboss.seam.social.oauth.OAuthServiceHandler#getUserProfile()
+     * @see org.jboss.seam.social.oauth.OAuthService#getUserProfile()
      */
     @Override
     public UserProfile getUser() {
@@ -125,7 +125,7 @@ public class LinkedInHanlderScribe extends OAuthServiceHandlerScribe implements 
     /*
      * (non-Javadoc)
      * 
-     * @see org.jboss.seam.social.oauth.OAuthServiceHandler#getType()
+     * @see org.jboss.seam.social.oauth.OAuthService#getType()
      */
     @Override
     public String getType() {

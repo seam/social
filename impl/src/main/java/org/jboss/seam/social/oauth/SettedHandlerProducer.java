@@ -23,7 +23,7 @@ import javax.enterprise.inject.spi.InjectionPoint;
  */
 public abstract class SettedHandlerProducer {
 
-    protected <T extends OAuthServiceHandler> T setService(InjectionPoint ip, T hdl) {
+    protected <T extends OAuthService> T setService(InjectionPoint ip, T hdl) {
         if (ip == null || ip.getAnnotated() == null || hdl == null)
             return null;
         Setted setted = ip.getAnnotated().getAnnotation(Setted.class);

@@ -14,7 +14,7 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.inject.Inject;
 
-import org.jboss.seam.social.oauth.OAuthServiceHandler;
+import org.jboss.seam.social.oauth.OAuthService;
 
 import com.google.common.base.Function;
 import com.google.common.collect.Collections2;
@@ -24,21 +24,21 @@ import com.google.common.collect.Maps;
  * @author antoine
  * 
  */
-@FacesConverter(value = "socialConverter", forClass = OAuthServiceHandler.class)
+@FacesConverter(value = "socialConverter", forClass = OAuthService.class)
 public class SocialServiceConverter implements Converter {
 
     @Inject
     @Any
-    private Instance<OAuthServiceHandler> serviceHandlerInstances;
+    private Instance<OAuthService> serviceHandlerInstances;
 
-    private Map<String, OAuthServiceHandler> services;
+    private Map<String, OAuthService> services;
 
-    private Map<String, OAuthServiceHandler> getServices() {
+    private Map<String, OAuthService> getServices() {
         if (services == null) {
-            services = Maps.uniqueIndex(serviceHandlerInstances, new Function<OAuthServiceHandler, String>() {
+            services = Maps.uniqueIndex(serviceHandlerInstances, new Function<OAuthService, String>() {
 
                 @Override
-                public String apply(OAuthServiceHandler arg0) {
+                public String apply(OAuthService arg0) {
 
                     return arg0.getType();
                 }
@@ -56,7 +56,7 @@ public class SocialServiceConverter implements Converter {
     @Override
     public Object getAsObject(FacesContext arg0, UIComponent arg1, String arg2) {
         Object res = getServices().get(arg2);
-        return ((OAuthServiceHandler) res);
+        return ((OAuthService) res);
     }
 
     /*
@@ -67,7 +67,7 @@ public class SocialServiceConverter implements Converter {
      */
     @Override
     public String getAsString(FacesContext arg0, UIComponent arg1, Object arg2) {
-        String res = ((OAuthServiceHandler) arg2).getType();
+        String res = ((OAuthService) arg2).getType();
         return res;
     }
 

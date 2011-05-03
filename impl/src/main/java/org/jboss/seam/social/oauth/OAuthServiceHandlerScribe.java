@@ -26,14 +26,14 @@ import org.scribe.builder.api.Api;
 import org.scribe.model.OAuthRequest;
 import org.scribe.model.Verb;
 import org.scribe.model.Verifier;
-import org.scribe.oauth.OAuthService;
+
 
 /**
  * @author Antoine Sabot-Durand
  * 
  */
 
-public abstract class OAuthServiceHandlerScribe implements OAuthServiceHandler, Serializable {
+public abstract class OAuthServiceHandlerScribe implements OAuthService, Serializable {
 
     /**
     * 
@@ -41,7 +41,7 @@ public abstract class OAuthServiceHandlerScribe implements OAuthServiceHandler, 
     private static final long serialVersionUID = -8423894021913341674L;
     private static final String VERIFIER_PARAM_NAME = "oauth_verifier";
 
-    private OAuthService service;
+    private org.scribe.oauth.OAuthService service;
 
     protected OAuthTokenScribe requestToken;
     protected OAuthTokenScribe accessToken;
@@ -64,7 +64,7 @@ public abstract class OAuthServiceHandlerScribe implements OAuthServiceHandler, 
         this.status = status;
     }
 
-    protected OAuthService getService() {
+    protected org.scribe.oauth.OAuthService getService() {
         if (service == null)
             initService();
         return service;

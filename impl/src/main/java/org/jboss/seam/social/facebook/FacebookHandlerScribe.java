@@ -63,7 +63,7 @@ public class FacebookHandlerScribe extends OAuth2ServiceHandlerScribe implements
     /*
      * (non-Javadoc)
      * 
-     * @see org.jboss.seam.social.oauth.OAuthServiceHandler#getServiceLogo()
+     * @see org.jboss.seam.social.oauth.OAuthService#getServiceLogo()
      */
     @Override
     public String getServiceLogo() {
@@ -73,7 +73,7 @@ public class FacebookHandlerScribe extends OAuth2ServiceHandlerScribe implements
     /*
      * (non-Javadoc)
      * 
-     * @see org.jboss.seam.social.oauth.OAuthServiceHandler#getUser()
+     * @see org.jboss.seam.social.oauth.OAuthService#getUser()
      */
     @Override
     public UserProfile getUser() {
@@ -87,7 +87,7 @@ public class FacebookHandlerScribe extends OAuth2ServiceHandlerScribe implements
     /*
      * (non-Javadoc)
      * 
-     * @see org.jboss.seam.social.oauth.OAuthServiceHandler#getType()
+     * @see org.jboss.seam.social.oauth.OAuthService#getType()
      */
     @Override
     public String getType() {

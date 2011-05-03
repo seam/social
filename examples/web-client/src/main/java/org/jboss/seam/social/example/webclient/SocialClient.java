@@ -30,7 +30,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.jboss.seam.social.oauth.OAuthServiceHandler;
+import org.jboss.seam.social.oauth.OAuthService;
 import org.jboss.seam.social.oauth.OAuthToken;
 import org.jboss.seam.social.oauth.UserProfile;
 
@@ -51,16 +51,16 @@ public class SocialClient implements Serializable {
 
     @Inject
     @Any
-    private Instance<OAuthServiceHandler> serviceHandlerInstances;
+    private Instance<OAuthService> serviceHandlerInstances;
 
-    private OAuthServiceHandler currentServiceHdl;
+    private OAuthService currentServiceHdl;
     private String status;
 
-    private List<OAuthServiceHandler> serviceHandlers;
+    private List<OAuthService> serviceHandlers;
 
-    private Map<String, OAuthServiceHandler> serviceHandlersMap;
+    private Map<String, OAuthService> serviceHandlersMap;
 
-    public List<OAuthServiceHandler> getServiceHandlers() {
+    public List<OAuthService> getServiceHandlers() {
         return serviceHandlers;
     }
 
@@ -68,10 +68,10 @@ public class SocialClient implements Serializable {
     public void init() {
 
         serviceHandlers = Lists.newArrayList(serviceHandlerInstances);
-        serviceHandlersMap = Maps.uniqueIndex(serviceHandlerInstances, new Function<OAuthServiceHandler, String>() {
+        serviceHandlersMap = Maps.uniqueIndex(serviceHandlerInstances, new Function<OAuthService, String>() {
 
             @Override
-            public String apply(OAuthServiceHandler arg0) {
+            public String apply(OAuthService arg0) {
 
                 return arg0.getType();
             }
@@ -79,21 +79,21 @@ public class SocialClient implements Serializable {
 
     }
 
-    public List<OAuthServiceHandler> getConnectedServices() {
-        return Lists.newArrayList(Iterables.filter(serviceHandlers, new Predicate<OAuthServiceHandler>() {
+    public List<OAuthService> getConnectedServices() {
+        return Lists.newArrayList(Iterables.filter(serviceHandlers, new Predicate<OAuthService>() {
 
             @Override
-            public boolean apply(OAuthServiceHandler arg0) {
+            public boolean apply(OAuthService arg0) {
                 return arg0.isConnected();
             }
         }));
     }
 
-    public List<OAuthServiceHandler> getUnconnectedServices() {
-        return Lists.newArrayList(Iterables.filter(serviceHandlers, new Predicate<OAuthServiceHandler>() {
+    public List<OAuthService> getUnconnectedServices() {
+        return Lists.newArrayList(Iterables.filter(serviceHandlers, new Predicate<OAuthService>() {
 
             @Override
-            public boolean apply(OAuthServiceHandler arg0) {
+            public boolean apply(OAuthService arg0) {
                 return !arg0.isConnected();
             }
         }));
@@ -143,11 +143,11 @@ public class SocialClient implements Serializable {
         return res;
     }
 
-    public OAuthServiceHandler getCurrentServiceHdl() {
+    public OAuthService getCurrentServiceHdl() {
         return currentServiceHdl;
     }
 
-    public void setCurrentServiceHdl(OAuthServiceHandler currentServiceHdl) {
+    public void setCurrentServiceHdl(OAuthService currentServiceHdl) {
         this.currentServiceHdl = currentServiceHdl;
     }
 
@@ -159,7 +159,7 @@ public class SocialClient implements Serializable {
         this.currentServiceHdl = serviceHandlersMap.get(cursrvHdlStr);
     }
 
-    public void gotoAuthorizationURL(OAuthServiceHandler service) throws IOException {
+    public void gotoAuthorizationURL(OAuthService service) throws IOException {
         setCurrentServiceHdl(service);
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         externalContext.redirect(getAuthorizationURL());
