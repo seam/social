@@ -27,7 +27,7 @@ import org.jboss.seam.social.oauth.SettedHandlerProducer;
 public class LinkedInProducer extends SettedHandlerProducer {
 
     // @Produces @Setted
-    public LinkedInHandler produceLinkedInHandler(InjectionPoint ip, LinkedInHandler hdl) {
+    public LinkedIn produceLinkedInHandler(InjectionPoint ip, LinkedIn hdl) {
         return setService(ip, hdl);
     }
 

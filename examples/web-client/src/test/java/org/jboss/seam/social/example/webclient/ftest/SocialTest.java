@@ -72,7 +72,7 @@ public class SocialTest extends AbstractTestCase {
         selenium.click(HOME_LINKEDIN_LINK);
         waitModel.interval(checkInterval).timeout(modelTimeout).until(elementPresent.locator(LINKEDIN_EMAIL));
 
-        // We are on the LinkedIn page now
+        // We are on the SetLinkedIn page now
         assertEquals(selenium.getLocation().toString().contains("www.linkedin.com/uas/oauth"), true);
 
         selenium.type(LINKEDIN_EMAIL, getProperty("linkedin.email"));

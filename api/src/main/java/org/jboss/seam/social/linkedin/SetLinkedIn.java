@@ -16,15 +16,27 @@
  */
 package org.jboss.seam.social.linkedin;
 
-import org.jboss.seam.social.oauth.HasStatus;
-import org.jboss.seam.social.oauth.OAuthService;
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
 
+import javax.inject.Qualifier;
+
+import static java.lang.annotation.ElementType.FIELD;
+import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.ElementType.PARAMETER;
+import static java.lang.annotation.ElementType.TYPE;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+
+@Qualifier
+@Target({ TYPE, METHOD, PARAMETER, FIELD })
+@Retention(RUNTIME)
+@Documented
 /**
- * A specialization of {@link OAuthService} to add LinkedIn specific methods
- * 
+ * A CDI qualifier annotation to qualify bean being related to SetLinkedIn 
  * @author Antoine Sabot-Durand
- * 
+ *
  */
-public interface LinkedInHandler extends OAuthService, HasStatus {
+public @interface SetLinkedIn {
 
 }
