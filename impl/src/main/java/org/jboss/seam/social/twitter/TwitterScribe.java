@@ -48,7 +48,7 @@ public class TwitterScribe extends OAuthServiceScribe implements Twitter {
     static final String RETWEET_URL = "https://api.twitter.com/1/statuses/retweet/{tweet_id}.json";
     static final Class<? extends Api> API_CLASS = TwitterApi.class;
     static final String LOGO_URL = "https://d2l6uygi1pgnys.cloudfront.net/2-2-08/images/buttons/twitter_connect.png";
-    static final String TYPE = "SetTwitter";
+    static final String TYPE = "Twitter";
 
     @Inject
     private JsonMapper jsonMapper;

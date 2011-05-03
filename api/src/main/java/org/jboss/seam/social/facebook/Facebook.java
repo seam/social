@@ -22,7 +22,7 @@ import org.jboss.seam.social.oauth.OAuthService;
 
 /**
  * 
- * A specialization of {@link OAuthService} to add SetFacebook specific methods
+ * A specialization of {@link OAuthService} to add Facebook specific methods
  * 
  * @author Antoine Sabot-Durand
  * 

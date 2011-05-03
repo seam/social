@@ -41,7 +41,7 @@ public class FacebookScribe extends OAuth2ServiceScribe implements Facebook {
 
     static final String USER_PROFILE_URL = "https://graph.facebook.com/me";
     static final String LOGO_URL = "https://d2l6uygi1pgnys.cloudfront.net/2-2-08/images/buttons/facebook_connect.png";
-    static final String TYPE = "SetFacebook";
+    static final String TYPE = "Facebook";
     static final String NETWORK_UPDATE_URL = "";
     static final Class<? extends Api> API_CLASS = FacebookApi.class;
 
