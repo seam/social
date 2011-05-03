@@ -119,7 +119,7 @@ public class FacebookHandlerScribe extends OAuth2ServiceHandlerScribe implements
     /*
      * (non-Javadoc)
      * 
-     * @see org.jboss.seam.social.oauth.OAuthServiceHandlerScribe#getApiClass()
+     * @see org.jboss.seam.social.oauth.OAuthServiceScribe#getApiClass()
      */
     @Override
     protected Class<? extends Api> getApiClass() {

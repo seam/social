@@ -31,7 +31,7 @@ import org.jboss.seam.social.linkedin.model.Profile;
 import org.jboss.seam.social.linkedin.model.Update;
 import org.jboss.seam.social.linkedin.model.UpdateJaxb;
 import org.jboss.seam.social.oauth.HttpResponse;
-import org.jboss.seam.social.oauth.OAuthServiceHandlerScribe;
+import org.jboss.seam.social.oauth.OAuthServiceScribe;
 import org.jboss.seam.social.oauth.OAuthServiceSettings;
 import org.jboss.seam.social.oauth.RestVerb;
 import org.jboss.seam.social.oauth.UserProfile;
@@ -44,7 +44,7 @@ import org.scribe.builder.api.LinkedInApi;
  */
 @Named("linkedHdl")
 @SessionScoped
-public class LinkedInHanlderScribe extends OAuthServiceHandlerScribe implements LinkedInHandler {
+public class LinkedInHanlderScribe extends OAuthServiceScribe implements LinkedInHandler {
 
     private static final long serialVersionUID = -6718362913575146613L;
 
@@ -81,7 +81,7 @@ public class LinkedInHanlderScribe extends OAuthServiceHandlerScribe implements 
     /*
      * (non-Javadoc)
      * 
-     * @see org.jboss.seam.social.oauth.OAuthServiceHandlerScribe#getApiClass()
+     * @see org.jboss.seam.social.oauth.OAuthServiceScribe#getApiClass()
      */
     @Override
     protected Class<? extends Api> getApiClass() {

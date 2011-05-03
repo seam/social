@@ -33,7 +33,7 @@ import org.scribe.model.Verifier;
  * 
  */
 
-public abstract class OAuthServiceHandlerScribe implements OAuthService, Serializable {
+public abstract class OAuthServiceScribe implements OAuthService, Serializable {
 
     /**
     * 
@@ -83,7 +83,7 @@ public abstract class OAuthServiceHandlerScribe implements OAuthService, Seriali
     /*
      * (non-Javadoc)
      * 
-     * @see org.jboss.seam.social.oauth.OAuthServiceHandlerScribe#getSettings()
+     * @see org.jboss.seam.social.oauth.OAuthServiceScribe#getSettings()
      */
     @Override
     public OAuthServiceSettings getSettings() {

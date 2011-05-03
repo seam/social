@@ -22,7 +22,7 @@ import javax.inject.Named;
 
 import org.jboss.seam.social.oauth.HttpResponse;
 import org.jboss.seam.social.oauth.JsonMapper;
-import org.jboss.seam.social.oauth.OAuthServiceHandlerScribe;
+import org.jboss.seam.social.oauth.OAuthServiceScribe;
 import org.jboss.seam.social.oauth.OAuthServiceSettings;
 import org.jboss.seam.social.oauth.RestVerb;
 import org.jboss.seam.social.oauth.UserProfile;
@@ -38,7 +38,7 @@ import org.scribe.builder.api.TwitterApi;
  */
 @Named("twitterHdl")
 @SessionScoped
-public class TwitterHandlerScribe extends OAuthServiceHandlerScribe implements TwitterHandler {
+public class TwitterHandlerScribe extends OAuthServiceScribe implements TwitterHandler {
 
     private static final long serialVersionUID = 6806035986656777834L;
     static final String VERIFY_CREDENTIALS_URL = "https://api.twitter.com/1/account/verify_credentials.json";
@@ -72,7 +72,7 @@ public class TwitterHandlerScribe extends OAuthServiceHandlerScribe implements T
     /*
      * (non-Javadoc)
      * 
-     * @see org.jboss.seam.social.oauth.OAuthServiceHandlerScribe#getApiClass()
+     * @see org.jboss.seam.social.oauth.OAuthServiceScribe#getApiClass()
      */
     @Override
     protected Class<? extends Api> getApiClass() {

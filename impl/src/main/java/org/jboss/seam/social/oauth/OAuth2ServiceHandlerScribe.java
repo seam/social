@@ -20,7 +20,7 @@ package org.jboss.seam.social.oauth;
  * @author Antoine Sabot-Durand
  * 
  */
-public abstract class OAuth2ServiceHandlerScribe extends OAuthServiceHandlerScribe {
+public abstract class OAuth2ServiceHandlerScribe extends OAuthServiceScribe {
 
     /**
     * 
