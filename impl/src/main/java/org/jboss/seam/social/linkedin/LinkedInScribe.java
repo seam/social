@@ -48,7 +48,7 @@ public class LinkedInScribe extends OAuthServiceScribe implements LinkedIn {
 
     private static final long serialVersionUID = -6718362913575146613L;
 
-    static final String USER_PROFILE_URL = "http://api.linkedin.com/v1/people/~:(first-name,last-name,headline,picture-url,site-standard-profile-request:(url))";
+    static final String USER_PROFILE_URL = "http://api.linkedin.com/v1/people/~:(id,first-name,last-name,headline,picture-url,site-standard-profile-request:(url))";
     static final Class<? extends Api> API_CLASS = LinkedInApi.class;
     static final String LOGO_URL = "https://d2l6uygi1pgnys.cloudfront.net/1-9-05/images/buttons/linkedin_connect.png";
     static final String TYPE = "LinkedIn";

@@ -83,6 +83,7 @@ import org.codehaus.jackson.annotate.JsonProperty;
  * </pre>
  * 
  * @author Antoine Sabot-Durand
+ * @author Todd Morrison
  * 
  * 
  * 
@@ -90,6 +91,10 @@ import org.codehaus.jackson.annotate.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class CredentialJackson implements Credential {
+	
+	@JsonProperty
+	private String id;
+	
     @JsonProperty
     private String name;
 
@@ -129,4 +134,14 @@ public class CredentialJackson implements Credential {
         return pictureUrl;
     }
 
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.jboss.seam.social.oauth.User#getId()
+	 */
+	@Override
+	public String getId() {
+		return this.id;
+	}
 }

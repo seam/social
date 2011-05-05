@@ -21,10 +21,19 @@ package org.jboss.seam.social.oauth;
  * Interface defining an user
  * 
  * @author Antoine Sabot-Durand
+ * @author Todd Morrison
  * 
  */
 public interface UserProfile {
 
+	/**
+	 * Permanent identifier against the social relationship for the life-time of
+	 * the network account
+	 * 
+	 * @return the user's social network key
+	 */
+	public String getId();
+	
     /**
      * 
      * @return the user's full name
