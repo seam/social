@@ -40,7 +40,6 @@ import org.scribe.builder.api.LinkedInApi;
 
 /**
  * @author Antoine Sabot-Durand
- * 
  */
 @Named("linkedIn")
 @SessionScoped
@@ -80,7 +79,7 @@ public class LinkedInScribe extends OAuthServiceScribe implements LinkedIn {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.jboss.seam.social.oauth.OAuthServiceScribe#getApiClass()
      */
     @Override
@@ -90,7 +89,7 @@ public class LinkedInScribe extends OAuthServiceScribe implements LinkedIn {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.jboss.seam.social.oauth.OAuthService#getServiceLogo()
      */
     @Override
@@ -100,7 +99,7 @@ public class LinkedInScribe extends OAuthServiceScribe implements LinkedIn {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.jboss.seam.social.oauth.OAuthService#getUserProfile()
      */
     @Override
@@ -124,7 +123,7 @@ public class LinkedInScribe extends OAuthServiceScribe implements LinkedIn {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.jboss.seam.social.oauth.OAuthService#getType()
      */
     @Override
@@ -134,7 +133,7 @@ public class LinkedInScribe extends OAuthServiceScribe implements LinkedIn {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.jboss.seam.social.oauth.HasStatus#updateStatus()
      */
     @Override
@@ -145,7 +144,7 @@ public class LinkedInScribe extends OAuthServiceScribe implements LinkedIn {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.jboss.seam.social.oauth.HasStatus#updateStatus(java.lang.String)
      */
     @Override

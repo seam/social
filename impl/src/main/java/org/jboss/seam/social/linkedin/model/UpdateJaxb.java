@@ -24,7 +24,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * @author Antoine Sabot-Durand
- * 
  */
 @XmlRootElement(name = "activity")
 @XmlAccessorType(XmlAccessType.FIELD)

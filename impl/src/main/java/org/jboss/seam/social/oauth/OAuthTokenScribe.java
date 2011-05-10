@@ -20,7 +20,6 @@ import org.scribe.model.Token;
 
 /**
  * @author Antoine Sabot-Durand
- * 
  */
 public class OAuthTokenScribe implements OAuthToken {
 

@@ -16,12 +16,6 @@
  */
 package org.jboss.seam.social.oauth;
 
-import static java.lang.annotation.ElementType.FIELD;
-import static java.lang.annotation.ElementType.METHOD;
-import static java.lang.annotation.ElementType.PARAMETER;
-import static java.lang.annotation.ElementType.TYPE;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
-
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
@@ -29,33 +23,35 @@ import java.lang.annotation.Target;
 import javax.enterprise.util.Nonbinding;
 import javax.inject.Qualifier;
 
+import static java.lang.annotation.ElementType.FIELD;
+import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.ElementType.PARAMETER;
+import static java.lang.annotation.ElementType.TYPE;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+
 /**
  * A CDI Qualifier annotation to qualify and set OAuthService directly in the code It can be used like this :
- * 
+ * <p/>
  * <pre>
  * &#064;Inject
  * &#064;Setted(apiKey = &quot;a consumer key&quot;, apiSecret = &quot;a consumer secret&quot;, callback = &quot;a call back URL&quot;)
  * Twitter service;
  * </pre>
- * 
+ * <p/>
  * It's one of the alternates solution initialize an OAuth service configuration
- * 
+ *
  * @author Antoine Sabot-Durand
- * 
  */
 
 @Qualifier
-@Target({ TYPE, METHOD, PARAMETER, FIELD })
+@Target({TYPE, METHOD, PARAMETER, FIELD})
 @Retention(RUNTIME)
 @Documented
 public @interface Setted {
 
-    @Nonbinding
-    String apiKey() default "";
+    @Nonbinding String apiKey() default "";
 
-    @Nonbinding
-    String apiSecret() default "";
+    @Nonbinding String apiSecret() default "";
 
-    @Nonbinding
-    String callback() default "oob";
+    @Nonbinding String callback() default "oob";
 }

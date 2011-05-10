@@ -28,15 +28,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  * @author Antoine Sabot-Durand
  * @author Todd Morrison
- * 
  */
 @XmlRootElement(name = "person")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ProfileJaxb implements Profile {
-    
-	@XmlElement(name = "id")
-	private String id;
-	
+
+    @XmlElement(name = "id")
+    private String id;
+
     @XmlElement(name = "first-name")
     private String firstName;
 
@@ -49,7 +48,7 @@ public class ProfileJaxb implements Profile {
     private String pictureUrl;
 
     @XmlElementWrapper(name = "site-standard-profile-request")
-    @XmlElements({ @XmlElement(name = "url") })
+    @XmlElements({@XmlElement(name = "url")})
     private List<String> standardProfileUrl;
 
     @Override
@@ -85,13 +84,13 @@ public class ProfileJaxb implements Profile {
     }
 
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.jboss.seam.social.oauth.User#getId()
-	 */
-	@Override
-	public String getId() {
-		return this.id;
-	}
+    /*
+      * (non-Javadoc)
+      *
+      * @see org.jboss.seam.social.oauth.User#getId()
+      */
+    @Override
+    public String getId() {
+        return this.id;
+    }
 }

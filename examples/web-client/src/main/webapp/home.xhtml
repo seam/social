@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-   xmlns:ui="http://java.sun.com/jsf/facelets"
-   xmlns:f="http://java.sun.com/jsf/core"
-   xmlns:h="http://java.sun.com/jsf/html"
-   template="/WEB-INF/templates/default.xhtml">
-   <ui:define name="content">
-      <h1>Seam Social client Example</h1>
-      <p>Please click on the button Below to connect Seam Social to your account on the given service</p>
-<h:form>
-<ui:repeat var="service" value="#{socialClient.serviceHandlers}">
-<h:commandLink action="#{socialClient.gotoAuthorizationURL(service)}" >
-<img src="#{service.serviceLogo}" />
-</h:commandLink>
-</ui:repeat>
-</h:form>
-    
-   </ui:define>
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                template="/WEB-INF/templates/default.xhtml">
+    <ui:define name="content">
+        <h1>Seam Social client Example</h1>
+
+        <p>Please click on the button Below to connect Seam Social to your account on the given service</p>
+        <h:form>
+            <ui:repeat var="service" value="#{socialClient.serviceHandlers}">
+                <h:commandLink action="#{socialClient.gotoAuthorizationURL(service)}">
+                    <img src="#{service.serviceLogo}"/>
+                </h:commandLink>
+            </ui:repeat>
+        </h:form>
+
+    </ui:define>
 </ui:composition>

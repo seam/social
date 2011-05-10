@@ -22,7 +22,7 @@ import org.codehaus.jackson.annotate.JsonProperty;
 /**
  * @author Antoine Sabot-Durand
  * @author Todd Morrison
- * 
+ *         <p/>
  *         { "id": "1234567", "name": "Antoine Sabot-Durand", "first_name": "Antoine", "last_name": "Sabot-Durand", "link":
  *         "http://www.facebook.com/antoine.sabotdurand", "username": "ASD", "birthday": "05/18/19XX", "hometown": { "id":
  *         "110774245616525", "name": "Paris, France" }, "location": { "id": "106108736094844", "name": "Villejuif, France" },
@@ -38,7 +38,6 @@ import org.codehaus.jackson.annotate.JsonProperty;
  *         "http://www.next-presso.fr", "timezone": 2, "locale": "fr_FR", "languages": [ { "id": "103803232991647", "name":
  *         "Anglais" }, { "id": "112264595467201", "name": "Fran\u00e7ais" } ], "verified": true, "updated_time":
  *         "2011-04-03T12:03:15+0000" }
- * 
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UserJackson implements User {
@@ -67,7 +66,7 @@ public class UserJackson implements User {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.jboss.seam.social.oauth.User#getPictureUrl()
      */
     @Override
@@ -75,13 +74,13 @@ public class UserJackson implements User {
         return API_URL + id + "/picture";
     }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.jboss.seam.social.oauth.User#getId()
-	 */
-	@Override
-	public String getId() {
-		return this.id;
-	}
+    /*
+      * (non-Javadoc)
+      *
+      * @see org.jboss.seam.social.oauth.User#getId()
+      */
+    @Override
+    public String getId() {
+        return this.id;
+    }
 }

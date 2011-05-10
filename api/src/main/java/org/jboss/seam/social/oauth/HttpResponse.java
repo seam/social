@@ -13,47 +13,40 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */package org.jboss.seam.social.oauth;
+ */
+package org.jboss.seam.social.oauth;
 
 import java.io.InputStream;
 import java.util.Map;
 
 /**
- * 
  * Implementation of this interface represent an Http Response
- * 
+ *
  * @author Antoine Sabot-Durand
- * 
  */
 public interface HttpResponse {
 
     /**
-     * 
      * @return the body of the response in a {@link String}
      */
     public String getBody();
 
     /**
-     * 
      * @return the body of the response in a {@link InputStream}
      */
     public InputStream getStream();
 
     /**
-     * 
      * @return the HTTP return code of the response
      */
     public int getCode();
 
     /**
-     * 
      * @return the HTTP Response headers in {@link Map}
      */
     public Map<String, String> getHeaders();
 
     /**
-     * 
-     * 
      * @param name of the HTTP header
      * @return the value of the HTTP header
      */

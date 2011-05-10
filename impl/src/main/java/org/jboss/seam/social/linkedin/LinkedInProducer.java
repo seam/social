@@ -22,7 +22,6 @@ import org.jboss.seam.social.oauth.SettedHandlerProducer;
 
 /**
  * @author Antoine Sabot-Durand
- * 
  */
 public class LinkedInProducer extends SettedHandlerProducer {
 
