@@ -1,41 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	template="/WEB-INF/templates/default.xhtml">
-	<ui:define name="content">
-		<h:messages />
-		<h1>Seam Social client Example</h1>
-		<p>Your (future) Timeline</p>
-		<h:form id="form">
-			<h:panelGroup id="timeline"
-				rendered="#{socialClient.currentServiceOk}">
-		Welcome #{socialClient.user.fullName}<br />
-		You are now working with #{socialClient.currentServiceHdl.type}<br />
-				<ui:include src="#{socialClient.timeLineUrl}" />
-			</h:panelGroup>
-		You can add those social network :
-		<ui:repeat var="service" value="#{socialClient.unconnectedServices}">
-				<h:commandLink
-					action="#{socialClient.gotoAuthorizationURL(service)}"
-					immediate="true">
-					<img src="#{service.serviceLogo}" />
-				</h:commandLink>
-			</ui:repeat>
-			<br />
-		close connexion on <h:commandLink
-				action="#{socialClient.currentServiceHdl.resetConnexion}"
-				value="#{currentServiceHdl.type}" />
-	
-		
-		Or choose the Social network you want to work with.. :
-		<h:selectOneRadio id="chooseService"
-				value="#{socialClient.currentServiceName}">
-				<f:selectItems value="#{socialClient.connectedServices}" var="serv"
-					itemValue="#{serv.type}" />
-				<f:ajax render="timeline" />
-			</h:selectOneRadio>
-		</h:form>
-	</ui:define>
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                template="/WEB-INF/templates/default.xhtml">
+    <ui:define name="content">
+        <h:messages/>
+        <h1>Seam Social client Example</h1>
+
+        <p>Your (future) Timeline</p>
+        <h:form id="form">
+            <h:panelGroup id="timeline"
+                          rendered="#{socialClient.currentServiceOk}">
+                Welcome #{socialClient.user.fullName}<br/>
+                You are now working with #{socialClient.currentServiceHdl.type}<br/>
+                <ui:include src="#{socialClient.timeLineUrl}"/>
+            </h:panelGroup>
+            You can add those social network :
+            <ui:repeat var="service" value="#{socialClient.unconnectedServices}">
+                <h:commandLink
+                        action="#{socialClient.gotoAuthorizationURL(service)}"
+                        immediate="true">
+                    <img src="#{service.serviceLogo}"/>
+                </h:commandLink>
+            </ui:repeat>
+            <br/>
+            close connexion on
+            <h:commandLink
+                    action="#{socialClient.currentServiceHdl.resetConnexion}"
+                    value="#{currentServiceHdl.type}"/>
+
+
+            Or choose the Social network you want to work with.. :
+            <h:selectOneRadio id="chooseService"
+                              value="#{socialClient.currentServiceName}">
+                <f:selectItems value="#{socialClient.connectedServices}" var="serv"
+                               itemValue="#{serv.type}"/>
+                <f:ajax render="timeline"/>
+            </h:selectOneRadio>
+        </h:form>
+    </ui:define>
 </ui:composition>

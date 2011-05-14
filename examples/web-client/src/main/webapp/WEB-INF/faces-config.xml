@@ -16,17 +16,17 @@
   limitations under the License.
 -->
 <faces-config version="2.0" xmlns="http://java.sun.com/xml/ns/javaee"
-	xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="       http://java.sun.com/xml/ns/javaee       http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
+              xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="       http://java.sun.com/xml/ns/javaee       http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
 
-	<!-- Write your navigation rules here. You are encouraged to use CDI for 
-		creating @Named managed beans. -->
+    <!-- Write your navigation rules here. You are encouraged to use CDI for
+         creating @Named managed beans. -->
 
-	<navigation-rule>
-		<from-view-id>/callback.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>openclient</from-outcome>
-			<to-view-id>/timeline.xhml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
+    <navigation-rule>
+        <from-view-id>/callback.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>openclient</from-outcome>
+            <to-view-id>/timeline.xhml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
 </faces-config>

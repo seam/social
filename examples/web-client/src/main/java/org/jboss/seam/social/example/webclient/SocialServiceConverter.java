@@ -1,11 +1,10 @@
 /**
- * 
+ *
  */
 package org.jboss.seam.social.example.webclient;
 
 import java.util.Map;
 
-import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Any;
 import javax.enterprise.inject.Instance;
 import javax.faces.component.UIComponent;
@@ -14,15 +13,12 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.inject.Inject;
 
-import org.jboss.seam.social.oauth.OAuthService;
-
 import com.google.common.base.Function;
-import com.google.common.collect.Collections2;
 import com.google.common.collect.Maps;
+import org.jboss.seam.social.oauth.OAuthService;
 
 /**
  * @author antoine
- * 
  */
 @FacesConverter(value = "socialConverter", forClass = OAuthService.class)
 public class SocialServiceConverter implements Converter {
@@ -49,7 +45,7 @@ public class SocialServiceConverter implements Converter {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see javax.faces.convert.Converter#getAsObject(javax.faces.context.FacesContext, javax.faces.component.UIComponent,
      * java.lang.String)
      */
@@ -61,7 +57,7 @@ public class SocialServiceConverter implements Converter {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see javax.faces.convert.Converter#getAsString(javax.faces.context.FacesContext, javax.faces.component.UIComponent,
      * java.lang.Object)
      */

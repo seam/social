@@ -21,9 +21,8 @@ import org.jboss.seam.social.oauth.OAuthService;
 
 /**
  * A specialization of {@link OAuthService} to add SetTwitter specific methods
- * 
+ *
  * @author Antoine Sabot-Durand
- * 
  */
 
 public interface Twitter extends OAuthService, HasStatus {

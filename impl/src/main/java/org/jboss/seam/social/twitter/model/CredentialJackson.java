@@ -20,9 +20,8 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 /**
- * 
  * A POJO to map Json response from SetTwitter verify_crendentials response to Java. Here is an example of data sent from SetTwitter
- * 
+ * <p/>
  * <pre>
  * {
  *   "profile_sidebar_border_color": "C0DEED",
@@ -81,20 +80,17 @@ import org.codehaus.jackson.annotate.JsonProperty;
  *   "following": false
  * }
  * </pre>
- * 
+ *
  * @author Antoine Sabot-Durand
  * @author Todd Morrison
- * 
- * 
- * 
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class CredentialJackson implements Credential {
-	
-	@JsonProperty
-	private String id;
-	
+
+    @JsonProperty
+    private String id;
+
     @JsonProperty
     private String name;
 
@@ -106,7 +102,7 @@ public class CredentialJackson implements Credential {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.jboss.seam.social.twitter.domain.Credential#getScreenName()
      */
     @Override
@@ -116,7 +112,7 @@ public class CredentialJackson implements Credential {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.jboss.seam.social.oauth.OAuthUserProfile#getFullName()
      */
     @Override
@@ -126,7 +122,7 @@ public class CredentialJackson implements Credential {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.jboss.seam.social.oauth.User#getPictureUrl()
      */
     @Override
@@ -135,13 +131,13 @@ public class CredentialJackson implements Credential {
     }
 
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.jboss.seam.social.oauth.User#getId()
-	 */
-	@Override
-	public String getId() {
-		return this.id;
-	}
+    /*
+      * (non-Javadoc)
+      *
+      * @see org.jboss.seam.social.oauth.User#getId()
+      */
+    @Override
+    public String getId() {
+        return this.id;
+    }
 }

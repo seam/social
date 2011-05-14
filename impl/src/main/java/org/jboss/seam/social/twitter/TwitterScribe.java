@@ -26,15 +26,14 @@ import org.jboss.seam.social.oauth.OAuthServiceScribe;
 import org.jboss.seam.social.oauth.OAuthServiceSettings;
 import org.jboss.seam.social.oauth.RestVerb;
 import org.jboss.seam.social.oauth.UserProfile;
+import org.jboss.seam.social.twitter.model.CredentialJackson;
 import org.jboss.seam.social.twitter.model.Tweet;
 import org.jboss.seam.social.twitter.model.TweetJackson;
-import org.jboss.seam.social.twitter.model.CredentialJackson;
 import org.scribe.builder.api.Api;
 import org.scribe.builder.api.TwitterApi;
 
 /**
  * @author Antoine Sabot-Durand
- * 
  */
 @Named("twitter")
 @SessionScoped
@@ -71,7 +70,7 @@ public class TwitterScribe extends OAuthServiceScribe implements Twitter {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.jboss.seam.social.oauth.OAuthServiceScribe#getApiClass()
      */
     @Override
@@ -81,7 +80,7 @@ public class TwitterScribe extends OAuthServiceScribe implements Twitter {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.jboss.seam.social.oauth.OAuthService#getServiceLogo()
      */
     @Override
@@ -91,7 +90,7 @@ public class TwitterScribe extends OAuthServiceScribe implements Twitter {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.jboss.seam.social.oauth.OAuthService#getUserProfile()
      */
     @Override
@@ -105,7 +104,7 @@ public class TwitterScribe extends OAuthServiceScribe implements Twitter {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.jboss.seam.social.oauth.OAuthService#getType()
      */
     @Override
@@ -115,7 +114,7 @@ public class TwitterScribe extends OAuthServiceScribe implements Twitter {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.jboss.seam.social.twitter.Twitter#updateStatus()
      */
     @Override

@@ -33,7 +33,6 @@ import org.scribe.builder.api.FacebookApi;
 
 /**
  * @author Antoine Sabot-Durand
- * 
  */
 @Named("facebook")
 @SessionScoped
@@ -56,13 +55,13 @@ public class FacebookScribe extends OAuth2ServiceScribe implements Facebook {
     }
 
     /**
-    * 
-    */
+     *
+     */
     private static final long serialVersionUID = -1388022067022793683L;
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.jboss.seam.social.oauth.OAuthService#getServiceLogo()
      */
     @Override
@@ -72,7 +71,7 @@ public class FacebookScribe extends OAuth2ServiceScribe implements Facebook {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.jboss.seam.social.oauth.OAuthService#getUser()
      */
     @Override
@@ -86,7 +85,7 @@ public class FacebookScribe extends OAuth2ServiceScribe implements Facebook {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.jboss.seam.social.oauth.OAuthService#getType()
      */
     @Override
@@ -96,7 +95,7 @@ public class FacebookScribe extends OAuth2ServiceScribe implements Facebook {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.jboss.seam.social.oauth.HasStatus#updateStatus()
      */
     @Override
@@ -107,7 +106,7 @@ public class FacebookScribe extends OAuth2ServiceScribe implements Facebook {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.jboss.seam.social.oauth.HasStatus#updateStatus(java.lang.String)
      */
     @Override
@@ -118,7 +117,7 @@ public class FacebookScribe extends OAuth2ServiceScribe implements Facebook {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.jboss.seam.social.oauth.OAuthServiceScribe#getApiClass()
      */
     @Override

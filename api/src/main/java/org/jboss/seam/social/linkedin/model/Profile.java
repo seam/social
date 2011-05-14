@@ -19,34 +19,28 @@ package org.jboss.seam.social.linkedin.model;
 import org.jboss.seam.social.oauth.UserProfile;
 
 /**
- * 
  * Implementation of this interface will contain a SetLinkedIn Profile
- * 
+ *
  * @author Antoine Sabot-Durand
- * 
  */
 public interface Profile extends UserProfile {
 
     /**
-     * 
      * @return the Headline (position) of the profile
      */
     public String getHeadline();
 
     /**
-     * 
      * @return the Lastname of the profile
      */
     public String getLastName();
 
     /**
-     * 
      * @return the Firstname of the profile
      */
     public String getFirstName();
 
     /**
-     * 
      * @return the public URL to access this profile on SetLinkedIn
      */
     public String getStandardProfileUrl();

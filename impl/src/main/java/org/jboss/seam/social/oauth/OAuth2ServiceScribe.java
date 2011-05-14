@@ -18,13 +18,12 @@ package org.jboss.seam.social.oauth;
 
 /**
  * @author Antoine Sabot-Durand
- * 
  */
 public abstract class OAuth2ServiceScribe extends OAuthServiceScribe {
 
     /**
-    * 
-    */
+     *
+     */
     private static final long serialVersionUID = 3436501339795099869L;
     private static final String VERIFIER_PARAM_NAME = "code";
 

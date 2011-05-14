@@ -20,12 +20,11 @@ import java.io.Serializable;
 
 /**
  * @author Antoine Sabot-Durand
- * 
  */
 public class OAuthServiceSettingsImpl implements OAuthServiceSettings, Serializable {
     /**
-    * 
-    */
+     *
+     */
     private static final long serialVersionUID = -8018722725677732853L;
 
     private String apiKey;

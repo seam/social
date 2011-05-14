@@ -30,23 +30,22 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.jboss.seam.social.oauth.OAuthService;
-import org.jboss.seam.social.oauth.OAuthToken;
-import org.jboss.seam.social.oauth.UserProfile;
-
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import org.jboss.seam.social.oauth.OAuthService;
+import org.jboss.seam.social.oauth.OAuthToken;
+import org.jboss.seam.social.oauth.UserProfile;
 
 @Named
 @SessionScoped
 public class SocialClient implements Serializable {
 
     /**
-    * 
-    */
+     *
+     */
     private static final long serialVersionUID = 3723552335163650582L;
 
     @Inject

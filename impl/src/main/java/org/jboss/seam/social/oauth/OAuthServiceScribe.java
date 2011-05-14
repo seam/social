@@ -30,14 +30,13 @@ import org.scribe.model.Verifier;
 
 /**
  * @author Antoine Sabot-Durand
- * 
  */
 
 public abstract class OAuthServiceScribe implements OAuthService, Serializable {
 
     /**
-    * 
-    */
+     *
+     */
     private static final long serialVersionUID = -8423894021913341674L;
     private static final String VERIFIER_PARAM_NAME = "oauth_verifier";
 
@@ -82,7 +81,7 @@ public abstract class OAuthServiceScribe implements OAuthService, Serializable {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.jboss.seam.social.oauth.OAuthServiceScribe#getSettings()
      */
     @Override

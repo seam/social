@@ -27,14 +27,13 @@ import org.codehaus.jackson.map.ObjectMapper;
 
 /**
  * @author Antoine Sabot-Durand
- * 
  */
 @ApplicationScoped
 public class JsonMapper implements Serializable {
 
     /**
-    * 
-    */
+     *
+     */
     private static final long serialVersionUID = -2012295612034078749L;
 
     private final ObjectMapper delegate = new ObjectMapper();

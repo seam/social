@@ -18,11 +18,9 @@
 package org.jboss.seam.social.twitter.model;
 
 /**
- * 
  * Implementation of this interface contains a Tweet
- * 
+ *
  * @author Antoine Sabot-Durand
- * 
  */
 public interface Tweet {
 

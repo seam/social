@@ -21,11 +21,9 @@ import org.jboss.seam.social.oauth.HasStatus;
 import org.jboss.seam.social.oauth.OAuthService;
 
 /**
- * 
  * A specialization of {@link OAuthService} to add Facebook specific methods
- * 
+ *
  * @author Antoine Sabot-Durand
- * 
  */
 public interface Facebook extends OAuthService, HasStatus {
 

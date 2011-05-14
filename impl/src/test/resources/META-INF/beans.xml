@@ -16,12 +16,12 @@
   limitations under the License.
 -->
 <beans xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:s="urn:java:ee" xmlns:t="urn:java:org.jboss.seam.social.twitter">
+       xmlns:s="urn:java:ee" xmlns:t="urn:java:org.jboss.seam.social.twitter">
 
 
     <t:TwitterClient apiKey="FQzlQC49UhvbMZoxUIvHTQ"
-        apiSecret="VQ5CZHG4qUoAkUUmckPn4iN4yyjBKcORTW0wnok4r1k">
-        <s:replaces />
+                     apiSecret="VQ5CZHG4qUoAkUUmckPn4iN4yyjBKcORTW0wnok4r1k">
+        <s:replaces/>
     </t:TwitterClient>
 
 </beans>
