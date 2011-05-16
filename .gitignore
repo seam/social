@@ -2,6 +2,7 @@ target
 .classpath
 .project
 .settings
+bin
 rebel.xml
 *.sw?
 */src/main/java/META-INF
