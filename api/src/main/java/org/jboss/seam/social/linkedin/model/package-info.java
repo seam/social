@@ -17,5 +17,5 @@
 package org.jboss.seam.social.linkedin.model;
 
 /**
- * This package contains API elements to represent data or concepts in SetLinkedIn
+ * This package contains API elements to represent data or concepts in LinkedInRelated
  */

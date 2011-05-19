@@ -33,7 +33,9 @@ import org.jboss.seam.social.linkedin.model.UpdateJaxb;
 import org.jboss.seam.social.oauth.HttpResponse;
 import org.jboss.seam.social.oauth.OAuthServiceScribe;
 import org.jboss.seam.social.oauth.OAuthServiceSettings;
+import org.jboss.seam.social.oauth.RelatedTo;
 import org.jboss.seam.social.oauth.RestVerb;
+import org.jboss.seam.social.oauth.Service;
 import org.jboss.seam.social.oauth.UserProfile;
 import org.scribe.builder.api.Api;
 import org.scribe.builder.api.LinkedInApi;
@@ -41,8 +43,7 @@ import org.scribe.builder.api.LinkedInApi;
 /**
  * @author Antoine Sabot-Durand
  */
-@Named("linkedIn")
-@SessionScoped
+@RelatedTo(Service.LinkedIn)
 public class LinkedInScribe extends OAuthServiceScribe implements LinkedIn {
 
     private static final long serialVersionUID = -6718362913575146613L;
@@ -72,7 +73,7 @@ public class LinkedInScribe extends OAuthServiceScribe implements LinkedIn {
 
     @Override
     @Inject
-    public void setSettings(@SetLinkedIn OAuthServiceSettings settings) {
+    public void setSettings(@RelatedTo(Service.LinkedIn) OAuthServiceSettings settings) {
         super.setSettings(settings);
 
     }

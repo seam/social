@@ -19,7 +19,7 @@ package org.jboss.seam.social.facebook.model;
 import org.jboss.seam.social.oauth.UserProfile;
 
 /**
- * Implementation of this interface will contain SetFacebook Profile
+ * Implementation of this interface will contain FacebookRelated Profile
  *
  * @author Antoine Sabot-Durand
  */

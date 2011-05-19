@@ -20,7 +20,7 @@ import org.jboss.seam.social.oauth.HasStatus;
 import org.jboss.seam.social.oauth.OAuthService;
 
 /**
- * A specialization of {@link OAuthService} to add SetTwitter specific methods
+ * A specialization of {@link OAuthService} to add TwitterRelated specific methods
  *
  * @author Antoine Sabot-Durand
  */

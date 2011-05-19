@@ -18,6 +18,7 @@ package org.jboss.seam.social.example.webclient;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -35,9 +36,14 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+
+import org.jboss.logging.Logger;
 import org.jboss.seam.social.oauth.OAuthService;
 import org.jboss.seam.social.oauth.OAuthToken;
+import org.jboss.seam.social.oauth.RelatedTo;
+import org.jboss.seam.social.oauth.Service;
 import org.jboss.seam.social.oauth.UserProfile;
+import org.jboss.seam.social.twitter.Twitter;
 
 @Named
 @SessionScoped
@@ -58,6 +64,9 @@ public class SocialClient implements Serializable {
     private List<OAuthService> serviceHandlers;
 
     private Map<String, OAuthService> serviceHandlersMap;
+    
+    @Inject
+    private Logger log;
 
     public List<OAuthService> getServiceHandlers() {
         return serviceHandlers;
@@ -66,7 +75,10 @@ public class SocialClient implements Serializable {
     @PostConstruct
     public void init() {
 
-        serviceHandlers = Lists.newArrayList(serviceHandlerInstances);
+        /* example of bean selection with a given value for RelatedTo Qualifier */
+        OAuthService temp=serviceHandlerInstances.select(new RelatedTo.RelatedToLiteral(Service.Twitter)).get();
+        log.info("Type of Twitter bean "+temp.getType());
+        
         serviceHandlersMap = Maps.uniqueIndex(serviceHandlerInstances, new Function<OAuthService, String>() {
 
             @Override
@@ -75,6 +87,7 @@ public class SocialClient implements Serializable {
                 return arg0.getType();
             }
         });
+        serviceHandlers = new ArrayList<OAuthService>(serviceHandlersMap.values());
 
     }
 

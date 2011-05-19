@@ -26,7 +26,9 @@ import org.jboss.seam.social.oauth.HttpResponse;
 import org.jboss.seam.social.oauth.JsonMapper;
 import org.jboss.seam.social.oauth.OAuth2ServiceScribe;
 import org.jboss.seam.social.oauth.OAuthServiceSettings;
+import org.jboss.seam.social.oauth.RelatedTo;
 import org.jboss.seam.social.oauth.RestVerb;
+import org.jboss.seam.social.oauth.Service;
 import org.jboss.seam.social.oauth.UserProfile;
 import org.scribe.builder.api.Api;
 import org.scribe.builder.api.FacebookApi;
@@ -34,8 +36,8 @@ import org.scribe.builder.api.FacebookApi;
 /**
  * @author Antoine Sabot-Durand
  */
-@Named("facebook")
-@SessionScoped
+
+@RelatedTo(Service.Facebook)
 public class FacebookScribe extends OAuth2ServiceScribe implements Facebook {
 
     static final String USER_PROFILE_URL = "https://graph.facebook.com/me";
@@ -49,7 +51,7 @@ public class FacebookScribe extends OAuth2ServiceScribe implements Facebook {
 
     @Override
     @Inject
-    public void setSettings(@SetFacebook OAuthServiceSettings settings) {
+    public void setSettings(@RelatedTo(Service.Facebook) OAuthServiceSettings settings) {
         super.setSettings(settings);
 
     }

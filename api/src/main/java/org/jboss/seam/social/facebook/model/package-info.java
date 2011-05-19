@@ -17,5 +17,5 @@
 package org.jboss.seam.social.facebook.model;
 
 /**
- * This package contains API elements to represent data or concepts in SetFacebook
+ * This package contains API elements to represent data or concepts in FacebookRelated
  */

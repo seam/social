@@ -18,9 +18,13 @@ package org.jboss.seam.social.oauth;
 
 import java.io.Serializable;
 
+import javax.enterprise.context.ApplicationScoped;
+
 /**
  * @author Antoine Sabot-Durand
  */
+
+@ApplicationScoped
 public class OAuthServiceSettingsImpl implements OAuthServiceSettings, Serializable {
     /**
      *

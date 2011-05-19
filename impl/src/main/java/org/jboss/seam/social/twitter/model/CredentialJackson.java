@@ -20,7 +20,7 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 /**
- * A POJO to map Json response from SetTwitter verify_crendentials response to Java. Here is an example of data sent from SetTwitter
+ * A POJO to map Json response from TwitterRelated verify_crendentials response to Java. Here is an example of data sent from TwitterRelated
  * <p/>
  * <pre>
  * {

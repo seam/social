@@ -21,7 +21,7 @@ import java.util.List;
 import org.jboss.seam.social.twitter.Twitter;
 
 /**
- * Implementation of this interface contains a SetTwitter search result It is returned by {@link Twitter#search()}
+ * Implementation of this interface contains a TwitterRelated search result It is returned by {@link Twitter#search()}
  *
  * @author Antoine Sabot-Durand
  */
