@@ -105,17 +105,17 @@ public class LinkedInScribe extends OAuthServiceScribe implements LinkedIn {
      */
     @Override
     public UserProfile getUser() {
-        if (userProfile == null) {
+        if (session.getUserProfile() == null) {
             HttpResponse resp = sendSignedRequest(RestVerb.GET, USER_PROFILE_URL);
             try {
                 // System.out.println(StreamUtils.getStreamContents(resp.getStream()));
-                userProfile = (UserProfile) unmarshaller.unmarshal(resp.getStream());
+                session.setUserProfile((UserProfile) unmarshaller.unmarshal(resp.getStream()));
             } catch (JAXBException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }
-        return userProfile;
+        return session.getUserProfile();
     }
 
     protected Profile getLinkedInProfile() {

@@ -104,11 +104,11 @@ public class TwitterScribe extends OAuthServiceScribe implements Twitter {
      */
     @Override
     public UserProfile getUser() {
-        if (userProfile == null) {
+        if (session.getUserProfile() == null) {
             HttpResponse resp = sendSignedRequest(RestVerb.GET, VERIFY_CREDENTIALS_URL);
-            userProfile = jsonMapper.readValue(resp, CredentialJackson.class);
+            session.setUserProfile(jsonMapper.readValue(resp, CredentialJackson.class));
         }
-        return userProfile;
+        return session.getUserProfile();
     }
 
     /*

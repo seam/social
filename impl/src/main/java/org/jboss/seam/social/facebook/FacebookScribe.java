@@ -78,11 +78,11 @@ public class FacebookScribe extends OAuth2ServiceScribe implements Facebook {
      */
     @Override
     public UserProfile getUser() {
-        if (userProfile == null) {
+        if (session.getUserProfile() == null) {
             HttpResponse resp = sendSignedRequest(RestVerb.GET, USER_PROFILE_URL);
-            userProfile = jsonMapper.readValue(resp, UserJackson.class);
+            session.setUserProfile(jsonMapper.readValue(resp, UserJackson.class));
         }
-        return userProfile;
+        return session.getUserProfile();
     }
 
     /*
