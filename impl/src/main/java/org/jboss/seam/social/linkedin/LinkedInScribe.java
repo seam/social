@@ -20,6 +20,8 @@ import java.io.StringWriter;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
+import javax.enterprise.inject.New;
+import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.xml.bind.JAXBContext;
@@ -31,6 +33,7 @@ import org.jboss.seam.social.linkedin.model.Profile;
 import org.jboss.seam.social.linkedin.model.Update;
 import org.jboss.seam.social.linkedin.model.UpdateJaxb;
 import org.jboss.seam.social.oauth.HttpResponse;
+import org.jboss.seam.social.oauth.OAuthService;
 import org.jboss.seam.social.oauth.OAuthServiceScribe;
 import org.jboss.seam.social.oauth.OAuthServiceSettings;
 import org.jboss.seam.social.oauth.RelatedTo;
@@ -76,6 +79,14 @@ public class LinkedInScribe extends OAuthServiceScribe implements LinkedIn {
     public void setSettings(@RelatedTo(Service.LinkedIn) OAuthServiceSettings settings) {
         super.setSettings(settings);
 
+    }
+    
+    
+    @Produces
+    @RelatedTo(Service.LinkedIn)
+    protected OAuthService qualifiedProducer(@New LinkedInScribe linkedIn)
+    {
+        return linkedIn;
     }
 
     /*

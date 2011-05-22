@@ -18,6 +18,8 @@
 package org.jboss.seam.social.facebook;
 
 import javax.enterprise.context.SessionScoped;
+import javax.enterprise.inject.New;
+import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -25,6 +27,7 @@ import org.jboss.seam.social.facebook.model.UserJackson;
 import org.jboss.seam.social.oauth.HttpResponse;
 import org.jboss.seam.social.oauth.JsonMapper;
 import org.jboss.seam.social.oauth.OAuth2ServiceScribe;
+import org.jboss.seam.social.oauth.OAuthService;
 import org.jboss.seam.social.oauth.OAuthServiceSettings;
 import org.jboss.seam.social.oauth.RelatedTo;
 import org.jboss.seam.social.oauth.RestVerb;
@@ -54,6 +57,14 @@ public class FacebookScribe extends OAuth2ServiceScribe implements Facebook {
     public void setSettings(@RelatedTo(Service.Facebook) OAuthServiceSettings settings) {
         super.setSettings(settings);
 
+    }
+    
+    
+    @Produces
+    @RelatedTo(Service.Facebook)
+    protected OAuthService qualifiedProducer(@New FacebookScribe facebook)
+    {
+        return facebook;
     }
 
     /**
