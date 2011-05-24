@@ -18,6 +18,7 @@ package org.jboss.seam.social.twitter.model;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
+import org.jboss.seam.social.oauth.AbstractUserProfile;
 
 /**
  * A POJO to map Json response from TwitterRelated verify_crendentials response to Java. Here is an example of data sent from TwitterRelated
@@ -86,7 +87,7 @@ import org.codehaus.jackson.annotate.JsonProperty;
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class CredentialJackson implements Credential {
+public class CredentialJackson extends AbstractUserProfile implements Credential {
 
     @JsonProperty
     private String id;

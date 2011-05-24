@@ -18,6 +18,7 @@ package org.jboss.seam.social.facebook.model;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
+import org.jboss.seam.social.oauth.AbstractUserProfile;
 
 /**
  * @author Antoine Sabot-Durand
@@ -40,7 +41,7 @@ import org.codehaus.jackson.annotate.JsonProperty;
  *         "2011-04-03T12:03:15+0000" }
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class UserJackson implements User {
+public class UserJackson extends AbstractUserProfile implements User {
 
     private static String API_URL = "http://graph.facebook.com/";
 
@@ -83,4 +84,7 @@ public class UserJackson implements User {
     public String getId() {
         return this.id;
     }
+
+   
+    
 }

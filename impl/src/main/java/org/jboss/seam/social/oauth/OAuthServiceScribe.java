@@ -21,6 +21,8 @@ import java.io.Serializable;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import javax.inject.Inject;
+
 import org.scribe.builder.ServiceBuilder;
 import org.scribe.builder.api.Api;
 import org.scribe.model.OAuthRequest;
@@ -45,7 +47,18 @@ public abstract class OAuthServiceScribe implements OAuthService, Serializable {
 
     private OAuthServiceSettings settings;
 
-    protected OAuthSessionSettings session = new OAuthSessionSettingsScribe(Boolean.FALSE);
+    @Inject
+    protected OAuthSessionSettings session;
+
+    @Override
+    public OAuthSessionSettings getSession() {
+        return session;
+    }
+
+    @Override
+    public void setSession(OAuthSessionSettings session) {
+        this.session = session;
+    }
 
     public String getStatus() {
         return session.getStatus();
@@ -71,6 +84,12 @@ public abstract class OAuthServiceScribe implements OAuthService, Serializable {
 
     }
 
+    @Override
+    public String getName()
+    {
+        return getType() + " - " + getSession().getUserProfile().getFullName();
+    }
+    
     /*
      * (non-Javadoc)
      *
@@ -105,6 +124,8 @@ public abstract class OAuthServiceScribe implements OAuthService, Serializable {
             if (session.getAccessToken() != null) {
                 session.setConnected(Boolean.TRUE);
                 session.setRequestToken(null);
+                session.setUserProfile(getUser());
+                
             } else {
                 // Launch an exception !!
             }
@@ -113,7 +134,7 @@ public abstract class OAuthServiceScribe implements OAuthService, Serializable {
     }
 
     @Override
-    public void resetConnexion() {
+    public void resetConnection() {
         session.setUserProfile(null);
         session.setAccessToken(null);
         session.setVerifier(null);
@@ -227,4 +248,37 @@ public abstract class OAuthServiceScribe implements OAuthService, Serializable {
         return VERIFIER_PARAM_NAME;
     }
 
+    /**
+     * 
+     */
+    protected abstract UserProfile getUser();
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((session == null) ? 0 : session.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        OAuthServiceScribe other = (OAuthServiceScribe) obj;
+        if (session == null) {
+            if (other.session != null)
+                return false;
+        } else if (!session.equals(other.session))
+            return false;
+        return true;
+    }
+
+    
+    
+    
 }

@@ -20,16 +20,11 @@ package org.jboss.seam.social.twitter;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import javax.enterprise.context.SessionScoped;
-import javax.enterprise.inject.New;
-import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
-import javax.inject.Named;
 
 import org.jboss.logging.Logger;
 import org.jboss.seam.social.oauth.HttpResponse;
 import org.jboss.seam.social.oauth.JsonMapper;
-import org.jboss.seam.social.oauth.OAuthService;
 import org.jboss.seam.social.oauth.OAuthServiceScribe;
 import org.jboss.seam.social.oauth.OAuthServiceSettings;
 import org.jboss.seam.social.oauth.RelatedTo;
@@ -71,13 +66,7 @@ public class TwitterScribe extends OAuthServiceScribe implements Twitter {
 
     }
     
-    @Produces
-    @RelatedTo(Service.Twitter)
-    protected OAuthService qualifiedProducer(@New TwitterScribe twitter)
-    {
-        return twitter;
-    }
-
+   
     @Override
     public Tweet updateStatus(String message) {
         HttpResponse resp = sendSignedRequest(RestVerb.POST, TWEET_URL, "status", message);
@@ -113,12 +102,9 @@ public class TwitterScribe extends OAuthServiceScribe implements Twitter {
      * @see org.jboss.seam.social.oauth.OAuthService#getUserProfile()
      */
     @Override
-    public UserProfile getUser() {
-        if (session.getUserProfile() == null) {
+    protected UserProfile getUser() {
             HttpResponse resp = sendSignedRequest(RestVerb.GET, VERIFY_CREDENTIALS_URL);
-            session.setUserProfile(jsonMapper.readValue(resp, CredentialJackson.class));
-        }
-        return session.getUserProfile();
+            return jsonMapper.readValue(resp, CredentialJackson.class);
     }
 
     /*

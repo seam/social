@@ -40,7 +40,6 @@ import org.scribe.builder.api.FacebookApi;
  * @author Antoine Sabot-Durand
  */
 
-@RelatedTo(Service.Facebook)
 public class FacebookScribe extends OAuth2ServiceScribe implements Facebook {
 
     static final String USER_PROFILE_URL = "https://graph.facebook.com/me";
@@ -59,14 +58,6 @@ public class FacebookScribe extends OAuth2ServiceScribe implements Facebook {
 
     }
     
-    
-    @Produces
-    @RelatedTo(Service.Facebook)
-    protected OAuthService qualifiedProducer(@New FacebookScribe facebook)
-    {
-        return facebook;
-    }
-
     /**
      *
      */
@@ -88,12 +79,10 @@ public class FacebookScribe extends OAuth2ServiceScribe implements Facebook {
      * @see org.jboss.seam.social.oauth.OAuthService#getUser()
      */
     @Override
-    public UserProfile getUser() {
-        if (session.getUserProfile() == null) {
+    protected UserProfile getUser() {
+       
             HttpResponse resp = sendSignedRequest(RestVerb.GET, USER_PROFILE_URL);
-            session.setUserProfile(jsonMapper.readValue(resp, UserJackson.class));
-        }
-        return session.getUserProfile();
+            return jsonMapper.readValue(resp, UserJackson.class);
     }
 
     /*

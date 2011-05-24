@@ -41,5 +41,6 @@ public interface UserProfile {
      * @return the user's picture url
      */
     public String getPictureUrl();
-
+    
+    
 }

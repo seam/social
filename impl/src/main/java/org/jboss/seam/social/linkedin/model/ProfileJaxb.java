@@ -25,13 +25,15 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.jboss.seam.social.oauth.AbstractUserProfile;
+
 /**
  * @author Antoine Sabot-Durand
  * @author Todd Morrison
  */
 @XmlRootElement(name = "person")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class ProfileJaxb implements Profile {
+public class ProfileJaxb extends AbstractUserProfile implements Profile {
 
     @XmlElement(name = "id")
     private String id;

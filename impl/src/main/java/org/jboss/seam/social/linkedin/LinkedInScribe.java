@@ -46,7 +46,7 @@ import org.scribe.builder.api.LinkedInApi;
 /**
  * @author Antoine Sabot-Durand
  */
-@RelatedTo(Service.LinkedIn)
+
 public class LinkedInScribe extends OAuthServiceScribe implements LinkedIn {
 
     private static final long serialVersionUID = -6718362913575146613L;
@@ -81,14 +81,6 @@ public class LinkedInScribe extends OAuthServiceScribe implements LinkedIn {
 
     }
     
-    
-    @Produces
-    @RelatedTo(Service.LinkedIn)
-    protected OAuthService qualifiedProducer(@New LinkedInScribe linkedIn)
-    {
-        return linkedIn;
-    }
-
     /*
      * (non-Javadoc)
      *
@@ -115,18 +107,17 @@ public class LinkedInScribe extends OAuthServiceScribe implements LinkedIn {
      * @see org.jboss.seam.social.oauth.OAuthService#getUserProfile()
      */
     @Override
-    public UserProfile getUser() {
-        if (session.getUserProfile() == null) {
+    protected UserProfile getUser() {
+       
             HttpResponse resp = sendSignedRequest(RestVerb.GET, USER_PROFILE_URL);
             try {
-                // System.out.println(StreamUtils.getStreamContents(resp.getStream()));
-                session.setUserProfile((UserProfile) unmarshaller.unmarshal(resp.getStream()));
+                
+               return(UserProfile) unmarshaller.unmarshal(resp.getStream());
             } catch (JAXBException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-        }
-        return session.getUserProfile();
+       return null;
     }
 
     protected Profile getLinkedInProfile() {
