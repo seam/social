@@ -21,9 +21,12 @@ import java.io.Serializable;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import javax.inject.Inject;
+
 import org.scribe.builder.ServiceBuilder;
 import org.scribe.builder.api.Api;
 import org.scribe.model.OAuthRequest;
+import org.scribe.model.Token;
 import org.scribe.model.Verb;
 import org.scribe.model.Verifier;
 
@@ -42,25 +45,27 @@ public abstract class OAuthServiceScribe implements OAuthService, Serializable {
 
     private org.scribe.oauth.OAuthService service;
 
-    protected OAuthTokenScribe requestToken;
-    protected OAuthTokenScribe accessToken;
-
-    private Verifier verifier;
-
-    private Boolean connected = Boolean.FALSE;
-
-    protected UserProfile userProfile;
-
     private OAuthServiceSettings settings;
 
-    private String status;
+    @Inject
+    protected OAuthSessionSettings session;
+
+    @Override
+    public OAuthSessionSettings getSession() {
+        return session;
+    }
+
+    @Override
+    public void setSession(OAuthSessionSettings session) {
+        this.session = session;
+    }
 
     public String getStatus() {
-        return status;
+        return session.getStatus();
     }
 
     public void setStatus(String status) {
-        this.status = status;
+        this.session.setStatus(status);
     }
 
     protected org.scribe.oauth.OAuthService getService() {
@@ -79,6 +84,12 @@ public abstract class OAuthServiceScribe implements OAuthService, Serializable {
 
     }
 
+    @Override
+    public String getName()
+    {
+        return getType() + " - " + getSession().getUserProfile().getFullName();
+    }
+    
     /*
      * (non-Javadoc)
      *
@@ -97,22 +108,24 @@ public abstract class OAuthServiceScribe implements OAuthService, Serializable {
 
     @Override
     public String getAuthorizationUrl() {
-        return getService().getAuthorizationUrl(getRequestToken().delegate);
+        return getService().getAuthorizationUrl(getScribeRequestToken());
     }
 
-    protected OAuthTokenScribe getRequestToken() {
-        if (requestToken == null)
-            requestToken = new OAuthTokenScribe(getService().getRequestToken());
-        return requestToken;
+    protected OAuthToken getRequestToken() {
+        if (session.getRequestToken() == null)
+            session.setRequestToken(new OAuthTokenScribe(getService().getRequestToken()));
+        return session.getRequestToken();
     }
 
     @Override
     public void initAccessToken() {
-        if (accessToken == null) {
-            accessToken = new OAuthTokenScribe(getService().getAccessToken(getRequestToken().delegate, verifier));
-            if (accessToken != null) {
-                connected = Boolean.TRUE;
-                requestToken = null;
+        if (session.getAccessToken() == null) {
+            session.setAccessToken(new OAuthTokenScribe(getService().getAccessToken(getScribeRequestToken(), new Verifier(session.getVerifier()))));
+            if (session.getAccessToken() != null) {
+                session.setConnected(Boolean.TRUE);
+                session.setRequestToken(null);
+                session.setUserProfile(getUser());
+                
             } else {
                 // Launch an exception !!
             }
@@ -121,16 +134,16 @@ public abstract class OAuthServiceScribe implements OAuthService, Serializable {
     }
 
     @Override
-    public void resetConnexion() {
-        userProfile = null;
-        accessToken = null;
-        verifier = null;
-        connected = Boolean.FALSE;
+    public void resetConnection() {
+        session.setUserProfile(null);
+        session.setAccessToken(null);
+        session.setVerifier(null);
+        session.setConnected(Boolean.FALSE);
 
     }
 
     protected HttpResponse sendSignedRequest(OAuthRequest request) {
-        getService().signRequest(accessToken.delegate, request);
+        getService().signRequest(getScribeAccessToken(), request);
         HttpResponse resp = null;
         try {
             resp = new HttpResponseScribe(request.send());
@@ -183,33 +196,45 @@ public abstract class OAuthServiceScribe implements OAuthService, Serializable {
 
     @Override
     public void setVerifier(String verifierStr) {
-        verifier = new Verifier(verifierStr);
+        session.setVerifier(verifierStr);
     }
 
     @Override
     public String getVerifier() {
-        return verifier == null ? null : verifier.getValue();
+        return session.getVerifier();
     }
 
     @Override
     public OAuthToken getAccessToken() {
-        return accessToken;
+        return session.getAccessToken();
     }
 
+    protected Token getScribeAccessToken()
+    {
+        return ((OAuthTokenScribe)getAccessToken()).delegate;
+    }
+    
+    protected Token getScribeRequestToken()
+    {
+        return ((OAuthTokenScribe)getRequestToken()).delegate;
+    }
+    
+    
+    
     @Override
     public Boolean isConnected() {
-        return connected;
+        return session.isConnected();
     }
 
     @Override
     public void setAccessToken(String token, String secret) {
-        accessToken = new OAuthTokenScribe(token, secret);
+        session.setAccessToken(new OAuthTokenScribe(token, secret));
 
     }
 
     @Override
     public void setAccessToken(OAuthToken token) {
-        accessToken = new OAuthTokenScribe(token.getToken(), token.getSecret());
+        session.setAccessToken(new OAuthTokenScribe(token.getToken(), token.getSecret()));
 
     }
 
@@ -223,4 +248,37 @@ public abstract class OAuthServiceScribe implements OAuthService, Serializable {
         return VERIFIER_PARAM_NAME;
     }
 
+    /**
+     * 
+     */
+    protected abstract UserProfile getUser();
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((session == null) ? 0 : session.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        OAuthServiceScribe other = (OAuthServiceScribe) obj;
+        if (session == null) {
+            if (other.session != null)
+                return false;
+        } else if (!session.equals(other.session))
+            return false;
+        return true;
+    }
+
+    
+    
+    
 }

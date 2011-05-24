@@ -16,15 +16,20 @@
  */
 package org.jboss.seam.social.twitter;
 
-import javax.enterprise.context.SessionScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
 
+
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+import javax.inject.Inject;
+
+import org.jboss.logging.Logger;
 import org.jboss.seam.social.oauth.HttpResponse;
 import org.jboss.seam.social.oauth.JsonMapper;
 import org.jboss.seam.social.oauth.OAuthServiceScribe;
 import org.jboss.seam.social.oauth.OAuthServiceSettings;
+import org.jboss.seam.social.oauth.RelatedTo;
 import org.jboss.seam.social.oauth.RestVerb;
+import org.jboss.seam.social.oauth.Service;
 import org.jboss.seam.social.oauth.UserProfile;
 import org.jboss.seam.social.twitter.model.CredentialJackson;
 import org.jboss.seam.social.twitter.model.Tweet;
@@ -35,8 +40,7 @@ import org.scribe.builder.api.TwitterApi;
 /**
  * @author Antoine Sabot-Durand
  */
-@Named("twitter")
-@SessionScoped
+
 public class TwitterScribe extends OAuthServiceScribe implements Twitter {
 
     private static final long serialVersionUID = 6806035986656777834L;
@@ -48,17 +52,21 @@ public class TwitterScribe extends OAuthServiceScribe implements Twitter {
     static final Class<? extends Api> API_CLASS = TwitterApi.class;
     static final String LOGO_URL = "https://d2l6uygi1pgnys.cloudfront.net/2-2-08/images/buttons/twitter_connect.png";
     static final String TYPE = "Twitter";
+    
+    @Inject
+    Logger log;
 
     @Inject
     private JsonMapper jsonMapper;
 
     @Override
     @Inject
-    public void setSettings(@SetTwitter OAuthServiceSettings settings) {
+    public void setSettings(@RelatedTo(Service.Twitter) OAuthServiceSettings settings) {
         super.setSettings(settings);
 
     }
-
+    
+   
     @Override
     public Tweet updateStatus(String message) {
         HttpResponse resp = sendSignedRequest(RestVerb.POST, TWEET_URL, "status", message);
@@ -94,12 +102,9 @@ public class TwitterScribe extends OAuthServiceScribe implements Twitter {
      * @see org.jboss.seam.social.oauth.OAuthService#getUserProfile()
      */
     @Override
-    public UserProfile getUser() {
-        if (userProfile == null) {
+    protected UserProfile getUser() {
             HttpResponse resp = sendSignedRequest(RestVerb.GET, VERIFY_CREDENTIALS_URL);
-            userProfile = jsonMapper.readValue(resp, CredentialJackson.class);
-        }
-        return userProfile;
+            return jsonMapper.readValue(resp, CredentialJackson.class);
     }
 
     /*
@@ -120,6 +125,19 @@ public class TwitterScribe extends OAuthServiceScribe implements Twitter {
     @Override
     public Tweet updateStatus() {
         return updateStatus(getStatus());
+    }
+    
+    @PostConstruct
+    void init()
+    {
+        log.info("== Creating a new Twitter Bean : " + this.hashCode());
+    }
+    
+    
+    @PreDestroy
+    void destroy()
+    {
+        log.info("== Destroying Twitter Bean : " + this.hashCode());
     }
 
 }

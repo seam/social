@@ -112,12 +112,6 @@ public interface OAuthService {
      */
     public Boolean isConnected();
 
-    /**
-     * Returns the user who performed the connection
-     *
-     * @return an object corresponding to the connected user
-     */
-    public UserProfile getUser();
 
     /**
      * Returns the name/type of the Social Network we're connected to
@@ -142,9 +136,9 @@ public interface OAuthService {
     public void setAccessToken(OAuthToken token);
 
     /**
-     * Close connexion and reste all token (logout)
+     * Close connexion and reset all token (logout)
      */
-    public void resetConnexion();
+    public void resetConnection();
 
     /**
      * Send an OAuth request signed with an XML Paylad as content
@@ -160,5 +154,22 @@ public interface OAuthService {
      * @return the name of the URL param name containing verifier code sent bakc by the remote service
      */
     public String getVerifierParamName();
+
+    /**
+     * Set the Session settings of the given service
+     * @param session
+     */
+   public  void setSession(OAuthSessionSettings session);
+
+    /**
+     * @return the session settings of the given service
+     */
+    public OAuthSessionSettings getSession();
+
+    /**
+     * @return the name of the service with this session
+     */
+    public String getName();
+
 
 }

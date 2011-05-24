@@ -19,7 +19,7 @@ package org.jboss.seam.social.linkedin.model;
 import org.jboss.seam.social.oauth.UserProfile;
 
 /**
- * Implementation of this interface will contain a SetLinkedIn Profile
+ * Implementation of this interface will contain a LinkedInRelated Profile
  *
  * @author Antoine Sabot-Durand
  */
@@ -41,7 +41,7 @@ public interface Profile extends UserProfile {
     public String getFirstName();
 
     /**
-     * @return the public URL to access this profile on SetLinkedIn
+     * @return the public URL to access this profile on LinkedInRelated
      */
     public String getStandardProfileUrl();
 

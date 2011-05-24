@@ -20,6 +20,8 @@ import java.io.StringWriter;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
+import javax.enterprise.inject.New;
+import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.xml.bind.JAXBContext;
@@ -31,9 +33,12 @@ import org.jboss.seam.social.linkedin.model.Profile;
 import org.jboss.seam.social.linkedin.model.Update;
 import org.jboss.seam.social.linkedin.model.UpdateJaxb;
 import org.jboss.seam.social.oauth.HttpResponse;
+import org.jboss.seam.social.oauth.OAuthService;
 import org.jboss.seam.social.oauth.OAuthServiceScribe;
 import org.jboss.seam.social.oauth.OAuthServiceSettings;
+import org.jboss.seam.social.oauth.RelatedTo;
 import org.jboss.seam.social.oauth.RestVerb;
+import org.jboss.seam.social.oauth.Service;
 import org.jboss.seam.social.oauth.UserProfile;
 import org.scribe.builder.api.Api;
 import org.scribe.builder.api.LinkedInApi;
@@ -41,8 +46,7 @@ import org.scribe.builder.api.LinkedInApi;
 /**
  * @author Antoine Sabot-Durand
  */
-@Named("linkedIn")
-@SessionScoped
+
 public class LinkedInScribe extends OAuthServiceScribe implements LinkedIn {
 
     private static final long serialVersionUID = -6718362913575146613L;
@@ -72,11 +76,11 @@ public class LinkedInScribe extends OAuthServiceScribe implements LinkedIn {
 
     @Override
     @Inject
-    public void setSettings(@SetLinkedIn OAuthServiceSettings settings) {
+    public void setSettings(@RelatedTo(Service.LinkedIn) OAuthServiceSettings settings) {
         super.setSettings(settings);
 
     }
-
+    
     /*
      * (non-Javadoc)
      *
@@ -103,18 +107,17 @@ public class LinkedInScribe extends OAuthServiceScribe implements LinkedIn {
      * @see org.jboss.seam.social.oauth.OAuthService#getUserProfile()
      */
     @Override
-    public UserProfile getUser() {
-        if (userProfile == null) {
+    protected UserProfile getUser() {
+       
             HttpResponse resp = sendSignedRequest(RestVerb.GET, USER_PROFILE_URL);
             try {
-                // System.out.println(StreamUtils.getStreamContents(resp.getStream()));
-                userProfile = (UserProfile) unmarshaller.unmarshal(resp.getStream());
+                
+               return(UserProfile) unmarshaller.unmarshal(resp.getStream());
             } catch (JAXBException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-        }
-        return userProfile;
+       return null;
     }
 
     protected Profile getLinkedInProfile() {

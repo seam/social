@@ -14,12 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social.linkedin;
+package org.jboss.seam.social.oauth;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
+import javax.enterprise.util.AnnotationLiteral;
 import javax.inject.Qualifier;
 
 import static java.lang.annotation.ElementType.FIELD;
@@ -29,14 +30,40 @@ import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 @Qualifier
-@Target({TYPE, METHOD, PARAMETER, FIELD})
+@Target({ TYPE, METHOD, PARAMETER, FIELD })
 @Retention(RUNTIME)
 @Documented
 /**
- * A CDI qualifier annotation to qualify bean being related to SetLinkedIn
+ * This qualifier allows association of a Bean to a given Service
  * @author Antoine Sabot-Durand
  *
  */
-public @interface SetLinkedIn {
+public @interface RelatedTo {
+    
+    Service value();
+    
+    /**
+     * Annotation literal for @{link RelatedTo} qualifier.
+     */
+    @SuppressWarnings("all")
+    public static class RelatedToLiteral extends AnnotationLiteral<RelatedTo> implements RelatedTo
+    {
+
+        private final Service value;
+        
+        public RelatedToLiteral(Service value) {
+            super();
+            this.value = value;
+        }
+
+        /* (non-Javadoc)
+         * @see org.jboss.seam.social.oauth.RelatedTo#service()
+         */
+        @Override
+        public Service value() {
+           return value;
+        }
+        
+    }
 
 }

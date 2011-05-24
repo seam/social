@@ -14,29 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social.facebook;
+package org.jboss.seam.social.oauth;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.Retention;
-import java.lang.annotation.Target;
-
-import javax.inject.Qualifier;
-
-import static java.lang.annotation.ElementType.FIELD;
-import static java.lang.annotation.ElementType.METHOD;
-import static java.lang.annotation.ElementType.PARAMETER;
-import static java.lang.annotation.ElementType.TYPE;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
-
-@Qualifier
-@Target({TYPE, METHOD, PARAMETER, FIELD})
-@Retention(RUNTIME)
-@Documented
 /**
- *  A CDI qualifier annotation to qualify bean being related to SetFacebook
+ * This Enum Type contains all the services available in Seam Social
  * @author Antoine Sabot-Durand
  *
  */
-public @interface SetFacebook {
-
+public enum Service {
+Twitter,Facebook,LinkedIn
 }

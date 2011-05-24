@@ -17,7 +17,7 @@
 package org.jboss.seam.social.linkedin.model;
 
 /**
- * Implementation of this Interface will contain an update ready to be sent to SetLinkedIn
+ * Implementation of this Interface will contain an update ready to be sent to LinkedInRelated
  *
  * @author Antoine Sabot-Durand
  */

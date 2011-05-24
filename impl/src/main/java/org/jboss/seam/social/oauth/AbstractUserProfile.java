@@ -16,31 +16,40 @@
  */
 package org.jboss.seam.social.oauth;
 
+
 /**
- * Interface defining an user
+ * @author antoine
  *
- * @author Antoine Sabot-Durand
- * @author Todd Morrison
  */
-public interface UserProfile {
+public abstract class AbstractUserProfile implements UserProfile {
 
-    /**
-     * Permanent identifier against the social relationship for the life-time of
-     * the network account
-     *
-     * @return the user's social network key
-     */
-    public String getId();
-
-    /**
-     * @return the user's full name
-     */
-    public String getFullName();
-
-    /**
-     * @return the user's picture url
-     */
-    public String getPictureUrl();
+   
     
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        UserProfile other = (UserProfile) obj;
+        if (getId() == null) {
+            if (other.getId() != null)
+                return false;
+        } else if (!getId().equals(other.getId()))
+            return false;
+        return true;
+    }
     
+
+   
 }

@@ -13,30 +13,32 @@
             <h:panelGroup id="timeline"
                           rendered="#{socialClient.currentServiceOk}">
                 Welcome #{socialClient.user.fullName}<br/>
-                You are now working with #{socialClient.currentServiceHdl.type}<br/>
+                You are now working with #{socialClient.currentService.name}<br/>
                 <ui:include src="#{socialClient.timeLineUrl}"/>
             </h:panelGroup>
-            You can add those social network :
-            <ui:repeat var="service" value="#{socialClient.unconnectedServices}">
-                <h:commandLink
-                        action="#{socialClient.gotoAuthorizationURL(service)}"
-                        immediate="true">
-                    <img src="#{service.serviceLogo}"/>
-                </h:commandLink>
-            </ui:repeat>
+            You can add a new connexion to those social network :
+            <ul>
+				<ui:repeat var="service"
+					value="#{socialClient.manager.listOfServices}">
+					<li><h:commandLink
+							action="#{socialClient.serviceInit(service)}">
+                    #{service}
+                </h:commandLink></li>
+				</ui:repeat>
+			</ul>
             <br/>
             close connexion on
             <h:commandLink
-                    action="#{socialClient.currentServiceHdl.resetConnexion}"
-                    value="#{currentServiceHdl.type}"/>
+                    action="#{socialClient.resetConnection}"
+                    value="#{socialClient.currentService.name}"/>
 
 
             Or choose the Social network you want to work with.. :
             <h:selectOneRadio id="chooseService"
                               value="#{socialClient.currentServiceName}">
-                <f:selectItems value="#{socialClient.connectedServices}" var="serv"
-                               itemValue="#{serv.type}"/>
-                <f:ajax render="timeline"/>
+                <f:selectItems value="#{socialClient.services}" var="serv"
+                               itemValue="#{serv.name}" itemLabel="#{serv.name}"/>
+                <f:ajax render="form"/>
             </h:selectOneRadio>
         </h:form>
     </ui:define>

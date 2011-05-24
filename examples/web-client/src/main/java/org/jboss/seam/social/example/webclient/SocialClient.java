@@ -18,26 +18,24 @@ package org.jboss.seam.social.example.webclient;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
-import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
-import javax.enterprise.inject.Any;
-import javax.enterprise.inject.Instance;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import com.google.common.base.Function;
-import com.google.common.base.Predicate;
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
+import org.jboss.logging.Logger;
+import org.jboss.seam.social.oauth.MultiServicesManager;
 import org.jboss.seam.social.oauth.OAuthService;
 import org.jboss.seam.social.oauth.OAuthToken;
+import org.jboss.seam.social.oauth.Service;
 import org.jboss.seam.social.oauth.UserProfile;
+
+import com.google.common.base.Function;
+import com.google.common.collect.Maps;
 
 @Named
 @SessionScoped
@@ -49,128 +47,110 @@ public class SocialClient implements Serializable {
     private static final long serialVersionUID = 3723552335163650582L;
 
     @Inject
-    @Any
-    private Instance<OAuthService> serviceHandlerInstances;
-
-    private OAuthService currentServiceHdl;
-    private String status;
-
-    private List<OAuthService> serviceHandlers;
-
-    private Map<String, OAuthService> serviceHandlersMap;
-
-    public List<OAuthService> getServiceHandlers() {
-        return serviceHandlers;
+    private MultiServicesManager manager;
+    
+    @Inject
+    private Logger log;
+    
+    public MultiServicesManager getManager() {
+        return manager;
     }
 
-    @PostConstruct
-    public void init() {
+    public void setManager(MultiServicesManager manager) {
+        this.manager = manager;
+    }
 
-        serviceHandlers = Lists.newArrayList(serviceHandlerInstances);
-        serviceHandlersMap = Maps.uniqueIndex(serviceHandlerInstances, new Function<OAuthService, String>() {
+   
+    
+    
+    
+
+    public OAuthService getCurrentService() {
+        return manager.getCurrentService();
+    }
+
+    public void setCurrentService(OAuthService currentService) {
+        manager.setCurrentService(currentService);
+    }
+
+    
+    public boolean isCurrentServiceOk() {
+        return manager.isCurrentServiceConnected();
+    }
+
+    public Map<String, OAuthService> getServicesMap() {
+        return Maps.uniqueIndex(getServices(), new Function<OAuthService, String>() {
 
             @Override
             public String apply(OAuthService arg0) {
 
-                return arg0.getType();
+                return arg0.getName();
             }
         });
-
     }
 
-    public List<OAuthService> getConnectedServices() {
-        return Lists.newArrayList(Iterables.filter(serviceHandlers, new Predicate<OAuthService>() {
+  
 
-            @Override
-            public boolean apply(OAuthService arg0) {
-                return arg0.isConnected();
-            }
-        }));
+    public Set<OAuthService> getServices() {
+        return manager.getServices();
     }
 
-    public List<OAuthService> getUnconnectedServices() {
-        return Lists.newArrayList(Iterables.filter(serviceHandlers, new Predicate<OAuthService>() {
 
-            @Override
-            public boolean apply(OAuthService arg0) {
-                return !arg0.isConnected();
-            }
-        }));
-    }
 
     public OAuthToken getAccessToken() {
-        return currentServiceHdl.getAccessToken();
+        return getCurrentService().getAccessToken();
     }
 
     public String getVerifier() {
-        return currentServiceHdl.getVerifier();
+        return getCurrentService().getVerifier();
     }
 
     public void setVerifier(String verifier) {
-        currentServiceHdl.setVerifier(verifier);
+        getCurrentService().setVerifier(verifier);
     }
+ 
 
-    public String getAuthorizationURL() {
-        return currentServiceHdl.getAuthorizationUrl();
+      public void connectCurrentService() {
+        manager.connectCurrentService();
     }
-
-    public void initAccessToken() {
-        currentServiceHdl.initAccessToken();
-    }
-
-    /**
-     * @param status the status to set
-     */
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    /**
-     * @return the status
-     */
-    public String getStatus() {
-        return status;
-    }
-
-    /*
-     * public String updateStatus() { twitterHdl.updateStatus(status); status=""; return "ok"; }
-     */
 
     public UserProfile getUser() {
-        UserProfile res = currentServiceHdl == null ? null : currentServiceHdl.getUser();
+        UserProfile res = getCurrentService() == null ? null : getCurrentService().getSession().getUserProfile();
 
         return res;
     }
 
-    public OAuthService getCurrentServiceHdl() {
-        return currentServiceHdl;
-    }
-
-    public void setCurrentServiceHdl(OAuthService currentServiceHdl) {
-        this.currentServiceHdl = currentServiceHdl;
-    }
-
     public String getCurrentServiceName() {
-        return currentServiceHdl == null ? "" : currentServiceHdl.getType();
+        return getCurrentService() == null ? "" : getCurrentService().getName();
     }
 
     public void setCurrentServiceName(String cursrvHdlStr) {
-        this.currentServiceHdl = serviceHandlersMap.get(cursrvHdlStr);
+        setCurrentService(getServicesMap().get(cursrvHdlStr));
     }
 
-    public void gotoAuthorizationURL(OAuthService service) throws IOException {
-        setCurrentServiceHdl(service);
+    public void redirectToAuthorizationURL(String url) throws IOException {
+
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-        externalContext.redirect(getAuthorizationURL());
+        externalContext.redirect(url);
     }
 
-    public boolean isCurrentServiceOk() {
-        return currentServiceHdl != null && currentServiceHdl.isConnected();
-    }
+    
 
     public String getTimeLineUrl() {
         if (isCurrentServiceOk())
-            return "/WEB-INF/fragments/" + currentServiceHdl.getType().toLowerCase() + ".xhtml";
+            return "/WEB-INF/fragments/" + getCurrentService().getType().toLowerCase() + ".xhtml";
         return "";
     }
+
+    public void serviceInit(Service servType) throws IOException {
+        
+        redirectToAuthorizationURL(manager.initNewService(servType));
+
+    }
+    
+    public void resetConnection()
+    {
+        manager.destroyCurrentService();
+    }
+
 }
