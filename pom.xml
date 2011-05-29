@@ -52,6 +52,7 @@
     <properties>
         <seam.version>3.0.0.Final</seam.version>
         <scribe.version>1.1.2</scribe.version>
+        <arquillian.version>1.0.0.Alpha5</arquillian.version>
     </properties>
 
     <dependencyManagement>
