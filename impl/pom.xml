@@ -25,6 +25,11 @@
 	<packaging>jar</packaging>
 	<name>Seam Social Module Core Implementation</name>
 
+    <properties>
+        <jbossas.server.manager.version>1.0.3.GA</jbossas.server.manager.version>
+        <jbossas.client.version>6.0.0.20100911-M5</jbossas.client.version>
+    </properties>
+    
 	<dependencies>
 		<dependency>
 			<groupId>org.jboss.seam.social</groupId>
@@ -120,6 +125,57 @@
 	</dependencies>
 
 	<profiles>
+
+      <profile>
+         <id>jbossas-managed-6</id>
+         <!--<activation>
+            <activeByDefault>true</activeByDefault>
+         </activation>-->
+         <dependencies>
+            <dependency>
+               <groupId>org.jboss.arquillian.container</groupId>
+               <artifactId>arquillian-jbossas-managed-6</artifactId>
+               <version>${arquillian.version}</version>
+               <scope>test</scope>
+            </dependency>
+            <dependency>
+               <groupId>org.jboss.jbossas</groupId>
+               <artifactId>jboss-server-manager</artifactId>
+               <version>${jbossas.server.manager.version}</version>
+               <scope>test</scope>
+            </dependency>
+            <dependency>
+               <groupId>org.jboss.jbossas</groupId>
+               <artifactId>jboss-as-client</artifactId>
+               <type>pom</type>
+               <version>${jbossas.client.version}</version>
+               <scope>test</scope>
+            </dependency>
+				<dependency>
+					<groupId>org.jboss.weld</groupId>
+					<artifactId>weld-core</artifactId>
+				</dependency>
+				<dependency>
+					<groupId>org.jboss.weld</groupId>
+					<artifactId>weld-api</artifactId>
+				</dependency>
+
+         </dependencies>
+			<dependencyManagement>
+				<dependencies>
+					<dependency>
+						<groupId>org.jboss.weld</groupId>
+						<artifactId>weld-core-bom</artifactId>
+						<version>1.1.0.Final</version>
+						<type>pom</type>
+						<scope>import</scope>
+					</dependency>
+				</dependencies>
+			</dependencyManagement>
+
+      </profile>
+
+
 		<profile>
 			<id>weld-ee-embedded-1.1</id>
 			<activation>
