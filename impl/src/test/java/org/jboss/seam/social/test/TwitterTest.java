@@ -67,18 +67,13 @@ public class TwitterTest {
         Archive<?> ret = ShrinkWrap
                 .create(WebArchive.class, "test.war")
                 .addClasses(
-                        HasStatus.class, HttpResponse.class, MultiServicesManager.class, OAuthToken.class,RestVerb.class, Setted.class, UserProfile.class, 
-                        AbstractUserProfile.class,HttpResponseScribe.class, MultiServicesManagerImpl.class, OAuth2ServiceScribe.class,
-
-                        // Including this one will cause DeploymentException... (brings FacebookScribe with no configured OAuthServiceSettings)
-                        // OAuthQualifiedServicesProducer.class,
-                        
-                        OAuthTokenScribe.class,SettedHandlerProducer.class,
-                        JsonMapper.class, TwitterScribe.class, Twitter.class, OAuthService.class, OAuthServiceScribe.class,
-                        OAuthServiceSettings.class, OAuthServiceSettingsImpl.class, OAuthSessionSettings.class,
-                        OAuthSessionSettingsImpl.class,RelatedTo.class,Service.class,
-                        TweetJackson.class,SearchResultJackson.class,CredentialJackson.class,
-                        Credential.class, SearchResult.class, Tweet.class)
+                    TwitterScribe.class, Twitter.class, OAuthService.class, OAuthServiceScribe.class,
+                    OAuthServiceSettings.class, OAuthServiceSettingsImpl.class, OAuthSessionSettings.class,
+                    OAuthSessionSettingsImpl.class, RelatedTo.class, Service.class,
+                    JsonMapper.class, HasStatus.class, 
+                    OAuthToken.class, RestVerb.class, HttpResponse.class, UserProfile.class,
+                    Tweet.class, TweetJackson.class, CredentialJackson.class,
+                    OAuthTokenScribe.class)
 
                 .addAsLibraries(DependencyResolvers.use(MavenDependencyResolver.class)
                         .artifact("org.jboss.seam.config:seam-config-xml:3.0.0.Final")
