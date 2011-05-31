@@ -77,9 +77,9 @@ public class TwitterTest {
 
                 .addAsLibraries(DependencyResolvers.use(MavenDependencyResolver.class)
                         .loadReposFromPom("pom.xml")
-                        .artifact("org.jboss.seam.config:seam-config-xml:3.0.0.Final")
-                        .artifact("org.jboss.seam.solder:seam-solder:3.0.0.Final")
-                        .artifact("org.scribe:scribe:1.1.2")
+                        .artifact("org.jboss.seam.config:seam-config-xml")
+                        .artifact("org.jboss.seam.solder:seam-solder")
+                        .artifact("org.scribe:scribe")
                 		.resolveAs(GenericArchive.class))
                 .addAsWebInfResource(new FileAsset(beanFile), ArchivePaths.create("classes/META-INF/beans.xml"));
         
