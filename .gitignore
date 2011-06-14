@@ -6,3 +6,4 @@ bin
 rebel.xml
 *.sw?
 */src/main/java/META-INF
+impl/coverage.ec
