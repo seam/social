@@ -46,7 +46,7 @@
         <module>api</module>
         <module>impl</module>
         <module>combined</module>
-        <module>example/web-client</module>
+        <module>examples/web-client</module>
     </modules>
 
     <properties>
