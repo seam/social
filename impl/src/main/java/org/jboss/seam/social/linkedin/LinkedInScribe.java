@@ -43,7 +43,7 @@ import org.scribe.builder.api.LinkedInApi;
 /**
  * @author Antoine Sabot-Durand
  */
-@RelatedTo(LinkedInScribe.TYPE)
+
 public class LinkedInScribe extends OAuthServiceScribe implements LinkedIn {
 
     private static final long serialVersionUID = -6718362913575146613L;
@@ -81,6 +81,7 @@ public class LinkedInScribe extends OAuthServiceScribe implements LinkedIn {
     
 
     @Produces
+    @RelatedTo(LinkedInScribe.TYPE)
     protected OAuthService qualifiedLinkedInProducer(@New LinkedInScribe service) {
         return service;
     }

@@ -36,7 +36,7 @@ import org.scribe.builder.api.FacebookApi;
 /**
  * @author Antoine Sabot-Durand
  */
-@RelatedTo(FacebookScribe.TYPE)
+
 public class FacebookScribe extends OAuth2ServiceScribe implements Facebook {
 
     static final String USER_PROFILE_URL = "https://graph.facebook.com/me";
@@ -56,6 +56,7 @@ public class FacebookScribe extends OAuth2ServiceScribe implements Facebook {
     }
     
     @Produces
+    @RelatedTo(FacebookScribe.TYPE)
     protected OAuthService qualifiedFacebookProducer(@New FacebookScribe service) {
         return service;
     }

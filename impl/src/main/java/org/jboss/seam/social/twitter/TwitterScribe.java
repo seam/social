@@ -43,7 +43,7 @@ import org.scribe.builder.api.TwitterApi;
  * @author Antoine Sabot-Durand
  */
 
-@RelatedTo(TwitterScribe.TYPE)
+
 public class TwitterScribe extends OAuthServiceScribe implements Twitter {
 
     private static final long serialVersionUID = 6806035986656777834L;
@@ -70,6 +70,7 @@ public class TwitterScribe extends OAuthServiceScribe implements Twitter {
     }
     
     @Produces
+    @RelatedTo(TwitterScribe.TYPE)
     protected OAuthService qualifiedTwitterProducer(@New TwitterScribe service) {
         return service;
     }
