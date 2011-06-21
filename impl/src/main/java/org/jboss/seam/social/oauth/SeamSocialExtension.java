@@ -21,7 +21,6 @@ import java.util.Set;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
-import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.Annotated;
 import javax.enterprise.inject.spi.BeanManager;
 import javax.enterprise.inject.spi.Extension;
@@ -53,7 +52,7 @@ public class SeamSocialExtension implements Extension {
         }
     }
 
-    @Produces
+    
     public Set<String> getSocialRelated() {
         return servicesNames;
     }

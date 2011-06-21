@@ -33,7 +33,7 @@ public interface MultiServicesManager {
     /**
      * @return Set of available service to connect to
      */
-    public Set<String> getListOfServices();
+    public List<String> getListOfServices();
 
     /**
      * Add a service to the Set of services to manage

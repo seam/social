@@ -18,9 +18,13 @@ package org.jboss.seam.social.oauth;
 
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Any;
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
@@ -38,19 +42,28 @@ public class MultiServicesManagerImpl implements MultiServicesManager,Serializab
     private Instance<OAuthService> serviceInstances;
 
     @Inject
-    private Set<String> listOfServices;
+    private SeamSocialExtension socialConfig;
+   
+    private List<String> listOfServices;
     
     private Set<OAuthService> services;
 
     private OAuthService currentService;
 
+    
+    @PostConstruct
+    private void init()
+    {
+        listOfServices=new ArrayList<String>(socialConfig.getSocialRelated());
+    }
+    
     /*
      * (non-Javadoc)
      * 
      * @see org.jboss.seam.social.manager.MultiServicesManager#getListOfServices()
      */
     @Override
-    public Set<String> getListOfServices() {
+    public List<String> getListOfServices() {
         return listOfServices;
     }
 
