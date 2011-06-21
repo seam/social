@@ -20,16 +20,18 @@ package org.jboss.seam.social.twitter;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.enterprise.inject.New;
+import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 
 import org.jboss.logging.Logger;
 import org.jboss.seam.social.oauth.HttpResponse;
 import org.jboss.seam.social.oauth.JsonMapper;
+import org.jboss.seam.social.oauth.OAuthService;
 import org.jboss.seam.social.oauth.OAuthServiceScribe;
 import org.jboss.seam.social.oauth.OAuthServiceSettings;
 import org.jboss.seam.social.oauth.RelatedTo;
 import org.jboss.seam.social.oauth.RestVerb;
-import org.jboss.seam.social.oauth.Service;
 import org.jboss.seam.social.oauth.UserProfile;
 import org.jboss.seam.social.twitter.model.CredentialJackson;
 import org.jboss.seam.social.twitter.model.Tweet;
@@ -41,6 +43,7 @@ import org.scribe.builder.api.TwitterApi;
  * @author Antoine Sabot-Durand
  */
 
+@RelatedTo(TwitterScribe.TYPE)
 public class TwitterScribe extends OAuthServiceScribe implements Twitter {
 
     private static final long serialVersionUID = 6806035986656777834L;
@@ -61,11 +64,15 @@ public class TwitterScribe extends OAuthServiceScribe implements Twitter {
 
     @Override
     @Inject
-    public void setSettings(@RelatedTo(Service.Twitter) OAuthServiceSettings settings) {
+    public void setSettings(@RelatedTo(TwitterScribe.TYPE) OAuthServiceSettings settings) {
         super.setSettings(settings);
 
     }
     
+    @Produces
+    protected OAuthService qualifiedTwitterProducer(@New TwitterScribe service) {
+        return service;
+    }
    
     @Override
     public Tweet updateStatus(String message) {

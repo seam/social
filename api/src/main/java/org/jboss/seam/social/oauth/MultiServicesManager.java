@@ -31,9 +31,9 @@ import java.util.Set;
 public interface MultiServicesManager {
 
     /**
-     * @return list of available service to connect to
+     * @return Set of available service to connect to
      */
-    public List<Service> getListOfServices();
+    public Set<String> getListOfServices();
 
     /**
      * Add a service to the Set of services to manage
@@ -47,14 +47,7 @@ public interface MultiServicesManager {
      */
     public Set<OAuthService> getServices();
 
-    /**
-     * Instantiate a new service from a Service Enum Type
-     * 
-     * @param serviceEnum the type of service to instantiate
-     * @return the Bean of the new service
-     */
-    public OAuthService getNewService(Service serviceEnum);
-
+   
     /**
      * Instantiate a new service from a Service String name
      * 
@@ -91,7 +84,7 @@ public interface MultiServicesManager {
      * @param servType the type of the service to Instantiate
      * @return the authorization url to call to start the OAuth process
      */
-    public String initNewService(Service type);
+    public String initNewService(String type);
 
     /**
      * Unconnect the current service and remove it from Set of managed service. Reset the currentService to null

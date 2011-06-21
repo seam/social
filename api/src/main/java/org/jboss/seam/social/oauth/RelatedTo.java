@@ -40,7 +40,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  */
 public @interface RelatedTo {
     
-    Service value();
+    String value();
     
     /**
      * Annotation literal for @{link RelatedTo} qualifier.
@@ -49,9 +49,9 @@ public @interface RelatedTo {
     public static class RelatedToLiteral extends AnnotationLiteral<RelatedTo> implements RelatedTo
     {
 
-        private final Service value;
+        private final String value;
         
-        public RelatedToLiteral(Service value) {
+        public RelatedToLiteral(String value) {
             super();
             this.value = value;
         }
@@ -60,7 +60,7 @@ public @interface RelatedTo {
          * @see org.jboss.seam.social.oauth.RelatedTo#service()
          */
         @Override
-        public Service value() {
+        public String value() {
            return value;
         }
         

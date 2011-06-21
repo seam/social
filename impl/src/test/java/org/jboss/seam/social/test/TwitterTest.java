@@ -5,18 +5,11 @@ import java.io.FileNotFoundException;
 
 import javax.inject.Inject;
 
-
 import org.jboss.arquillian.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.seam.social.oauth.AbstractUserProfile;
 import org.jboss.seam.social.oauth.HasStatus;
 import org.jboss.seam.social.oauth.HttpResponse;
-import org.jboss.seam.social.oauth.HttpResponseScribe;
 import org.jboss.seam.social.oauth.JsonMapper;
-import org.jboss.seam.social.oauth.MultiServicesManager;
-import org.jboss.seam.social.oauth.MultiServicesManagerImpl;
-import org.jboss.seam.social.oauth.OAuth2ServiceScribe;
-import org.jboss.seam.social.oauth.OAuthQualifiedServicesProducer;
 import org.jboss.seam.social.oauth.OAuthService;
 import org.jboss.seam.social.oauth.OAuthServiceScribe;
 import org.jboss.seam.social.oauth.OAuthServiceSettings;
@@ -27,26 +20,17 @@ import org.jboss.seam.social.oauth.OAuthToken;
 import org.jboss.seam.social.oauth.OAuthTokenScribe;
 import org.jboss.seam.social.oauth.RelatedTo;
 import org.jboss.seam.social.oauth.RestVerb;
-import org.jboss.seam.social.oauth.Service;
-import org.jboss.seam.social.oauth.Setted;
-import org.jboss.seam.social.oauth.SettedHandlerProducer;
 import org.jboss.seam.social.oauth.UserProfile;
 import org.jboss.seam.social.twitter.Twitter;
 import org.jboss.seam.social.twitter.TwitterScribe;
-import org.jboss.seam.social.twitter.model.Credential;
 import org.jboss.seam.social.twitter.model.CredentialJackson;
-import org.jboss.seam.social.twitter.model.SearchResult;
-import org.jboss.seam.social.twitter.model.SearchResultJackson;
 import org.jboss.seam.social.twitter.model.Tweet;
 import org.jboss.seam.social.twitter.model.TweetJackson;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ArchivePaths;
 import org.jboss.shrinkwrap.api.GenericArchive;
-import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.FileAsset;
-import org.jboss.shrinkwrap.api.exporter.ZipExporter;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.resolver.api.DependencyResolvers;
 import org.jboss.shrinkwrap.resolver.api.maven.MavenDependencyResolver;
@@ -69,7 +53,7 @@ public class TwitterTest {
                 .addClasses(
                     TwitterScribe.class, Twitter.class, OAuthService.class, OAuthServiceScribe.class,
                     OAuthServiceSettings.class, OAuthServiceSettingsImpl.class, OAuthSessionSettings.class,
-                    OAuthSessionSettingsImpl.class, RelatedTo.class, Service.class,
+                    OAuthSessionSettingsImpl.class, RelatedTo.class,
                     JsonMapper.class, HasStatus.class, 
                     OAuthToken.class, RestVerb.class, HttpResponse.class, UserProfile.class,
                     Tweet.class, TweetJackson.class, CredentialJackson.class,

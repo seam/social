@@ -18,20 +18,13 @@ package org.jboss.seam.social.oauth;
 
 
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Any;
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 
-import org.jboss.seam.social.oauth.MultiServicesManager;
-import org.jboss.seam.social.oauth.OAuthService;
-import org.jboss.seam.social.oauth.RelatedTo;
-import org.jboss.seam.social.oauth.Service;
 
 public class MultiServicesManagerImpl implements MultiServicesManager,Serializable {
 
@@ -44,7 +37,8 @@ public class MultiServicesManagerImpl implements MultiServicesManager,Serializab
     @Any
     private Instance<OAuthService> serviceInstances;
 
-    private List<Service> listOfServices;
+    @Inject
+    private Set<String> listOfServices;
     
     private Set<OAuthService> services;
 
@@ -56,7 +50,7 @@ public class MultiServicesManagerImpl implements MultiServicesManager,Serializab
      * @see org.jboss.seam.social.manager.MultiServicesManager#getListOfServices()
      */
     @Override
-    public List<Service> getListOfServices() {
+    public Set<String> getListOfServices() {
         return listOfServices;
     }
 
@@ -75,21 +69,12 @@ public class MultiServicesManagerImpl implements MultiServicesManager,Serializab
      * @see org.jboss.seam.social.manager.MultiServicesManager#addService(org.jboss.seam.social.oauth.Service)
      */
     @Override
-    public OAuthService getNewService(Service serviceEnum) {
+    public OAuthService getNewService(String serviceEnum) {
         OAuthService service = serviceInstances.select(new RelatedTo.RelatedToLiteral(serviceEnum)).get();
         return service;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.jboss.seam.social.manager.MultiServicesManager#addService(java.lang.String)
-     */
-    @Override
-    public OAuthService getNewService(String serviceName) {
-        Service serviceEnum = Service.valueOf(serviceName);
-        return getNewService(serviceEnum);
-    }
+  
 
     /*
      * (non-Javadoc)
@@ -101,14 +86,14 @@ public class MultiServicesManagerImpl implements MultiServicesManager,Serializab
         return services;
     }
 
-
+/*
     @PostConstruct
     protected void init() {
         if (listOfServices == null || listOfServices.size() == 0) {
             listOfServices = Arrays.asList(Service.values());
         }
     }
-
+*/
     /* (non-Javadoc)
      * @see org.jboss.seam.social.manager.MultiServicesManager#addService(org.jboss.seam.social.oauth.OAuthService)
      */
@@ -139,7 +124,7 @@ public class MultiServicesManagerImpl implements MultiServicesManager,Serializab
     }
     
     @Override
-    public String initNewService(Service servType) {
+    public String initNewService(String servType) {
         setCurrentService(getNewService(servType));
         return getCurrentService().getAuthorizationUrl();
     }

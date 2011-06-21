@@ -19,11 +19,9 @@ package org.jboss.seam.social.linkedin;
 import java.io.StringWriter;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.SessionScoped;
 import javax.enterprise.inject.New;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
-import javax.inject.Named;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -38,7 +36,6 @@ import org.jboss.seam.social.oauth.OAuthServiceScribe;
 import org.jboss.seam.social.oauth.OAuthServiceSettings;
 import org.jboss.seam.social.oauth.RelatedTo;
 import org.jboss.seam.social.oauth.RestVerb;
-import org.jboss.seam.social.oauth.Service;
 import org.jboss.seam.social.oauth.UserProfile;
 import org.scribe.builder.api.Api;
 import org.scribe.builder.api.LinkedInApi;
@@ -46,7 +43,7 @@ import org.scribe.builder.api.LinkedInApi;
 /**
  * @author Antoine Sabot-Durand
  */
-
+@RelatedTo(LinkedInScribe.TYPE)
 public class LinkedInScribe extends OAuthServiceScribe implements LinkedIn {
 
     private static final long serialVersionUID = -6718362913575146613L;
@@ -54,7 +51,7 @@ public class LinkedInScribe extends OAuthServiceScribe implements LinkedIn {
     static final String USER_PROFILE_URL = "http://api.linkedin.com/v1/people/~:(id,first-name,last-name,headline,picture-url,site-standard-profile-request:(url))";
     static final Class<? extends Api> API_CLASS = LinkedInApi.class;
     static final String LOGO_URL = "https://d2l6uygi1pgnys.cloudfront.net/1-9-05/images/buttons/linkedin_connect.png";
-    static final String TYPE = "LinkedIn";
+    public static final String TYPE = "LinkedIn";
     static final String NETWORK_UPDATE_URL = "http://api.linkedin.com/v1/people/~/person-activities";
 
     JAXBContext context;
@@ -76,9 +73,16 @@ public class LinkedInScribe extends OAuthServiceScribe implements LinkedIn {
 
     @Override
     @Inject
-    public void setSettings(@RelatedTo(Service.LinkedIn) OAuthServiceSettings settings) {
+    public void setSettings(@RelatedTo(LinkedInScribe.TYPE) OAuthServiceSettings settings) {
         super.setSettings(settings);
 
+    }
+    
+    
+
+    @Produces
+    protected OAuthService qualifiedLinkedInProducer(@New LinkedInScribe service) {
+        return service;
     }
     
     /*
