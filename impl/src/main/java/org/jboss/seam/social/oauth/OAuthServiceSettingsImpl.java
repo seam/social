@@ -36,6 +36,8 @@ public class OAuthServiceSettingsImpl implements OAuthServiceSettings, Serializa
     private String apiSecret;
 
     private String callback;
+    
+    private String scope;
 
     public String getApiKey() {
         return apiKey;
@@ -65,15 +67,32 @@ public class OAuthServiceSettingsImpl implements OAuthServiceSettings, Serializa
         this.callback = callback;
     }
 
+    @Override
+    public void setScope(String scope) {
+        this.scope = scope;
+    }
+
+    @Override
+    public String getScope() {
+        return scope;
+    }
+
     protected OAuthServiceSettingsImpl() {
         super();
     }
 
     public OAuthServiceSettingsImpl(String apiKey, String apiSecret, String callback) {
+       this(apiKey,apiSecret,callback,null);
+    }
+
+    public OAuthServiceSettingsImpl(String apiKey, String apiSecret, String callback, String scope) {
         super();
         this.apiKey = apiKey;
         this.apiSecret = apiSecret;
         this.callback = callback;
+        this.scope = scope;
     }
+    
+    
 
 }

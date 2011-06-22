@@ -55,4 +55,14 @@ public interface OAuthServiceSettings {
      */
     public void setApiKey(String apiKey);
 
+    /**
+     * @param scope scope requested for this OAuth 2.0 service
+     */
+    void setScope(String scope);
+
+    /**
+     * @return the scope requested
+     */
+    String getScope();
+
 }

@@ -80,6 +80,9 @@ public abstract class OAuthServiceScribe implements OAuthService, Serializable {
                 .apiSecret(getSettings().getApiSecret());
         if (getSettings().getCallback() != null && !("".equals(getSettings().getCallback())))
             serviceBuilder.callback(getSettings().getCallback());
+        if (getSettings().getScope()!=null && !("".equals(getSettings().getScope()))){
+            serviceBuilder.scope(getSettings().getScope());
+        }
         service = serviceBuilder.build();
 
     }

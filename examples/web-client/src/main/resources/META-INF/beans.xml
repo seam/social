@@ -45,6 +45,7 @@
         <o:RelatedTo>Facebook</o:RelatedTo>
         <o:apiKey>204631749555557</o:apiKey>
         <o:apiSecret>5d3132b1448a66d28e5c420b267cd65e</o:apiSecret>
+        <o:scope>publish_stream,read_stream</o:scope>
         <o:callback>http://localhost:8080/social-web-client/callback.jsf
         </o:callback>
     </o:OAuthServiceSettingsImpl>
