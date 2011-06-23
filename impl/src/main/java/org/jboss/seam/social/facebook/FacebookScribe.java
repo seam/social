@@ -21,6 +21,7 @@ import javax.enterprise.inject.New;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 
+import org.jboss.logging.Logger;
 import org.jboss.seam.social.facebook.model.UserJackson;
 import org.jboss.seam.social.oauth.HttpResponse;
 import org.jboss.seam.social.oauth.JsonMapper;
@@ -42,9 +43,11 @@ public class FacebookScribe extends OAuth2ServiceScribe implements Facebook {
     static final String USER_PROFILE_URL = "https://graph.facebook.com/me";
     static final String LOGO_URL = "https://d2l6uygi1pgnys.cloudfront.net/2-2-08/images/buttons/facebook_connect.png";
     public static final String TYPE = "Facebook";
-    static final String NETWORK_UPDATE_URL = "";
+    static final String STATUS_UPDATE_URL = "https://graph.facebook.com/me/feed";
     static final Class<? extends Api> API_CLASS = FacebookApi.class;
 
+    @Inject
+    private Logger log;
     @Inject
     private JsonMapper jsonMapper;
 
@@ -105,8 +108,7 @@ public class FacebookScribe extends OAuth2ServiceScribe implements Facebook {
      */
     @Override
     public Object updateStatus() {
-        // TODO Auto-generated method stub
-        return null;
+        return updateStatus(getStatus());
     }
 
     /*
@@ -116,7 +118,10 @@ public class FacebookScribe extends OAuth2ServiceScribe implements Facebook {
      */
     @Override
     public Object updateStatus(String message) {
-        // TODO Auto-generated method stub
+        HttpResponse resp = sendSignedRequest(RestVerb.POST, STATUS_UPDATE_URL, "message", message);
+        log.debugf("Update staut is %s", message);
+        setStatus("");
+        log.debugf("Response is : %s",resp.getBody());
         return null;
     }
 
