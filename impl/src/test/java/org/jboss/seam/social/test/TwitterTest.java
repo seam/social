@@ -11,7 +11,7 @@ import org.jboss.seam.social.oauth.HasStatus;
 import org.jboss.seam.social.oauth.HttpResponse;
 import org.jboss.seam.social.oauth.JsonMapper;
 import org.jboss.seam.social.oauth.OAuthService;
-import org.jboss.seam.social.oauth.OAuthServiceScribe;
+import org.jboss.seam.social.oauth.OAuthServiceBase;
 import org.jboss.seam.social.oauth.OAuthServiceSettings;
 import org.jboss.seam.social.oauth.OAuthServiceSettingsImpl;
 import org.jboss.seam.social.oauth.OAuthSessionSettings;
@@ -22,7 +22,7 @@ import org.jboss.seam.social.oauth.RelatedTo;
 import org.jboss.seam.social.oauth.RestVerb;
 import org.jboss.seam.social.oauth.UserProfile;
 import org.jboss.seam.social.twitter.Twitter;
-import org.jboss.seam.social.twitter.TwitterScribe;
+import org.jboss.seam.social.twitter.TwitterJackson;
 import org.jboss.seam.social.twitter.model.CredentialJackson;
 import org.jboss.seam.social.twitter.model.Tweet;
 import org.jboss.seam.social.twitter.model.TweetJackson;
@@ -51,7 +51,7 @@ public class TwitterTest {
         Archive<?> ret = ShrinkWrap
                 .create(WebArchive.class, "test.war")
                 .addClasses(
-                    TwitterScribe.class, Twitter.class, OAuthService.class, OAuthServiceScribe.class,
+                    TwitterJackson.class, Twitter.class, OAuthService.class, OAuthServiceBase.class,
                     OAuthServiceSettings.class, OAuthServiceSettingsImpl.class, OAuthSessionSettings.class,
                     OAuthSessionSettingsImpl.class, RelatedTo.class,
                     JsonMapper.class, HasStatus.class, 

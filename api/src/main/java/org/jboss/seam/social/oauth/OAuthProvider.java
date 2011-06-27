@@ -16,25 +16,31 @@
  */
 package org.jboss.seam.social.oauth;
 
+
+
 /**
  * @author Antoine Sabot-Durand
+ * 
+ * Implementation of this Interface will provide low level service for OAuth management.
+ * It allows to create different provider to deal with Social Network
+ *
  */
-public abstract class OAuth2ServiceScribe extends OAuthServiceBase {
+public interface OAuthProvider {
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = 3436501339795099869L;
-    private static final String VERIFIER_PARAM_NAME = "code";
+    public OAuthToken getRequestToken();
 
-    @Override
-    protected OAuthTokenScribe getRequestToken() {
-        return new OAuthTokenScribe(null);
-    }
+    public OAuthToken getAccessToken(OAuthToken requestToken, String verifier);
 
-    @Override
-    public String getVerifierParamName() {
-        return VERIFIER_PARAM_NAME;
-    }
+    public void signRequest(OAuthToken accessToken, OAuthRequest request);
+
+    public String getVersion();
+
+    public String getAuthorizationUrl(OAuthToken tok);
+
+    public void initProvider(OAuthServiceSettings settings);
+
+    public OAuthRequest createRequest(RestVerb verb, String uri);
+
+    public OAuthToken createToken(String token, String secret);
 
 }

@@ -32,24 +32,21 @@ import org.jboss.seam.social.linkedin.model.Update;
 import org.jboss.seam.social.linkedin.model.UpdateJaxb;
 import org.jboss.seam.social.oauth.HttpResponse;
 import org.jboss.seam.social.oauth.OAuthService;
-import org.jboss.seam.social.oauth.OAuthServiceScribe;
+import org.jboss.seam.social.oauth.OAuthServiceBase;
 import org.jboss.seam.social.oauth.OAuthServiceSettings;
 import org.jboss.seam.social.oauth.RelatedTo;
 import org.jboss.seam.social.oauth.RestVerb;
 import org.jboss.seam.social.oauth.UserProfile;
-import org.scribe.builder.api.Api;
-import org.scribe.builder.api.LinkedInApi;
 
 /**
  * @author Antoine Sabot-Durand
  */
 
-public class LinkedInScribe extends OAuthServiceScribe implements LinkedIn {
+public class LinkedInJaxb extends OAuthServiceBase implements LinkedIn {
 
     private static final long serialVersionUID = -6718362913575146613L;
 
     static final String USER_PROFILE_URL = "http://api.linkedin.com/v1/people/~:(id,first-name,last-name,headline,picture-url,site-standard-profile-request:(url))";
-    static final Class<? extends Api> API_CLASS = LinkedInApi.class;
     static final String LOGO_URL = "https://d2l6uygi1pgnys.cloudfront.net/1-9-05/images/buttons/linkedin_connect.png";
     public static final String TYPE = "LinkedIn";
     static final String NETWORK_UPDATE_URL = "http://api.linkedin.com/v1/people/~/person-activities";
@@ -73,7 +70,7 @@ public class LinkedInScribe extends OAuthServiceScribe implements LinkedIn {
 
     @Override
     @Inject
-    public void setSettings(@RelatedTo(LinkedInScribe.TYPE) OAuthServiceSettings settings) {
+    public void setSettings(@RelatedTo(LinkedInJaxb.TYPE) OAuthServiceSettings settings) {
         super.setSettings(settings);
 
     }
@@ -81,21 +78,12 @@ public class LinkedInScribe extends OAuthServiceScribe implements LinkedIn {
     
 
     @Produces
-    @RelatedTo(LinkedInScribe.TYPE)
-    protected OAuthService qualifiedLinkedInProducer(@New LinkedInScribe service) {
+    @RelatedTo(LinkedInJaxb.TYPE)
+    protected OAuthService qualifiedLinkedInProducer(@New LinkedInJaxb service) {
         return service;
     }
     
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.jboss.seam.social.oauth.OAuthServiceScribe#getApiClass()
-     */
-    @Override
-    protected Class<? extends Api> getApiClass() {
-        return API_CLASS;
-    }
-
+    
     /*
      * (non-Javadoc)
      *

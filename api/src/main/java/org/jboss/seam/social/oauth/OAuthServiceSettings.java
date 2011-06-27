@@ -65,4 +65,14 @@ public interface OAuthServiceSettings {
      */
     String getScope();
 
+    /**
+     * @return
+     */
+    String getServiceName();
+
+    /**
+     * @param serviceName
+     */
+    void setServiceName(String serviceName);
+
 }

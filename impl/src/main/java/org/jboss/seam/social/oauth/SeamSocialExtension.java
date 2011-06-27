@@ -21,12 +21,14 @@ import java.util.Set;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
+import javax.enterprise.inject.spi.ProcessAnnotatedType;
 import javax.enterprise.inject.spi.Annotated;
 import javax.enterprise.inject.spi.BeanManager;
 import javax.enterprise.inject.spi.Extension;
 import javax.enterprise.inject.spi.ProcessBean;
 
 import org.jboss.logging.Logger;
+import org.jboss.seam.social.oauth.RelatedTo.RelatedToLiteral;
 
 /**
  * @author antoine
@@ -38,20 +40,23 @@ public class SeamSocialExtension implements Extension {
     private Set<String> servicesNames = new HashSet<String>();
     private static final Logger log = Logger.getLogger(SeamSocialExtension.class);
     
-
+  
     public void processBeans(@Observes ProcessBean<OAuthService> pbean, BeanManager beanManager)
     {
         
-        log.info("*** Extension is in Process Bean ***");
+        log.debug("*** Extension is in Process Bean ***");
         Annotated anno= pbean.getAnnotated();
         if (anno.isAnnotationPresent(RelatedTo.class))
         {
             String name=anno.getAnnotation(RelatedTo.class).value();
-            log.info("=== Found service " + name + "  ===");
+          
+            log.debug("=== Found service " + name + "  ===");
             servicesNames.add(anno.getAnnotation(RelatedTo.class).value());
         }
     }
 
+    
+    
     
     public Set<String> getSocialRelated() {
         return servicesNames;

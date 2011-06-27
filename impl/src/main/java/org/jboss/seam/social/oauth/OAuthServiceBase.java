@@ -16,26 +16,21 @@
  */
 package org.jboss.seam.social.oauth;
 
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import javax.inject.Inject;
 
-import org.scribe.builder.ServiceBuilder;
-import org.scribe.builder.api.Api;
-import org.scribe.model.OAuthRequest;
-import org.scribe.model.Token;
-import org.scribe.model.Verb;
-import org.scribe.model.Verifier;
+import org.jboss.logging.Logger;
+
 
 
 /**
  * @author Antoine Sabot-Durand
  */
 
-public abstract class OAuthServiceScribe implements OAuthService, Serializable {
+public abstract class OAuthServiceBase implements OAuthService, Serializable {
 
     /**
      *
@@ -43,10 +38,16 @@ public abstract class OAuthServiceScribe implements OAuthService, Serializable {
     private static final long serialVersionUID = -8423894021913341674L;
     private static final String VERIFIER_PARAM_NAME = "oauth_verifier";
 
-    private org.scribe.oauth.OAuthService service;
-
     private OAuthServiceSettings settings;
+    
+    @Inject
+    private OAuthProvider provider;
+    
 
+    @Inject
+    private Logger log;
+    
+    
     @Inject
     protected OAuthSessionSettings session;
 
@@ -68,25 +69,6 @@ public abstract class OAuthServiceScribe implements OAuthService, Serializable {
         this.session.setStatus(status);
     }
 
-    protected org.scribe.oauth.OAuthService getService() {
-        if (service == null)
-            initService();
-        return service;
-    }
-
-    private void initService() {
-        Class<? extends Api> apiClass = getApiClass();
-        ServiceBuilder serviceBuilder = new ServiceBuilder().provider(apiClass).apiKey(getSettings().getApiKey())
-                .apiSecret(getSettings().getApiSecret());
-        if (getSettings().getCallback() != null && !("".equals(getSettings().getCallback())))
-            serviceBuilder.callback(getSettings().getCallback());
-        if (getSettings().getScope()!=null && !("".equals(getSettings().getScope()))){
-            serviceBuilder.scope(getSettings().getScope());
-        }
-        service = serviceBuilder.build();
-
-    }
-
     @Override
     public String getName()
     {
@@ -96,7 +78,7 @@ public abstract class OAuthServiceScribe implements OAuthService, Serializable {
     /*
      * (non-Javadoc)
      *
-     * @see org.jboss.seam.social.oauth.OAuthServiceScribe#getSettings()
+     * @see org.jboss.seam.social.oauth.OAuthServiceBase#getSettings()
      */
     @Override
     public OAuthServiceSettings getSettings() {
@@ -105,25 +87,31 @@ public abstract class OAuthServiceScribe implements OAuthService, Serializable {
 
     public void setSettings(OAuthServiceSettings settings) {
         this.settings = settings;
+        provider.initProvider(settings);
     }
-
-    protected abstract Class<? extends Api> getApiClass();
 
     @Override
     public String getAuthorizationUrl() {
-        return getService().getAuthorizationUrl(getScribeRequestToken());
+        return getService().getAuthorizationUrl(getRequestToken());
+    }
+
+    /**
+     * @return
+     */
+    private OAuthProvider getService() {
+        return provider;
     }
 
     protected OAuthToken getRequestToken() {
         if (session.getRequestToken() == null)
-            session.setRequestToken(new OAuthTokenScribe(getService().getRequestToken()));
+            session.setRequestToken(getService().getRequestToken());
         return session.getRequestToken();
     }
 
     @Override
     public void initAccessToken() {
         if (session.getAccessToken() == null) {
-            session.setAccessToken(new OAuthTokenScribe(getService().getAccessToken(getScribeRequestToken(), new Verifier(session.getVerifier()))));
+            session.setAccessToken(getService().getAccessToken(getRequestToken(), session.getVerifier()));
             if (session.getAccessToken() != null) {
                 session.setConnected(Boolean.TRUE);
                 session.setRequestToken(null);
@@ -146,28 +134,20 @@ public abstract class OAuthServiceScribe implements OAuthService, Serializable {
     }
 
     protected HttpResponse sendSignedRequest(OAuthRequest request) {
-        getService().signRequest(getScribeAccessToken(), request);
-        HttpResponse resp = null;
-        try {
-            resp = new HttpResponseScribe(request.send());
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return resp;
+        getService().signRequest(getAccessToken(), request);
+        return request.send();
     }
 
     @Override
     public HttpResponse sendSignedRequest(RestVerb verb, String uri) {
-        OAuthRequest request = new OAuthRequest(Verb.valueOf(verb.toString()), uri);
-
+        OAuthRequest request = provider.createRequest(verb, uri);
         return sendSignedRequest(request);
 
     }
 
     @Override
     public HttpResponse sendSignedRequest(RestVerb verb, String uri, String key, Object value) {
-        OAuthRequest request = new OAuthRequest(Verb.valueOf(verb.toString()), uri);
+        OAuthRequest request = provider.createRequest(verb, uri);
 
         request.addBodyParameter(key, value.toString());
 
@@ -177,7 +157,7 @@ public abstract class OAuthServiceScribe implements OAuthService, Serializable {
 
     @Override
     public HttpResponse sendSignedXmlRequest(RestVerb verb, String uri, String payload) {
-        OAuthRequest request = new OAuthRequest(Verb.valueOf(verb.toString()), uri);
+        OAuthRequest request = provider.createRequest(verb, uri);
         request.addHeader("Content-Length", Integer.toString(payload.length()));
         request.addHeader("Content-Type", "text/xml");
 
@@ -189,7 +169,7 @@ public abstract class OAuthServiceScribe implements OAuthService, Serializable {
 
     @Override
     public HttpResponse sendSignedRequest(RestVerb verb, String uri, Map<String, Object> params) {
-        OAuthRequest request = new OAuthRequest(Verb.valueOf(verb.toString()), uri);
+        OAuthRequest request = provider.createRequest(verb, uri);
         for (Entry<String, Object> ent : params.entrySet()) {
             request.addBodyParameter(ent.getKey(), ent.getValue().toString());
         }
@@ -212,16 +192,7 @@ public abstract class OAuthServiceScribe implements OAuthService, Serializable {
         return session.getAccessToken();
     }
 
-    protected Token getScribeAccessToken()
-    {
-        return ((OAuthTokenScribe)getAccessToken()).delegate;
-    }
-    
-    protected Token getScribeRequestToken()
-    {
-        return ((OAuthTokenScribe)getRequestToken()).delegate;
-    }
-    
+   
     
     
     @Override
@@ -231,19 +202,19 @@ public abstract class OAuthServiceScribe implements OAuthService, Serializable {
 
     @Override
     public void setAccessToken(String token, String secret) {
-        session.setAccessToken(new OAuthTokenScribe(token, secret));
+        session.setAccessToken(provider.createToken(token, secret));
 
     }
 
     @Override
     public void setAccessToken(OAuthToken token) {
-        session.setAccessToken(new OAuthTokenScribe(token.getToken(), token.getSecret()));
+        session.setAccessToken(token);
 
     }
 
     @Override
     public String toString() {
-        return getType();
+        return getName();
     }
 
     @Override
@@ -272,7 +243,7 @@ public abstract class OAuthServiceScribe implements OAuthService, Serializable {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        OAuthServiceScribe other = (OAuthServiceScribe) obj;
+        OAuthServiceBase other = (OAuthServiceBase) obj;
         if (session == null) {
             if (other.session != null)
                 return false;
@@ -281,7 +252,5 @@ public abstract class OAuthServiceScribe implements OAuthService, Serializable {
         return true;
     }
 
-    
-    
     
 }

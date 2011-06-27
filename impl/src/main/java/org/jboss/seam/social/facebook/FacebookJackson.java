@@ -31,20 +31,17 @@ import org.jboss.seam.social.oauth.OAuthServiceSettings;
 import org.jboss.seam.social.oauth.RelatedTo;
 import org.jboss.seam.social.oauth.RestVerb;
 import org.jboss.seam.social.oauth.UserProfile;
-import org.scribe.builder.api.Api;
-import org.scribe.builder.api.FacebookApi;
 
 /**
  * @author Antoine Sabot-Durand
  */
 
-public class FacebookScribe extends OAuth2ServiceScribe implements Facebook {
+public class FacebookJackson extends OAuth2ServiceScribe implements Facebook {
 
     static final String USER_PROFILE_URL = "https://graph.facebook.com/me";
     static final String LOGO_URL = "https://d2l6uygi1pgnys.cloudfront.net/2-2-08/images/buttons/facebook_connect.png";
     public static final String TYPE = "Facebook";
     static final String STATUS_UPDATE_URL = "https://graph.facebook.com/me/feed";
-    static final Class<? extends Api> API_CLASS = FacebookApi.class;
 
     @Inject
     private Logger log;
@@ -53,14 +50,14 @@ public class FacebookScribe extends OAuth2ServiceScribe implements Facebook {
 
     @Override
     @Inject
-    public void setSettings(@RelatedTo(FacebookScribe.TYPE) OAuthServiceSettings settings) {
+    public void setSettings(@RelatedTo(FacebookJackson.TYPE) OAuthServiceSettings settings) {
         super.setSettings(settings);
 
     }
     
     @Produces
-    @RelatedTo(FacebookScribe.TYPE)
-    protected OAuthService qualifiedFacebookProducer(@New FacebookScribe service) {
+    @RelatedTo(FacebookJackson.TYPE)
+    protected OAuthService qualifiedFacebookProducer(@New FacebookJackson service) {
         return service;
     }
     
@@ -125,14 +122,5 @@ public class FacebookScribe extends OAuth2ServiceScribe implements Facebook {
         return null;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.jboss.seam.social.oauth.OAuthServiceScribe#getApiClass()
-     */
-    @Override
-    protected Class<? extends Api> getApiClass() {
-        return API_CLASS;
-    }
-
+   
 }

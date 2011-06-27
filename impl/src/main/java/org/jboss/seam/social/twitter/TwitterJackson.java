@@ -28,7 +28,7 @@ import org.jboss.logging.Logger;
 import org.jboss.seam.social.oauth.HttpResponse;
 import org.jboss.seam.social.oauth.JsonMapper;
 import org.jboss.seam.social.oauth.OAuthService;
-import org.jboss.seam.social.oauth.OAuthServiceScribe;
+import org.jboss.seam.social.oauth.OAuthServiceBase;
 import org.jboss.seam.social.oauth.OAuthServiceSettings;
 import org.jboss.seam.social.oauth.RelatedTo;
 import org.jboss.seam.social.oauth.RestVerb;
@@ -36,15 +36,13 @@ import org.jboss.seam.social.oauth.UserProfile;
 import org.jboss.seam.social.twitter.model.CredentialJackson;
 import org.jboss.seam.social.twitter.model.Tweet;
 import org.jboss.seam.social.twitter.model.TweetJackson;
-import org.scribe.builder.api.Api;
-import org.scribe.builder.api.TwitterApi;
 
 /**
  * @author Antoine Sabot-Durand
  */
 
 
-public class TwitterScribe extends OAuthServiceScribe implements Twitter {
+public class TwitterJackson extends OAuthServiceBase implements Twitter {
 
     private static final long serialVersionUID = 6806035986656777834L;
     static final String VERIFY_CREDENTIALS_URL = "https://api.twitter.com/1/account/verify_credentials.json";
@@ -52,7 +50,6 @@ public class TwitterScribe extends OAuthServiceScribe implements Twitter {
     static final String SEARCH_URL = "https://search.twitter.com/search.json?q={query}&rpp={rpp}&page={page}";
     static final String TWEET_URL = "https://api.twitter.com/1/statuses/update.json";
     static final String RETWEET_URL = "https://api.twitter.com/1/statuses/retweet/{tweet_id}.json";
-    static final Class<? extends Api> API_CLASS = TwitterApi.class;
     static final String LOGO_URL = "https://d2l6uygi1pgnys.cloudfront.net/2-2-08/images/buttons/twitter_connect.png";
     static final String TYPE = "Twitter";
     
@@ -64,14 +61,14 @@ public class TwitterScribe extends OAuthServiceScribe implements Twitter {
 
     @Override
     @Inject
-    public void setSettings(@RelatedTo(TwitterScribe.TYPE) OAuthServiceSettings settings) {
+    public void setSettings(@RelatedTo(TwitterJackson.TYPE) OAuthServiceSettings settings) {
         super.setSettings(settings);
 
     }
     
     @Produces
-    @RelatedTo(TwitterScribe.TYPE)
-    protected OAuthService qualifiedTwitterProducer(@New TwitterScribe service) {
+    @RelatedTo(TwitterJackson.TYPE)
+    protected OAuthService qualifiedTwitterProducer(@New TwitterJackson service) {
         return service;
     }
    
@@ -84,15 +81,7 @@ public class TwitterScribe extends OAuthServiceScribe implements Twitter {
 
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.jboss.seam.social.oauth.OAuthServiceScribe#getApiClass()
-     */
-    @Override
-    protected Class<? extends Api> getApiClass() {
-        return API_CLASS;
-    }
+   
 
     /*
      * (non-Javadoc)
