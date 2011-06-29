@@ -6,7 +6,7 @@ Provides:
 
 + OAuth cconnectors to authentify to an OAuth provider
 + Support for Authentication for Twitter, LinkedIn and Facebook only right now 
-+ Status update for Twitter and LinkedIn
++ Status update for Facebook Twitter and LinkedIn
 + Support for multi-account (multi-service and multi session for the same service)
 
 Seam Social is independent of CDI implementation and fully portable between
@@ -38,10 +38,11 @@ For instance :
      <o:OAuthServiceSettingsImpl>
          <s:modifies />
          <o:RelatedTo>Twitter</o:RelatedTo>
+         <o:serviceName>Twitter</o:serviceName>
          <o:apiKey>FQzlQC49UhvbMZoxUIvHTQ</o:apiKey>
          <o:apiSecret>VQ5CZHG4qUoAkUUmckPn4iN4yyjBKcORTW0wnok4r1k
          </o:apiSecret>
-         <o:callback>http://localhost:8080/seam-social-web-client/callback.jsf
+         <o:callback>http://localhost:8080/social-web-client/callback.jsf
          </o:callback>
      </o:OAuthServiceSettingsImpl>
     </beans>
@@ -69,7 +70,7 @@ or using the generic OAuthService with a Qualifier
     public class mySessionBean implements Serializable {
         ...
         @Inject
-        @RelatedTo(Service.Twitter)
+        @RelatedTo("Twitter")
         OAuthService twitter;
         ...
     }
