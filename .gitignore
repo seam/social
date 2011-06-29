@@ -7,4 +7,5 @@ rebel.xml
 *.sw?
 */src/main/java/META-INF
 impl/coverage.ec
-.DS_Store
+*.DS_Store
+*.iml
