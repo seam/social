@@ -10,6 +10,8 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.seam.social.oauth.HasStatus;
 import org.jboss.seam.social.oauth.HttpResponse;
 import org.jboss.seam.social.oauth.JsonMapper;
+import org.jboss.seam.social.oauth.OAuthProvider;
+import org.jboss.seam.social.oauth.OAuthProviderScribe;
 import org.jboss.seam.social.oauth.OAuthService;
 import org.jboss.seam.social.oauth.OAuthServiceBase;
 import org.jboss.seam.social.oauth.OAuthServiceSettings;
@@ -54,7 +56,7 @@ public class TwitterTest {
                     TwitterJackson.class, Twitter.class, OAuthService.class, OAuthServiceBase.class,
                     OAuthServiceSettings.class, OAuthServiceSettingsImpl.class, OAuthSessionSettings.class,
                     OAuthSessionSettingsImpl.class, RelatedTo.class,
-                    JsonMapper.class, HasStatus.class, 
+                    JsonMapper.class, HasStatus.class, OAuthProvider.class, OAuthProviderScribe.class,
                     OAuthToken.class, RestVerb.class, HttpResponse.class, UserProfile.class,
                     Tweet.class, TweetJackson.class, CredentialJackson.class,
                     OAuthTokenScribe.class)
