@@ -20,9 +20,13 @@ import java.io.Serializable;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import javax.annotation.PostConstruct;
+import javax.enterprise.inject.Any;
+import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 
 import org.jboss.logging.Logger;
+import org.jboss.seam.social.oauth.RelatedTo.RelatedToLiteral;
 
 
 
@@ -43,13 +47,27 @@ public abstract class OAuthServiceBase implements OAuthService, Serializable {
     @Inject
     private OAuthProvider provider;
     
+    @Inject @Any
+    protected Instance<OAuthServiceSettings> settingsInstances;
+   
 
     @Inject
     private Logger log;
     
-    
     @Inject
     protected OAuthSessionSettings session;
+    
+    @PostConstruct
+    protected void postConstruct()
+    {
+        
+        try {
+            setSettings(settingsInstances.select(new RelatedTo.RelatedToLiteral(getType())).get());
+        } catch (Exception e) {
+            // TODO we should try to find configuration elsewhere (config file, Jpa, etc...)
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public OAuthSessionSettings getSession() {
@@ -72,7 +90,7 @@ public abstract class OAuthServiceBase implements OAuthService, Serializable {
     @Override
     public String getName()
     {
-        return getType() + " - " + getSession().getUserProfile().getFullName();
+        return getType() + " - " + (getSession().isConnected() ? getSession().getUserProfile().getFullName() : "not connected");
     }
     
     /*

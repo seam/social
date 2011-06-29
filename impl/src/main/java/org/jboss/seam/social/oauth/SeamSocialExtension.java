@@ -21,17 +21,15 @@ import java.util.Set;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
-import javax.enterprise.inject.spi.ProcessAnnotatedType;
 import javax.enterprise.inject.spi.Annotated;
 import javax.enterprise.inject.spi.BeanManager;
 import javax.enterprise.inject.spi.Extension;
 import javax.enterprise.inject.spi.ProcessBean;
 
 import org.jboss.logging.Logger;
-import org.jboss.seam.social.oauth.RelatedTo.RelatedToLiteral;
 
 /**
- * @author antoine
+ * @author Antoine Sabot-Durand
  * 
  */
 @ApplicationScoped
@@ -41,7 +39,7 @@ public class SeamSocialExtension implements Extension {
     private static final Logger log = Logger.getLogger(SeamSocialExtension.class);
     
   
-    public void processBeans(@Observes ProcessBean<OAuthService> pbean, BeanManager beanManager)
+    public void processBeans(@Observes ProcessBean<OAuthServiceSettings> pbean, BeanManager beanManager)
     {
         
         log.debug("*** Extension is in Process Bean ***");
@@ -50,7 +48,7 @@ public class SeamSocialExtension implements Extension {
         {
             String name=anno.getAnnotation(RelatedTo.class).value();
           
-            log.debug("=== Found service " + name + "  ===");
+            log.debug("=== Found configuration for service " + name + "  ===");
             servicesNames.add(anno.getAnnotation(RelatedTo.class).value());
         }
     }

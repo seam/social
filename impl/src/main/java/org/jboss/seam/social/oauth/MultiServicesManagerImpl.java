@@ -19,7 +19,6 @@ package org.jboss.seam.social.oauth;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -52,7 +51,7 @@ public class MultiServicesManagerImpl implements MultiServicesManager,Serializab
 
     
     @PostConstruct
-    private void init()
+    void init()
     {
         listOfServices=new ArrayList<String>(socialConfig.getSocialRelated());
     }
@@ -82,8 +81,8 @@ public class MultiServicesManagerImpl implements MultiServicesManager,Serializab
      * @see org.jboss.seam.social.manager.MultiServicesManager#addService(org.jboss.seam.social.oauth.Service)
      */
     @Override
-    public OAuthService getNewService(String serviceEnum) {
-        OAuthService service = serviceInstances.select(new RelatedTo.RelatedToLiteral(serviceEnum)).get();
+    public OAuthService getNewService(String serviceName) {
+        OAuthService service = serviceInstances.select(new RelatedTo.RelatedToLiteral(serviceName)).get();
         return service;
     }
 

@@ -48,12 +48,6 @@ public class FacebookJackson extends OAuth2ServiceScribe implements Facebook {
     @Inject
     private JsonMapper jsonMapper;
 
-    @Override
-    @Inject
-    public void setSettings(@RelatedTo(FacebookJackson.TYPE) OAuthServiceSettings settings) {
-        super.setSettings(settings);
-
-    }
     
     @Produces
     @RelatedTo(FacebookJackson.TYPE)

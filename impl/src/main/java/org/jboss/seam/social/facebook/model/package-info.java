@@ -18,3 +18,4 @@
 @Veto package org.jboss.seam.social.facebook.model;
 
 import org.jboss.seam.solder.core.Veto;
+

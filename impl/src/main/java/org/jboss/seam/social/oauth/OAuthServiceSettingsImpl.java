@@ -107,6 +107,12 @@ public class OAuthServiceSettingsImpl implements OAuthServiceSettings, Serializa
         this.scope = scope;
     }
 
+    @Override
+    public String toString() {
+        return "OAuthServiceSettingsImpl [apiKey=" + apiKey + ", apiSecret=" + apiSecret + ", callback=" + callback
+                + ", scope=" + scope + ", serviceName=" + serviceName + "]";
+    }
+
    
     
     

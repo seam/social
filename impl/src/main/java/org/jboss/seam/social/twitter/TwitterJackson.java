@@ -59,12 +59,7 @@ public class TwitterJackson extends OAuthServiceBase implements Twitter {
     @Inject
     private JsonMapper jsonMapper;
 
-    @Override
-    @Inject
-    public void setSettings(@RelatedTo(TwitterJackson.TYPE) OAuthServiceSettings settings) {
-        super.setSettings(settings);
-
-    }
+   
     
     @Produces
     @RelatedTo(TwitterJackson.TYPE)

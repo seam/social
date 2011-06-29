@@ -18,7 +18,6 @@ package org.jboss.seam.social.oauth;
 
 import org.scribe.builder.ServiceBuilder;
 import org.scribe.builder.api.Api;
-import org.jboss.seam.social.oauth.OAuthRequest;
 import org.scribe.model.Token;
 import org.scribe.model.Verifier;
 

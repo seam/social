@@ -67,14 +67,6 @@ public class LinkedInJaxb extends OAuthServiceBase implements LinkedIn {
             e.printStackTrace();
         }
     }
-
-    @Override
-    @Inject
-    public void setSettings(@RelatedTo(LinkedInJaxb.TYPE) OAuthServiceSettings settings) {
-        super.setSettings(settings);
-
-    }
-    
     
 
     @Produces
