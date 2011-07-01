@@ -14,17 +14,5 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package org.jboss.seam.social.core.scribe;
 
-package org.jboss.seam.social.facebook;
-
-import org.jboss.seam.social.core.HasStatus;
-import org.jboss.seam.social.core.OAuthService;
-
-/**
- * A specialization of {@link OAuthService} to add Facebook specific methods
- *
- * @author Antoine Sabot-Durand
- */
-public interface Facebook extends OAuthService, HasStatus {
-
-}

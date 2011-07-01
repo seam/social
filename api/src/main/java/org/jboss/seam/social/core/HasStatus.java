@@ -14,17 +14,39 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package org.jboss.seam.social.facebook;
-
-import org.jboss.seam.social.core.HasStatus;
-import org.jboss.seam.social.core.OAuthService;
+package org.jboss.seam.social.core;
 
 /**
- * A specialization of {@link OAuthService} to add Facebook specific methods
+ * Social network Handler implementing this interface will support status update
  *
  * @author Antoine Sabot-Durand
  */
-public interface Facebook extends OAuthService, HasStatus {
+public interface HasStatus {
 
+    /**
+     * @return the status update
+     */
+    public String getStatus();
+
+    /**
+     * Set the status to update
+     *
+     * @param status
+     */
+    public void setStatus(String status);
+
+    /**
+     * Send the status to the social network
+     *
+     * @return an Object corresponding to the update
+     */
+    public Object updateStatus();
+
+    /**
+     * Send the status in parameter
+     *
+     * @param message the status to send
+     * @return an Object corresponding to the update
+     */
+    public Object updateStatus(String message);
 }

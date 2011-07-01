@@ -7,22 +7,23 @@ import javax.inject.Inject;
 
 import org.jboss.arquillian.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.seam.social.oauth.HasStatus;
-import org.jboss.seam.social.oauth.HttpResponse;
-import org.jboss.seam.social.oauth.JsonMapper;
-import org.jboss.seam.social.oauth.OAuthProvider;
-import org.jboss.seam.social.oauth.OAuthProviderScribe;
-import org.jboss.seam.social.oauth.OAuthService;
-import org.jboss.seam.social.oauth.OAuthServiceBase;
-import org.jboss.seam.social.oauth.OAuthServiceSettings;
-import org.jboss.seam.social.oauth.OAuthServiceSettingsImpl;
-import org.jboss.seam.social.oauth.OAuthSessionSettings;
-import org.jboss.seam.social.oauth.OAuthSessionSettingsImpl;
-import org.jboss.seam.social.oauth.OAuthToken;
-import org.jboss.seam.social.oauth.OAuthTokenScribe;
-import org.jboss.seam.social.oauth.RelatedTo;
-import org.jboss.seam.social.oauth.RestVerb;
-import org.jboss.seam.social.oauth.UserProfile;
+import org.jboss.seam.social.core.HasStatus;
+import org.jboss.seam.social.core.HttpResponse;
+import org.jboss.seam.social.core.JsonMapper;
+import org.jboss.seam.social.core.OAuthProvider;
+import org.jboss.seam.social.core.OAuthService;
+import org.jboss.seam.social.core.OAuthServiceBase;
+import org.jboss.seam.social.core.OAuthServiceSettings;
+import org.jboss.seam.social.core.OAuthServiceSettingsImpl;
+import org.jboss.seam.social.core.OAuthSessionSettings;
+import org.jboss.seam.social.core.OAuthSessionSettingsImpl;
+import org.jboss.seam.social.core.OAuthToken;
+import org.jboss.seam.social.core.RelatedTo;
+import org.jboss.seam.social.core.RestVerb;
+import org.jboss.seam.social.core.Setted;
+import org.jboss.seam.social.core.UserProfile;
+import org.jboss.seam.social.core.scribe.OAuthProviderScribe;
+import org.jboss.seam.social.core.scribe.OAuthTokenScribe;
 import org.jboss.seam.social.twitter.Twitter;
 import org.jboss.seam.social.twitter.TwitterJackson;
 import org.jboss.seam.social.twitter.model.CredentialJackson;
@@ -43,6 +44,7 @@ import org.junit.runner.RunWith;
 @RunWith(Arquillian.class)
 public class TwitterTest {
     @Inject
+    @Setted(apiKey="FQzlQC49UhvbMZoxUIvHTQ",apiSecret="VQ5CZHG4qUoAkUUmckPn4iN4yyjBKcORTW0wnok4r1k")
     Twitter twitter;
 
     @Deployment
@@ -63,7 +65,7 @@ public class TwitterTest {
 
                 .addAsLibraries(DependencyResolvers.use(MavenDependencyResolver.class)
                         .loadReposFromPom("pom.xml")
-                        .artifact("org.jboss.seam.config:seam-config-xml")
+                      //  .artifact("org.jboss.seam.config:seam-config-xml")
                         .artifact("org.jboss.seam.solder:seam-solder")
                         .artifact("org.scribe:scribe")
                 		.resolveAs(GenericArchive.class))

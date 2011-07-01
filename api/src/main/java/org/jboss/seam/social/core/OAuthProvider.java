@@ -14,17 +14,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package org.jboss.seam.social.core;
 
-package org.jboss.seam.social.facebook;
 
-import org.jboss.seam.social.core.HasStatus;
-import org.jboss.seam.social.core.OAuthService;
 
 /**
- * A specialization of {@link OAuthService} to add Facebook specific methods
- *
  * @author Antoine Sabot-Durand
+ * 
+ * Implementation of this Interface will provide low level service for OAuth management.
+ * It allows to create different provider to deal with Social Network
+ *
  */
-public interface Facebook extends OAuthService, HasStatus {
+public interface OAuthProvider {
+
+    public OAuthToken getRequestToken();
+
+    public OAuthToken getAccessToken(OAuthToken requestToken, String verifier);
+
+    public void signRequest(OAuthToken accessToken, OAuthRequest request);
+
+    public String getVersion();
+
+    public String getAuthorizationUrl(OAuthToken tok);
+
+    public void initProvider(OAuthServiceSettings settings);
+
+    public OAuthRequest createRequest(RestVerb verb, String uri);
+
+    public OAuthToken createToken(String token, String secret);
 
 }

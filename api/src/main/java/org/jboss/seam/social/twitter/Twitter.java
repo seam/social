@@ -16,8 +16,8 @@
  */
 package org.jboss.seam.social.twitter;
 
-import org.jboss.seam.social.oauth.HasStatus;
-import org.jboss.seam.social.oauth.OAuthService;
+import org.jboss.seam.social.core.HasStatus;
+import org.jboss.seam.social.core.OAuthService;
 
 /**
  * A specialization of {@link OAuthService} to add TwitterRelated specific methods
@@ -26,5 +26,6 @@ import org.jboss.seam.social.oauth.OAuthService;
  */
 
 public interface Twitter extends OAuthService, HasStatus {
+	static final String TYPE = "Twitter";
 
 }

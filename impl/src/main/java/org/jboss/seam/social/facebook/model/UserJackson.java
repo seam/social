@@ -18,7 +18,7 @@ package org.jboss.seam.social.facebook.model;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
-import org.jboss.seam.social.oauth.AbstractUserProfile;
+import org.jboss.seam.social.core.AbstractUserProfile;
 
 /**
  * @author Antoine Sabot-Durand

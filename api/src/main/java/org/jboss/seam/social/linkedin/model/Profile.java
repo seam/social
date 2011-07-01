@@ -16,7 +16,7 @@
  */
 package org.jboss.seam.social.linkedin.model;
 
-import org.jboss.seam.social.oauth.UserProfile;
+import org.jboss.seam.social.core.UserProfile;
 
 /**
  * Implementation of this interface will contain a LinkedInRelated Profile

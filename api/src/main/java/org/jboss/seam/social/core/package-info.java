@@ -14,17 +14,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package org.jboss.seam.social.facebook;
-
-import org.jboss.seam.social.core.HasStatus;
-import org.jboss.seam.social.core.OAuthService;
+package org.jboss.seam.social.core;
 
 /**
- * A specialization of {@link OAuthService} to add Facebook specific methods
- *
- * @author Antoine Sabot-Durand
+ * This package contains API elements to manage interactions with generic OAuth
+ * services thru CDI Beans
  */
-public interface Facebook extends OAuthService, HasStatus {
-
-}

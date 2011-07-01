@@ -25,14 +25,14 @@ import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 
 import org.jboss.logging.Logger;
-import org.jboss.seam.social.oauth.HttpResponse;
-import org.jboss.seam.social.oauth.JsonMapper;
-import org.jboss.seam.social.oauth.OAuthService;
-import org.jboss.seam.social.oauth.OAuthServiceBase;
-import org.jboss.seam.social.oauth.OAuthServiceSettings;
-import org.jboss.seam.social.oauth.RelatedTo;
-import org.jboss.seam.social.oauth.RestVerb;
-import org.jboss.seam.social.oauth.UserProfile;
+import org.jboss.seam.social.core.HttpResponse;
+import org.jboss.seam.social.core.JsonMapper;
+import org.jboss.seam.social.core.OAuthService;
+import org.jboss.seam.social.core.OAuthServiceBase;
+import org.jboss.seam.social.core.OAuthServiceSettings;
+import org.jboss.seam.social.core.RelatedTo;
+import org.jboss.seam.social.core.RestVerb;
+import org.jboss.seam.social.core.UserProfile;
 import org.jboss.seam.social.twitter.model.CredentialJackson;
 import org.jboss.seam.social.twitter.model.Tweet;
 import org.jboss.seam.social.twitter.model.TweetJackson;
@@ -51,7 +51,6 @@ public class TwitterJackson extends OAuthServiceBase implements Twitter {
     static final String TWEET_URL = "https://api.twitter.com/1/statuses/update.json";
     static final String RETWEET_URL = "https://api.twitter.com/1/statuses/retweet/{tweet_id}.json";
     static final String LOGO_URL = "https://d2l6uygi1pgnys.cloudfront.net/2-2-08/images/buttons/twitter_connect.png";
-    static final String TYPE = "Twitter";
     
     @Inject
     Logger log;

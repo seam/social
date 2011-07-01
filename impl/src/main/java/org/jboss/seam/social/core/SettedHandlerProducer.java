@@ -14,17 +14,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package org.jboss.seam.social.core;
 
-package org.jboss.seam.social.facebook;
+import javax.enterprise.inject.spi.InjectionPoint;
 
-import org.jboss.seam.social.core.HasStatus;
 import org.jboss.seam.social.core.OAuthService;
+import org.jboss.seam.social.core.OAuthServiceSettings;
+import org.jboss.seam.social.core.Setted;
 
 /**
- * A specialization of {@link OAuthService} to add Facebook specific methods
- *
  * @author Antoine Sabot-Durand
  */
-public interface Facebook extends OAuthService, HasStatus {
+public abstract class SettedHandlerProducer {
+
+    protected <T extends OAuthService> T setService(InjectionPoint ip, T hdl) {
+        if (ip == null || ip.getAnnotated() == null || hdl == null)
+            return null;
+        Setted setted = ip.getAnnotated().getAnnotation(Setted.class);
+        OAuthServiceSettings settings = hdl.getSettings();
+
+        String apiKey = setted.apiKey();
+        String apiSecret = setted.apiSecret();
+        String callback = setted.callback();
+
+        settings.setApiKey(apiKey);
+        settings.setApiSecret(apiSecret);
+        settings.setCallback(callback);
+
+        return hdl;
+    }
 
 }

@@ -14,17 +14,35 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package org.jboss.seam.social.facebook;
-
-import org.jboss.seam.social.core.HasStatus;
-import org.jboss.seam.social.core.OAuthService;
+package org.jboss.seam.social.core;
 
 /**
- * A specialization of {@link OAuthService} to add Facebook specific methods
- *
  * @author Antoine Sabot-Durand
+ *
  */
-public interface Facebook extends OAuthService, HasStatus {
+public class SeamSocialException extends RuntimeException {
+
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 8149354996979746574L;
+
+    SeamSocialException() {
+        super();
+    }
+
+    SeamSocialException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    SeamSocialException(String message) {
+        super(message);
+    }
+
+    SeamSocialException(Throwable cause) {
+        super(cause);
+    }
+
+    
 
 }

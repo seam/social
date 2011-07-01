@@ -22,15 +22,15 @@ import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 
 import org.jboss.logging.Logger;
+import org.jboss.seam.social.core.HttpResponse;
+import org.jboss.seam.social.core.JsonMapper;
+import org.jboss.seam.social.core.OAuthService;
+import org.jboss.seam.social.core.OAuthServiceSettings;
+import org.jboss.seam.social.core.RelatedTo;
+import org.jboss.seam.social.core.RestVerb;
+import org.jboss.seam.social.core.UserProfile;
+import org.jboss.seam.social.core.scribe.OAuth2ServiceScribe;
 import org.jboss.seam.social.facebook.model.UserJackson;
-import org.jboss.seam.social.oauth.HttpResponse;
-import org.jboss.seam.social.oauth.JsonMapper;
-import org.jboss.seam.social.oauth.OAuth2ServiceScribe;
-import org.jboss.seam.social.oauth.OAuthService;
-import org.jboss.seam.social.oauth.OAuthServiceSettings;
-import org.jboss.seam.social.oauth.RelatedTo;
-import org.jboss.seam.social.oauth.RestVerb;
-import org.jboss.seam.social.oauth.UserProfile;
 
 /**
  * @author Antoine Sabot-Durand

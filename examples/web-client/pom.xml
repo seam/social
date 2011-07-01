@@ -79,10 +79,7 @@
             <artifactId>seam-config-xml</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>org.jboss.seam.faces</groupId>
-            <artifactId>seam-faces</artifactId>
-        </dependency>
+     
 
 		<!-- JSF -->
         <dependency>
@@ -91,12 +88,7 @@
             <scope>provided</scope>
         </dependency>
 
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>r08</version>
-        </dependency>
-
+       
         <dependency>
             <groupId>org.seleniumhq.selenium.client-drivers</groupId>
             <artifactId>selenium-java-client-driver</artifactId>

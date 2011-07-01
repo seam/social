@@ -3,7 +3,7 @@
 
     <!-- Uncomment to have test archives exported to the file system for inspection -->
     <engine>
-        <deploymentExportPath>target/</deploymentExportPath>
+        <deploymentExportPath>target/arquillian</deploymentExportPath>
     </engine>
 
 </arquillian>

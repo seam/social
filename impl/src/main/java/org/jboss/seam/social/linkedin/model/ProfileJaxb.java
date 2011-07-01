@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.jboss.seam.social.oauth.AbstractUserProfile;
+import org.jboss.seam.social.core.AbstractUserProfile;
 
 /**
  * @author Antoine Sabot-Durand

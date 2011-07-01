@@ -14,15 +14,44 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social.facebook.model;
+package org.jboss.seam.social.core;
 
 import org.jboss.seam.social.core.UserProfile;
 
-/**
- * Implementation of this interface will contain FacebookRelated Profile
- *
- * @author Antoine Sabot-Durand
- */
-public interface User extends UserProfile {
 
+/**
+ * @author antoine
+ *
+ */
+public abstract class AbstractUserProfile implements UserProfile {
+
+   
+    
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        UserProfile other = (UserProfile) obj;
+        if (getId() == null) {
+            if (other.getId() != null)
+                return false;
+        } else if (!getId().equals(other.getId()))
+            return false;
+        return true;
+    }
+    
+
+   
 }

@@ -3,7 +3,7 @@
  */
 package org.jboss.seam.social.twitter.model;
 
-import org.jboss.seam.social.oauth.UserProfile;
+import org.jboss.seam.social.core.UserProfile;
 import org.jboss.seam.social.twitter.Twitter;
 
 /**

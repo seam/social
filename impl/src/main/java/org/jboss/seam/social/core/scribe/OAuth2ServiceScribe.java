@@ -14,17 +14,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package org.jboss.seam.social.core.scribe;
 
-package org.jboss.seam.social.facebook;
-
-import org.jboss.seam.social.core.HasStatus;
-import org.jboss.seam.social.core.OAuthService;
+import org.jboss.seam.social.core.OAuthServiceBase;
 
 /**
- * A specialization of {@link OAuthService} to add Facebook specific methods
- *
  * @author Antoine Sabot-Durand
  */
-public interface Facebook extends OAuthService, HasStatus {
+public abstract class OAuth2ServiceScribe extends OAuthServiceBase {
+
+    /**
+     *
+     */
+    private static final long serialVersionUID = 3436501339795099869L;
+    private static final String VERIFIER_PARAM_NAME = "code";
+
+    @Override
+    protected OAuthTokenScribe getRequestToken() {
+        return new OAuthTokenScribe(null);
+    }
+
+    @Override
+    public String getVerifierParamName() {
+        return VERIFIER_PARAM_NAME;
+    }
 
 }

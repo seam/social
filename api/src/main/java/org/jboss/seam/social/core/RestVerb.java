@@ -14,17 +14,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package org.jboss.seam.social.facebook;
-
-import org.jboss.seam.social.core.HasStatus;
-import org.jboss.seam.social.core.OAuthService;
+package org.jboss.seam.social.core;
 
 /**
- * A specialization of {@link OAuthService} to add Facebook specific methods
+ * Enum containing the verb used in REST request. Used mainly in {@link OAuthService#OAuthServiceHandler
+ * #sendSignedRequest(RestVerb, String, java.util.Map)} and other sendSignedRequest method. to set REST verb to add to request
  *
  * @author Antoine Sabot-Durand
  */
-public interface Facebook extends OAuthService, HasStatus {
-
+public enum RestVerb {
+    GET, POST, PUT, DELETE
 }

@@ -27,16 +27,16 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
+import org.jboss.seam.social.core.HttpResponse;
+import org.jboss.seam.social.core.OAuthService;
+import org.jboss.seam.social.core.OAuthServiceBase;
+import org.jboss.seam.social.core.OAuthServiceSettings;
+import org.jboss.seam.social.core.RelatedTo;
+import org.jboss.seam.social.core.RestVerb;
+import org.jboss.seam.social.core.UserProfile;
 import org.jboss.seam.social.linkedin.model.Profile;
 import org.jboss.seam.social.linkedin.model.Update;
 import org.jboss.seam.social.linkedin.model.UpdateJaxb;
-import org.jboss.seam.social.oauth.HttpResponse;
-import org.jboss.seam.social.oauth.OAuthService;
-import org.jboss.seam.social.oauth.OAuthServiceBase;
-import org.jboss.seam.social.oauth.OAuthServiceSettings;
-import org.jboss.seam.social.oauth.RelatedTo;
-import org.jboss.seam.social.oauth.RestVerb;
-import org.jboss.seam.social.oauth.UserProfile;
 
 /**
  * @author Antoine Sabot-Durand

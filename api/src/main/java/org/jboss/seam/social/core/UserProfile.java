@@ -14,17 +14,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package org.jboss.seam.social.facebook;
-
-import org.jboss.seam.social.core.HasStatus;
-import org.jboss.seam.social.core.OAuthService;
+package org.jboss.seam.social.core;
 
 /**
- * A specialization of {@link OAuthService} to add Facebook specific methods
+ * Interface defining an user
  *
  * @author Antoine Sabot-Durand
+ * @author Todd Morrison
  */
-public interface Facebook extends OAuthService, HasStatus {
+public interface UserProfile {
 
+    /**
+     * Permanent identifier against the social relationship for the life-time of
+     * the network account
+     *
+     * @return the user's social network key
+     */
+    public String getId();
+
+    /**
+     * @return the user's full name
+     */
+    public String getFullName();
+
+    /**
+     * @return the user's picture url
+     */
+    public String getPictureUrl();
+    
+    
 }

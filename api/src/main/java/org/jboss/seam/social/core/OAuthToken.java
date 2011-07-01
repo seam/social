@@ -14,17 +14,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package org.jboss.seam.social.core;
 
-package org.jboss.seam.social.facebook;
-
-import org.jboss.seam.social.core.HasStatus;
-import org.jboss.seam.social.core.OAuthService;
+import java.io.Serializable;
 
 /**
- * A specialization of {@link OAuthService} to add Facebook specific methods
+ * Implementation of this interface represents an OAuth Token
  *
  * @author Antoine Sabot-Durand
  */
-public interface Facebook extends OAuthService, HasStatus {
+public interface OAuthToken extends Serializable {
 
+    /**
+     * @return api key of the OAuth application
+     */
+    public String getToken();
+
+    /**
+     * @return api secret of the OAuth application
+     */
+    public String getSecret();
 }
