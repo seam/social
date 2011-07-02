@@ -36,7 +36,7 @@ public class HttpResponseScribe implements HttpResponse {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.jboss.seam.social.oauth.HttpResponse#getBody()
      */
     @Override
@@ -46,7 +46,7 @@ public class HttpResponseScribe implements HttpResponse {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.jboss.seam.social.oauth.HttpResponse#getStream()
      */
     @Override
@@ -60,7 +60,7 @@ public class HttpResponseScribe implements HttpResponse {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.jboss.seam.social.oauth.HttpResponse#getCode()
      */
     @Override
@@ -70,7 +70,7 @@ public class HttpResponseScribe implements HttpResponse {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.jboss.seam.social.oauth.HttpResponse#getHeaders()
      */
     @Override
@@ -80,7 +80,7 @@ public class HttpResponseScribe implements HttpResponse {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.jboss.seam.social.oauth.HttpResponse#getHeader(java.lang.String)
      */
     @Override

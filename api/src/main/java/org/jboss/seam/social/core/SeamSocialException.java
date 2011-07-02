@@ -18,7 +18,7 @@ package org.jboss.seam.social.core;
 
 /**
  * @author Antoine Sabot-Durand
- *
+ * 
  */
 public class SeamSocialException extends RuntimeException {
 
@@ -31,18 +31,16 @@ public class SeamSocialException extends RuntimeException {
         super();
     }
 
-    SeamSocialException(String message, Throwable cause) {
+    public SeamSocialException(String message, Throwable cause) {
         super(message, cause);
     }
 
-    SeamSocialException(String message) {
+    public SeamSocialException(String message) {
         super(message);
     }
 
-    SeamSocialException(Throwable cause) {
+    public SeamSocialException(Throwable cause) {
         super(cause);
     }
-
-    
 
 }

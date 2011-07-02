@@ -20,7 +20,7 @@ import org.jboss.seam.social.core.UserProfile;
 
 /**
  * Implementation of this interface will contain FacebookRelated Profile
- *
+ * 
  * @author Antoine Sabot-Durand
  */
 public interface User extends UserProfile {

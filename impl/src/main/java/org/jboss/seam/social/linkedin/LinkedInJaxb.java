@@ -33,6 +33,8 @@ import org.jboss.seam.social.core.OAuthServiceBase;
 import org.jboss.seam.social.core.OAuthServiceSettings;
 import org.jboss.seam.social.core.RelatedTo;
 import org.jboss.seam.social.core.RestVerb;
+import org.jboss.seam.social.core.SeamSocialException;
+import org.jboss.seam.social.core.SeamSocialExtension;
 import org.jboss.seam.social.core.UserProfile;
 import org.jboss.seam.social.linkedin.model.Profile;
 import org.jboss.seam.social.linkedin.model.Update;
@@ -63,22 +65,19 @@ public class LinkedInJaxb extends OAuthServiceBase implements LinkedIn {
             marshaller = context.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
         } catch (JAXBException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            throw new SeamSocialException("Unable to initialize context, marshaller or unmarshaller for LinkedIn", e);
         }
     }
-    
 
     @Produces
     @RelatedTo(LinkedInJaxb.TYPE)
     protected OAuthService qualifiedLinkedInProducer(@New LinkedInJaxb service) {
         return service;
     }
-    
-    
+
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.jboss.seam.social.oauth.OAuthService#getServiceLogo()
      */
     @Override
@@ -88,21 +87,19 @@ public class LinkedInJaxb extends OAuthServiceBase implements LinkedIn {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.jboss.seam.social.oauth.OAuthService#getUserProfile()
      */
     @Override
     protected UserProfile getUser() {
-       
-            HttpResponse resp = sendSignedRequest(RestVerb.GET, USER_PROFILE_URL);
-            try {
-                
-               return(UserProfile) unmarshaller.unmarshal(resp.getStream());
-            } catch (JAXBException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-       return null;
+
+        HttpResponse resp = sendSignedRequest(RestVerb.GET, USER_PROFILE_URL);
+        try {
+            return (UserProfile) unmarshaller.unmarshal(resp.getStream());
+        } catch (JAXBException e) {
+            throw new SeamSocialException("unable to unmarshal LinkedIn user", e);
+        }
+
     }
 
     protected Profile getLinkedInProfile() {
@@ -111,7 +108,7 @@ public class LinkedInJaxb extends OAuthServiceBase implements LinkedIn {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.jboss.seam.social.oauth.OAuthService#getType()
      */
     @Override
@@ -121,7 +118,7 @@ public class LinkedInJaxb extends OAuthServiceBase implements LinkedIn {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.jboss.seam.social.oauth.HasStatus#updateStatus()
      */
     @Override
@@ -132,7 +129,7 @@ public class LinkedInJaxb extends OAuthServiceBase implements LinkedIn {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.jboss.seam.social.oauth.HasStatus#updateStatus(java.lang.String)
      */
     @Override
@@ -145,17 +142,16 @@ public class LinkedInJaxb extends OAuthServiceBase implements LinkedIn {
         try {
             marshaller.marshal(upd, writer);
         } catch (JAXBException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            throw new SeamSocialException("Unable to marshal LinkedIn update", e);
         }
         String update = writer.toString();
 
         HttpResponse resp = sendSignedXmlRequest(RestVerb.POST, NETWORK_UPDATE_URL, update);
         if (resp.getCode() == 201) {
             setStatus("");
-            // everything is ok should notify caller
+            // FIXME everything is ok should notify caller
         } else {
-            // something went wrong should we throw an exception ?
+            // FIXME something went wrong should we throw an exception ?
         }
         return upd;
     }

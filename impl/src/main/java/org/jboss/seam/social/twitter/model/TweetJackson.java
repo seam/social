@@ -55,7 +55,7 @@ public class TweetJackson implements Tweet {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.jboss.seam.social.twitter.domain.Tweet#getId()
      */
     @Override
@@ -65,7 +65,7 @@ public class TweetJackson implements Tweet {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.jboss.seam.social.twitter.domain.Tweet#setId(long)
      */
     @Override
@@ -75,7 +75,7 @@ public class TweetJackson implements Tweet {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.jboss.seam.social.twitter.domain.Tweet#getText()
      */
     @Override
@@ -85,7 +85,7 @@ public class TweetJackson implements Tweet {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.jboss.seam.social.twitter.domain.Tweet#setText(java.lang.String)
      */
     @Override
@@ -95,7 +95,7 @@ public class TweetJackson implements Tweet {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.jboss.seam.social.twitter.domain.Tweet#getCreatedAt()
      */
     @Override
@@ -105,7 +105,7 @@ public class TweetJackson implements Tweet {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.jboss.seam.social.twitter.domain.Tweet#setCreatedAt(java.lang.String)
      */
     @Override
@@ -115,7 +115,7 @@ public class TweetJackson implements Tweet {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.jboss.seam.social.twitter.domain.Tweet#getFromUser()
      */
     @Override
@@ -125,7 +125,7 @@ public class TweetJackson implements Tweet {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.jboss.seam.social.twitter.domain.Tweet#setFromUser(java.lang.String)
      */
     @Override
@@ -135,7 +135,7 @@ public class TweetJackson implements Tweet {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.jboss.seam.social.twitter.domain.Tweet#getProfileImageUrl()
      */
     @Override
@@ -145,7 +145,7 @@ public class TweetJackson implements Tweet {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.jboss.seam.social.twitter.domain.Tweet#setProfileImageUrl(java.lang.String)
      */
     @Override
@@ -155,7 +155,7 @@ public class TweetJackson implements Tweet {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.jboss.seam.social.twitter.domain.Tweet#getToUserId()
      */
     @Override
@@ -165,7 +165,7 @@ public class TweetJackson implements Tweet {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.jboss.seam.social.twitter.domain.Tweet#setToUserId(java.lang.Long)
      */
     @Override
@@ -175,7 +175,7 @@ public class TweetJackson implements Tweet {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.jboss.seam.social.twitter.domain.Tweet#getFromUserId()
      */
     @Override
@@ -185,7 +185,7 @@ public class TweetJackson implements Tweet {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.jboss.seam.social.twitter.domain.Tweet#setFromUserId(long)
      */
     @Override
@@ -195,7 +195,7 @@ public class TweetJackson implements Tweet {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.jboss.seam.social.twitter.domain.Tweet#getLanguageCode()
      */
     @Override
@@ -205,7 +205,7 @@ public class TweetJackson implements Tweet {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.jboss.seam.social.twitter.domain.Tweet#setLanguageCode(java.lang.String)
      */
     @Override
@@ -215,7 +215,7 @@ public class TweetJackson implements Tweet {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.jboss.seam.social.twitter.domain.Tweet#getSource()
      */
     @Override
@@ -225,7 +225,7 @@ public class TweetJackson implements Tweet {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.jboss.seam.social.twitter.domain.Tweet#setSource(java.lang.String)
      */
     @Override
@@ -235,7 +235,7 @@ public class TweetJackson implements Tweet {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.jboss.seam.social.twitter.domain.Tweet#getFromUserIdStr()
      */
     @Override
@@ -245,7 +245,7 @@ public class TweetJackson implements Tweet {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.jboss.seam.social.twitter.domain.Tweet#setFromUserIdStr(java.lang.String)
      */
     @Override

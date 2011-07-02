@@ -37,7 +37,7 @@ public class SearchResultJackson implements SearchResult {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.jboss.seam.social.twitter.domain.SearchResult#getResults()
      */
     @Override
@@ -47,7 +47,7 @@ public class SearchResultJackson implements SearchResult {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.jboss.seam.social.twitter.domain.SearchResult#setResults(java.util.List)
      */
     @Override
@@ -57,7 +57,7 @@ public class SearchResultJackson implements SearchResult {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.jboss.seam.social.twitter.domain.SearchResult#getMaxId()
      */
     @Override
@@ -67,7 +67,7 @@ public class SearchResultJackson implements SearchResult {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.jboss.seam.social.twitter.domain.SearchResult#setMaxId(long)
      */
     @Override
@@ -77,7 +77,7 @@ public class SearchResultJackson implements SearchResult {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.jboss.seam.social.twitter.domain.SearchResult#getSinceId()
      */
     @Override
@@ -87,7 +87,7 @@ public class SearchResultJackson implements SearchResult {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.jboss.seam.social.twitter.domain.SearchResult#setSinceId(long)
      */
     @Override

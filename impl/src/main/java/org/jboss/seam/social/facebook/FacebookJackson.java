@@ -25,7 +25,6 @@ import org.jboss.logging.Logger;
 import org.jboss.seam.social.core.HttpResponse;
 import org.jboss.seam.social.core.JsonMapper;
 import org.jboss.seam.social.core.OAuthService;
-import org.jboss.seam.social.core.OAuthServiceSettings;
 import org.jboss.seam.social.core.RelatedTo;
 import org.jboss.seam.social.core.RestVerb;
 import org.jboss.seam.social.core.UserProfile;
@@ -48,13 +47,12 @@ public class FacebookJackson extends OAuth2ServiceScribe implements Facebook {
     @Inject
     private JsonMapper jsonMapper;
 
-    
     @Produces
     @RelatedTo(FacebookJackson.TYPE)
     protected OAuthService qualifiedFacebookProducer(@New FacebookJackson service) {
         return service;
     }
-    
+
     /**
      *
      */
@@ -62,7 +60,7 @@ public class FacebookJackson extends OAuth2ServiceScribe implements Facebook {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.jboss.seam.social.oauth.OAuthService#getServiceLogo()
      */
     @Override
@@ -72,19 +70,19 @@ public class FacebookJackson extends OAuth2ServiceScribe implements Facebook {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.jboss.seam.social.oauth.OAuthService#getUser()
      */
     @Override
     protected UserProfile getUser() {
-       
-            HttpResponse resp = sendSignedRequest(RestVerb.GET, USER_PROFILE_URL);
-            return jsonMapper.readValue(resp, UserJackson.class);
+
+        HttpResponse resp = sendSignedRequest(RestVerb.GET, USER_PROFILE_URL);
+        return jsonMapper.readValue(resp, UserJackson.class);
     }
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.jboss.seam.social.oauth.OAuthService#getType()
      */
     @Override
@@ -94,7 +92,7 @@ public class FacebookJackson extends OAuth2ServiceScribe implements Facebook {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.jboss.seam.social.oauth.HasStatus#updateStatus()
      */
     @Override
@@ -104,7 +102,7 @@ public class FacebookJackson extends OAuth2ServiceScribe implements Facebook {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.jboss.seam.social.oauth.HasStatus#updateStatus(java.lang.String)
      */
     @Override
@@ -112,9 +110,8 @@ public class FacebookJackson extends OAuth2ServiceScribe implements Facebook {
         HttpResponse resp = sendSignedRequest(RestVerb.POST, STATUS_UPDATE_URL, "message", message);
         log.debugf("Update staut is %s", message);
         setStatus("");
-        log.debugf("Response is : %s",resp.getBody());
+        log.debugf("Response is : %s", resp.getBody());
         return null;
     }
 
-   
 }

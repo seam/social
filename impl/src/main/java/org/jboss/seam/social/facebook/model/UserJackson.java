@@ -67,7 +67,7 @@ public class UserJackson extends AbstractUserProfile implements User {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.jboss.seam.social.oauth.User#getPictureUrl()
      */
     @Override
@@ -76,15 +76,13 @@ public class UserJackson extends AbstractUserProfile implements User {
     }
 
     /*
-      * (non-Javadoc)
-      *
-      * @see org.jboss.seam.social.oauth.User#getId()
-      */
+     * (non-Javadoc)
+     * 
+     * @see org.jboss.seam.social.oauth.User#getId()
+     */
     @Override
     public String getId() {
         return this.id;
     }
 
-   
-    
 }

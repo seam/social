@@ -18,10 +18,6 @@ package org.jboss.seam.social.core;
 
 import javax.enterprise.inject.spi.InjectionPoint;
 
-import org.jboss.seam.social.core.OAuthService;
-import org.jboss.seam.social.core.OAuthServiceSettings;
-import org.jboss.seam.social.core.Setted;
-
 /**
  * @author Antoine Sabot-Durand
  */

@@ -18,8 +18,9 @@ package org.jboss.seam.social.core;
 
 /**
  * Instances of this interface contains data for a session connection to a given service.
+ * 
  * @author Antoine Sabot-Durand
- *
+ * 
  */
 public interface OAuthSessionSettings {
 

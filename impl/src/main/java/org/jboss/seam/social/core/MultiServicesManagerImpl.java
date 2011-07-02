@@ -16,7 +16,6 @@
  */
 package org.jboss.seam.social.core;
 
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -28,12 +27,7 @@ import javax.enterprise.inject.Any;
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 
-import org.jboss.seam.social.core.MultiServicesManager;
-import org.jboss.seam.social.core.OAuthService;
-import org.jboss.seam.social.core.RelatedTo;
-
-
-public class MultiServicesManagerImpl implements MultiServicesManager,Serializable {
+public class MultiServicesManagerImpl implements MultiServicesManager, Serializable {
 
     /**
      * 
@@ -46,20 +40,18 @@ public class MultiServicesManagerImpl implements MultiServicesManager,Serializab
 
     @Inject
     private SeamSocialExtension socialConfig;
-   
+
     private List<String> listOfServices;
-    
+
     private Set<OAuthService> services;
 
     private OAuthService currentService;
 
-    
     @PostConstruct
-    void init()
-    {
-        listOfServices=new ArrayList<String>(socialConfig.getSocialRelated());
+    void init() {
+        listOfServices = new ArrayList<String>(socialConfig.getSocialRelated());
     }
-    
+
     /*
      * (non-Javadoc)
      * 
@@ -69,10 +61,6 @@ public class MultiServicesManagerImpl implements MultiServicesManager,Serializab
     public List<String> getListOfServices() {
         return listOfServices;
     }
-
-   
-
-   
 
     public MultiServicesManagerImpl() {
         super();
@@ -90,8 +78,6 @@ public class MultiServicesManagerImpl implements MultiServicesManager,Serializab
         return service;
     }
 
-  
-
     /*
      * (non-Javadoc)
      * 
@@ -102,20 +88,18 @@ public class MultiServicesManagerImpl implements MultiServicesManager,Serializab
         return services;
     }
 
-/*
-    @PostConstruct
-    protected void init() {
-        if (listOfServices == null || listOfServices.size() == 0) {
-            listOfServices = Arrays.asList(Service.values());
-        }
-    }
-*/
-    /* (non-Javadoc)
+    /*
+     * @PostConstruct protected void init() { if (listOfServices == null || listOfServices.size() == 0) { listOfServices =
+     * Arrays.asList(Service.values()); } }
+     */
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.jboss.seam.social.manager.MultiServicesManager#addService(org.jboss.seam.social.oauth.OAuthService)
      */
     @Override
     public void addService(OAuthService service) {
-       services.add(service);  
+        services.add(service);
     }
 
     @Override
@@ -127,29 +111,27 @@ public class MultiServicesManagerImpl implements MultiServicesManager,Serializab
     public void setCurrentService(OAuthService currentService) {
         this.currentService = currentService;
     }
-    
+
     @Override
     public boolean isCurrentServiceConnected() {
         return getCurrentService() != null && getCurrentService().isConnected();
     }
-    
+
     @Override
     public void connectCurrentService() {
-       getCurrentService().initAccessToken();
-       addService(getCurrentService());
+        getCurrentService().initAccessToken();
+        addService(getCurrentService());
     }
-    
+
     @Override
     public String initNewService(String servType) {
         setCurrentService(getNewService(servType));
         return getCurrentService().getAuthorizationUrl();
-        
+
     }
-    
-    
+
     @Override
-    public void destroyCurrentService()
-    {
+    public void destroyCurrentService() {
         getServices().remove(getCurrentService());
         getCurrentService().resetConnection();
         setCurrentService(null);

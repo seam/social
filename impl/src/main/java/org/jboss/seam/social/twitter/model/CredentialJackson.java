@@ -21,8 +21,10 @@ import org.codehaus.jackson.annotate.JsonProperty;
 import org.jboss.seam.social.core.AbstractUserProfile;
 
 /**
- * A POJO to map Json response from TwitterRelated verify_crendentials response to Java. Here is an example of data sent from TwitterRelated
+ * A POJO to map Json response from TwitterRelated verify_crendentials response to Java. Here is an example of data sent from
+ * TwitterRelated
  * <p/>
+ * 
  * <pre>
  * {
  *   "profile_sidebar_border_color": "C0DEED",
@@ -81,7 +83,7 @@ import org.jboss.seam.social.core.AbstractUserProfile;
  *   "following": false
  * }
  * </pre>
- *
+ * 
  * @author Antoine Sabot-Durand
  * @author Todd Morrison
  */
@@ -103,7 +105,7 @@ public class CredentialJackson extends AbstractUserProfile implements Credential
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.jboss.seam.social.twitter.domain.Credential#getScreenName()
      */
     @Override
@@ -113,7 +115,7 @@ public class CredentialJackson extends AbstractUserProfile implements Credential
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.jboss.seam.social.oauth.OAuthUserProfile#getFullName()
      */
     @Override
@@ -123,7 +125,7 @@ public class CredentialJackson extends AbstractUserProfile implements Credential
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.jboss.seam.social.oauth.User#getPictureUrl()
      */
     @Override
@@ -131,12 +133,11 @@ public class CredentialJackson extends AbstractUserProfile implements Credential
         return pictureUrl;
     }
 
-
     /*
-      * (non-Javadoc)
-      *
-      * @see org.jboss.seam.social.oauth.User#getId()
-      */
+     * (non-Javadoc)
+     * 
+     * @see org.jboss.seam.social.oauth.User#getId()
+     */
     @Override
     public String getId() {
         return this.id;

@@ -5,6 +5,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Properties;
 
+import org.jboss.seam.social.core.SeamSocialException;
 import org.jboss.test.selenium.AbstractTestCase;
 import org.jboss.test.selenium.locator.XpathLocator;
 import org.testng.annotations.BeforeMethod;
@@ -16,7 +17,7 @@ import static org.testng.Assert.assertEquals;
 
 /**
  * A functional test for the Web Client example
- *
+ * 
  * @author Marek Schmidt
  */
 public class SocialTest extends AbstractTestCase {
@@ -46,7 +47,6 @@ public class SocialTest extends AbstractTestCase {
     protected final XpathLocator FACEBOOK_PASSWORD = xp("//input[@id='pass']");
     protected final XpathLocator FACEBOOK_LOGIN = xp("//input[@value='Login']");
     protected final XpathLocator FACEBOOK_ALLOW = xp("//input[@value='Allow']");
-
 
     @BeforeMethod
     public void openStartUrl() throws MalformedURLException {
@@ -130,7 +130,7 @@ public class SocialTest extends AbstractTestCase {
                 properties = new Properties();
                 properties.load(this.getClass().getClassLoader().getResourceAsStream(PROPERTY_FILE));
             } catch (IOException e) {
-                e.printStackTrace();
+                throw new SeamSocialException("Error while reading properties", e);
             }
         }
 

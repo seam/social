@@ -27,10 +27,6 @@ import javax.inject.Inject;
 
 import org.jboss.logging.Logger;
 
-
-
-
-
 /**
  * @author Antoine Sabot-Durand
  */
@@ -44,29 +40,28 @@ public abstract class OAuthServiceBase implements OAuthService, Serializable {
     private static final String VERIFIER_PARAM_NAME = "oauth_verifier";
 
     private OAuthServiceSettings settings;
-    
+
     @Inject
     private OAuthProvider provider;
-    
-    @Inject @Any
+
+    @Inject
+    @Any
     protected Instance<OAuthServiceSettings> settingsInstances;
-   
 
     @Inject
     private Logger log;
-    
+
     @Inject
     protected OAuthSessionSettings session;
-    
+
     @PostConstruct
-    protected void postConstruct()
-    {
-         String type=getType();
-         try {     
+    protected void postConstruct() {
+        String type = getType();
+        try {
             setSettings(settingsInstances.select(new RelatedTo.RelatedToLiteral(type)).get());
         } catch (Exception e) {
-           throw new SeamSocialException("Unable to find settings for service " + type,e);
-           // TODO : later we can provide another way to get those settings (properties, jpa, etc...)
+            throw new SeamSocialException("Unable to find settings for service " + type, e);
+            // TODO later we can provide another way to get those settings (properties, jpa, etc...)
         }
     }
 
@@ -89,14 +84,13 @@ public abstract class OAuthServiceBase implements OAuthService, Serializable {
     }
 
     @Override
-    public String getName()
-    {
+    public String getName() {
         return getType() + " - " + (getSession().isConnected() ? getSession().getUserProfile().getFullName() : "not connected");
     }
-    
+
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.jboss.seam.social.oauth.OAuthServiceBase#getSettings()
      */
     @Override
@@ -135,7 +129,7 @@ public abstract class OAuthServiceBase implements OAuthService, Serializable {
                 session.setConnected(Boolean.TRUE);
                 session.setRequestToken(null);
                 session.setUserProfile(getUser());
-                
+
             } else {
                 // Launch an exception !!
             }
@@ -211,9 +205,6 @@ public abstract class OAuthServiceBase implements OAuthService, Serializable {
         return session.getAccessToken();
     }
 
-   
-    
-    
     @Override
     public Boolean isConnected() {
         return session.isConnected();
@@ -271,5 +262,4 @@ public abstract class OAuthServiceBase implements OAuthService, Serializable {
         return true;
     }
 
-    
 }

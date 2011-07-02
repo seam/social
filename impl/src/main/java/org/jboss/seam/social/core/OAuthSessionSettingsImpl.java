@@ -16,12 +16,8 @@
  */
 package org.jboss.seam.social.core;
 
-import org.jboss.seam.social.core.OAuthSessionSettings;
-import org.jboss.seam.social.core.OAuthToken;
-import org.jboss.seam.social.core.UserProfile;
-
 /**
- * @author  antoine
+ * @author antoine
  */
 public class OAuthSessionSettingsImpl implements OAuthSessionSettings {
     /**
@@ -44,6 +40,7 @@ public class OAuthSessionSettingsImpl implements OAuthSessionSettings {
      * 
      */
     private UserProfile userProfile;
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -81,7 +78,9 @@ public class OAuthSessionSettingsImpl implements OAuthSessionSettings {
         this.connected = Boolean.FALSE;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.jboss.seam.social.oauth.OAuthSessionSettings#getRequestToken()
      */
     @Override
@@ -89,7 +88,9 @@ public class OAuthSessionSettingsImpl implements OAuthSessionSettings {
         return requestToken;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.jboss.seam.social.oauth.OAuthSessionSettings#setRequestToken(org.jboss.seam.social.oauth.OAuthTokenScribe)
      */
     @Override
@@ -97,7 +98,9 @@ public class OAuthSessionSettingsImpl implements OAuthSessionSettings {
         this.requestToken = requestToken;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.jboss.seam.social.oauth.OAuthSessionSettings#getAccessToken()
      */
     @Override
@@ -105,7 +108,9 @@ public class OAuthSessionSettingsImpl implements OAuthSessionSettings {
         return accessToken;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.jboss.seam.social.oauth.OAuthSessionSettings#setAccessToken(org.jboss.seam.social.oauth.OAuthTokenScribe)
      */
     @Override
@@ -113,7 +118,9 @@ public class OAuthSessionSettingsImpl implements OAuthSessionSettings {
         this.accessToken = accessToken;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.jboss.seam.social.oauth.OAuthSessionSettings#getVerifier()
      */
     @Override
@@ -121,7 +128,9 @@ public class OAuthSessionSettingsImpl implements OAuthSessionSettings {
         return verifier;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.jboss.seam.social.oauth.OAuthSessionSettings#setVerifier(java.lang.String)
      */
     @Override
@@ -129,7 +138,9 @@ public class OAuthSessionSettingsImpl implements OAuthSessionSettings {
         this.verifier = verifier;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.jboss.seam.social.oauth.OAuthSessionSettings#isConnected()
      */
     @Override
@@ -137,7 +148,9 @@ public class OAuthSessionSettingsImpl implements OAuthSessionSettings {
         return connected;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.jboss.seam.social.oauth.OAuthSessionSettings#setConnected(java.lang.Boolean)
      */
     @Override
@@ -145,7 +158,9 @@ public class OAuthSessionSettingsImpl implements OAuthSessionSettings {
         this.connected = connected;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.jboss.seam.social.oauth.OAuthSessionSettings#getUserProfile()
      */
     @Override
@@ -153,7 +168,9 @@ public class OAuthSessionSettingsImpl implements OAuthSessionSettings {
         return userProfile;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.jboss.seam.social.oauth.OAuthSessionSettings#setUserProfile(org.jboss.seam.social.oauth.UserProfile)
      */
     @Override
@@ -161,7 +178,9 @@ public class OAuthSessionSettingsImpl implements OAuthSessionSettings {
         this.userProfile = userProfile;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.jboss.seam.social.oauth.OAuthSessionSettings#getStatus()
      */
     @Override
@@ -169,13 +188,14 @@ public class OAuthSessionSettingsImpl implements OAuthSessionSettings {
         return status;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.jboss.seam.social.oauth.OAuthSessionSettings#setStatus(java.lang.String)
      */
     @Override
     public void setStatus(String status) {
         this.status = status;
     }
-    
-    
+
 }

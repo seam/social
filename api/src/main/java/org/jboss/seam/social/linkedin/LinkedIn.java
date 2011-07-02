@@ -21,7 +21,7 @@ import org.jboss.seam.social.core.OAuthService;
 
 /**
  * A specialization of {@link OAuthService} to add LinkedIn specific methods
- *
+ * 
  * @author Antoine Sabot-Durand
  */
 public interface LinkedIn extends OAuthService, HasStatus {

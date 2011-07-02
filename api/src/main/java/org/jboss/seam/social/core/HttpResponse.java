@@ -21,7 +21,7 @@ import java.util.Map;
 
 /**
  * Implementation of this interface represent an Http Response
- *
+ * 
  * @author Antoine Sabot-Durand
  */
 public interface HttpResponse {

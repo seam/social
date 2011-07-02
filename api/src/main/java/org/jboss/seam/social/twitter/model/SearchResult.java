@@ -22,7 +22,7 @@ import org.jboss.seam.social.twitter.Twitter;
 
 /**
  * Implementation of this interface contains a TwitterRelated search result It is returned by {@link Twitter#search()}
- *
+ * 
  * @author Antoine Sabot-Durand
  */
 public interface SearchResult {

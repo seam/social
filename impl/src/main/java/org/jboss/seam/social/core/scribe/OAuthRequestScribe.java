@@ -23,21 +23,17 @@ import java.util.concurrent.TimeUnit;
 import org.jboss.seam.social.core.HttpResponse;
 import org.jboss.seam.social.core.OAuthRequest;
 import org.jboss.seam.social.core.RestVerb;
+import org.jboss.seam.social.core.SeamSocialException;
 import org.scribe.model.Verb;
-
-
-
 
 /**
  * @author Antoine Sabot-Durand
- *
+ * 
  */
 public class OAuthRequestScribe implements OAuthRequest {
-    
+
     private org.scribe.model.OAuthRequest request;
 
-    
-    
     org.scribe.model.OAuthRequest getDelegate() {
         return request;
     }
@@ -52,10 +48,12 @@ public class OAuthRequestScribe implements OAuthRequest {
      * @param uri
      */
     public OAuthRequestScribe(RestVerb verb, String url) {
-        request=new org.scribe.model.OAuthRequest(Verb.valueOf(verb.toString()), url);
+        request = new org.scribe.model.OAuthRequest(Verb.valueOf(verb.toString()), url);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.jboss.seam.social.oauth.OAuthRequest#addOAuthParameter(java.lang.String, java.lang.String)
      */
     @Override
@@ -63,23 +61,23 @@ public class OAuthRequestScribe implements OAuthRequest {
         request.addOAuthParameter(key, value);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.jboss.seam.social.oauth.OAuthRequest#send()
      */
     @Override
     public HttpResponse send() {
-        HttpResponse resp=null;
         try {
-            resp=new HttpResponseScribe(request.send());
+            return new HttpResponseScribe(request.send());
         } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            throw new SeamSocialException("Unable to send Scribe request", e);
         }
-        
-        return resp;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.jboss.seam.social.oauth.OAuthRequest#getOauthParameters()
      */
     @Override
@@ -95,7 +93,9 @@ public class OAuthRequestScribe implements OAuthRequest {
         return request.hashCode();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.jboss.seam.social.oauth.OAuthRequest#addHeader(java.lang.String, java.lang.String)
      */
     @Override
@@ -103,7 +103,9 @@ public class OAuthRequestScribe implements OAuthRequest {
         request.addHeader(key, value);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.jboss.seam.social.oauth.OAuthRequest#addBodyParameter(java.lang.String, java.lang.String)
      */
     @Override
@@ -111,7 +113,9 @@ public class OAuthRequestScribe implements OAuthRequest {
         request.addBodyParameter(key, value);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.jboss.seam.social.oauth.OAuthRequest#addQuerystringParameter(java.lang.String, java.lang.String)
      */
     @Override
@@ -119,7 +123,9 @@ public class OAuthRequestScribe implements OAuthRequest {
         request.addQuerystringParameter(key, value);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.jboss.seam.social.oauth.OAuthRequest#addPayload(java.lang.String)
      */
     @Override
@@ -127,7 +133,9 @@ public class OAuthRequestScribe implements OAuthRequest {
         request.addPayload(payload);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.jboss.seam.social.oauth.OAuthRequest#getQueryStringParams()
      */
     @Override
@@ -139,7 +147,9 @@ public class OAuthRequestScribe implements OAuthRequest {
         return request.equals(obj);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.jboss.seam.social.oauth.OAuthRequest#getBodyParams()
      */
     @Override
@@ -147,7 +157,9 @@ public class OAuthRequestScribe implements OAuthRequest {
         return request.getBodyParams();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.jboss.seam.social.oauth.OAuthRequest#getUrl()
      */
     @Override
@@ -155,7 +167,9 @@ public class OAuthRequestScribe implements OAuthRequest {
         return request.getUrl();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.jboss.seam.social.oauth.OAuthRequest#getSanitizedUrl()
      */
     @Override
@@ -163,7 +177,9 @@ public class OAuthRequestScribe implements OAuthRequest {
         return request.getSanitizedUrl();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.jboss.seam.social.oauth.OAuthRequest#getBodyContents()
      */
     @Override
@@ -171,7 +187,9 @@ public class OAuthRequestScribe implements OAuthRequest {
         return request.getBodyContents();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.jboss.seam.social.oauth.OAuthRequest#getVerb()
      */
     @Override
@@ -179,7 +197,9 @@ public class OAuthRequestScribe implements OAuthRequest {
         return RestVerb.valueOf(request.getVerb().toString());
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.jboss.seam.social.oauth.OAuthRequest#getHeaders()
      */
     @Override
@@ -187,7 +207,9 @@ public class OAuthRequestScribe implements OAuthRequest {
         return request.getHeaders();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.jboss.seam.social.oauth.OAuthRequest#setConnectTimeout(int, java.util.concurrent.TimeUnit)
      */
     @Override
@@ -195,14 +217,14 @@ public class OAuthRequestScribe implements OAuthRequest {
         request.setConnectTimeout(duration, unit);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.jboss.seam.social.oauth.OAuthRequest#setReadTimeout(int, java.util.concurrent.TimeUnit)
      */
     @Override
     public void setReadTimeout(int duration, TimeUnit unit) {
         request.setReadTimeout(duration, unit);
     }
-    
-    
 
 }

@@ -50,7 +50,7 @@ public class ProfileJaxb extends AbstractUserProfile implements Profile {
     private String pictureUrl;
 
     @XmlElementWrapper(name = "site-standard-profile-request")
-    @XmlElements({@XmlElement(name = "url")})
+    @XmlElements({ @XmlElement(name = "url") })
     private List<String> standardProfileUrl;
 
     @Override
@@ -85,12 +85,11 @@ public class ProfileJaxb extends AbstractUserProfile implements Profile {
         return standardProfileUrl.get(0);
     }
 
-
     /*
-      * (non-Javadoc)
-      *
-      * @see org.jboss.seam.social.oauth.User#getId()
-      */
+     * (non-Javadoc)
+     * 
+     * @see org.jboss.seam.social.oauth.User#getId()
+     */
     @Override
     public String getId() {
         return this.id;

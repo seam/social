@@ -20,8 +20,6 @@ import java.io.Serializable;
 
 import javax.enterprise.context.ApplicationScoped;
 
-import org.jboss.seam.social.core.OAuthServiceSettings;
-
 /**
  * @author Antoine Sabot-Durand
  */
@@ -38,9 +36,9 @@ public class OAuthServiceSettingsImpl implements OAuthServiceSettings, Serializa
     private String apiSecret;
 
     private String callback;
-    
+
     private String scope;
-    
+
     private String serviceName;
 
     public String getApiKey() {
@@ -90,14 +88,13 @@ public class OAuthServiceSettingsImpl implements OAuthServiceSettings, Serializa
     public void setServiceName(String serviceName) {
         this.serviceName = serviceName;
     }
-    
-    
+
     protected OAuthServiceSettingsImpl() {
         super();
     }
 
     public OAuthServiceSettingsImpl(String serviceName, String apiKey, String apiSecret, String callback) {
-       this(serviceName,apiKey,apiSecret,callback,null);
+        this(serviceName, apiKey, apiSecret, callback, null);
     }
 
     public OAuthServiceSettingsImpl(String serviceName, String apiKey, String apiSecret, String callback, String scope) {
@@ -114,9 +111,5 @@ public class OAuthServiceSettingsImpl implements OAuthServiceSettings, Serializa
         return "OAuthServiceSettingsImpl [apiKey=" + apiKey + ", apiSecret=" + apiSecret + ", callback=" + callback
                 + ", scope=" + scope + ", serviceName=" + serviceName + "]";
     }
-
-   
-    
-    
 
 }

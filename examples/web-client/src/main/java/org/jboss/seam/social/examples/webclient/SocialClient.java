@@ -19,10 +19,8 @@ package org.jboss.seam.social.examples.webclient;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.ExternalContext;
@@ -50,10 +48,10 @@ public class SocialClient implements Serializable {
 
     @Inject
     private MultiServicesManager manager;
-    
+
     @Inject
     private Logger log;
-    
+
     public MultiServicesManager getManager() {
         return manager;
     }
@@ -61,11 +59,6 @@ public class SocialClient implements Serializable {
     public void setManager(MultiServicesManager manager) {
         this.manager = manager;
     }
-
-   
-    
-    
-    
 
     public OAuthService getCurrentService() {
         return manager.getCurrentService();
@@ -75,7 +68,6 @@ public class SocialClient implements Serializable {
         manager.setCurrentService(currentService);
     }
 
-    
     public boolean isCurrentServiceOk() {
         return manager.isCurrentServiceConnected();
     }
@@ -91,13 +83,9 @@ public class SocialClient implements Serializable {
         });
     }
 
-  
-
     public List<OAuthService> getServices() {
-        return  new ArrayList<OAuthService>(manager.getServices());
+        return new ArrayList<OAuthService>(manager.getServices());
     }
-
-
 
     public OAuthToken getAccessToken() {
         return getCurrentService().getAccessToken();
@@ -110,9 +98,8 @@ public class SocialClient implements Serializable {
     public void setVerifier(String verifier) {
         getCurrentService().setVerifier(verifier);
     }
- 
 
-      public void connectCurrentService() {
+    public void connectCurrentService() {
         manager.connectCurrentService();
     }
 
@@ -136,8 +123,6 @@ public class SocialClient implements Serializable {
         externalContext.redirect(url);
     }
 
-    
-
     public String getTimeLineUrl() {
         if (isCurrentServiceOk())
             return "/WEB-INF/fragments/" + getCurrentService().getType().toLowerCase() + ".xhtml";
@@ -145,13 +130,12 @@ public class SocialClient implements Serializable {
     }
 
     public void serviceInit(String servType) throws IOException {
-        
+
         redirectToAuthorizationURL(manager.initNewService(servType));
 
     }
-    
-    public void resetConnection()
-    {
+
+    public void resetConnection() {
         manager.destroyCurrentService();
     }
 

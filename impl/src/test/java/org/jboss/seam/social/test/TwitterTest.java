@@ -44,7 +44,7 @@ import org.junit.runner.RunWith;
 @RunWith(Arquillian.class)
 public class TwitterTest {
     @Inject
-    @Setted(apiKey="FQzlQC49UhvbMZoxUIvHTQ",apiSecret="VQ5CZHG4qUoAkUUmckPn4iN4yyjBKcORTW0wnok4r1k")
+    @Setted(apiKey = "FQzlQC49UhvbMZoxUIvHTQ", apiSecret = "VQ5CZHG4qUoAkUUmckPn4iN4yyjBKcORTW0wnok4r1k")
     Twitter twitter;
 
     @Deployment
@@ -54,31 +54,26 @@ public class TwitterTest {
             throw new FileNotFoundException();
         Archive<?> ret = ShrinkWrap
                 .create(WebArchive.class, "test.war")
-                .addClasses(
-                    TwitterJackson.class, Twitter.class, OAuthService.class, OAuthServiceBase.class,
-                    OAuthServiceSettings.class, OAuthServiceSettingsImpl.class, OAuthSessionSettings.class,
-                    OAuthSessionSettingsImpl.class, RelatedTo.class,
-                    JsonMapper.class, HasStatus.class, OAuthProvider.class, OAuthProviderScribe.class,
-                    OAuthToken.class, RestVerb.class, HttpResponse.class, UserProfile.class,
-                    Tweet.class, TweetJackson.class, CredentialJackson.class,
-                    OAuthTokenScribe.class)
+                .addClasses(TwitterJackson.class, Twitter.class, OAuthService.class, OAuthServiceBase.class,
+                        OAuthServiceSettings.class, OAuthServiceSettingsImpl.class, OAuthSessionSettings.class,
+                        OAuthSessionSettingsImpl.class, RelatedTo.class, JsonMapper.class, HasStatus.class,
+                        OAuthProvider.class, OAuthProviderScribe.class, OAuthToken.class, RestVerb.class, HttpResponse.class,
+                        UserProfile.class, Tweet.class, TweetJackson.class, CredentialJackson.class, OAuthTokenScribe.class)
 
-                .addAsLibraries(DependencyResolvers.use(MavenDependencyResolver.class)
-                        .loadReposFromPom("pom.xml")
-                      //  .artifact("org.jboss.seam.config:seam-config-xml")
-                        .artifact("org.jboss.seam.solder:seam-solder")
-                        .artifact("org.scribe:scribe")
-                		.resolveAs(GenericArchive.class))
+                .addAsLibraries(
+                        DependencyResolvers.use(MavenDependencyResolver.class).loadReposFromPom("pom.xml")
+                                // .artifact("org.jboss.seam.config:seam-config-xml")
+                                .artifact("org.jboss.seam.solder:seam-solder").artifact("org.scribe:scribe")
+                                .resolveAs(GenericArchive.class))
                 .addAsWebInfResource(new FileAsset(beanFile), ArchivePaths.create("classes/META-INF/beans.xml"));
-        
+
         // ret.as(ZipExporter.class).exportTo(new File("mytest.war"), true);
-        
+
         return ret;
     }
-    
+
     @Test
-    public void authorizationUrlTest()
-    {
+    public void authorizationUrlTest() {
         Assert.assertTrue(twitter.getAuthorizationUrl().startsWith("http"));
     }
 }

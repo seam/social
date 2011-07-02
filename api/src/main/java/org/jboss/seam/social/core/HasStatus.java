@@ -18,7 +18,7 @@ package org.jboss.seam.social.core;
 
 /**
  * Social network Handler implementing this interface will support status update
- *
+ * 
  * @author Antoine Sabot-Durand
  */
 public interface HasStatus {
@@ -30,21 +30,21 @@ public interface HasStatus {
 
     /**
      * Set the status to update
-     *
+     * 
      * @param status
      */
     public void setStatus(String status);
 
     /**
      * Send the status to the social network
-     *
+     * 
      * @return an Object corresponding to the update
      */
     public Object updateStatus();
 
     /**
      * Send the status in parameter
-     *
+     * 
      * @param message the status to send
      * @return an Object corresponding to the update
      */

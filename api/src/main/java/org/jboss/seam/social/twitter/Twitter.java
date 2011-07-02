@@ -21,11 +21,11 @@ import org.jboss.seam.social.core.OAuthService;
 
 /**
  * A specialization of {@link OAuthService} to add TwitterRelated specific methods
- *
+ * 
  * @author Antoine Sabot-Durand
  */
 
 public interface Twitter extends OAuthService, HasStatus {
-	static final String TYPE = "Twitter";
+    static final String TYPE = "Twitter";
 
 }

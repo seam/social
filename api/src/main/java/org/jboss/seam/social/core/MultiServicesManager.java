@@ -19,7 +19,6 @@ package org.jboss.seam.social.core;
 import java.util.List;
 import java.util.Set;
 
-
 /**
  * Implementation of this interface allow to manage multiple OAuth connection. The connection to service are backed by a Set to
  * avoid null or double connection. Uniqueness of a connection is based on service type and User name on the service
@@ -47,7 +46,6 @@ public interface MultiServicesManager {
      */
     public Set<OAuthService> getServices();
 
-   
     /**
      * Instantiate a new service from a Service String name
      * 

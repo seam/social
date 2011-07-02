@@ -18,16 +18,15 @@ package org.jboss.seam.social.core;
 
 /**
  * Interface defining an user
- *
+ * 
  * @author Antoine Sabot-Durand
  * @author Todd Morrison
  */
 public interface UserProfile {
 
     /**
-     * Permanent identifier against the social relationship for the life-time of
-     * the network account
-     *
+     * Permanent identifier against the social relationship for the life-time of the network account
+     * 
      * @return the user's social network key
      */
     public String getId();
@@ -41,6 +40,5 @@ public interface UserProfile {
      * @return the user's picture url
      */
     public String getPictureUrl();
-    
-    
+
 }

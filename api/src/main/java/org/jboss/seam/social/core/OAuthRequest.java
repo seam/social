@@ -21,7 +21,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @author Antoine Sabot-Durand
- *
+ * 
  */
 public interface OAuthRequest {
 

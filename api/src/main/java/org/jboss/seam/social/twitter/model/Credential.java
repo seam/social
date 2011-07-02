@@ -9,7 +9,7 @@ import org.jboss.seam.social.twitter.Twitter;
 /**
  * Implementation of this interface contains information about TwitterRelated Credential of the current user It is returned by
  * {@link Twitter#verifyCrendentials()}
- *
+ * 
  * @author Antoine Sabot-Durand
  */
 public interface Credential extends UserProfile {

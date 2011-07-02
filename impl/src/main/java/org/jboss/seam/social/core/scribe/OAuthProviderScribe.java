@@ -21,27 +21,26 @@ import org.jboss.seam.social.core.OAuthRequest;
 import org.jboss.seam.social.core.OAuthServiceSettings;
 import org.jboss.seam.social.core.OAuthToken;
 import org.jboss.seam.social.core.RestVerb;
+import org.jboss.seam.social.core.SeamSocialException;
 import org.scribe.builder.ServiceBuilder;
 import org.scribe.builder.api.Api;
 import org.scribe.model.Token;
 import org.scribe.model.Verifier;
 
-
 /**
  * @author Antoine Sabot-Durand
- *
+ * 
  */
 public class OAuthProviderScribe implements OAuthProvider {
 
-    private static final String SCRIBE_API_PREFIX="org.scribe.builder.api.";
-    private static final String  SCRIBE_API_SUFFIX="Api";
-    
+    private static final String SCRIBE_API_PREFIX = "org.scribe.builder.api.";
+    private static final String SCRIBE_API_SUFFIX = "Api";
+
     private org.scribe.oauth.OAuthService service;
 
-    
-
-   
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.jboss.seam.social.oauth.OAuthProvider#getRequestToken()
      */
     @Override
@@ -49,7 +48,9 @@ public class OAuthProviderScribe implements OAuthProvider {
         return new OAuthTokenScribe(service.getRequestToken());
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.jboss.seam.social.oauth.OAuthProvider#getAccessToken(org.jboss.seam.social.oauth.OAuthToken, java.lang.String)
      */
     @Override
@@ -57,15 +58,20 @@ public class OAuthProviderScribe implements OAuthProvider {
         return createToken(service.getAccessToken(extractToken(requestToken), new Verifier(verifier)));
     }
 
-    /* (non-Javadoc)
-     * @see org.jboss.seam.social.oauth.OAuthProvider#signRequest(org.jboss.seam.social.oauth.OAuthToken, org.jboss.seam.social.oauth.OAuthRequest)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.jboss.seam.social.oauth.OAuthProvider#signRequest(org.jboss.seam.social.oauth.OAuthToken,
+     * org.jboss.seam.social.oauth.OAuthRequest)
      */
     @Override
-    public void signRequest(OAuthToken accessToken,OAuthRequest request) {
+    public void signRequest(OAuthToken accessToken, OAuthRequest request) {
         service.signRequest(extractToken(accessToken), ((OAuthRequestScribe) request).getDelegate());
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.jboss.seam.social.oauth.OAuthProvider#getVersion()
      */
     @Override
@@ -73,7 +79,9 @@ public class OAuthProviderScribe implements OAuthProvider {
         return service.getVersion();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.jboss.seam.social.oauth.OAuthProvider#getAuthorizationUrl(org.jboss.seam.social.oauth.OAuthToken)
      */
     @Override
@@ -81,7 +89,9 @@ public class OAuthProviderScribe implements OAuthProvider {
         return service.getAuthorizationUrl(extractToken(tok));
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.jboss.seam.social.oauth.OAuthProvider#initProvider(org.jboss.seam.social.oauth.OAuthServiceSettings)
      */
     @Override
@@ -91,11 +101,11 @@ public class OAuthProviderScribe implements OAuthProvider {
                 .apiSecret(settings.getApiSecret());
         if (settings.getCallback() != null && !("".equals(settings.getCallback())))
             serviceBuilder.callback(settings.getCallback());
-        if (settings.getScope()!=null && !("".equals(settings.getScope()))){
+        if (settings.getScope() != null && !("".equals(settings.getScope()))) {
             serviceBuilder.scope(settings.getScope());
         }
         service = serviceBuilder.build();
-    
+
     }
 
     /**
@@ -104,39 +114,40 @@ public class OAuthProviderScribe implements OAuthProvider {
      */
     @SuppressWarnings("unchecked")
     private Class<? extends Api> getApiClass(String serviceName) {
-       
-        Class<? extends Api> result=null;
+
+        Class<? extends Api> result = null;
+        String className = SCRIBE_API_PREFIX + serviceName + SCRIBE_API_SUFFIX;
         try {
-            result = (Class<? extends Api>) Class.forName(SCRIBE_API_PREFIX + serviceName + SCRIBE_API_SUFFIX);
+            return (Class<? extends Api>) Class.forName(className);
         } catch (ClassNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            throw new SeamSocialException("There no such Scribe Api class " + className, e);
         }
-        return result;
     }
 
-    protected Token extractToken(OAuthToken tok)
-    {
-        return ((OAuthTokenScribe)tok).delegate;
+    protected Token extractToken(OAuthToken tok) {
+        return ((OAuthTokenScribe) tok).delegate;
     }
-    
-    /* (non-Javadoc)
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.jboss.seam.social.oauth.OAuthProvider#createRequest(org.jboss.seam.social.oauth.RestVerb, java.lang.String)
      */
     @Override
-    public OAuthRequest createRequest(RestVerb verb, String uri)
-    {
+    public OAuthRequest createRequest(RestVerb verb, String uri) {
         return new OAuthRequestScribe(verb, uri);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.jboss.seam.social.oauth.OAuthProvider#createToken(java.lang.String, java.lang.String)
      */
     @Override
     public OAuthToken createToken(String token, String secret) {
         return new OAuthTokenScribe(token, secret);
     }
-    
+
     private OAuthToken createToken(Token token) {
         return new OAuthTokenScribe(token);
     }

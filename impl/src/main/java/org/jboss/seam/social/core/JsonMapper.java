@@ -21,10 +21,7 @@ import java.io.Serializable;
 
 import javax.enterprise.context.ApplicationScoped;
 
-import org.codehaus.jackson.JsonParseException;
-import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
-import org.jboss.seam.social.core.HttpResponse;
 
 /**
  * @author Antoine Sabot-Durand
@@ -40,20 +37,11 @@ public class JsonMapper implements Serializable {
     private final ObjectMapper delegate = new ObjectMapper();
 
     public <T> T readValue(HttpResponse resp, Class<T> clazz) {
-        T res = null;
         try {
-            res = delegate.readValue(resp.getStream(), clazz);
-        } catch (JsonParseException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (JsonMappingException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            return delegate.readValue(resp.getStream(), clazz);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            throw new SeamSocialException("Unable to map Json response", e);
         }
-        return res;
     }
 
 }

@@ -22,20 +22,11 @@ import java.util.Set;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
 import javax.enterprise.inject.spi.Annotated;
-import javax.enterprise.inject.spi.AnnotatedType;
 import javax.enterprise.inject.spi.BeanManager;
 import javax.enterprise.inject.spi.Extension;
-import javax.enterprise.inject.spi.InjectionPoint;
-import javax.enterprise.inject.spi.InjectionTarget;
-import javax.enterprise.inject.spi.ProcessAnnotatedType;
 import javax.enterprise.inject.spi.ProcessBean;
-import javax.enterprise.inject.spi.ProcessInjectionTarget;
 
 import org.jboss.logging.Logger;
-import org.jboss.seam.social.core.OAuthServiceSettings;
-import org.jboss.seam.social.core.RelatedTo;
-//import org.jboss.seam.social.test.TwitterTest;
-import org.jboss.seam.solder.reflection.AnnotationInspector;
 
 /**
  * @author Antoine Sabot-Durand
@@ -46,62 +37,56 @@ public class SeamSocialExtension implements Extension {
 
     private Set<String> servicesNames = new HashSet<String>();
     private static final Logger log = Logger.getLogger(SeamSocialExtension.class);
-    
-  
-//    public void processSetting(@Observes ProcessBean<TwitterTest> event, BeanManager manager)
-//    {
-//    	
-//    	for (InjectionPoint ip : event.getBean().getInjectionPoints())
-//    	{
-//    		Setted setting=AnnotationInspector.getAnnotation(ip.getAnnotated(),Setted.class, manager);
-//    	
-//    	
-//    	if(setting != null)
-//    	{
-//    		
-//    		String api = setting.apiKey();
-//    		String secret = setting.apiSecret();
-//    		String callBack = setting.callback();
-//    		try {
-//    		    Class clazz=(Class) ip.getType();
-//				String type = (String) clazz.getField("TYPE").get(null);
-//				System.out.println(type);
-//			} catch (SecurityException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			} catch (NoSuchFieldException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			} catch (IllegalArgumentException e) {
-//                // TODO Auto-generated catch block
-//                e.printStackTrace();
-//            } catch (IllegalAccessException e) {
-//                // TODO Auto-generated catch block
-//                e.printStackTrace();
-//            }
-//    		
-//    		
-//    	}
-//    	}
-//    }
-    
-    public void processBeans(@Observes ProcessBean<OAuthServiceSettings> pbean, BeanManager beanManager)
-    {
-        
-        log.debug("*** Extension is in Process Bean ***");
-        Annotated anno= pbean.getAnnotated();
-        if (anno.isAnnotationPresent(RelatedTo.class))
-        {
-            String name=anno.getAnnotation(RelatedTo.class).value();
-          
-            log.debug("=== Found configuration for service " + name + "  ===");
+
+    // public void processSetting(@Observes ProcessBean<TwitterTest> event, BeanManager manager)
+    // {
+    //
+    // for (InjectionPoint ip : event.getBean().getInjectionPoints())
+    // {
+    // Setted setting=AnnotationInspector.getAnnotation(ip.getAnnotated(),Setted.class, manager);
+    //
+    //
+    // if(setting != null)
+    // {
+    //
+    // String api = setting.apiKey();
+    // String secret = setting.apiSecret();
+    // String callBack = setting.callback();
+    // try {
+    // Class clazz=(Class) ip.getType();
+    // String type = (String) clazz.getField("TYPE").get(null);
+    // System.out.println(type);
+    // } catch (SecurityException e) {
+    // // TODO Auto-generated catch block
+    // e.printStackTrace();
+    // } catch (NoSuchFieldException e) {
+    // // TODO Auto-generated catch block
+    // e.printStackTrace();
+    // } catch (IllegalArgumentException e) {
+    // // TODO Auto-generated catch block
+    // e.printStackTrace();
+    // } catch (IllegalAccessException e) {
+    // // TODO Auto-generated catch block
+    // e.printStackTrace();
+    // }
+    //
+    //
+    // }
+    // }
+    // }
+
+    public void processBeans(@Observes ProcessBean<OAuthServiceSettings> pbean, BeanManager beanManager) {
+
+        log.info("Starting enumeration of existing service settings");
+        Annotated anno = pbean.getAnnotated();
+        if (anno.isAnnotationPresent(RelatedTo.class)) {
+            String name = anno.getAnnotation(RelatedTo.class).value();
+
+            log.infof("Found configuration for service %s", name);
             servicesNames.add(anno.getAnnotation(RelatedTo.class).value());
         }
     }
 
-    
-    
-    
     public Set<String> getSocialRelated() {
         return servicesNames;
     }

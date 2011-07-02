@@ -20,7 +20,7 @@ import java.io.Serializable;
 
 /**
  * Implementation of this interface represents an OAuth Token
- *
+ * 
  * @author Antoine Sabot-Durand
  */
 public interface OAuthToken extends Serializable {

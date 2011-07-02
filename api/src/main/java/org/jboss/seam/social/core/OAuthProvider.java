@@ -16,14 +16,12 @@
  */
 package org.jboss.seam.social.core;
 
-
-
 /**
  * @author Antoine Sabot-Durand
  * 
- * Implementation of this Interface will provide low level service for OAuth management.
- * It allows to create different provider to deal with Social Network
- *
+ *         Implementation of this Interface will provide low level service for OAuth management. It allows to create different
+ *         provider to deal with Social Network
+ * 
  */
 public interface OAuthProvider {
 
