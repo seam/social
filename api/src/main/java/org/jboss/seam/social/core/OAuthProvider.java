@@ -19,26 +19,73 @@ package org.jboss.seam.social.core;
 /**
  * @author Antoine Sabot-Durand
  * 
- *         Implementation of this Interface will provide low level service for OAuth management. It allows to create different
- *         provider to deal with Social Network
+ *         Implementation of this Interface will provide low level service for OAuth management.
  * 
  */
 public interface OAuthProvider {
-
+    /**
+     * This method retrieves an OAuth request token to initiate an OAuth connection. It's the the first step of OAuth
+     * negotiation connection
+     * 
+     * @return an OAuth request token
+     */
     public OAuthToken getRequestToken();
 
+    /**
+     * This method retrieves the Oauth access token from request token and verifier
+     * 
+     * @param requestToken
+     * @param verifier
+     * @return an OAuth access token
+     */
     public OAuthToken getAccessToken(OAuthToken requestToken, String verifier);
 
+    /**
+     * Sign an OAuthRequest in order to make it valid for targeted service
+     * 
+     * @param accessToken the OAuth access token for the current OAuth session
+     * @param request the OAuth request to sign
+     */
     public void signRequest(OAuthToken accessToken, OAuthRequest request);
 
+    /**
+     * Gives the OAuth version of the provider
+     * 
+     * @return the OAuth version used by the provider
+     */
     public String getVersion();
 
-    public String getAuthorizationUrl(OAuthToken tok);
+    /**
+     * Generates the OAuth authorization URL from the given request Token. It's the step 2 of OAuth negotiation
+     * 
+     * @param tok
+     * @return
+     */
+    public String getAuthorizationUrl(OAuthToken requestToken);
 
+    /**
+     * Initializes the provider with the given settings containing OAuth api key andapi secret
+     * 
+     * @param settings
+     */
     public void initProvider(OAuthServiceSettings settings);
 
-    public OAuthRequest createRequest(RestVerb verb, String uri);
+    /**
+     * Creates an OAuthRequest with the given Rest Verb and uri
+     * 
+     * @param verb
+     * @param uri
+     * @return the created OAuthRequest
+     */
+    public OAuthRequest requestFactory(RestVerb verb, String uri);
 
-    public OAuthToken createToken(String token, String secret);
+    /**
+     * Creates an OAuthToken with the given token and given secret
+     * 
+     * @param token
+     * @param secret
+     * @return then created OAuthToken
+     */
+    public OAuthToken tokenFactory(String token, String secret);
 
 }

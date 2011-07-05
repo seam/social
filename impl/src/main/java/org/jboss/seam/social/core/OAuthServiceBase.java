@@ -153,14 +153,14 @@ public abstract class OAuthServiceBase implements OAuthService, Serializable {
 
     @Override
     public HttpResponse sendSignedRequest(RestVerb verb, String uri) {
-        OAuthRequest request = provider.createRequest(verb, uri);
+        OAuthRequest request = provider.requestFactory(verb, uri);
         return sendSignedRequest(request);
 
     }
 
     @Override
     public HttpResponse sendSignedRequest(RestVerb verb, String uri, String key, Object value) {
-        OAuthRequest request = provider.createRequest(verb, uri);
+        OAuthRequest request = provider.requestFactory(verb, uri);
 
         request.addBodyParameter(key, value.toString());
 
@@ -170,7 +170,7 @@ public abstract class OAuthServiceBase implements OAuthService, Serializable {
 
     @Override
     public HttpResponse sendSignedXmlRequest(RestVerb verb, String uri, String payload) {
-        OAuthRequest request = provider.createRequest(verb, uri);
+        OAuthRequest request = provider.requestFactory(verb, uri);
         request.addHeader("Content-Length", Integer.toString(payload.length()));
         request.addHeader("Content-Type", "text/xml");
 
@@ -182,7 +182,7 @@ public abstract class OAuthServiceBase implements OAuthService, Serializable {
 
     @Override
     public HttpResponse sendSignedRequest(RestVerb verb, String uri, Map<String, Object> params) {
-        OAuthRequest request = provider.createRequest(verb, uri);
+        OAuthRequest request = provider.requestFactory(verb, uri);
         for (Entry<String, Object> ent : params.entrySet()) {
             request.addBodyParameter(ent.getKey(), ent.getValue().toString());
         }
@@ -212,7 +212,7 @@ public abstract class OAuthServiceBase implements OAuthService, Serializable {
 
     @Override
     public void setAccessToken(String token, String secret) {
-        session.setAccessToken(provider.createToken(token, secret));
+        session.setAccessToken(provider.tokenFactory(token, secret));
 
     }
 

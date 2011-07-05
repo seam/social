@@ -38,6 +38,12 @@ public class OAuthProviderScribe implements OAuthProvider {
 
     private org.scribe.oauth.OAuthService service;
 
+    org.scribe.oauth.OAuthService getService() {
+        if (service == null)
+            throw new IllegalStateException("OAuthProvider can be used before it is initialized");
+        return service;
+    }
+
     /*
      * (non-Javadoc)
      * 
@@ -45,7 +51,7 @@ public class OAuthProviderScribe implements OAuthProvider {
      */
     @Override
     public OAuthToken getRequestToken() {
-        return new OAuthTokenScribe(service.getRequestToken());
+        return new OAuthTokenScribe(getService().getRequestToken());
     }
 
     /*
@@ -55,7 +61,7 @@ public class OAuthProviderScribe implements OAuthProvider {
      */
     @Override
     public OAuthToken getAccessToken(OAuthToken requestToken, String verifier) {
-        return createToken(service.getAccessToken(extractToken(requestToken), new Verifier(verifier)));
+        return createToken(getService().getAccessToken(extractToken(requestToken), new Verifier(verifier)));
     }
 
     /*
@@ -66,7 +72,7 @@ public class OAuthProviderScribe implements OAuthProvider {
      */
     @Override
     public void signRequest(OAuthToken accessToken, OAuthRequest request) {
-        service.signRequest(extractToken(accessToken), ((OAuthRequestScribe) request).getDelegate());
+        getService().signRequest(extractToken(accessToken), ((OAuthRequestScribe) request).getDelegate());
     }
 
     /*
@@ -76,7 +82,7 @@ public class OAuthProviderScribe implements OAuthProvider {
      */
     @Override
     public String getVersion() {
-        return service.getVersion();
+        return getService().getVersion();
     }
 
     /*
@@ -86,7 +92,7 @@ public class OAuthProviderScribe implements OAuthProvider {
      */
     @Override
     public String getAuthorizationUrl(OAuthToken tok) {
-        return service.getAuthorizationUrl(extractToken(tok));
+        return getService().getAuthorizationUrl(extractToken(tok));
     }
 
     /*
@@ -114,8 +120,6 @@ public class OAuthProviderScribe implements OAuthProvider {
      */
     @SuppressWarnings("unchecked")
     private Class<? extends Api> getApiClass(String serviceName) {
-
-        Class<? extends Api> result = null;
         String className = SCRIBE_API_PREFIX + serviceName + SCRIBE_API_SUFFIX;
         try {
             return (Class<? extends Api>) Class.forName(className);
@@ -134,7 +138,7 @@ public class OAuthProviderScribe implements OAuthProvider {
      * @see org.jboss.seam.social.oauth.OAuthProvider#createRequest(org.jboss.seam.social.oauth.RestVerb, java.lang.String)
      */
     @Override
-    public OAuthRequest createRequest(RestVerb verb, String uri) {
+    public OAuthRequest requestFactory(RestVerb verb, String uri) {
         return new OAuthRequestScribe(verb, uri);
     }
 
@@ -144,7 +148,7 @@ public class OAuthProviderScribe implements OAuthProvider {
      * @see org.jboss.seam.social.oauth.OAuthProvider#createToken(java.lang.String, java.lang.String)
      */
     @Override
-    public OAuthToken createToken(String token, String secret) {
+    public OAuthToken tokenFactory(String token, String secret) {
         return new OAuthTokenScribe(token, secret);
     }
 
