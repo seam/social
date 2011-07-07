@@ -17,14 +17,13 @@
 package org.jboss.seam.social.core;
 
 /**
+ * Exception linked to the framework
+ * 
  * @author Antoine Sabot-Durand
  * 
  */
 public class SeamSocialException extends RuntimeException {
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = 8149354996979746574L;
 
     SeamSocialException() {

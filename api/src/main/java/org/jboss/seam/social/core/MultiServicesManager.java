@@ -85,7 +85,7 @@ public interface MultiServicesManager {
     public String initNewService(String type);
 
     /**
-     * Unconnect the current service and remove it from Set of managed service. Reset the currentService to null
+     * Disconnect the current service and remove it from Set of managed service. Reset the currentService to null
      */
     public void destroyCurrentService();
 

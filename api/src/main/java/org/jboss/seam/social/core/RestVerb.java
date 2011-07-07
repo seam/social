@@ -17,8 +17,7 @@
 package org.jboss.seam.social.core;
 
 /**
- * Enum containing the verb used in REST request. Used mainly in {@link OAuthService#OAuthServiceHandler
- * #sendSignedRequest(RestVerb, String, java.util.Map)} and other sendSignedRequest method. to set REST verb to add to request
+ * Enum containing the verb used in REST request.
  * 
  * @author Antoine Sabot-Durand
  */
