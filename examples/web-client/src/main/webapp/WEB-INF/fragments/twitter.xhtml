@@ -6,7 +6,7 @@
 <body>
 <ui:composition>
     <h:panelGroup id="twittertl" layout="block">
-        <img src="#{socialClient.user.pictureUrl}"/>
+        <img src="#{socialClient.user.profileImageUrl}"/>
         <br/>
         <h:inputTextarea value="#{socialClient.currentService.status}" cols="60" rows="5"/>
         <h:commandButton action="#{socialClient.currentService.updateStatus}"

@@ -16,7 +16,6 @@
  */
 package org.jboss.seam.social.core;
 
-import java.io.Serializable;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -31,7 +30,7 @@ import org.jboss.logging.Logger;
  * @author Antoine Sabot-Durand
  */
 
-public abstract class OAuthServiceBase implements OAuthService, Serializable {
+public abstract class OAuthServiceBase implements OAuthService, HasStatus {
 
     /**
      *
@@ -52,7 +51,12 @@ public abstract class OAuthServiceBase implements OAuthService, Serializable {
     private Logger log;
 
     @Inject
-    protected OAuthSessionSettings session;
+    protected OAuthSessionSettings sessionSettings;
+
+    protected UserProfile myProfile;
+
+    private boolean connected = false;
+    private String status;
 
     @PostConstruct
     protected void postConstruct() {
@@ -67,25 +71,37 @@ public abstract class OAuthServiceBase implements OAuthService, Serializable {
 
     @Override
     public OAuthSessionSettings getSession() {
-        return session;
+        return sessionSettings;
     }
 
     @Override
     public void setSession(OAuthSessionSettings session) {
-        this.session = session;
+        this.sessionSettings = session;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.jboss.seam.social.oauth.OAuthSessionSettings#getStatus()
+     */
+    @Override
     public String getStatus() {
-        return session.getStatus();
+        return status;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.jboss.seam.social.oauth.OAuthSessionSettings#setStatus(java.lang.String)
+     */
+    @Override
     public void setStatus(String status) {
-        this.session.setStatus(status);
+        this.status = status;
     }
 
     @Override
     public String getName() {
-        return getType() + " - " + (getSession().isConnected() ? getSession().getUserProfile().getFullName() : "not connected");
+        return getType() + " - " + (connected ? getMyProfile().getFullName() : "not connected");
     }
 
     /*
@@ -105,49 +121,54 @@ public abstract class OAuthServiceBase implements OAuthService, Serializable {
 
     @Override
     public String getAuthorizationUrl() {
-        return getService().getAuthorizationUrl(getRequestToken());
+        return getProvider().getAuthorizationUrl(getRequestToken());
     }
 
     /**
      * @return
      */
-    private OAuthProvider getService() {
+    private OAuthProvider getProvider() {
         return provider;
     }
 
     protected OAuthToken getRequestToken() {
-        if (session.getRequestToken() == null)
-            session.setRequestToken(getService().getRequestToken());
-        return session.getRequestToken();
+        if (sessionSettings.getRequestToken() == null)
+            sessionSettings.setRequestToken(getProvider().getRequestToken());
+        return sessionSettings.getRequestToken();
     }
 
     @Override
     public void initAccessToken() {
-        if (session.getAccessToken() == null) {
-            session.setAccessToken(getService().getAccessToken(getRequestToken(), session.getVerifier()));
-            if (session.getAccessToken() != null) {
-                session.setConnected(Boolean.TRUE);
-                session.setRequestToken(null);
-                session.setUserProfile(getUser());
-
+        if (sessionSettings.getAccessToken() == null) {
+            sessionSettings.setAccessToken(getProvider().getAccessToken(getRequestToken(), sessionSettings.getVerifier()));
+            if (sessionSettings.getAccessToken() != null) {
+                connected = true;
+                sessionSettings.setRequestToken(null);
+                initMyProfile();
+                // TODO Should we fire an event ?
             } else {
-                // Launch an exception !!
+                // FIXME Launch an exception !!
             }
         }
 
     }
 
+    /**
+     * 
+     */
+    abstract protected void initMyProfile();
+
     @Override
     public void resetConnection() {
-        session.setUserProfile(null);
-        session.setAccessToken(null);
-        session.setVerifier(null);
-        session.setConnected(Boolean.FALSE);
+        sessionSettings.setAccessToken(null);
+        sessionSettings.setVerifier(null);
+        connected = false;
+        myProfile = null;
 
     }
 
     protected HttpResponse sendSignedRequest(OAuthRequest request) {
-        getService().signRequest(getAccessToken(), request);
+        getProvider().signRequest(getAccessToken(), request);
         return request.send();
     }
 
@@ -192,33 +213,39 @@ public abstract class OAuthServiceBase implements OAuthService, Serializable {
 
     @Override
     public void setVerifier(String verifierStr) {
-        session.setVerifier(verifierStr);
+        sessionSettings.setVerifier(verifierStr);
     }
 
     @Override
     public String getVerifier() {
-        return session.getVerifier();
+        return sessionSettings.getVerifier();
     }
 
     @Override
     public OAuthToken getAccessToken() {
-        return session.getAccessToken();
+        return sessionSettings.getAccessToken();
     }
 
     @Override
-    public Boolean isConnected() {
-        return session.isConnected();
+    public boolean isConnected() {
+        return connected;
+    }
+
+    protected void requireAuthorization() {
+        if (!isConnected()) {
+            throw new SeamSocialException("This action requires an OAuth connexion");
+        }
     }
 
     @Override
     public void setAccessToken(String token, String secret) {
-        session.setAccessToken(provider.tokenFactory(token, secret));
+        sessionSettings.setAccessToken(provider.tokenFactory(token, secret));
 
     }
 
     @Override
     public void setAccessToken(OAuthToken token) {
-        session.setAccessToken(token);
+        sessionSettings.setAccessToken(token);
 
     }
 
@@ -232,16 +259,16 @@ public abstract class OAuthServiceBase implements OAuthService, Serializable {
         return VERIFIER_PARAM_NAME;
     }
 
-    /**
-     * 
-     */
-    protected abstract UserProfile getUser();
+    @Override
+    public UserProfile getMyProfile() {
+        return myProfile;
+    }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((session == null) ? 0 : session.hashCode());
+        result = prime * result + ((myProfile == null) ? 0 : myProfile.hashCode());
         return result;
     }
 
@@ -254,10 +281,10 @@ public abstract class OAuthServiceBase implements OAuthService, Serializable {
         if (getClass() != obj.getClass())
             return false;
         OAuthServiceBase other = (OAuthServiceBase) obj;
-        if (session == null) {
-            if (other.session != null)
+        if (myProfile == null) {
+            if (other.myProfile != null)
                 return false;
-        } else if (!session.equals(other.session))
+        } else if (!myProfile.equals(other.myProfile))
             return false;
         return true;
     }

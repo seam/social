@@ -18,7 +18,7 @@ package org.jboss.seam.social.facebook.model;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
-import org.jboss.seam.social.core.AbstractUserProfile;
+import org.jboss.seam.social.core.UserProfile;
 
 /**
  * @author Antoine Sabot-Durand
@@ -41,12 +41,24 @@ import org.jboss.seam.social.core.AbstractUserProfile;
  *         "2011-04-03T12:03:15+0000" }
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class UserJackson extends AbstractUserProfile implements User {
+public class UserJackson extends UserProfile implements User {
+
+    /**
+     * @param id
+     */
+    protected UserJackson(long id) {
+        super(id);
+    }
+
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -6006391095667297569L;
 
     private static String API_URL = "http://graph.facebook.com/";
 
     @JsonProperty
-    private String id;
+    private long id;
 
     @JsonProperty
     private String name;
@@ -71,7 +83,7 @@ public class UserJackson extends AbstractUserProfile implements User {
      * @see org.jboss.seam.social.oauth.User#getPictureUrl()
      */
     @Override
-    public String getPictureUrl() {
+    public String getProfileImageUrl() {
         return API_URL + id + "/picture";
     }
 
@@ -81,7 +93,7 @@ public class UserJackson extends AbstractUserProfile implements User {
      * @see org.jboss.seam.social.oauth.User#getId()
      */
     @Override
-    public String getId() {
+    public long getId() {
         return this.id;
     }
 

@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.jboss.seam.social.core.AbstractUserProfile;
+import org.jboss.seam.social.core.UserProfile;
 
 /**
  * @author Antoine Sabot-Durand
@@ -33,10 +33,23 @@ import org.jboss.seam.social.core.AbstractUserProfile;
  */
 @XmlRootElement(name = "person")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class ProfileJaxb extends AbstractUserProfile implements Profile {
+public class ProfileJaxb extends UserProfile implements Profile {
+
+    /**
+     * @param id
+     */
+    protected ProfileJaxb(long id) {
+        super(id);
+        // TODO Auto-generated constructor stub
+    }
+
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 2691724039487584846L;
 
     @XmlElement(name = "id")
-    private String id;
+    private long id;
 
     @XmlElement(name = "first-name")
     private String firstName;
@@ -54,7 +67,7 @@ public class ProfileJaxb extends AbstractUserProfile implements Profile {
     private List<String> standardProfileUrl;
 
     @Override
-    public String getPictureUrl() {
+    public String getProfileImageUrl() {
         return pictureUrl;
     }
 
@@ -91,7 +104,7 @@ public class ProfileJaxb extends AbstractUserProfile implements Profile {
      * @see org.jboss.seam.social.oauth.User#getId()
      */
     @Override
-    public String getId() {
+    public long getId() {
         return this.id;
     }
 }

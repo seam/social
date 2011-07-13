@@ -16,6 +16,7 @@
  */
 package org.jboss.seam.social.core;
 
+import java.io.Serializable;
 import java.util.Map;
 
 /**
@@ -23,7 +24,7 @@ import java.util.Map;
  * 
  * @author Antoine Sabot-Durand
  */
-public interface OAuthService {
+public interface OAuthService extends Serializable {
 
     /**
      * @return the access token for the OAuth service
@@ -110,7 +111,7 @@ public interface OAuthService {
      * 
      * @return true if the connection process is over and successful
      */
-    public Boolean isConnected();
+    public boolean isConnected();
 
     /**
      * Returns the name/type of the Social Network we're connected to
@@ -170,5 +171,11 @@ public interface OAuthService {
      * @return the name of the service with this session
      */
     public String getName();
+
+    /**
+     * @return
+     */
+    UserProfile getMyProfile();
+
 
 }

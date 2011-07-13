@@ -16,29 +16,62 @@
  */
 package org.jboss.seam.social.core;
 
+import java.io.Serializable;
+
 /**
- * Interface defining an user
+ * Generci abstract class to define a basic user information
  * 
  * @author Antoine Sabot-Durand
- * @author Todd Morrison
  */
-public interface UserProfile {
+@SuppressWarnings("serial")
+public abstract class UserProfile implements Serializable {
+
+    protected final long id;
+
+    protected UserProfile(long id) {
+        super();
+        this.id = id;
+    }
 
     /**
      * Permanent identifier against the social relationship for the life-time of the network account
      * 
      * @return the user's social network key
      */
-    public String getId();
+    public long getId() {
+        return id;
+    }
 
     /**
      * @return the user's full name
      */
-    public String getFullName();
+    public abstract String getFullName();
 
     /**
      * @return the user's picture url
      */
-    public String getPictureUrl();
+    public abstract String getProfileImageUrl();
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + (int) (id ^ (id >>> 32));
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        UserProfile other = (UserProfile) obj;
+        if (id != other.id)
+            return false;
+        return true;
+    }
 
 }

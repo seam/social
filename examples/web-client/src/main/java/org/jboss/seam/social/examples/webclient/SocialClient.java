@@ -104,7 +104,7 @@ public class SocialClient implements Serializable {
     }
 
     public UserProfile getUser() {
-        UserProfile res = getCurrentService() == null ? null : getCurrentService().getSession().getUserProfile();
+        UserProfile res = getCurrentService() == null ? null : getCurrentService().getMyProfile();
 
         return res;
     }

@@ -14,14 +14,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social.facebook.model;
+package org.jboss.seam.social.twitter.model;
+
+import java.util.ArrayList;
+
 
 
 /**
- * Implementation of this interface will contain FacebookRelated Profile
- * 
+ * Typed list of TwitterProfile. This helps Jackson know which type to deserialize list contents into.
+ * @author Craig Walls
  * @author Antoine Sabot-Durand
  */
-public interface User {
 
+class TwitterProfileList extends ArrayList<TwitterProfile> {
+
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 6899247169899399339L;
 }

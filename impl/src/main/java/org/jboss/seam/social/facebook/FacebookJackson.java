@@ -45,7 +45,9 @@ public class FacebookJackson extends OAuth2ServiceScribe implements Facebook {
     @Inject
     private Logger log;
     @Inject
-    private JsonMapper jsonMapper;
+    private JsonMapper jsonMapperProducer;
+
+    private UserJackson myProfile;
 
     @Produces
     @RelatedTo(FacebookJackson.TYPE)
@@ -74,10 +76,10 @@ public class FacebookJackson extends OAuth2ServiceScribe implements Facebook {
      * @see org.jboss.seam.social.oauth.OAuthService#getUser()
      */
     @Override
-    protected UserProfile getUser() {
+    public UserProfile getMyProfile() {
 
         HttpResponse resp = sendSignedRequest(RestVerb.GET, USER_PROFILE_URL);
-        return jsonMapper.readValue(resp, UserJackson.class);
+        return jsonMapperProducer.readValue(resp, UserJackson.class);
     }
 
     /*
@@ -112,6 +114,18 @@ public class FacebookJackson extends OAuth2ServiceScribe implements Facebook {
         setStatus("");
         log.debugf("Response is : %s", resp.getBody());
         return null;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.jboss.seam.social.core.OAuthServiceBase#initMyProfile()
+     */
+    @Override
+    protected void initMyProfile() {
+        HttpResponse resp = sendSignedRequest(RestVerb.GET, USER_PROFILE_URL);
+        myProfile = jsonMapperProducer.readValue(resp, UserJackson.class);
+
     }
 
 }

@@ -16,14 +16,13 @@
  */
 package org.jboss.seam.social.linkedin.model;
 
-import org.jboss.seam.social.core.UserProfile;
 
 /**
  * Implementation of this interface will contain a LinkedInRelated Profile
  * 
  * @author Antoine Sabot-Durand
  */
-public interface Profile extends UserProfile {
+public interface Profile {
 
     /**
      * @return the Headline (position) of the profile

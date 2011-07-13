@@ -35,48 +35,15 @@ public class OAuthSessionSettingsImpl implements OAuthSessionSettings {
     /**
      * 
      */
-    private Boolean connected;
-    /**
-     * 
-     */
-    private UserProfile userProfile;
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((userProfile == null) ? 0 : userProfile.hashCode());
-        return result;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        OAuthSessionSettingsImpl other = (OAuthSessionSettingsImpl) obj;
-        if (userProfile == null) {
-            if (other.userProfile != null)
-                return false;
-        } else if (!userProfile.equals(other.userProfile))
-            return false;
-        return true;
-    }
+ 
+    
 
     /**
      * 
      */
     private String status;
 
-    /**
-     * 
-     */
-    public OAuthSessionSettingsImpl() {
-        this.connected = Boolean.FALSE;
-    }
+   
 
     /*
      * (non-Javadoc)
@@ -138,64 +105,6 @@ public class OAuthSessionSettingsImpl implements OAuthSessionSettings {
         this.verifier = verifier;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.jboss.seam.social.oauth.OAuthSessionSettings#isConnected()
-     */
-    @Override
-    public Boolean isConnected() {
-        return connected;
-    }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.jboss.seam.social.oauth.OAuthSessionSettings#setConnected(java.lang.Boolean)
-     */
-    @Override
-    public void setConnected(Boolean connected) {
-        this.connected = connected;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.jboss.seam.social.oauth.OAuthSessionSettings#getUserProfile()
-     */
-    @Override
-    public UserProfile getUserProfile() {
-        return userProfile;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.jboss.seam.social.oauth.OAuthSessionSettings#setUserProfile(org.jboss.seam.social.oauth.UserProfile)
-     */
-    @Override
-    public void setUserProfile(UserProfile userProfile) {
-        this.userProfile = userProfile;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.jboss.seam.social.oauth.OAuthSessionSettings#getStatus()
-     */
-    @Override
-    public String getStatus() {
-        return status;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.jboss.seam.social.oauth.OAuthSessionSettings#setStatus(java.lang.String)
-     */
-    @Override
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
+   
 }

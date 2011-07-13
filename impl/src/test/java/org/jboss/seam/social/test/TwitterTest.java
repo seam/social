@@ -24,9 +24,9 @@ import org.jboss.seam.social.core.Setted;
 import org.jboss.seam.social.core.UserProfile;
 import org.jboss.seam.social.core.scribe.OAuthProviderScribe;
 import org.jboss.seam.social.core.scribe.OAuthTokenScribe;
+import org.jboss.seam.social.facebook.model.UserJackson;
 import org.jboss.seam.social.twitter.Twitter;
 import org.jboss.seam.social.twitter.TwitterJackson;
-import org.jboss.seam.social.twitter.model.CredentialJackson;
 import org.jboss.seam.social.twitter.model.Tweet;
 import org.jboss.seam.social.twitter.model.TweetJackson;
 import org.jboss.shrinkwrap.api.Archive;
@@ -58,7 +58,7 @@ public class TwitterTest {
                         OAuthServiceSettings.class, OAuthServiceSettingsImpl.class, OAuthSessionSettings.class,
                         OAuthSessionSettingsImpl.class, RelatedTo.class, JsonMapper.class, HasStatus.class,
                         OAuthProvider.class, OAuthProviderScribe.class, OAuthToken.class, RestVerb.class, HttpResponse.class,
-                        UserProfile.class, Tweet.class, TweetJackson.class, CredentialJackson.class, OAuthTokenScribe.class)
+                        UserProfile.class, Tweet.class, TweetJackson.class, UserJackson.class, OAuthTokenScribe.class)
 
                 .addAsLibraries(
                         DependencyResolvers.use(MavenDependencyResolver.class).loadReposFromPom("pom.xml")

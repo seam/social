@@ -21,6 +21,7 @@ import java.io.Serializable;
 
 import javax.enterprise.context.ApplicationScoped;
 
+import org.codehaus.jackson.map.Module;
 import org.codehaus.jackson.map.ObjectMapper;
 
 /**
@@ -44,4 +45,10 @@ public class JsonMapper implements Serializable {
         }
     }
 
+    public void registerModule(Module module) {
+        delegate.registerModule(module);
+    }
+
+    
+    
 }
