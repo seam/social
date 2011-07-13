@@ -39,7 +39,22 @@
                     <skip>true</skip>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifestEntries>
+                            <Dependencies>
+                            com.sun.xml.bind services export
+                            </Dependencies>
+
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
         </plugins>
+
         <finalName>social-web-client</finalName>
     </build>
 
@@ -79,7 +94,7 @@
             <artifactId>seam-config-xml</artifactId>
         </dependency>
 
-     <dependency>
+        <dependency>
             <groupId>org.jboss.seam.solder</groupId>
             <artifactId>seam-solder</artifactId>
         </dependency>
@@ -91,7 +106,7 @@
             <scope>provided</scope>
         </dependency>
 
-       
+
         <dependency>
             <groupId>org.seleniumhq.selenium.client-drivers</groupId>
             <artifactId>selenium-java-client-driver</artifactId>
