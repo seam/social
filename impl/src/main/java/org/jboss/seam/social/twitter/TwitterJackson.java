@@ -16,6 +16,7 @@
  */
 package org.jboss.seam.social.twitter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -24,6 +25,9 @@ import javax.enterprise.inject.New;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 
+import org.codehaus.jackson.annotate.JsonCreator;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.codehaus.jackson.annotate.JsonProperty;
 import org.jboss.logging.Logger;
 import org.jboss.seam.social.core.HttpResponse;
 import org.jboss.seam.social.core.JsonMapper;
@@ -32,8 +36,8 @@ import org.jboss.seam.social.core.OAuthServiceBase;
 import org.jboss.seam.social.core.RelatedTo;
 import org.jboss.seam.social.core.RestVerb;
 import org.jboss.seam.social.core.URLUtils;
+import org.jboss.seam.social.twitter.model.SuggestionCategory;
 import org.jboss.seam.social.twitter.model.Tweet;
-import org.jboss.seam.social.twitter.model.TweetJackson;
 import org.jboss.seam.social.twitter.model.TwitterProfile;
 
 /**
@@ -42,11 +46,47 @@ import org.jboss.seam.social.twitter.model.TwitterProfile;
 
 public class TwitterJackson extends OAuthServiceBase implements Twitter {
 
+    /**
+     * Typed list of TwitterProfile. This helps Jackson know which type to deserialize list contents into.
+     * 
+     * @author Craig Walls
+     * @author Antoine Sabot-Durand
+     */
+
+    @SuppressWarnings("serial")
+    static class TwitterProfileList extends ArrayList<TwitterProfile> {
+
+    }
+
+    @SuppressWarnings("serial")
+    static class SuggestionCategoryList extends ArrayList<SuggestionCategory> {
+
+    }
+
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    static class TwitterProfileUsersList {
+
+        private final List<TwitterProfile> list;
+
+        @JsonCreator
+        public TwitterProfileUsersList(@JsonProperty("users") List<TwitterProfile> list) {
+            this.list = list;
+        }
+
+        public List<TwitterProfile> getList() {
+            return list;
+        }
+    }
+
     private static final long serialVersionUID = 6806035986656777834L;
     static final String VERIFY_CREDENTIALS_URL = "https://api.twitter.com/1/account/verify_credentials.json";
     static final String GET_USER_PROFILE_URL = "https://api.twitter.com/1/users/show.json";
+    static final String SEARCH_USER_URL = "https://api.twitter.com/1/users/search.json";
+    static final String SUGGESTION_CATEGORIES = "https://api.twitter.com/1/users/suggestions.json";
+
     static final String FRIENDS_STATUSES_URL = "https://api.twitter.com/1/statuses/friends.json?screen_name={screen_name}";
-    static final String SEARCH_URL = "https://search.twitter.com/search.json?q={query}&rpp={rpp}&page={page}";
+
+    // static final String SEARCH_URL = "https://search.twitter.com/search.json?q={query}&rpp={rpp}&page={page}";
     static final String TWEET_URL = "https://api.twitter.com/1/statuses/update.json";
     static final String RETWEET_URL = "https://api.twitter.com/1/statuses/retweet/{tweet_id}.json";
     static final String LOGO_URL = "https://d2l6uygi1pgnys.cloudfront.net/2-2-08/images/buttons/twitter_connect.png";
@@ -68,7 +108,7 @@ public class TwitterJackson extends OAuthServiceBase implements Twitter {
         HttpResponse resp = sendSignedRequest(RestVerb.POST, TWEET_URL, "status", message);
         System.out.println("update satus is " + message);
         setStatus("");
-        return jsonMapper.readValue(resp, TweetJackson.class);
+        return jsonMapper.readValue(resp, Tweet.class);
 
     }
 
@@ -142,17 +182,6 @@ public class TwitterJackson extends OAuthServiceBase implements Twitter {
                 TwitterProfile.class);
     }
 
-    /*
-     * public byte[] getUserProfileImage(String screenName) { return getUserProfileImage(screenName, ImageSize.NORMAL); }
-     * 
-     * public byte[] getUserProfileImage(String screenName, ImageSize size) { LinkedMultiValueMap<String, String> parameters =
-     * new LinkedMultiValueMap<String, String>(); parameters.set("screen_name", screenName); parameters.set("size",
-     * size.toString().toLowerCase()); ResponseEntity<byte[]> response =
-     * restTemplate.getForEntity(buildUri("users/profile_image", parameters), byte[].class); if (response.getStatusCode() ==
-     * HttpStatus.FOUND) { throw new UnsupportedOperationException(
-     * "Attempt to fetch image resulted in a redirect which could not be followed. Add Apache HttpComponents HttpClient to the classpath "
-     * + "to be able to follow redirects."); } return response.getBody(); }
-     */
     @Override
     public List<TwitterProfile> getUsers(Long... userIds) {
         String joinedIds = URLUtils.commaJoiner.join(userIds);
@@ -167,45 +196,27 @@ public class TwitterJackson extends OAuthServiceBase implements Twitter {
         String joinedScreenNames = URLUtils.commaJoiner.join(screenNames);
         return jsonMapper.readValue(
                 sendSignedRequest(RestVerb.GET,
-                        URLUtils.appendParametersToQueryString(GET_USER_PROFILE_URL, "user_id", joinedScreenNames)),
+                        URLUtils.appendParametersToQueryString(GET_USER_PROFILE_URL, "screen_name", joinedScreenNames)),
                 TwitterProfileList.class);
     }
 
-    //
-    // public List<TwitterProfile> searchForUsers(String query) {
-    // requireAuthorization();
-    // return restTemplate.getForObject(buildUri("users/search.json", "q", query), TwitterProfileList.class);
-    // }
-    //
-    // public List<SuggestionCategory> getSuggestionCategories() {
-    // return restTemplate.getForObject(buildUri("users/suggestions.json"), SuggestionCategoryList.class);
-    // }
-    //
-    // public List<TwitterProfile> getSuggestions(String slug) {
-    // return restTemplate.getForObject(buildUri("users/suggestions/" + slug + ".json"), TwitterProfileUsersList.class)
-    // .getList();
-    // }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.jboss.seam.social.twitter.Twitter#getUserProfileImage(java.lang.String)
-     */
-    @Override
-    public byte[] getUserProfileImage(String screenName) {
-        // TODO Auto-generated method stub
-        return null;
+    public List<TwitterProfile> searchForUsers(String query) {
+        requireAuthorization();
+        return jsonMapper.readValue(
+                sendSignedRequest(RestVerb.GET, URLUtils.appendParametersToQueryString(SEARCH_USER_URL, "q", query)),
+                TwitterProfileList.class);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.jboss.seam.social.twitter.Twitter#searchForUsers(java.lang.String)
-     */
     @Override
-    public List<TwitterProfile> searchForUsers(String query) {
-        // TODO Auto-generated method stub
-        return null;
+    public List<SuggestionCategory> getSuggestionCategories() {
+        requireAuthorization();
+        return jsonMapper.readValue(sendSignedRequest(RestVerb.GET, SUGGESTION_CATEGORIES), SuggestionCategoryList.class);
+    }
+
+    public List<TwitterProfile> getSuggestions(String slug) {
+        return jsonMapper.readValue(
+                sendSignedRequest(RestVerb.GET, "https://api.twitter.com/1/users/suggestions/" + slug + ".json"),
+                TwitterProfileUsersList.class).getList();
     }
 
     /*

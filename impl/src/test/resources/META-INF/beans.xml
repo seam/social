@@ -17,7 +17,7 @@
 -->
 <beans xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:s="urn:java:ee"
-    xmlns:o="urn:java:org.jboss.seam.social.core">
+    xmlns:o="urn:java:org.jboss.seam.social.core:org.jboss.seam.social.core.scribe">
 
     <o:OAuthServiceSettingsImpl>
         <s:modifies />
@@ -29,5 +29,6 @@
         <o:callback>http://localhost:8080/seam-social-web-client/callback.jsf
         </o:callback>
     </o:OAuthServiceSettingsImpl>
+
 
 </beans>

@@ -17,29 +17,30 @@ package org.jboss.seam.social.twitter;
 
 import org.codehaus.jackson.Version;
 import org.codehaus.jackson.map.module.SimpleModule;
+import org.jboss.seam.social.twitter.model.SuggestionCategory;
+import org.jboss.seam.social.twitter.model.Tweet;
 import org.jboss.seam.social.twitter.model.TwitterProfile;
 
 /**
  * Jackson module for registering mixin annotations against Twitter model classes.
  */
 class TwitterModule extends SimpleModule {
-	public TwitterModule() {
-		super("TwitterModule", new Version(1, 0, 0, null));
-	}
-	
-	@Override
-	public void setupModule(SetupContext context) {
-		context.setMixInAnnotations(TwitterProfile.class, TwitterProfileMixin.class);
-//		context.setMixInAnnotations(SavedSearch.class, SavedSearchMixin.class);
-//		context.setMixInAnnotations(Trend.class, TrendMixin.class);
-//		context.setMixInAnnotations(Trends.class, TrendsMixin.class);
-//		context.setMixInAnnotations(SuggestionCategory.class, SuggestionCategoryMixin.class);
-//		context.setMixInAnnotations(DirectMessage.class, DirectMessageMixin.class);
-//		context.setMixInAnnotations(UserList.class, UserListMixin.class);
-//		context.setMixInAnnotations(Tweet.class, TweetMixin.class);
-//		context.setMixInAnnotations(SearchResults.class, SearchResultsMixin.class);
-//		context.setMixInAnnotations(Place.class, PlaceMixin.class);
-//		context.setMixInAnnotations(SimilarPlacesResponse.class, SimilarPlacesMixin.class);
-	}
-}
+    public TwitterModule() {
+        super("TwitterModule", new Version(1, 0, 0, null));
+    }
 
+    @Override
+    public void setupModule(SetupContext context) {
+        context.setMixInAnnotations(TwitterProfile.class, TwitterProfileMixin.class);
+        // context.setMixInAnnotations(SavedSearch.class, SavedSearchMixin.class);
+        // context.setMixInAnnotations(Trend.class, TrendMixin.class);
+        // context.setMixInAnnotations(Trends.class, TrendsMixin.class);
+        context.setMixInAnnotations(SuggestionCategory.class, SuggestionCategoryMixin.class);
+        // context.setMixInAnnotations(DirectMessage.class, DirectMessageMixin.class);
+        // context.setMixInAnnotations(UserList.class, UserListMixin.class);
+        context.setMixInAnnotations(Tweet.class, TweetMixin.class);
+        // context.setMixInAnnotations(SearchResults.class, SearchResultsMixin.class);
+        // context.setMixInAnnotations(Place.class, PlaceMixin.class);
+        // context.setMixInAnnotations(SimilarPlacesResponse.class, SimilarPlacesMixin.class);
+    }
+}

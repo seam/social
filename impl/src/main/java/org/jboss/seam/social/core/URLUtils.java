@@ -36,7 +36,7 @@ public class URLUtils {
     private static final Set<EncodingRule> ENCODING_RULES;
 
     public static Joiner commaJoiner = Joiner.on(MULTI_VALUE_SEPARATOR).skipNulls();
-    private static MapJoiner queryMapJoiner = Joiner.on(PARAM_SEPARATOR).skipNulls().withKeyValueSeparator(PAIR_SEPARATOR);
+    private static MapJoiner queryMapJoiner = Joiner.on(PARAM_SEPARATOR).withKeyValueSeparator(PAIR_SEPARATOR);
 
     static {
         Set<EncodingRule> rules = new HashSet<EncodingRule>();

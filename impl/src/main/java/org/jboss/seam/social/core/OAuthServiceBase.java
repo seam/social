@@ -139,16 +139,15 @@ public abstract class OAuthServiceBase implements OAuthService, HasStatus {
 
     @Override
     public void initAccessToken() {
-        if (sessionSettings.getAccessToken() == null) {
+        if (sessionSettings.getAccessToken() == null)
             sessionSettings.setAccessToken(getProvider().getAccessToken(getRequestToken(), sessionSettings.getVerifier()));
-            if (sessionSettings.getAccessToken() != null) {
-                connected = true;
-                sessionSettings.setRequestToken(null);
-                initMyProfile();
-                // TODO Should we fire an event ?
-            } else {
-                // FIXME Launch an exception !!
-            }
+        if (sessionSettings.getAccessToken() != null) {
+            connected = true;
+            sessionSettings.setRequestToken(null);
+            initMyProfile();
+            // TODO Should we fire an event ?
+        } else {
+            // FIXME Launch an exception !!
         }
 
     }

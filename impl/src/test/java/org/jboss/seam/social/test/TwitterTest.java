@@ -2,6 +2,8 @@ package org.jboss.seam.social.test;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Date;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -20,15 +22,15 @@ import org.jboss.seam.social.core.OAuthSessionSettingsImpl;
 import org.jboss.seam.social.core.OAuthToken;
 import org.jboss.seam.social.core.RelatedTo;
 import org.jboss.seam.social.core.RestVerb;
-import org.jboss.seam.social.core.Setted;
 import org.jboss.seam.social.core.UserProfile;
 import org.jboss.seam.social.core.scribe.OAuthProviderScribe;
 import org.jboss.seam.social.core.scribe.OAuthTokenScribe;
 import org.jboss.seam.social.facebook.model.UserJackson;
 import org.jboss.seam.social.twitter.Twitter;
 import org.jboss.seam.social.twitter.TwitterJackson;
+import org.jboss.seam.social.twitter.model.SuggestionCategory;
 import org.jboss.seam.social.twitter.model.Tweet;
-import org.jboss.seam.social.twitter.model.TweetJackson;
+import org.jboss.seam.social.twitter.model.TwitterProfile;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ArchivePaths;
 import org.jboss.shrinkwrap.api.GenericArchive;
@@ -38,14 +40,15 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.resolver.api.DependencyResolvers;
 import org.jboss.shrinkwrap.resolver.api.maven.MavenDependencyResolver;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
 public class TwitterTest {
     @Inject
-    @Setted(apiKey = "FQzlQC49UhvbMZoxUIvHTQ", apiSecret = "VQ5CZHG4qUoAkUUmckPn4iN4yyjBKcORTW0wnok4r1k")
-    Twitter twitter;
+    // @Setted(apiKey = "FQzlQC49UhvbMZoxUIvHTQ", apiSecret = "VQ5CZHG4qUoAkUUmckPn4iN4yyjBKcORTW0wnok4r1k")
+    TwitterJackson twitter;
 
     @Deployment
     public static Archive<?> createTestArchive() throws FileNotFoundException {
@@ -58,11 +61,11 @@ public class TwitterTest {
                         OAuthServiceSettings.class, OAuthServiceSettingsImpl.class, OAuthSessionSettings.class,
                         OAuthSessionSettingsImpl.class, RelatedTo.class, JsonMapper.class, HasStatus.class,
                         OAuthProvider.class, OAuthProviderScribe.class, OAuthToken.class, RestVerb.class, HttpResponse.class,
-                        UserProfile.class, Tweet.class, TweetJackson.class, UserJackson.class, OAuthTokenScribe.class)
+                        UserProfile.class, Tweet.class, UserJackson.class, OAuthTokenScribe.class)
 
                 .addAsLibraries(
                         DependencyResolvers.use(MavenDependencyResolver.class).loadReposFromPom("pom.xml")
-                                // .artifact("org.jboss.seam.config:seam-config-xml")
+                                .artifact("org.jboss.seam.config:seam-config-xml")
                                 .artifact("org.jboss.seam.solder:seam-solder").artifact("org.scribe:scribe")
                                 .resolveAs(GenericArchive.class))
                 .addAsWebInfResource(new FileAsset(beanFile), ArchivePaths.create("classes/META-INF/beans.xml"));
@@ -72,8 +75,43 @@ public class TwitterTest {
         return ret;
     }
 
+    @Before
+    public void init() {
+        twitter.getSession().setAccessToken(
+                new OAuthTokenScribe("334872715-u75bjYqWyQSYjFMnKeTDZUn8i0QAExjUQ4ENZXH3",
+                        "08QG7HVqDjkr1oH1YfBRWmd0n8EG73CuzJgTjFI0sk"));
+        twitter.initAccessToken();
+    }
+
     @Test
     public void authorizationUrlTest() {
         Assert.assertTrue(twitter.getAuthorizationUrl().startsWith("http"));
+    }
+
+    @Test
+    public void sendATweet() {
+        init();
+
+        Tweet tweet = twitter.updateStatus("Tweet sent from JUnit at " + new Date().toString());
+        Assert.assertFalse(tweet.getId() == 0);
+
+    }
+
+    @Test
+    public void searchUser() {
+        init();
+
+        List<TwitterProfile> res = twitter.searchForUsers("antoine");
+        Assert.assertFalse(res.isEmpty());
+
+    }
+
+    @Test
+    public void SuggestionCaegoriesNotEmpty() {
+        init();
+
+        List<SuggestionCategory> res = twitter.getSuggestionCategories();
+        Assert.assertFalse(res.isEmpty());
+
     }
 }
