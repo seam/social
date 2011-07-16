@@ -42,6 +42,7 @@ import org.jboss.seam.social.twitter.model.TwitterProfile;
 
 /**
  * @author Antoine Sabot-Durand
+ * 
  */
 
 public class TwitterJackson extends OAuthServiceBase implements Twitter {

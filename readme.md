@@ -101,7 +101,7 @@ In JSF we this like that
 
 Getting the Twitter user profile
 
-    Crendential user = twitter.getUser();
+    TwitterProfile user = twitter.getMyProfile();
     String fullName = user.getFullName();
 
 
