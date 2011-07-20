@@ -16,62 +16,54 @@
  */
 package org.jboss.seam.social.linkedin;
 
-import java.io.StringWriter;
-
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.New;
 import javax.enterprise.inject.Produces;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
+import javax.inject.Inject;
 
 import org.jboss.seam.social.core.HttpResponse;
+import org.jboss.seam.social.core.JsonMapper;
+import org.jboss.seam.social.core.OAuthRequest;
 import org.jboss.seam.social.core.OAuthService;
 import org.jboss.seam.social.core.OAuthServiceBase;
 import org.jboss.seam.social.core.RelatedTo;
 import org.jboss.seam.social.core.RestVerb;
-import org.jboss.seam.social.core.SeamSocialException;
 import org.jboss.seam.social.core.UserProfile;
-import org.jboss.seam.social.linkedin.model.Profile;
-import org.jboss.seam.social.linkedin.model.ProfileJaxb;
+import org.jboss.seam.social.linkedin.model.LinkedInProfile;
 import org.jboss.seam.social.linkedin.model.Update;
-import org.jboss.seam.social.linkedin.model.UpdateJaxb;
 
 /**
  * @author Antoine Sabot-Durand
+ * @author Craig Walls
  */
 
-public class LinkedInJaxb extends OAuthServiceBase implements LinkedIn {
+public class LinkedInJackson extends OAuthServiceBase implements LinkedIn {
 
     private static final long serialVersionUID = -6718362913575146613L;
 
-    static final String USER_PROFILE_URL = "http://api.linkedin.com/v1/people/~:(id,first-name,last-name,headline,picture-url,site-standard-profile-request:(url))";
+    static final String PROFILE_URL = "https://api.linkedin.com/v1/people/~:(id,first-name,last-name,headline,industry,site-standard-profile-request,public-profile-url,picture-url)";
+
     static final String LOGO_URL = "https://d2l6uygi1pgnys.cloudfront.net/1-9-05/images/buttons/linkedin_connect.png";
     public static final String TYPE = "LinkedIn";
     static final String NETWORK_UPDATE_URL = "http://api.linkedin.com/v1/people/~/person-activities";
 
-    private ProfileJaxb myProfile;
-
-    JAXBContext context;
-    Unmarshaller unmarshaller;
-    Marshaller marshaller;
+    @Inject
+    private JsonMapper jsonMapper;
 
     @PostConstruct
-    protected void init() {
-        try {
-            context = JAXBContext.newInstance("org.jboss.seam.social.linkedin.model");
-            unmarshaller = context.createUnmarshaller();
-            marshaller = context.createMarshaller();
-            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-        } catch (JAXBException e) {
-            throw new SeamSocialException("Unable to initialize context, marshaller or unmarshaller for LinkedIn", e);
-        }
+    void init() {
+        jsonMapper.registerModule(new LinkedInModule());
+    }
+
+    @Override
+    protected HttpResponse sendSignedRequest(OAuthRequest request) {
+        request.addHeader("x-li-format", "json");
+        return super.sendSignedRequest(request);
     }
 
     @Produces
-    @RelatedTo(LinkedInJaxb.TYPE)
-    protected OAuthService qualifiedLinkedInProducer(@New LinkedInJaxb service) {
+    @RelatedTo(LinkedInJackson.TYPE)
+    protected OAuthService qualifiedLinkedInProducer(@New LinkedInJackson service) {
         return service;
     }
 
@@ -123,26 +115,27 @@ public class LinkedInJaxb extends OAuthServiceBase implements LinkedIn {
      */
     @Override
     public Update updateStatus(String message) {
-        Update upd = new UpdateJaxb();
-        String msg = "<a href=\"" + ((Profile) getMyProfile()).getStandardProfileUrl() + "\">" + getMyProfile().getFullName()
-                + "</a> " + message;
-        upd.setBody(msg);
-        StringWriter writer = new StringWriter();
-        try {
-            marshaller.marshal(upd, writer);
-        } catch (JAXBException e) {
-            throw new SeamSocialException("Unable to marshal LinkedIn update", e);
-        }
-        String update = writer.toString();
-
-        HttpResponse resp = sendSignedXmlRequest(RestVerb.POST, NETWORK_UPDATE_URL, update);
-        if (resp.getCode() == 201) {
-            setStatus("");
-            // FIXME everything is ok should notify caller
-        } else {
-            // FIXME something went wrong should we throw an exception ?
-        }
-        return upd;
+        return null;
+        // Update upd = new UpdateJaxb();
+        // String msg = "<a href=\"" + ((Profile) getMyProfile()).getStandardProfileUrl() + "\">" + getMyProfile().getFullName()
+        // + "</a> " + message;
+        // upd.setBody(msg);
+        // StringWriter writer = new StringWriter();
+        // try {
+        // marshaller.marshal(upd, writer);
+        // } catch (JAXBException e) {
+        // throw new SeamSocialException("Unable to marshal LinkedIn update", e);
+        // }
+        // String update = writer.toString();
+        //
+        // HttpResponse resp = sendSignedXmlRequest(RestVerb.POST, NETWORK_UPDATE_URL, update);
+        // if (resp.getCode() == 201) {
+        // setStatus("");
+        // // FIXME everything is ok should notify caller
+        // } else {
+        // // FIXME something went wrong should we throw an exception ?
+        // }
+        // return upd;
     }
 
     /*
@@ -152,12 +145,7 @@ public class LinkedInJaxb extends OAuthServiceBase implements LinkedIn {
      */
     @Override
     protected void initMyProfile() {
-        HttpResponse resp = sendSignedRequest(RestVerb.GET, USER_PROFILE_URL);
-        try {
-            myProfile = (ProfileJaxb) unmarshaller.unmarshal(resp.getStream());
-        } catch (JAXBException e) {
-            throw new SeamSocialException("unable to unmarshal LinkedIn user", e);
-        }
+        myProfile = jsonMapper.readValue(sendSignedRequest(RestVerb.GET, PROFILE_URL), LinkedInProfile.class);
 
     }
 

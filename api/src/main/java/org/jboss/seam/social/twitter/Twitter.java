@@ -39,7 +39,7 @@ public interface Twitter extends OAuthService, HasStatus {
      * @throws ApiException if there is an error while communicating with Twitter.
      * @throws MissingAuthorizationException if TwitterTemplate was not created with OAuth credentials.
      */
-    long getProfileId();
+    String getProfileId();
 
     /**
      * Retrieves the authenticated user's Twitter screen name

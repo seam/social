@@ -154,7 +154,7 @@ public class TwitterJackson extends OAuthServiceBase implements Twitter {
         log.info("== Destroying Twitter Bean : " + this.hashCode());
     }
 
-    public long getProfileId() {
+    public String getProfileId() {
         requireAuthorization();
         return getMyProfile().getId();
     }

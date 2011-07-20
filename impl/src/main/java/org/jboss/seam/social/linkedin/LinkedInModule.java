@@ -14,34 +14,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social.linkedin.model;
+package org.jboss.seam.social.linkedin;
 
+import org.codehaus.jackson.Version;
+import org.codehaus.jackson.map.module.SimpleModule;
+import org.jboss.seam.social.linkedin.model.LinkedInConnections;
+import org.jboss.seam.social.linkedin.model.LinkedInProfile;
 
 /**
- * Implementation of this interface will contain a LinkedInRelated Profile
+ * Jackson module for registering mixin annotations against LinkedIn model classes.
  * 
+ * @author Craig Walls
  * @author Antoine Sabot-Durand
  */
-public interface Profile {
+class LinkedInModule extends SimpleModule {
 
-    /**
-     * @return the Headline (position) of the profile
-     */
-    public String getHeadline();
+    public LinkedInModule() {
+        super("LinkedInModule", new Version(1, 0, 0, null));
+    }
 
-    /**
-     * @return the Lastname of the profile
-     */
-    public String getLastName();
-
-    /**
-     * @return the Firstname of the profile
-     */
-    public String getFirstName();
-
-    /**
-     * @return the public URL to access this profile on LinkedInRelated
-     */
-    public String getStandardProfileUrl();
+    @Override
+    public void setupModule(SetupContext context) {
+        context.setMixInAnnotations(LinkedInConnections.class, LinkedInConnectionsMixin.class);
+        context.setMixInAnnotations(LinkedInProfile.class, LinkedInProfileMixin.class);
+    }
 
 }

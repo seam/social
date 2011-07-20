@@ -46,7 +46,7 @@ public class UserJackson extends UserProfile implements User {
     /**
      * @param id
      */
-    protected UserJackson(long id) {
+    protected UserJackson(String id) {
         super(id);
     }
 
@@ -58,7 +58,7 @@ public class UserJackson extends UserProfile implements User {
     private static String API_URL = "http://graph.facebook.com/";
 
     @JsonProperty
-    private long id;
+    private String id;
 
     @JsonProperty
     private String name;
@@ -93,7 +93,7 @@ public class UserJackson extends UserProfile implements User {
      * @see org.jboss.seam.social.oauth.User#getId()
      */
     @Override
-    public long getId() {
+    public String getId() {
         return this.id;
     }
 

@@ -14,40 +14,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social.core;
+package org.jboss.seam.social.linkedin.model;
 
-import java.io.IOException;
-import java.io.Serializable;
-
-import javax.enterprise.context.ApplicationScoped;
-
-import org.codehaus.jackson.map.Module;
-import org.codehaus.jackson.map.ObjectMapper;
+import java.util.List;
 
 /**
+ * A model class containing a list of a user's connections on LinkedIn.
+ * 
+ * @author Craig Walls
  * @author Antoine Sabot-Durand
  */
-@ApplicationScoped
-public class JsonMapper implements Serializable {
+public class LinkedInConnections {
+
+    private List<LinkedInProfile> connections;
+
+    public LinkedInConnections(List<LinkedInProfile> connections) {
+        this.connections = connections;
+    }
 
     /**
-     *
+     * Retrieves the list of connected profiles.
+     * 
+     * @return a list of connected profiles
      */
-    private static final long serialVersionUID = -2012295612034078749L;
-
-    private final ObjectMapper delegate = new ObjectMapper();
-
-    public <T> T readValue(HttpResponse resp, Class<T> clazz) {
-        try {
-            String msg = resp.getBody();
-            return delegate.readValue(msg, clazz);
-        } catch (IOException e) {
-            throw new SeamSocialException("Unable to map Json response", e);
-        }
+    public List<LinkedInProfile> getConnections() {
+        return connections;
     }
-
-    public void registerModule(Module module) {
-        delegate.registerModule(module);
-    }
-
 }

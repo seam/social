@@ -14,9 +14,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package org.jboss.seam.social.linkedin;
 
-@Veto
-package org.jboss.seam.social.linkedin.model;
+import java.util.List;
 
-import org.jboss.seam.solder.core.Veto;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.codehaus.jackson.annotate.JsonProperty;
+import org.jboss.seam.social.linkedin.model.LinkedInProfile;
 
+/**
+ * 
+ * @author Craig Walls
+ * @author Antoine Sabot-Durand
+ * 
+ */
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class LinkedInConnectionsMixin {
+
+    public LinkedInConnectionsMixin(@JsonProperty("values") List<LinkedInProfile> connections) {
+    }
+
+}

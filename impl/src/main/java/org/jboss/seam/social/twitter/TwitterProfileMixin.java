@@ -33,7 +33,7 @@ import org.codehaus.jackson.map.annotate.JsonDeserialize;
 @SuppressWarnings("unused")
 abstract class TwitterProfileMixin {
     @JsonCreator
-    TwitterProfileMixin(@JsonProperty("id") long id, @JsonProperty("screen_name") String screenName,
+    TwitterProfileMixin(@JsonProperty("id") String id, @JsonProperty("screen_name") String screenName,
             @JsonProperty("name") String name, @JsonProperty("url") String url,
             @JsonProperty("profile_image_url") String profileImageUrl, @JsonProperty("description") String description,
             @JsonProperty("location") String location,

@@ -63,7 +63,7 @@ public class TwitterProfile extends UserProfile {
     private String linkColor;
     private boolean showAllInlineMedia;
 
-    public TwitterProfile(long id, String screenName, String name, String url, String profileImageUrl, String description,
+    public TwitterProfile(String id, String screenName, String name, String url, String profileImageUrl, String description,
             String location, Date createdDate) {
         super(id);
         this.screenName = screenName;
