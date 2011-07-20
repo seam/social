@@ -7,7 +7,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.jboss.arquillian.api.Deployment;
+import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.seam.social.core.HasStatus;
 import org.jboss.seam.social.core.HttpResponse;
