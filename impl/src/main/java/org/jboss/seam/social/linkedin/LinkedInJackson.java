@@ -16,16 +16,13 @@
  */
 package org.jboss.seam.social.linkedin;
 
-import javax.annotation.PostConstruct;
-import javax.enterprise.inject.New;
-import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 
+import org.codehaus.jackson.map.Module;
 import org.jboss.seam.social.core.HttpResponse;
 import org.jboss.seam.social.core.JsonMapper;
 import org.jboss.seam.social.core.OAuthRequest;
-import org.jboss.seam.social.core.OAuthService;
-import org.jboss.seam.social.core.OAuthServiceBase;
+import org.jboss.seam.social.core.OAuthServiceJackson;
 import org.jboss.seam.social.core.RelatedTo;
 import org.jboss.seam.social.core.RestVerb;
 import org.jboss.seam.social.core.UserProfile;
@@ -36,8 +33,8 @@ import org.jboss.seam.social.linkedin.model.Update;
  * @author Antoine Sabot-Durand
  * @author Craig Walls
  */
-
-public class LinkedInJackson extends OAuthServiceBase implements LinkedIn {
+@RelatedTo(LinkedInJackson.TYPE)
+public class LinkedInJackson extends OAuthServiceJackson implements LinkedIn {
 
     private static final long serialVersionUID = -6718362913575146613L;
 
@@ -50,21 +47,10 @@ public class LinkedInJackson extends OAuthServiceBase implements LinkedIn {
     @Inject
     private JsonMapper jsonMapper;
 
-    @PostConstruct
-    void init() {
-        jsonMapper.registerModule(new LinkedInModule());
-    }
-
     @Override
     protected HttpResponse sendSignedRequest(OAuthRequest request) {
         request.addHeader("x-li-format", "json");
         return super.sendSignedRequest(request);
-    }
-
-    @Produces
-    @RelatedTo(LinkedInJackson.TYPE)
-    protected OAuthService qualifiedLinkedInProducer(@New LinkedInJackson service) {
-        return service;
     }
 
     /*
@@ -147,6 +133,16 @@ public class LinkedInJackson extends OAuthServiceBase implements LinkedIn {
     protected void initMyProfile() {
         myProfile = jsonMapper.readValue(sendSignedRequest(RestVerb.GET, PROFILE_URL), LinkedInProfile.class);
 
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.jboss.seam.social.core.OAuthServiceJackson#getJacksonModule()
+     */
+    @Override
+    protected Module getJacksonModule() {
+        return new LinkedInModule();
     }
 
 }

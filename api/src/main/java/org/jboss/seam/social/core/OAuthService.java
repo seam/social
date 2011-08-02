@@ -177,5 +177,4 @@ public interface OAuthService extends Serializable {
      */
     UserProfile getMyProfile();
 
-
 }

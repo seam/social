@@ -50,6 +50,11 @@ public class UserJackson extends UserProfile implements User {
         super(id);
     }
 
+    protected UserJackson() {
+
+        super(null);
+    }
+
     /**
      * 
      */

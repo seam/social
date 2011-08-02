@@ -19,20 +19,15 @@ package org.jboss.seam.social.twitter;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import javax.enterprise.inject.New;
-import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 
 import org.codehaus.jackson.annotate.JsonCreator;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
+import org.codehaus.jackson.map.Module;
 import org.jboss.logging.Logger;
 import org.jboss.seam.social.core.HttpResponse;
-import org.jboss.seam.social.core.JsonMapper;
-import org.jboss.seam.social.core.OAuthService;
-import org.jboss.seam.social.core.OAuthServiceBase;
+import org.jboss.seam.social.core.OAuthServiceJackson;
 import org.jboss.seam.social.core.RelatedTo;
 import org.jboss.seam.social.core.RestVerb;
 import org.jboss.seam.social.core.URLUtils;
@@ -45,7 +40,8 @@ import org.jboss.seam.social.twitter.model.TwitterProfile;
  * 
  */
 
-public class TwitterJackson extends OAuthServiceBase implements Twitter {
+@RelatedTo(TwitterJackson.TYPE)
+public class TwitterJackson extends OAuthServiceJackson implements Twitter {
 
     /**
      * Typed list of TwitterProfile. This helps Jackson know which type to deserialize list contents into.
@@ -95,19 +91,10 @@ public class TwitterJackson extends OAuthServiceBase implements Twitter {
     @Inject
     Logger log;
 
-    @Inject
-    private JsonMapper jsonMapper;
-
-    @Produces
-    @RelatedTo(TwitterJackson.TYPE)
-    protected OAuthService qualifiedTwitterProducer(@New TwitterJackson service) {
-        return service;
-    }
-
     @Override
     public Tweet updateStatus(String message) {
         HttpResponse resp = sendSignedRequest(RestVerb.POST, TWEET_URL, "status", message);
-        System.out.println("update satus is " + message);
+        log.infof("update satus is %s", message);
         setStatus("");
         return jsonMapper.readValue(resp, Tweet.class);
 
@@ -141,17 +128,6 @@ public class TwitterJackson extends OAuthServiceBase implements Twitter {
     @Override
     public Tweet updateStatus() {
         return updateStatus(getStatus());
-    }
-
-    @PostConstruct
-    void init() {
-        log.info("== Creating a new Twitter Bean : " + this.hashCode());
-        jsonMapper.registerModule(new TwitterModule());
-    }
-
-    @PreDestroy
-    void destroy() {
-        log.info("== Destroying Twitter Bean : " + this.hashCode());
     }
 
     public String getProfileId() {
@@ -229,6 +205,16 @@ public class TwitterJackson extends OAuthServiceBase implements Twitter {
     protected void initMyProfile() {
         myProfile = jsonMapper.readValue(sendSignedRequest(RestVerb.GET, VERIFY_CREDENTIALS_URL), TwitterProfile.class);
 
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.jboss.seam.social.core.OAuthServiceJackson#getJacksonModule()
+     */
+    @Override
+    protected Module getJacksonModule() {
+        return new TwitterModule();
     }
 
 }

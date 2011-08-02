@@ -22,7 +22,6 @@
     <o:OAuthServiceSettingsImpl>
         <s:modifies />
         <o:RelatedTo>Twitter</o:RelatedTo>
-        <o:serviceName>Twitter</o:serviceName>
         <o:apiKey>FQzlQC49UhvbMZoxUIvHTQ</o:apiKey>
         <o:apiSecret>VQ5CZHG4qUoAkUUmckPn4iN4yyjBKcORTW0wnok4r1k
         </o:apiSecret>

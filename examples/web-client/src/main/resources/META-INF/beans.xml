@@ -22,7 +22,6 @@
     <o:OAuthServiceSettingsImpl>
         <s:modifies />
         <o:RelatedTo>Twitter</o:RelatedTo>
-        <o:serviceName>Twitter</o:serviceName>
         <o:apiKey>FQzlQC49UhvbMZoxUIvHTQ</o:apiKey>
         <o:apiSecret>VQ5CZHG4qUoAkUUmckPn4iN4yyjBKcORTW0wnok4r1k
         </o:apiSecret>
@@ -33,7 +32,6 @@
     <o:OAuthServiceSettingsImpl>
         <s:modifies />
         <o:RelatedTo>LinkedIn</o:RelatedTo>
-        <o:serviceName>LinkedIn</o:serviceName>
         <o:apiKey>ympq1JR_oxeC3qZE4VwiDEr-9Rc9Am0YE1AJwwXJNREfqaF7J6hXfsncu_JFd13W
         </o:apiKey>
         <o:apiSecret>RwDk21M6qQeGT_zi2icmZV6tc5VsjRZPm7DWDIVt0Wsqu2eYBXt4Csg-FUbBZIIH
@@ -45,7 +43,6 @@
     <o:OAuthServiceSettingsImpl>
         <s:modifies />
         <o:RelatedTo>Facebook</o:RelatedTo>
-        <o:serviceName>Facebook</o:serviceName>
         <o:apiKey>204631749555557</o:apiKey>
         <o:apiSecret>5d3132b1448a66d28e5c420b267cd65e</o:apiSecret>
         <o:scope>publish_stream,read_stream</o:scope>

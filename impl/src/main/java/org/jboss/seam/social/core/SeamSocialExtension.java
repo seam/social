@@ -16,17 +16,24 @@
  */
 package org.jboss.seam.social.core;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
+import javax.enterprise.inject.spi.AfterBeanDiscovery;
 import javax.enterprise.inject.spi.Annotated;
+import javax.enterprise.inject.spi.AnnotatedType;
 import javax.enterprise.inject.spi.BeanManager;
 import javax.enterprise.inject.spi.Extension;
 import javax.enterprise.inject.spi.ProcessBean;
+import javax.enterprise.inject.spi.ProcessManagedBean;
 
 import org.jboss.logging.Logger;
+import org.jboss.seam.solder.bean.BeanBuilder;
+import org.jboss.seam.solder.reflection.annotated.AnnotatedTypeBuilder;
 
 /**
  * @author Antoine Sabot-Durand
@@ -36,54 +43,70 @@ import org.jboss.logging.Logger;
 public class SeamSocialExtension implements Extension {
 
     private Set<String> servicesNames = new HashSet<String>();
+    private Map<String, AnnotatedType<? extends OAuthService>> servicesBean = new HashMap<String, AnnotatedType<? extends OAuthService>>();
     private static final Logger log = Logger.getLogger(SeamSocialExtension.class);
 
-    // public void processSetting(@Observes ProcessBean<TwitterTest> event, BeanManager manager)
-    // {
-    //
-    // for (InjectionPoint ip : event.getBean().getInjectionPoints())
-    // {
-    // Setted setting=AnnotationInspector.getAnnotation(ip.getAnnotated(),Setted.class, manager);
-    //
-    //
-    // if(setting != null)
-    // {
-    //
-    // String api = setting.apiKey();
-    // String secret = setting.apiSecret();
-    // String callBack = setting.callback();
-    // try {
-    // Class clazz=(Class) ip.getType();
-    // String type = (String) clazz.getField("TYPE").get(null);
-    // System.out.println(type);
-    // } catch (SecurityException e) {
-    // // TODO Auto-generated catch block
-    // e.printStackTrace();
-    // } catch (NoSuchFieldException e) {
-    // // TODO Auto-generated catch block
-    // e.printStackTrace();
-    // } catch (IllegalArgumentException e) {
-    // // TODO Auto-generated catch block
-    // e.printStackTrace();
-    // } catch (IllegalAccessException e) {
-    // // TODO Auto-generated catch block
-    // e.printStackTrace();
-    // }
-    //
-    //
-    // }
-    // }
-    // }
-
-    public void processBeans(@Observes ProcessBean<OAuthServiceSettings> pbean, BeanManager beanManager) {
+    /*
+     * public void processSetting(@Observes ProcessBean<?> procBean, BeanManager manager) {
+     * 
+     * for (InjectionPoint ip : procBean.getBean().getInjectionPoints()) { Setted setting =
+     * AnnotationInspector.getAnnotation(ip.getAnnotated(), Setted.class, manager);
+     * 
+     * if (setting != null) {
+     * 
+     * String api = setting.apiKey(); String secret = setting.apiSecret(); String callBack = setting.callback(); try { Class
+     * clazz = (Class) ip.getType(); String type = (String) clazz.getField("TYPE").get(null); // we need an OAuthSettings bean
+     * with the previous values } catch (SecurityException e) { // TODO Auto-generated catch block e.printStackTrace(); } catch
+     * (NoSuchFieldException e) { // TODO Auto-generated catch block e.printStackTrace(); } catch (IllegalArgumentException e) {
+     * // TODO Auto-generated catch block e.printStackTrace(); } catch (IllegalAccessException e) { // TODO Auto-generated catch
+     * block e.printStackTrace(); }
+     * 
+     * } } }
+     */
+    public void processSettingsBeans(@Observes ProcessBean<OAuthServiceSettings> pbean) {
 
         log.info("Starting enumeration of existing service settings");
-        Annotated anno = pbean.getAnnotated();
-        if (anno.isAnnotationPresent(RelatedTo.class)) {
-            String name = anno.getAnnotation(RelatedTo.class).value();
+        Annotated annotated = pbean.getAnnotated();
+
+        if (annotated.isAnnotationPresent(RelatedTo.class)) {
+            RelatedTo related = annotated.getAnnotation(RelatedTo.class);
+            String name = related.value();
 
             log.infof("Found configuration for service %s", name);
-            servicesNames.add(anno.getAnnotation(RelatedTo.class).value());
+            servicesNames.add(name);
+
+        }
+    }
+
+    /**
+     * This Listener build the List of existing OAuthServices with a RelatedTo Qualifier
+     * 
+     * @param pbean
+     */
+    public void processServicesBeans(@Observes ProcessManagedBean<OAuthService> pbean) {
+        Annotated annotated = pbean.getAnnotated();
+        if (annotated.isAnnotationPresent(RelatedTo.class)) {
+            RelatedTo related = annotated.getAnnotation(RelatedTo.class);
+            String name = related.value();
+            servicesBean.put(name, pbean.getAnnotatedBeanClass());
+        }
+    }
+
+    /**
+     * This listener register a new Bean without Qualifier for each bean with RalatedTo qualifier
+     * 
+     * @param abd
+     * @param bm
+     */
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+    public void afterBeanDiscovery(@Observes AfterBeanDiscovery abd, BeanManager bm) {
+        for (String type : servicesBean.keySet()) {
+            AnnotatedType<? extends OAuthService> annotatedType = servicesBean.get(type);
+            AnnotatedTypeBuilder annoBuilder = new AnnotatedTypeBuilder().readFromType(annotatedType).removeFromClass(
+                    RelatedTo.class);
+            AnnotatedType myAnnotatedType = annoBuilder.create();
+            BeanBuilder beanBuilder = new BeanBuilder(bm).readFromType(myAnnotatedType);
+            abd.addBean(beanBuilder.create());
         }
     }
 

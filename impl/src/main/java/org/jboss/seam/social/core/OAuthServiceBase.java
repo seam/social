@@ -19,7 +19,6 @@ package org.jboss.seam.social.core;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Any;
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
@@ -58,8 +57,7 @@ public abstract class OAuthServiceBase implements OAuthService, HasStatus {
     private boolean connected = false;
     private String status;
 
-    @PostConstruct
-    protected void postConstruct() {
+    protected void init() {
         String type = getType();
         try {
             setSettings(settingsInstances.select(new RelatedTo.RelatedToLiteral(type)).get());

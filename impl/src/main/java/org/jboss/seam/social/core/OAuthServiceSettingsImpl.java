@@ -17,14 +17,15 @@
 package org.jboss.seam.social.core;
 
 import java.io.Serializable;
+import java.lang.annotation.Annotation;
 
-import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.spi.InjectionPoint;
+import javax.inject.Inject;
 
 /**
  * @author Antoine Sabot-Durand
  */
 
-@ApplicationScoped
 public class OAuthServiceSettingsImpl implements OAuthServiceSettings, Serializable {
     /**
      *
@@ -89,21 +90,14 @@ public class OAuthServiceSettingsImpl implements OAuthServiceSettings, Serializa
         this.serviceName = serviceName;
     }
 
-    protected OAuthServiceSettingsImpl() {
-        super();
-    }
+    @Inject
+    public OAuthServiceSettingsImpl(InjectionPoint ip) {
 
-    public OAuthServiceSettingsImpl(String serviceName, String apiKey, String apiSecret, String callback) {
-        this(serviceName, apiKey, apiSecret, callback, null);
-    }
+        for (Annotation quali : ip.getQualifiers()) {
+            if (quali.annotationType().equals(RelatedTo.class))
+                this.serviceName = ((RelatedTo) quali).value();
 
-    public OAuthServiceSettingsImpl(String serviceName, String apiKey, String apiSecret, String callback, String scope) {
-        super();
-        this.serviceName = serviceName;
-        this.apiKey = apiKey;
-        this.apiSecret = apiSecret;
-        this.callback = callback;
-        this.scope = scope;
+        }
     }
 
     @Override

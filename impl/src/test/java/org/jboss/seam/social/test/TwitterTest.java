@@ -48,7 +48,7 @@ import org.junit.runner.RunWith;
 public class TwitterTest {
     @Inject
     // @Setted(apiKey = "FQzlQC49UhvbMZoxUIvHTQ", apiSecret = "VQ5CZHG4qUoAkUUmckPn4iN4yyjBKcORTW0wnok4r1k")
-    TwitterJackson twitter;
+    Twitter twitter;
 
     @Deployment
     public static Archive<?> createTestArchive() throws FileNotFoundException {
@@ -90,17 +90,13 @@ public class TwitterTest {
 
     @Test
     public void sendATweet() {
-        init();
-
-        Tweet tweet = twitter.updateStatus("Tweet sent from JUnit at " + new Date().toString());
+        Tweet tweet = (Tweet) twitter.updateStatus("Tweet sent from JUnit at " + new Date().toString());
         Assert.assertFalse(tweet.getId() == 0);
 
     }
 
     @Test
     public void searchUser() {
-        init();
-
         List<TwitterProfile> res = twitter.searchForUsers("antoine");
         Assert.assertFalse(res.isEmpty());
 
@@ -108,8 +104,6 @@ public class TwitterTest {
 
     @Test
     public void SuggestionCaegoriesNotEmpty() {
-        init();
-
         List<SuggestionCategory> res = twitter.getSuggestionCategories();
         Assert.assertFalse(res.isEmpty());
 
