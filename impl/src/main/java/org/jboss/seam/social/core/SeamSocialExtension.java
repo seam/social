@@ -102,9 +102,11 @@ public class SeamSocialExtension implements Extension {
     public void afterBeanDiscovery(@Observes AfterBeanDiscovery abd, BeanManager bm) {
         for (String type : servicesBean.keySet()) {
             AnnotatedType<? extends OAuthService> annotatedType = servicesBean.get(type);
+
             AnnotatedTypeBuilder annoBuilder = new AnnotatedTypeBuilder().readFromType(annotatedType).removeFromClass(
                     RelatedTo.class);
             AnnotatedType myAnnotatedType = annoBuilder.create();
+
             BeanBuilder beanBuilder = new BeanBuilder(bm).readFromType(myAnnotatedType);
             abd.addBean(beanBuilder.create());
         }

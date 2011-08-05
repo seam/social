@@ -100,6 +100,15 @@ public class OAuthServiceSettingsImpl implements OAuthServiceSettings, Serializa
         }
     }
 
+    OAuthServiceSettingsImpl(String apiKey, String apiSecret, String callback, String scope, String serviceName) {
+        super();
+        this.apiKey = apiKey;
+        this.apiSecret = apiSecret;
+        this.callback = callback;
+        this.scope = scope;
+        this.serviceName = serviceName;
+    }
+
     @Override
     public String toString() {
         return "OAuthServiceSettingsImpl [apiKey=" + apiKey + ", apiSecret=" + apiSecret + ", callback=" + callback

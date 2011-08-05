@@ -82,6 +82,7 @@
                 <artifactId>seam-social</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            
 
             <dependency>
                 <groupId>org.scribe</groupId>

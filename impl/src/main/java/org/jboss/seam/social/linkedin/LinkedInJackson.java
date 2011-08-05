@@ -16,11 +16,8 @@
  */
 package org.jboss.seam.social.linkedin;
 
-import javax.inject.Inject;
-
 import org.codehaus.jackson.map.Module;
 import org.jboss.seam.social.core.HttpResponse;
-import org.jboss.seam.social.core.JsonMapper;
 import org.jboss.seam.social.core.OAuthRequest;
 import org.jboss.seam.social.core.OAuthServiceJackson;
 import org.jboss.seam.social.core.RelatedTo;
@@ -43,9 +40,6 @@ public class LinkedInJackson extends OAuthServiceJackson implements LinkedIn {
     static final String LOGO_URL = "https://d2l6uygi1pgnys.cloudfront.net/1-9-05/images/buttons/linkedin_connect.png";
     public static final String TYPE = "LinkedIn";
     static final String NETWORK_UPDATE_URL = "http://api.linkedin.com/v1/people/~/person-activities";
-
-    @Inject
-    private JsonMapper jsonMapper;
 
     @Override
     protected HttpResponse sendSignedRequest(OAuthRequest request) {

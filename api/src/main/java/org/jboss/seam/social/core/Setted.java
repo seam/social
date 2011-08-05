@@ -26,7 +26,7 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
-import javax.enterprise.util.Nonbinding;
+import javax.inject.Qualifier;
 
 /**
  * A CDI Qualifier annotation to qualify and set OAuthService directly in the code It can be used like this :
@@ -43,17 +43,17 @@ import javax.enterprise.util.Nonbinding;
  * @author Antoine Sabot-Durand
  */
 
+@Qualifier
 @Target({ TYPE, METHOD, PARAMETER, FIELD })
 @Retention(RUNTIME)
 @Documented
 public @interface Setted {
 
-    @Nonbinding
     String apiKey() default "";
 
-    @Nonbinding
     String apiSecret() default "";
 
-    @Nonbinding
     String callback() default "oob";
+
+    String scope() default "";
 }

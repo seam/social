@@ -43,28 +43,41 @@ public abstract class OAuthServiceBase implements OAuthService, HasStatus {
     private OAuthProvider provider;
 
     @Inject
-    @Any
-    protected Instance<OAuthServiceSettings> settingsInstances;
-
-    @Inject
     private Logger log;
 
     @Inject
     protected OAuthSessionSettings sessionSettings;
+
+    @Inject
+    @Any
+    private Instance<OAuthServiceSettings> settingsInstances;
+
+    // @Inject
+    // protected InjectionPoint injectionPoint;
 
     protected UserProfile myProfile;
 
     private boolean connected = false;
     private String status;
 
+    /*
+     * protected OAuthServiceBase(InjectionPoint injectionPoint) { super(); this.injectionPoint = injectionPoint; }
+     */
+
     protected void init() {
-        String type = getType();
+
+        OAuthServiceSettings setting;
         try {
-            setSettings(settingsInstances.select(new RelatedTo.RelatedToLiteral(type)).get());
+            setting = settingsInstances.select(new RelatedTo.RelatedToLiteral(getType())).get();
+            setSettings(setting);
         } catch (Exception e) {
-            throw new SeamSocialException("Unable to find settings for service " + type, e);
+            throw new SeamSocialException("Unable to find settings for service " + getType(), e);
             // TODO later we can provide another way to get those settings (properties, jpa, etc...)
         }
+
+        setSettings(setting);
+
+        provider.initProvider(settings);
     }
 
     @Override
@@ -114,7 +127,6 @@ public abstract class OAuthServiceBase implements OAuthService, HasStatus {
 
     public void setSettings(OAuthServiceSettings settings) {
         this.settings = settings;
-        provider.initProvider(settings);
     }
 
     @Override

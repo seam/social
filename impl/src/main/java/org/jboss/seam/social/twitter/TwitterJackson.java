@@ -19,6 +19,7 @@ package org.jboss.seam.social.twitter;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.enterprise.inject.spi.InjectionPoint;
 import javax.inject.Inject;
 
 import org.codehaus.jackson.annotate.JsonCreator;
@@ -42,6 +43,12 @@ import org.jboss.seam.social.twitter.model.TwitterProfile;
 
 @RelatedTo(TwitterJackson.TYPE)
 public class TwitterJackson extends OAuthServiceJackson implements Twitter {
+
+    /**
+     * @param injectionPoint
+     * @Inject protected TwitterJackson(InjectionPoint injectionPoint) { // super(injectionPoint); // TODO Auto-generated
+     *         constructor stub }
+     */
 
     /**
      * Typed list of TwitterProfile. This helps Jackson know which type to deserialize list contents into.
@@ -94,7 +101,7 @@ public class TwitterJackson extends OAuthServiceJackson implements Twitter {
     @Override
     public Tweet updateStatus(String message) {
         HttpResponse resp = sendSignedRequest(RestVerb.POST, TWEET_URL, "status", message);
-        log.infof("update satus is %s", message);
+        log.infof("update status is %s", message);
         setStatus("");
         return jsonMapper.readValue(resp, Tweet.class);
 

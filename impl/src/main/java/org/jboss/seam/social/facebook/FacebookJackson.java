@@ -22,7 +22,6 @@ import javax.inject.Inject;
 import org.codehaus.jackson.map.Module;
 import org.jboss.logging.Logger;
 import org.jboss.seam.social.core.HttpResponse;
-import org.jboss.seam.social.core.JsonMapper;
 import org.jboss.seam.social.core.OAuthServiceJackson;
 import org.jboss.seam.social.core.RelatedTo;
 import org.jboss.seam.social.core.RestVerb;
@@ -44,8 +43,6 @@ public class FacebookJackson extends OAuthServiceJackson implements Facebook {
 
     @Inject
     private Logger log;
-    @Inject
-    private JsonMapper jsonMapperProducer;
 
     private UserJackson myProfile;
 
@@ -116,7 +113,7 @@ public class FacebookJackson extends OAuthServiceJackson implements Facebook {
     @Override
     protected void initMyProfile() {
         HttpResponse resp = sendSignedRequest(RestVerb.GET, USER_PROFILE_URL);
-        myProfile = jsonMapperProducer.readValue(resp, UserJackson.class);
+        myProfile = jsonMapper.readValue(resp, UserJackson.class);
 
     }
 

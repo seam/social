@@ -16,6 +16,12 @@ import org.codehaus.jackson.map.Module;
 public abstract class OAuthServiceJackson extends OAuthServiceBase {
 
     /**
+     * @param injectionPoint
+     * 
+     *        protected OAuthServiceJackson(InjectionPoint injectionPoint) { super(injectionPoint); }
+     */
+
+    /**
      * 
      */
     private static final long serialVersionUID = -7806134655399349774L;
