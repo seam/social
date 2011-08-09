@@ -66,7 +66,7 @@
         </dependency>
         <dependency>
             <groupId>org.jboss.seam.social</groupId>
-            <artifactId>seam-social-impl</artifactId>
+            <artifactId>seam-social</artifactId>
             <scope>runtime</scope>
         </dependency>
         <dependency>

@@ -45,7 +45,6 @@
     <modules>
         <module>api</module>
         <module>impl</module>
-        <module>combined</module>
         <module>examples/web-client</module>
     </modules>
 
@@ -68,13 +67,6 @@
                 <groupId>org.jboss.seam.social</groupId>
                 <artifactId>seam-social-api</artifactId>
                 <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.jboss.seam.social</groupId>
-                <artifactId>seam-social-impl</artifactId>
-                <version>${project.version}</version>
-                <scope>runtime</scope>
             </dependency>
 
             <dependency>

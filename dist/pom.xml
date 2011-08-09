@@ -48,7 +48,7 @@
 
         <dependency>
             <groupId>org.jboss.seam.social</groupId>
-            <artifactId>seam-social-impl</artifactId>
+            <artifactId>seam-social</artifactId>
         </dependency>
 
         <dependency>
@@ -61,7 +61,7 @@
 
         <dependency>
             <groupId>org.jboss.seam.social</groupId>
-            <artifactId>seam-social-impl</artifactId>
+            <artifactId>seam-social</artifactId>
             <version>${project.version}</version>
             <classifier>sources</classifier>
             <optional>true</optional>

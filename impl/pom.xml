@@ -20,7 +20,7 @@
     </parent>
 
     <groupId>org.jboss.seam.social</groupId>
-    <artifactId>seam-social-impl</artifactId>
+    <artifactId>seam-social</artifactId>
 
     <packaging>jar</packaging>
     <name>Seam Social Module Core Implementation</name>
