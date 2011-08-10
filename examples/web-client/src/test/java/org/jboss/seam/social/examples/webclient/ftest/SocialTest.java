@@ -28,9 +28,9 @@ public class SocialTest extends AbstractTestCase {
     private static Properties properties = null;
     private static String PROPERTY_FILE = "ftest.properties";
 
-    protected final XpathLocator HOME_TWITTER_LINK = xp("//a/img[contains(@src,'twitter')]/..");
-    protected final XpathLocator HOME_LINKEDIN_LINK = xp("//a/img[contains(@src,'linkedin')]/..");
-    protected final XpathLocator HOME_FACEBOOK_LINK = xp("//a/img[contains(@src,'facebook')]/..");
+    protected final XpathLocator HOME_TWITTER_LINK = xp("//a[contains(text(),'Twitter')]");
+    protected final XpathLocator HOME_LINKEDIN_LINK = xp("//a[contains(text(),'LinkedIn')]");
+    protected final XpathLocator HOME_FACEBOOK_LINK = xp("//a[contains(text(),'Facebook')]");
 
     protected final XpathLocator CALLBACK_HEADER = xp("//h1[text()='Seam Social client Example']");
     protected final XpathLocator CALLBACK_CLIENT = xp("//a[text()='client']");
@@ -45,7 +45,7 @@ public class SocialTest extends AbstractTestCase {
 
     protected final XpathLocator FACEBOOK_EMAIL = xp("//input[@id='email']");
     protected final XpathLocator FACEBOOK_PASSWORD = xp("//input[@id='pass']");
-    protected final XpathLocator FACEBOOK_LOGIN = xp("//input[@value='Login']");
+    protected final XpathLocator FACEBOOK_LOGIN = xp("//input[@value='Log In']");
     protected final XpathLocator FACEBOOK_ALLOW = xp("//input[@value='Allow']");
 
     @BeforeMethod
