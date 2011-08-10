@@ -23,7 +23,6 @@ import org.codehaus.jackson.map.Module;
 import org.jboss.logging.Logger;
 import org.jboss.seam.social.core.HttpResponse;
 import org.jboss.seam.social.core.OAuthServiceJackson;
-import org.jboss.seam.social.core.RelatedTo;
 import org.jboss.seam.social.core.RestVerb;
 import org.jboss.seam.social.core.UserProfile;
 import org.jboss.seam.social.facebook.model.UserJackson;
@@ -32,12 +31,10 @@ import org.jboss.seam.social.facebook.model.UserJackson;
  * @author Antoine Sabot-Durand
  */
 
-@RelatedTo(FacebookJackson.TYPE)
 public class FacebookJackson extends OAuthServiceJackson implements Facebook {
 
     static final String USER_PROFILE_URL = "https://graph.facebook.com/me";
     static final String LOGO_URL = "https://d2l6uygi1pgnys.cloudfront.net/2-2-08/images/buttons/facebook_connect.png";
-    public static final String TYPE = "Facebook";
     static final String STATUS_UPDATE_URL = "https://graph.facebook.com/me/feed";
     private static final String VERIFIER_PARAM_NAME = "code";
 

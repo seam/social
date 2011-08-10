@@ -14,18 +14,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social.linkedin;
+package org.jboss.seam.social.facebook;
 
-import org.jboss.seam.social.core.HasStatus;
+import javax.enterprise.inject.New;
+import javax.enterprise.inject.Produces;
+
 import org.jboss.seam.social.core.OAuthService;
+import org.jboss.seam.social.core.RelatedTo;
 
 /**
- * A specialization of {@link OAuthService} to add LinkedIn specific methods
+ * @author antoine
  * 
- * @author Antoine Sabot-Durand
  */
-public interface LinkedIn extends OAuthService, HasStatus {
+public class FacebookProducer {
 
-    static final String TYPE = "LinkedIn";
+    @Produces
+    @RelatedTo(Facebook.TYPE)
+    protected OAuthService produceTwitter(@New FacebookJackson service) {
+        return service;
+    }
 
 }

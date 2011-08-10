@@ -20,7 +20,6 @@ import org.codehaus.jackson.map.Module;
 import org.jboss.seam.social.core.HttpResponse;
 import org.jboss.seam.social.core.OAuthRequest;
 import org.jboss.seam.social.core.OAuthServiceJackson;
-import org.jboss.seam.social.core.RelatedTo;
 import org.jboss.seam.social.core.RestVerb;
 import org.jboss.seam.social.core.UserProfile;
 import org.jboss.seam.social.linkedin.model.LinkedInProfile;
@@ -30,7 +29,6 @@ import org.jboss.seam.social.linkedin.model.Update;
  * @author Antoine Sabot-Durand
  * @author Craig Walls
  */
-@RelatedTo(LinkedInJackson.TYPE)
 public class LinkedInJackson extends OAuthServiceJackson implements LinkedIn {
 
     private static final long serialVersionUID = -6718362913575146613L;
@@ -38,7 +36,7 @@ public class LinkedInJackson extends OAuthServiceJackson implements LinkedIn {
     static final String PROFILE_URL = "https://api.linkedin.com/v1/people/~:(id,first-name,last-name,headline,industry,site-standard-profile-request,public-profile-url,picture-url)";
 
     static final String LOGO_URL = "https://d2l6uygi1pgnys.cloudfront.net/1-9-05/images/buttons/linkedin_connect.png";
-    public static final String TYPE = "LinkedIn";
+
     static final String NETWORK_UPDATE_URL = "http://api.linkedin.com/v1/people/~/person-activities";
 
     @Override

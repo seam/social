@@ -1,6 +1,5 @@
 package org.jboss.seam.social.test;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Date;
 import java.util.List;
@@ -22,6 +21,7 @@ import org.jboss.seam.social.core.OAuthSessionSettingsImpl;
 import org.jboss.seam.social.core.OAuthToken;
 import org.jboss.seam.social.core.RelatedTo;
 import org.jboss.seam.social.core.RestVerb;
+import org.jboss.seam.social.core.ConfigureOAuth;
 import org.jboss.seam.social.core.UserProfile;
 import org.jboss.seam.social.core.scribe.OAuthProviderScribe;
 import org.jboss.seam.social.core.scribe.OAuthTokenScribe;
@@ -32,10 +32,8 @@ import org.jboss.seam.social.twitter.model.SuggestionCategory;
 import org.jboss.seam.social.twitter.model.Tweet;
 import org.jboss.seam.social.twitter.model.TwitterProfile;
 import org.jboss.shrinkwrap.api.Archive;
-import org.jboss.shrinkwrap.api.ArchivePaths;
 import org.jboss.shrinkwrap.api.GenericArchive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.FileAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.resolver.api.DependencyResolvers;
 import org.jboss.shrinkwrap.resolver.api.maven.MavenDependencyResolver;
@@ -47,14 +45,15 @@ import org.junit.runner.RunWith;
 @RunWith(Arquillian.class)
 public class TwitterTest {
     @Inject
-    // @Setted(apiKey = "FQzlQC49UhvbMZoxUIvHTQ", apiSecret = "VQ5CZHG4qUoAkUUmckPn4iN4yyjBKcORTW0wnok4r1k")
+    @ConfigureOAuth(apiKey = "FQzlQC49UhvbMZoxUIvHTQ", apiSecret = "VQ5CZHG4qUoAkUUmckPn4iN4yyjBKcORTW0wnok4r1k")
     Twitter twitter;
 
     @Deployment
     public static Archive<?> createTestArchive() throws FileNotFoundException {
-        File beanFile = new File("src/test/resources/META-INF/beans.xml");
-        if (!beanFile.exists())
-            throw new FileNotFoundException();
+        /*
+         * File beanFile = new File("src/test/resources/META-INF/beans.xml"); if (!beanFile.exists()) throw new
+         * FileNotFoundException();
+         */
         Archive<?> ret = ShrinkWrap
                 .create(WebArchive.class, "test.war")
                 .addClasses(TwitterJackson.class, Twitter.class, OAuthService.class, OAuthServiceBase.class,
@@ -67,9 +66,7 @@ public class TwitterTest {
                         DependencyResolvers.use(MavenDependencyResolver.class).loadReposFromPom("pom.xml")
                                 .artifact("org.jboss.seam.config:seam-config-xml")
                                 .artifact("org.jboss.seam.solder:seam-solder").artifact("org.scribe:scribe")
-                                .resolveAs(GenericArchive.class))
-                .addAsWebInfResource(new FileAsset(beanFile), ArchivePaths.create("classes/META-INF/beans.xml"));
-
+                                .resolveAs(GenericArchive.class));
         // ret.as(ZipExporter.class).exportTo(new File("mytest.war"), true);
 
         return ret;
@@ -97,6 +94,7 @@ public class TwitterTest {
 
     @Test
     public void searchUser() {
+        init();
         List<TwitterProfile> res = twitter.searchForUsers("antoine");
         Assert.assertFalse(res.isEmpty());
 

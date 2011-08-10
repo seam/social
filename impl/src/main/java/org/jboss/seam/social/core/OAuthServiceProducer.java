@@ -14,18 +14,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social.linkedin;
+package org.jboss.seam.social.core;
 
-import org.jboss.seam.social.core.HasStatus;
-import org.jboss.seam.social.core.OAuthService;
+import javax.enterprise.inject.spi.InjectionPoint;
 
 /**
- * A specialization of {@link OAuthService} to add LinkedIn specific methods
- * 
  * @author Antoine Sabot-Durand
  */
-public interface LinkedIn extends OAuthService, HasStatus {
+public abstract class OAuthServiceProducer<T extends OAuthService> {
 
-    static final String TYPE = "LinkedIn";
+    protected T setService(InjectionPoint ip, T hdl) {
+        if (ip == null || ip.getAnnotated() == null || hdl == null)
+            return null;
+        ConfigureOAuth configureOAuth = ip.getAnnotated().getAnnotation(ConfigureOAuth.class);
+        OAuthServiceSettings s = hdl.getSettings();
+
+        String apiKey = configureOAuth.apiKey();
+        String apiSecret = configureOAuth.apiSecret();
+        String callback = configureOAuth.callback();
+
+        s.setApiKey(apiKey);
+        s.setApiSecret(apiSecret);
+        s.setCallback(callback);
+
+        return hdl;
+    }
 
 }

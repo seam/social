@@ -21,6 +21,7 @@ import java.util.Map.Entry;
 
 import javax.enterprise.inject.Any;
 import javax.enterprise.inject.Instance;
+import javax.enterprise.inject.spi.InjectionPoint;
 import javax.inject.Inject;
 
 import org.jboss.logging.Logger;
@@ -52,28 +53,33 @@ public abstract class OAuthServiceBase implements OAuthService, HasStatus {
     @Any
     private Instance<OAuthServiceSettings> settingsInstances;
 
-    // @Inject
-    // protected InjectionPoint injectionPoint;
+    @Inject
+    protected InjectionPoint ip;
 
     protected UserProfile myProfile;
 
     private boolean connected = false;
     private String status;
 
-    /*
-     * protected OAuthServiceBase(InjectionPoint injectionPoint) { super(); this.injectionPoint = injectionPoint; }
-     */
-
     protected void init() {
 
         OAuthServiceSettings setting;
-        try {
-            setting = settingsInstances.select(new RelatedTo.RelatedToLiteral(getType())).get();
-            setSettings(setting);
-        } catch (Exception e) {
-            throw new SeamSocialException("Unable to find settings for service " + getType(), e);
-            // TODO later we can provide another way to get those settings (properties, jpa, etc...)
-        }
+
+        if (ip.getAnnotated().isAnnotationPresent(ConfigureOAuth.class)) {
+            ConfigureOAuth configureOAuth = ip.getAnnotated().getAnnotation(ConfigureOAuth.class);
+
+            String apiKey = configureOAuth.apiKey();
+            String apiSecret = configureOAuth.apiSecret();
+            String callback = configureOAuth.callback();
+            String scope = configureOAuth.scope();
+            setting = new OAuthServiceSettingsImpl(apiKey, apiSecret, callback, scope, getType());
+        } else
+            try {
+                setting = settingsInstances.select(new RelatedTo.RelatedToLiteral(getType())).get();
+            } catch (Exception e) {
+                throw new SeamSocialException("Unable to find settings for service " + getType(), e);
+                // TODO later we can provide another way to get those settings (properties, jpa, etc...)
+            }
 
         setSettings(setting);
 

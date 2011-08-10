@@ -19,7 +19,6 @@ package org.jboss.seam.social.twitter;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.enterprise.inject.spi.InjectionPoint;
 import javax.inject.Inject;
 
 import org.codehaus.jackson.annotate.JsonCreator;
@@ -29,7 +28,6 @@ import org.codehaus.jackson.map.Module;
 import org.jboss.logging.Logger;
 import org.jboss.seam.social.core.HttpResponse;
 import org.jboss.seam.social.core.OAuthServiceJackson;
-import org.jboss.seam.social.core.RelatedTo;
 import org.jboss.seam.social.core.RestVerb;
 import org.jboss.seam.social.core.URLUtils;
 import org.jboss.seam.social.twitter.model.SuggestionCategory;
@@ -41,14 +39,7 @@ import org.jboss.seam.social.twitter.model.TwitterProfile;
  * 
  */
 
-@RelatedTo(TwitterJackson.TYPE)
 public class TwitterJackson extends OAuthServiceJackson implements Twitter {
-
-    /**
-     * @param injectionPoint
-     * @Inject protected TwitterJackson(InjectionPoint injectionPoint) { // super(injectionPoint); // TODO Auto-generated
-     *         constructor stub }
-     */
 
     /**
      * Typed list of TwitterProfile. This helps Jackson know which type to deserialize list contents into.

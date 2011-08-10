@@ -13,19 +13,24 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
-package org.jboss.seam.social.linkedin;
+ */package org.jboss.seam.social.twitter;
 
-import org.jboss.seam.social.core.HasStatus;
+import javax.enterprise.inject.New;
+import javax.enterprise.inject.Produces;
+
 import org.jboss.seam.social.core.OAuthService;
+import org.jboss.seam.social.core.RelatedTo;
 
 /**
- * A specialization of {@link OAuthService} to add LinkedIn specific methods
+ * @author antoine
  * 
- * @author Antoine Sabot-Durand
  */
-public interface LinkedIn extends OAuthService, HasStatus {
+public class TwitterProducer {
 
-    static final String TYPE = "LinkedIn";
+    @Produces
+    @RelatedTo(Twitter.TYPE)
+    protected OAuthService produceTwitter(@New TwitterJackson service) {
+        return service;
+    }
 
 }

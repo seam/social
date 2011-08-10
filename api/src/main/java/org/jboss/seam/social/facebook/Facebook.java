@@ -27,4 +27,5 @@ import org.jboss.seam.social.core.OAuthService;
  */
 public interface Facebook extends OAuthService, HasStatus {
 
+    static final String TYPE = "Facebook";
 }
