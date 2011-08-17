@@ -25,7 +25,7 @@ import org.codehaus.jackson.annotate.JsonCreator;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.Module;
-import org.jboss.logging.Logger;
+import org.jboss.seam.solder.logging.Logger;
 import org.jboss.seam.social.core.HttpResponse;
 import org.jboss.seam.social.core.OAuthServiceJackson;
 import org.jboss.seam.social.core.RestVerb;

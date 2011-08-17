@@ -22,12 +22,12 @@
     <parent>
         <groupId>org.jboss.seam</groupId>
         <artifactId>seam-parent</artifactId>
-        <version>11</version>
+        <version>12</version>
     </parent>
 
     <artifactId>seam-social-parent</artifactId>
     <groupId>org.jboss.seam.social</groupId>
-    <version>3.0.0-SNAPSHOT</version>
+    <version>3.1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>Seam Social Module</name>
     <description>Integration of social networks with CDI</description>
@@ -49,7 +49,7 @@
     </modules>
 
     <properties>
-        <seam.version>3.0.0.Final</seam.version>
+        <seam.version>3.1.0.Beta1</seam.version>
         <scribe.version>1.2.0</scribe.version>
     </properties>
 

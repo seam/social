@@ -24,7 +24,7 @@ import javax.enterprise.inject.Instance;
 import javax.enterprise.inject.spi.InjectionPoint;
 import javax.inject.Inject;
 
-import org.jboss.logging.Logger;
+import org.jboss.seam.solder.logging.Logger;
 
 /**
  * @author Antoine Sabot-Durand
