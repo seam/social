@@ -46,8 +46,13 @@
          <outputDirectory>artifacts</outputDirectory>
          <useProjectArtifact>false</useProjectArtifact>
          <includes>
+            <include>org.jboss.seam.social:seam-social-api</include>
             <include>org.jboss.seam.social:seam-social</include>
          </includes>
+         <excludes>
+            <exclude>org.jboss.seam.social:*:*:javadoc</exclude>
+            <exclude>org.jboss.seam.social:*:*:sources</exclude>
+         </excludes>
          <outputFileNameMapping>${artifact.artifactId}${dashClassifier?}.${artifact.extension}</outputFileNameMapping>
       </dependencySet>
       

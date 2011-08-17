@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	template="/WEB-INF/templates/default.xhtml">
-	<ui:define name="content">
-		<f:metadata>
-			<f:viewParam name="#{socialClient.currentServiceHdl.verifierParamName}" value="#{socialClient.verifier}"
-				required="true"
-				requiredMessage="We didn't get the authorization from #{socialClient.currentServiceHdl.type}. Please go back and Try Again !" />
-			<f:event type="preRenderView" listener="#{socialClient.initAccessToken}" />
-		</f:metadata>
-		<h:messages />
-		<h1>Seam Social client Example</h1>
-		<p>Getting Authorization from #{socialClient.currentServiceHdl.type}</p>
-			You're ready to use Seam Social <h:link outcome="openclient">client</h:link>
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                template="/WEB-INF/templates/default.xhtml">
+    <ui:define name="content">
+        <f:metadata>
+            <f:viewParam name="#{socialClient.currentService.verifierParamName}" value="#{socialClient.verifier}"
+                         required="true"
+                         requiredMessage="We didn't get the authorization from #{socialClient.currentService.type}. Please go back and Try Again !"/>
+            <f:event type="preRenderView" listener="#{socialClient.connectCurrentService()}"/>
+        </f:metadata>
+        <h:messages/>
+        <h1>Seam Social client Example</h1>
 
-	</ui:define>
+        <p>Getting Authorization from #{socialClient.currentService.type}</p>
+        You're ready to use Seam Social
+        <h:link outcome="openclient">client</h:link>
+
+    </ui:define>
 </ui:composition>

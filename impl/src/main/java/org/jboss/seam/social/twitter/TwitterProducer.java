@@ -13,23 +13,24 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
-package org.jboss.seam.social.twitter;
+ */package org.jboss.seam.social.twitter;
 
-import javax.enterprise.inject.spi.InjectionPoint;
+import javax.enterprise.inject.New;
+import javax.enterprise.inject.Produces;
 
-import org.jboss.seam.social.oauth.SettedHandlerProducer;
+import org.jboss.seam.social.core.OAuthService;
+import org.jboss.seam.social.core.RelatedTo;
 
 /**
- * @author Antoine Sabot-Durand
- *
+ * @author antoine
+ * 
  */
-public class TwitterProducer extends SettedHandlerProducer
-{
-  // @Produces @Setted
-   public TwitterHandler produceTwitterHandler(InjectionPoint ip, TwitterHandler hdl)
-   {
-      return setService(ip, hdl);
-   }
+public class TwitterProducer {
+
+    @Produces
+    @RelatedTo(Twitter.TYPE)
+    protected OAuthService produceTwitter(@New TwitterJackson service) {
+        return service;
+    }
 
 }

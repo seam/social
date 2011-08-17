@@ -16,16 +16,12 @@
  */
 package org.jboss.seam.social.facebook.model;
 
-import org.jboss.seam.social.oauth.UserProfile;
 
 /**
- * 
- * Implementation of this interface will contain Facebook Profile
+ * Implementation of this interface will contain FacebookRelated Profile
  * 
  * @author Antoine Sabot-Durand
- * 
  */
-public interface User extends UserProfile
-{
+public interface User {
 
 }

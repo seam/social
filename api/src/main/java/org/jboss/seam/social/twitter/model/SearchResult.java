@@ -13,33 +13,30 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */package org.jboss.seam.social.twitter.model;
+ */
+package org.jboss.seam.social.twitter.model;
 
 import java.util.List;
 
-import org.jboss.seam.social.twitter.TwitterHandler;
+import org.jboss.seam.social.twitter.Twitter;
 
 /**
- * 
- * Implementation of this interface contains a Twitter search result It is
- * returned by {@link TwitterHandler#search()}
+ * Implementation of this interface contains a TwitterRelated search result It is returned by {@link Twitter#search()}
  * 
  * @author Antoine Sabot-Durand
- * 
  */
-public interface SearchResult
-{
+public interface SearchResult {
 
-   public List<Tweet> getResults();
+    public List<Tweet> getResults();
 
-   public void setResults(List<Tweet> results);
+    public void setResults(List<Tweet> results);
 
-   public long getMaxId();
+    public long getMaxId();
 
-   public void setMaxId(long maxId);
+    public void setMaxId(long maxId);
 
-   public long getSinceId();
+    public long getSinceId();
 
-   public void setSinceId(long sinceId);
+    public void setSinceId(long sinceId);
 
 }

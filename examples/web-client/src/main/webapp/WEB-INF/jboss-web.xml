@@ -1,0 +1,3 @@
+<jboss-web>
+    <context-root>social-web-client</context-root>
+</jboss-web>

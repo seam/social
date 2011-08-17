@@ -1,9 +1,9 @@
 <!DOCTYPE suite SYSTEM "http://beust.com/testng/testng-1.0.dtd" >
 <suite name="Seam Social Web Client Example" verbose="2" parallel="false">
-   <test name="social_webclient_ftest">
-      <parameter name="example.context.path" value="/seam-social-web-client" />
-      <packages>
-         <package name="org.jboss.seam.social.example.webclient.ftest" />
-      </packages>
-   </test>
+    <test name="social_webclient_ftest">
+        <parameter name="example.context.path" value="/seam-social-web-client"/>
+        <packages>
+            <package name="org.jboss.seam.social.examples.webclient.ftest"/>
+        </packages>
+    </test>
 </suite>

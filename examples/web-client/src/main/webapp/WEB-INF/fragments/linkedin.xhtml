@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
 <body>
-	<ui:composition>
-		<h:panelGroup id="linkedintl" layout="block">
-			<img src="#{socialClient.user.pictureUrl}" />
-			<br />
-			<h:inputTextarea value="#{linkedHdl.status}" cols="60" rows="5" />
-			<h:commandButton action="#{linkedHdl.updateStatus}"
-				value="Update your status">
-				<f:ajax render="linkedintl" execute="linkedintl"/>
-				</h:commandButton>
-			<br />
-		</h:panelGroup>
-	</ui:composition>
+<ui:composition>
+    <h:panelGroup id="linkedintl" layout="block">
+        <img src="#{socialClient.user.profileImageUrl}"/>
+        <br/>
+        <h:inputTextarea value="#{socialClient.currentService.status}" cols="60" rows="5"/>
+        <h:commandButton action="#{socialClient.currentService.updateStatus}"
+                         value="Update your status">
+            <f:ajax render="linkedintl" execute="linkedintl"/>
+        </h:commandButton>
+        <br/>
+    </h:panelGroup>
+</ui:composition>
 </body>
 </html>

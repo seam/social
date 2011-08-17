@@ -13,24 +13,24 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
-package org.jboss.seam.social.linkedin;
+ */package org.jboss.seam.social.linkedin;
 
-import javax.enterprise.inject.spi.InjectionPoint;
+import javax.enterprise.inject.New;
+import javax.enterprise.inject.Produces;
 
-import org.jboss.seam.social.oauth.SettedHandlerProducer;
+import org.jboss.seam.social.core.OAuthService;
+import org.jboss.seam.social.core.RelatedTo;
 
 /**
- * @author Antoine Sabot-Durand 
- *
+ * @author antoine
+ * 
  */
-public class LinkedInProducer extends SettedHandlerProducer
-{
+public class LinkedInProducer {
 
-  // @Produces @Setted
-   public LinkedInHandler produceLinkedInHandler(InjectionPoint ip, LinkedInHandler hdl)
-   {
-      return setService(ip, hdl);
-   }
-   
+    @Produces
+    @RelatedTo(LinkedIn.TYPE)
+    protected OAuthService produceTwitter(@New LinkedInJackson service) {
+        return service;
+    }
+
 }

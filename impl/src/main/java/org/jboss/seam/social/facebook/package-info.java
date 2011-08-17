@@ -16,3 +16,4 @@
  */
 
 package org.jboss.seam.social.facebook;
+

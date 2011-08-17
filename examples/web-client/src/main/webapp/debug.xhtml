@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                template="/WEB-INF/templates/default.xhtml">
+    <ui:define name="content">
+
+        <h:messages/>
+        <h1>Seam Social client Example debuging</h1>
+
+        <h2>Active services</h2>
+        <ui:repeat var="serv" value="#{socialClient.services}">
+        <p>
+        #{serv.name}
+           </p>
+           <p>
+           Api Key : #{serv.settings.apiKey}
+           </p>
+           <p>
+           Api Secret : #{serv.settings.apiSecret}
+           </p>
+           <p>
+           Access Token : #{serv.session.accessToken.token}
+           </p>
+           <p>
+           Access Token secret : #{serv.session.accessToken.secret}
+           </p>
+           <hr />
+        </ui:repeat>
+
+    </ui:define>
+</ui:composition>

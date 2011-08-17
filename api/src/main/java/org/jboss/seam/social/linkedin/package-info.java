@@ -17,6 +17,6 @@
 package org.jboss.seam.social.linkedin;
 
 /**
- * This package contains API elements to manage interactions with LinkedIn thru
+ * This package contains API elements to manage interactions with LinkedInRelated thru
  * CDI Beans
  */

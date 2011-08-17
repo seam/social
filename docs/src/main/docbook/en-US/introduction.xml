@@ -4,9 +4,32 @@
 <preface>
    <title>Introduction</title>
    <para>
-      The goal of Seam Social is to provide CDI components to access mot of the social network services. Features include
-      OAuth protocol helpers, Twitter, Foursquare and LinkedIn clients.
+      The goal of Seam Social is to provide CDI components to access some of the social network services.
+      It is focused on OAuth 1.0 and 2.0 services. At least Seam Social provides a way to get one's profile
+      for a given service. There are services like Twitter for which Seam Social provides a lot of model object
+      to manage timeline and friends in the service.</para>
+    <para>
+      Seam social was created with genericity and polymorphism concepts in minds allowing users to deal with a collection of OAuth
+      sessions, it also allows you to create your own extension to connect to an OAuth server.
    </para>
+   <para>
+   This version of Seam Social provides support for the following OAuth Services with the following level
+   </para>
+   <table >
+  
+   <tr><td>Service</td><td>Profile</td><td>Update</td><td>Timeline</td><td>Friends</td></tr>
+  
+   
+   <tr><td>Twitter</td><td>X</td><td>X</td><td>O</td><td>O</td></tr>
+   <tr><td>LinkedIn</td><td>X</td><td>O</td><td>O</td><td>O</td></tr>
+   <tr><td>Facebook</td><td>X</td><td>X</td><td>O</td><td>O</td></tr>
+
+   
+
+   </table>
+   
+   <para>More services and level of support to come.</para>
+   
 
 <!--
 vim:et:ts=3:sw=3:tw=120

@@ -14,57 +14,108 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.jboss.seam.social.twitter.model;
 
+import java.util.Date;
+
 /**
+ * Represents a Twitter status update (e.g., a "tweet").
  * 
- * Implementation of this interface contains a Tweet
- * 
- * @author Antoine Sabot-Durand
- * 
+ * @author Craig Walls
  */
-public interface Tweet
-{
+public class Tweet {
+    private long id;
+    private String text;
+    private Date createdAt;
+    private String fromUser;
+    private String profileImageUrl;
+    private Long toUserId;
+    private long fromUserId;
+    private String languageCode;
+    private String source;
 
-   public long getId();
+    public Tweet(long id, String text, Date createdAt, String fromUser, String profileImageUrl, Long toUserId, long fromUserId,
+            String languageCode, String source) {
+        this.id = id;
+        this.text = text;
+        this.createdAt = createdAt;
+        this.fromUser = fromUser;
+        this.profileImageUrl = profileImageUrl;
+        this.toUserId = toUserId;
+        this.fromUserId = fromUserId;
+        this.languageCode = languageCode;
+        this.source = source;
+    }
 
-   public void setId(long id);
+    public String getText() {
+        return text;
+    }
 
-   public String getText();
+    public void setText(String text) {
+        this.text = text;
+    }
 
-   public void setText(String text);
+    public Date getCreatedAt() {
+        return createdAt;
+    }
 
-   public String getCreatedAt();
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
 
-   public void setCreatedAt(String createdAt);
+    public String getFromUser() {
+        return fromUser;
+    }
 
-   public String getFromUser();
+    public void setFromUser(String fromUser) {
+        this.fromUser = fromUser;
+    }
 
-   public void setFromUser(String fromUser);
+    public long getId() {
+        return id;
+    }
 
-   public String getProfileImageUrl();
+    public void setId(long id) {
+        this.id = id;
+    }
 
-   public void setProfileImageUrl(String profileImageUrl);
+    public String getProfileImageUrl() {
+        return profileImageUrl;
+    }
 
-   public Long getToUserId();
+    public void setProfileImageUrl(String profileImageUrl) {
+        this.profileImageUrl = profileImageUrl;
+    }
 
-   public void setToUserId(Long toUserId);
+    public Long getToUserId() {
+        return toUserId;
+    }
 
-   public long getFromUserId();
+    public void setToUserId(Long toUserId) {
+        this.toUserId = toUserId;
+    }
 
-   public void setFromUserId(long fromUserId);
+    public long getFromUserId() {
+        return fromUserId;
+    }
 
-   public String getLanguageCode();
+    public void setFromUserId(long fromUserId) {
+        this.fromUserId = fromUserId;
+    }
 
-   public void setLanguageCode(String languageCode);
+    public String getLanguageCode() {
+        return languageCode;
+    }
 
-   public String getSource();
+    public void setLanguageCode(String languageCode) {
+        this.languageCode = languageCode;
+    }
 
-   public void setSource(String source);
+    public String getSource() {
+        return source;
+    }
 
-   public String getFromUserIdStr();
-
-   public void setFromUserIdStr(String fromUserIdStr);
-
+    public void setSource(String source) {
+        this.source = source;
+    }
 }
