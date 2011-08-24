@@ -28,7 +28,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.jboss.seam.solder.logging.Logger;
+import org.jboss.seam.logging.Logger;
 import org.jboss.seam.social.core.MultiServicesManager;
 import org.jboss.seam.social.core.OAuthService;
 import org.jboss.seam.social.core.OAuthToken;
