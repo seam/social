@@ -73,6 +73,24 @@
                 <version>${project.version}</version>
             </dependency>
             
+            <dependency>
+                <groupId>org.jboss.seam.social</groupId>
+                <artifactId>seam-social-twitter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            
+            <dependency>
+                <groupId>org.jboss.seam.social</groupId>
+                <artifactId>seam-social-facebook</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            
+            <dependency>
+                <groupId>org.jboss.seam.social</groupId>
+                <artifactId>seam-social-linkedin</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            
 
             <dependency>
                 <groupId>org.scribe</groupId>
@@ -105,6 +123,9 @@
             <modules>
                 <module>docs</module>
                 <module>dist</module>
+                <module>services/twitter</module>
+                <module>services/linkedin</module>
+                <module>services/facebook</module>
                 <module>examples/web-client</module>
             </modules>
         </profile>

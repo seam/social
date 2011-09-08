@@ -124,6 +124,21 @@
             <artifactId>guava</artifactId>
             <version>r09</version>
         </dependency>
+        <dependency>
+        <groupId>org.jboss.seam.social</groupId>
+            <artifactId>seam-social-twitter</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+        <groupId>org.jboss.seam.social</groupId>
+            <artifactId>seam-social-facebook</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+        <groupId>org.jboss.seam.social</groupId>
+            <artifactId>seam-social-linkedin</artifactId>
+            <scope>runtime</scope>
+        </dependency>
     </dependencies>
 
     <profiles>
