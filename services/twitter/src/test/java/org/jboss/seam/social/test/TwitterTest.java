@@ -62,7 +62,9 @@ public class TwitterTest {
                         UserProfile.class, Tweet.class, OAuthTokenScribe.class)
 
                 .addAsLibraries(
-                        DependencyResolvers.use(MavenDependencyResolver.class).loadReposFromPom("pom.xml")
+                        DependencyResolvers.use(MavenDependencyResolver.class)
+                                .configureFrom("../../settings.xml")
+                                .loadReposFromPom("pom.xml")
                                 .artifact("org.jboss.seam.config:seam-config-xml")
                                 .artifact("org.jboss.seam.solder:seam-solder").artifact("org.scribe:scribe")
                                 .resolveAs(GenericArchive.class));
