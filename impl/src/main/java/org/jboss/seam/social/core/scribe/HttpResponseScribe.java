@@ -28,6 +28,13 @@ import org.scribe.model.Response;
  */
 public class HttpResponseScribe implements HttpResponse {
 
+    private Response getDelegate() {
+        if (delegate == null) {
+            throw new IllegalStateException("Http Response is invalid");
+        }
+        return delegate;
+    }
+
     private Response delegate;
 
     protected HttpResponseScribe(Response response) throws IOException {
@@ -41,7 +48,7 @@ public class HttpResponseScribe implements HttpResponse {
      */
     @Override
     public String getBody() {
-        return delegate.getBody();
+        return getDelegate().getBody();
     }
 
     /*
@@ -51,11 +58,11 @@ public class HttpResponseScribe implements HttpResponse {
      */
     @Override
     public InputStream getStream() {
-        return delegate.getStream();
+        return getDelegate().getStream();
     }
 
     public int hashCode() {
-        return delegate.hashCode();
+        return getDelegate().hashCode();
     }
 
     /*
@@ -65,7 +72,7 @@ public class HttpResponseScribe implements HttpResponse {
      */
     @Override
     public int getCode() {
-        return delegate.getCode();
+        return getDelegate().getCode();
     }
 
     /*
@@ -75,7 +82,7 @@ public class HttpResponseScribe implements HttpResponse {
      */
     @Override
     public Map<String, String> getHeaders() {
-        return delegate.getHeaders();
+        return getDelegate().getHeaders();
     }
 
     /*
@@ -85,15 +92,15 @@ public class HttpResponseScribe implements HttpResponse {
      */
     @Override
     public String getHeader(String name) {
-        return delegate.getHeader(name);
+        return getDelegate().getHeader(name);
     }
 
     public boolean equals(Object obj) {
-        return delegate.equals(obj);
+        return getDelegate().equals(obj);
     }
 
     public String toString() {
-        return delegate.toString();
+        return getDelegate().toString();
     }
 
 }
