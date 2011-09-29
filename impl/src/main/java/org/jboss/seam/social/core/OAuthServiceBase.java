@@ -207,8 +207,12 @@ public abstract class OAuthServiceBase implements OAuthService, HasStatus {
     @Override
     public HttpResponse sendSignedXmlRequest(RestVerb verb, String uri, String payload) {
         OAuthRequest request = provider.requestFactory(verb, uri);
-        request.addHeader("Content-Length", Integer.toString(payload.length()));
-        request.addHeader("Content-Type", "text/xml");
+        /*
+         * Useless with Scribe 1.2.3 //TODO have a test on Facebook and LinkedIn to check that
+         * 
+         * request.addHeader("Content-Length", Integer.toString(payload.length())); request.addHeader("Content-Type",
+         * "text/xml");
+         */
 
         request.addPayload(payload);
 
