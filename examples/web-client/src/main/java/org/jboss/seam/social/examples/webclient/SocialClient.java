@@ -29,10 +29,10 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.jboss.seam.logging.Logger;
-import org.jboss.seam.social.core.MultiServicesManager;
-import org.jboss.seam.social.core.OAuthService;
-import org.jboss.seam.social.core.OAuthToken;
-import org.jboss.seam.social.core.UserProfile;
+import org.jboss.seam.social.MultiServicesManager;
+import org.jboss.seam.social.UserProfile;
+import org.jboss.seam.social.oauth.OAuthService;
+import org.jboss.seam.social.oauth.OAuthToken;
 
 import com.google.common.base.Function;
 import com.google.common.collect.Maps;

@@ -14,25 +14,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social.linkedin.jackson;
-
-import javax.enterprise.inject.New;
-import javax.enterprise.inject.Produces;
-
-import org.jboss.seam.social.cdi.RelatedTo;
-import org.jboss.seam.social.linkedin.LinkedIn;
-import org.jboss.seam.social.oauth.OAuthService;
+package org.jboss.seam.social;
 
 /**
- * @author antoine
+ * Exception linked to the framework
+ * 
+ * @author Antoine Sabot-Durand
  * 
  */
-public class LinkedInProducer {
+public class SeamSocialException extends RuntimeException {
 
-    @Produces
-    @RelatedTo(LinkedIn.TYPE)
-    protected OAuthService produceTwitter(@New LinkedInJackson service) {
-        return service;
+    private static final long serialVersionUID = 8149354996979746574L;
+
+    SeamSocialException() {
+        super();
+    }
+
+    public SeamSocialException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public SeamSocialException(String message) {
+        super(message);
+    }
+
+    public SeamSocialException(Throwable cause) {
+        super(cause);
     }
 
 }

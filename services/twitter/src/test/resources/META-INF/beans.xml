@@ -17,7 +17,7 @@
 -->
 <beans xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:s="urn:java:ee"
-    xmlns:o="urn:java:org.jboss.seam.social.core:org.jboss.seam.social.core.scribe">
+    xmlns:o="urn:java:org.jboss.seam.social:org.jboss.seam.social.scribe">
 
     <o:OAuthServiceSettingsImpl>
         <s:modifies />

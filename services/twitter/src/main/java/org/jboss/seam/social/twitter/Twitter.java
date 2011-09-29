@@ -18,8 +18,8 @@ package org.jboss.seam.social.twitter;
 
 import java.util.List;
 
-import org.jboss.seam.social.core.HasStatus;
-import org.jboss.seam.social.core.OAuthService;
+import org.jboss.seam.social.HasStatus;
+import org.jboss.seam.social.oauth.OAuthService;
 import org.jboss.seam.social.twitter.model.SuggestionCategory;
 import org.jboss.seam.social.twitter.model.TwitterProfile;
 

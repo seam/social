@@ -14,25 +14,42 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social.linkedin.jackson;
+package org.jboss.seam.social;
 
-import javax.enterprise.inject.New;
-import javax.enterprise.inject.Produces;
-
-import org.jboss.seam.social.cdi.RelatedTo;
-import org.jboss.seam.social.linkedin.LinkedIn;
-import org.jboss.seam.social.oauth.OAuthService;
+import java.io.InputStream;
+import java.util.Map;
 
 /**
- * @author antoine
+ * Implementation of this interface represent an Http Response
  * 
+ * @author Antoine Sabot-Durand
  */
-public class LinkedInProducer {
+public interface HttpResponse {
 
-    @Produces
-    @RelatedTo(LinkedIn.TYPE)
-    protected OAuthService produceTwitter(@New LinkedInJackson service) {
-        return service;
-    }
+    /**
+     * @return the body of the response in a {@link String}
+     */
+    public String getBody();
+
+    /**
+     * @return the body of the response in a {@link InputStream}
+     */
+    public InputStream getStream();
+
+    /**
+     * @return the HTTP return code of the response
+     */
+    public int getCode();
+
+    /**
+     * @return the HTTP Response headers in {@link Map}
+     */
+    public Map<String, String> getHeaders();
+
+    /**
+     * @param name of the HTTP header
+     * @return the value of the HTTP header
+     */
+    public String getHeader(String name);
 
 }

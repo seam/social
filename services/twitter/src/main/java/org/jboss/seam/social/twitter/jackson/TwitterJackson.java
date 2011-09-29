@@ -26,10 +26,10 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.Module;
 import org.jboss.seam.logging.Logger;
-import org.jboss.seam.social.core.HttpResponse;
-import org.jboss.seam.social.core.OAuthServiceJackson;
-import org.jboss.seam.social.core.RestVerb;
-import org.jboss.seam.social.core.URLUtils;
+import org.jboss.seam.social.HttpResponse;
+import org.jboss.seam.social.OAuthServiceJackson;
+import org.jboss.seam.social.RestVerb;
+import org.jboss.seam.social.URLUtils;
 import org.jboss.seam.social.twitter.Twitter;
 import org.jboss.seam.social.twitter.model.SuggestionCategory;
 import org.jboss.seam.social.twitter.model.Tweet;
@@ -198,7 +198,7 @@ public class TwitterJackson extends OAuthServiceJackson implements Twitter {
     /*
      * (non-Javadoc)
      * 
-     * @see org.jboss.seam.social.core.OAuthServiceBase#initMyProfile()
+     * @see org.jboss.seam.social.OAuthServiceBase#initMyProfile()
      */
     @Override
     protected void initMyProfile() {
@@ -209,7 +209,7 @@ public class TwitterJackson extends OAuthServiceJackson implements Twitter {
     /*
      * (non-Javadoc)
      * 
-     * @see org.jboss.seam.social.core.OAuthServiceJackson#getJacksonModule()
+     * @see org.jboss.seam.social.OAuthServiceJackson#getJacksonModule()
      */
     @Override
     protected Module getJacksonModule() {

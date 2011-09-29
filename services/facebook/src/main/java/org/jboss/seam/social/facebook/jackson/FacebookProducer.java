@@ -19,9 +19,9 @@ package org.jboss.seam.social.facebook.jackson;
 import javax.enterprise.inject.New;
 import javax.enterprise.inject.Produces;
 
-import org.jboss.seam.social.core.OAuthService;
-import org.jboss.seam.social.core.RelatedTo;
+import org.jboss.seam.social.cdi.RelatedTo;
 import org.jboss.seam.social.facebook.Facebook;
+import org.jboss.seam.social.oauth.OAuthService;
 
 /**
  * @author antoine

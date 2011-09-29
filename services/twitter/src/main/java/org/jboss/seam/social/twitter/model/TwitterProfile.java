@@ -18,7 +18,7 @@ package org.jboss.seam.social.twitter.model;
 
 import java.util.Date;
 
-import org.jboss.seam.social.core.UserProfile;
+import org.jboss.seam.social.UserProfile;
 
 /**
  * Model class representing a Twitter user's profile information.
@@ -331,7 +331,7 @@ public class TwitterProfile extends UserProfile {
     /*
      * (non-Javadoc)
      * 
-     * @see org.jboss.seam.social.core.UserProfile#getFullName()
+     * @see org.jboss.seam.social.UserProfile#getFullName()
      */
     @Override
     public String getFullName() {

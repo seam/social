@@ -5,7 +5,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Properties;
 
-import org.jboss.seam.social.core.SeamSocialException;
+import org.jboss.seam.social.SeamSocialException;
 import org.jboss.test.selenium.AbstractTestCase;
 import org.jboss.test.selenium.locator.XpathLocator;
 import org.testng.annotations.BeforeMethod;

@@ -14,18 +14,45 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package org.jboss.seam.social.facebook;
-
-import org.jboss.seam.social.HasStatus;
-import org.jboss.seam.social.oauth.OAuthService;
+package org.jboss.seam.social.oauth;
 
 /**
- * A specialization of {@link OAuthService} to add Facebook specific methods
+ * Instances of this interface contains data for a session connection to a given service.
  * 
+ * @see OAuthService
  * @author Antoine Sabot-Durand
+ * 
  */
-public interface Facebook extends OAuthService, HasStatus {
+public interface OAuthSessionSettings {
 
-    static final String TYPE = "Facebook";
+    /**
+     * @return the requestToken
+     */
+    public OAuthToken getRequestToken();
+
+    /**
+     * @param requestToken the requestToken to set
+     */
+    public void setRequestToken(OAuthToken requestToken);
+
+    /**
+     * @return the accessToken
+     */
+    public OAuthToken getAccessToken();
+
+    /**
+     * @param accessToken the accessToken to set
+     */
+    public void setAccessToken(OAuthToken accessToken);
+
+    /**
+     * @return the verifier
+     */
+    public String getVerifier();
+
+    /**
+     * @param verifier the verifier to set
+     */
+    public void setVerifier(String verifier);
+
 }

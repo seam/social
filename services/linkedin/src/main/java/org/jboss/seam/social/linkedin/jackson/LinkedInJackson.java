@@ -17,14 +17,14 @@
 package org.jboss.seam.social.linkedin.jackson;
 
 import org.codehaus.jackson.map.Module;
-import org.jboss.seam.social.core.HttpResponse;
-import org.jboss.seam.social.core.OAuthRequest;
-import org.jboss.seam.social.core.OAuthServiceJackson;
-import org.jboss.seam.social.core.RestVerb;
-import org.jboss.seam.social.core.UserProfile;
+import org.jboss.seam.social.HttpResponse;
+import org.jboss.seam.social.OAuthServiceJackson;
+import org.jboss.seam.social.RestVerb;
+import org.jboss.seam.social.UserProfile;
 import org.jboss.seam.social.linkedin.LinkedIn;
 import org.jboss.seam.social.linkedin.model.LinkedInProfile;
 import org.jboss.seam.social.linkedin.model.Update;
+import org.jboss.seam.social.oauth.OAuthRequest;
 
 /**
  * @author Antoine Sabot-Durand
@@ -120,7 +120,7 @@ public class LinkedInJackson extends OAuthServiceJackson implements LinkedIn {
     /*
      * (non-Javadoc)
      * 
-     * @see org.jboss.seam.social.core.OAuthServiceBase#initMyProfile()
+     * @see org.jboss.seam.social.OAuthServiceBase#initMyProfile()
      */
     @Override
     protected void initMyProfile() {
@@ -131,7 +131,7 @@ public class LinkedInJackson extends OAuthServiceJackson implements LinkedIn {
     /*
      * (non-Javadoc)
      * 
-     * @see org.jboss.seam.social.core.OAuthServiceJackson#getJacksonModule()
+     * @see org.jboss.seam.social.OAuthServiceJackson#getJacksonModule()
      */
     @Override
     protected Module getJacksonModule() {

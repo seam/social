@@ -16,7 +16,7 @@
  */
 package org.jboss.seam.social.linkedin.model;
 
-import org.jboss.seam.social.core.UserProfile;
+import org.jboss.seam.social.UserProfile;
 
 /**
  * Model class containing a user's LinkedIn profile information.
@@ -108,7 +108,7 @@ public class LinkedInProfile extends UserProfile {
     /*
      * (non-Javadoc)
      * 
-     * @see org.jboss.seam.social.core.UserProfile#getFullName()
+     * @see org.jboss.seam.social.UserProfile#getFullName()
      */
     @Override
     public String getFullName() {

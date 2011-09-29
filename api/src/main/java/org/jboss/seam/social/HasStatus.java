@@ -14,25 +14,39 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social.linkedin.jackson;
-
-import javax.enterprise.inject.New;
-import javax.enterprise.inject.Produces;
-
-import org.jboss.seam.social.cdi.RelatedTo;
-import org.jboss.seam.social.linkedin.LinkedIn;
-import org.jboss.seam.social.oauth.OAuthService;
+package org.jboss.seam.social;
 
 /**
- * @author antoine
+ * Social network Handler implementing this interface will support status update
  * 
+ * @author Antoine Sabot-Durand
  */
-public class LinkedInProducer {
+public interface HasStatus {
 
-    @Produces
-    @RelatedTo(LinkedIn.TYPE)
-    protected OAuthService produceTwitter(@New LinkedInJackson service) {
-        return service;
-    }
+    /**
+     * @return the status update
+     */
+    public String getStatus();
 
+    /**
+     * Set the status to update
+     * 
+     * @param status
+     */
+    public void setStatus(String status);
+
+    /**
+     * Send the status to the social network
+     * 
+     * @return an Object corresponding to the update
+     */
+    public Object updateStatus();
+
+    /**
+     * Send the status in parameter
+     * 
+     * @param message the status to send
+     * @return an Object corresponding to the update
+     */
+    public Object updateStatus(String message);
 }

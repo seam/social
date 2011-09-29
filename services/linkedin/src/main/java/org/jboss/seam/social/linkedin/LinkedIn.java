@@ -16,8 +16,8 @@
  */
 package org.jboss.seam.social.linkedin;
 
-import org.jboss.seam.social.core.HasStatus;
-import org.jboss.seam.social.core.OAuthService;
+import org.jboss.seam.social.HasStatus;
+import org.jboss.seam.social.oauth.OAuthService;
 
 /**
  * A specialization of {@link OAuthService} to add LinkedIn specific methods

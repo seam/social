@@ -21,10 +21,10 @@ import javax.inject.Inject;
 
 import org.codehaus.jackson.map.Module;
 import org.jboss.seam.logging.Logger;
-import org.jboss.seam.social.core.HttpResponse;
-import org.jboss.seam.social.core.OAuthServiceJackson;
-import org.jboss.seam.social.core.RestVerb;
-import org.jboss.seam.social.core.UserProfile;
+import org.jboss.seam.social.HttpResponse;
+import org.jboss.seam.social.OAuthServiceJackson;
+import org.jboss.seam.social.RestVerb;
+import org.jboss.seam.social.UserProfile;
 import org.jboss.seam.social.facebook.Facebook;
 import org.jboss.seam.social.facebook.model.UserJackson;
 
@@ -106,7 +106,7 @@ public class FacebookJackson extends OAuthServiceJackson implements Facebook {
     /*
      * (non-Javadoc)
      * 
-     * @see org.jboss.seam.social.core.OAuthServiceBase#initMyProfile()
+     * @see org.jboss.seam.social.OAuthServiceBase#initMyProfile()
      */
     @Override
     protected void initMyProfile() {
@@ -123,7 +123,7 @@ public class FacebookJackson extends OAuthServiceJackson implements Facebook {
     /*
      * (non-Javadoc)
      * 
-     * @see org.jboss.seam.social.core.OAuthServiceJackson#getJacksonModule()
+     * @see org.jboss.seam.social.OAuthServiceJackson#getJacksonModule()
      */
     @Override
     protected Module getJacksonModule() {

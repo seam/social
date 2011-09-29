@@ -14,25 +14,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social.linkedin.jackson;
-
-import javax.enterprise.inject.New;
-import javax.enterprise.inject.Produces;
-
-import org.jboss.seam.social.cdi.RelatedTo;
-import org.jboss.seam.social.linkedin.LinkedIn;
-import org.jboss.seam.social.oauth.OAuthService;
+package org.jboss.seam.social.oauth;
 
 /**
- * @author antoine
- * 
+ * This package contains API elements to manage interactions with generic OAuth
+ * services thru CDI Beans
  */
-public class LinkedInProducer {
-
-    @Produces
-    @RelatedTo(LinkedIn.TYPE)
-    protected OAuthService produceTwitter(@New LinkedInJackson service) {
-        return service;
-    }
-
-}
