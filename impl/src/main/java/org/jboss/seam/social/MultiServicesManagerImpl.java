@@ -16,20 +16,20 @@
  */
 package org.jboss.seam.social;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import org.apache.commons.lang3.StringUtils;
+import org.jboss.seam.social.cdi.RelatedTo;
+import org.jboss.seam.social.oauth.OAuthService;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Any;
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
-
-import org.jboss.seam.social.MultiServicesManager;
-import org.jboss.seam.social.cdi.RelatedTo;
-import org.jboss.seam.social.oauth.OAuthService;
+import javax.inject.Named;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class MultiServicesManagerImpl implements MultiServicesManager, Serializable {
 
@@ -78,6 +78,8 @@ public class MultiServicesManagerImpl implements MultiServicesManager, Serializa
      */
     @Override
     public OAuthService getNewService(String serviceName) {
+        if (StringUtils.isEmpty(serviceName))
+            throw new IllegalArgumentException("Empty service name provided");
         OAuthService service = serviceInstances.select(new RelatedTo.RelatedToLiteral(serviceName)).get();
         return service;
     }
