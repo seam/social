@@ -20,7 +20,7 @@ package org.jboss.seam.social.facebook.jackson;
 import javax.inject.Inject;
 
 import org.codehaus.jackson.map.Module;
-import org.jboss.seam.logging.Logger;
+import org.jboss.solder.logging.Logger;
 import org.jboss.seam.social.HttpResponse;
 import org.jboss.seam.social.OAuthServiceJackson;
 import org.jboss.seam.social.RestVerb;

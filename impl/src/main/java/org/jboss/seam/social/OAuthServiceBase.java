@@ -24,7 +24,7 @@ import javax.enterprise.inject.Instance;
 import javax.enterprise.inject.spi.InjectionPoint;
 import javax.inject.Inject;
 
-import org.jboss.seam.logging.Logger;
+import org.jboss.solder.logging.Logger;
 import org.jboss.seam.social.HasStatus;
 import org.jboss.seam.social.HttpResponse;
 import org.jboss.seam.social.RestVerb;
