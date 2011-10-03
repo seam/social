@@ -65,8 +65,7 @@ public class TwitterTest {
                         DependencyResolvers.use(MavenDependencyResolver.class)
                                 .configureFrom("../../settings.xml")
                                 .loadReposFromPom("pom.xml")
-                                .artifact("org.jboss.seam.config:seam-config-xml")
-                                .artifact("org.jboss.seam.solder:seam-solder").artifact("org.scribe:scribe")
+                                .artifact("org.jboss.solder:solder-impl").artifact("org.scribe:scribe")
                                 .resolveAs(GenericArchive.class));
         // ret.as(ZipExporter.class).exportTo(new File("mytest.war"), true);
 

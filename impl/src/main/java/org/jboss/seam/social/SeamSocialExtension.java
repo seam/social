@@ -29,7 +29,7 @@ import javax.enterprise.inject.spi.Extension;
 import javax.enterprise.inject.spi.ProcessBean;
 import javax.enterprise.inject.spi.ProcessManagedBean;
 
-import org.jboss.seam.logging.Logger;
+import org.jboss.solder.logging.Logger;
 import org.jboss.seam.social.cdi.RelatedTo;
 import org.jboss.seam.social.oauth.OAuthService;
 import org.jboss.seam.social.oauth.OAuthServiceSettings;

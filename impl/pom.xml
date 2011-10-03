@@ -48,19 +48,14 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>org.jboss.seam.solder</groupId>
-            <artifactId>seam-solder</artifactId>
+            <groupId>org.jboss.solder</groupId>
+            <artifactId>solder-impl</artifactId>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>r09</version>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.seam.config</groupId>
-            <artifactId>seam-config-xml</artifactId>
-            <scope>test</scope>
         </dependency>
 
         <dependency>
