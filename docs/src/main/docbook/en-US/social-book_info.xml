@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding="utf-8"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+   "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd"  [ ]>
+<bookinfo xmlns:xi="http://www.w3.org/2001/XInclude">
+   <title>Seam Social Module</title>
+   <subtitle>Reference Guide</subtitle>
+   <releaseinfo>3.1.0-SNAPSHOT</releaseinfo>
+
+   <xi:include href="social-author_group.xml" />
+
+</bookinfo>

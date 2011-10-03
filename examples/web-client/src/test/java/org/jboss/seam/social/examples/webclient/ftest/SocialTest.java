@@ -5,7 +5,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Properties;
 
-import org.jboss.seam.social.core.SeamSocialException;
+import org.jboss.seam.social.SeamSocialException;
 import org.jboss.test.selenium.AbstractTestCase;
 import org.jboss.test.selenium.locator.XpathLocator;
 import org.testng.annotations.BeforeMethod;
@@ -45,8 +45,8 @@ public class SocialTest extends AbstractTestCase {
 
     protected final XpathLocator FACEBOOK_EMAIL = xp("//input[@id='email']");
     protected final XpathLocator FACEBOOK_PASSWORD = xp("//input[@id='pass']");
-    protected final XpathLocator FACEBOOK_LOGIN = xp("//input[@value='Log In']");
-    protected final XpathLocator FACEBOOK_ALLOW = xp("//input[@value='Allow']");
+    protected final XpathLocator FACEBOOK_LOGIN = xp("//input[@name='login']");
+    protected final XpathLocator FACEBOOK_ALLOW = xp("//input[@name='grant_clicked']");
 
     @BeforeMethod
     public void openStartUrl() throws MalformedURLException {
