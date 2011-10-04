@@ -45,71 +45,14 @@
    </pluginRepositories>
 
    <build>
+      <defaultGoal>process-classes</defaultGoal>
       <plugins>
          <plugin>
             <groupId>org.jboss.maven.plugins</groupId>
             <artifactId>maven-jdocbook-plugin</artifactId>
-            <version>${mpjdocbook.version}</version>
-            <extensions>true</extensions>
-            <dependencies>
-               <dependency>
-                  <groupId>org.jboss</groupId>
-                  <artifactId>jbossorg-docbook-xslt</artifactId>
-                  <version>1.1.0</version>
-               </dependency>
-               <dependency>
-                  <groupId>org.jboss</groupId>
-                  <artifactId>jbossorg-jdocbook-style</artifactId>
-                  <version>1.1.0</version>
-                  <type>jdocbook-style</type>
-               </dependency>
-            </dependencies>
-            <configuration>
-               <sourceDocumentName>master.xml</sourceDocumentName>
-               <masterTranslation>en-US</masterTranslation>
-               <imageResource>
-                  <directory>${project.basedir}/src/main/docbook/en-US</directory>
-                  <includes>
-                     <include>images/*.png</include>
-                     <include>images/*.jpg</include>
-                  </includes>
-               </imageResource>
-               <formats>
-                  <format>
-                     <formatName>pdf</formatName>
-                     <stylesheetResource>classpath://xslt/org/jboss/pdf.xsl</stylesheetResource>
-                     <finalName>${pdf.name}</finalName>
-                  </format>
-                  <format>
-                     <formatName>html</formatName>
-                     <stylesheetResource>classpath://xslt/org/jboss/xhtml.xsl</stylesheetResource>
-                     <finalName>index.html</finalName>
-                  </format>
-                  <format>
-                     <formatName>html_single</formatName>
-                     <stylesheetResource>classpath://xslt/org/jboss/xhtml-single.xsl</stylesheetResource>
-                     <finalName>index.html</finalName>
-                  </format>
-               </formats>
-               <options>
-                  <xincludeSupported>true</xincludeSupported>
-                  <xmlTransformerType>saxon</xmlTransformerType>
-                  <docbookVersion>1.72.0</docbookVersion>
-                  <transformerParameters>
-                     <property>
-                        <name>javax.xml.parsers.DocumentBuilderFactory</name>
-                        <value>org.apache.xerces.jaxp.DocumentBuilderFactoryImpl</value>
-                     </property>
-                     <property>
-                        <name>javax.xml.parsers.SAXParserFactory</name>
-                        <value>org.apache.xerces.jaxp.SAXParserFactoryImpl</value>
-                     </property>
-                  </transformerParameters>
-                  <localeSeparator>-</localeSeparator>
-               </options>
-            </configuration>
          </plugin>
-         
+
+         <!-- Attach docs as a war so module dist can retrieve them -->
          <plugin>
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>build-helper-maven-plugin</artifactId>
@@ -129,7 +72,7 @@
                      </artifacts>
                   </configuration>
                </execution>
-               
+
                <execution>
                  <id>attach-source</id>
                  <phase>generate-sources</phase>
@@ -141,10 +84,12 @@
                      <source>src/main/docbook/en-US</source>
                    </sources>
                  </configuration>
-               </execution>                
+               </execution>
+               
             </executions>
-         </plugin>         
+         </plugin>
       </plugins>
+
       <pluginManagement>
           <plugins>
               <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
@@ -182,4 +127,23 @@
           </plugins>
       </pluginManagement>
    </build>
+   
+   <profiles>
+      <profile>
+         <id>distribution</id>
+         <activation>
+            <property>
+               <name>release</name>
+            </property>
+         </activation>
+         <build>
+            <plugins>
+               <plugin>
+                  <groupId>org.apache.maven.plugins</groupId>
+                  <artifactId>maven-assembly-plugin</artifactId>
+               </plugin>
+            </plugins>
+         </build>
+      </profile>
+   </profiles>   
 </project>
