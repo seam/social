@@ -44,6 +44,10 @@
     <modules>
         <module>api</module>
         <module>impl</module>
+        <module>examples/web-client</module>
+        <module>services/twitter</module>
+        <module>services/facebook</module>
+        <module>services/linkedin</module>
     </modules>
 
     <properties>
