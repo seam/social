@@ -6,15 +6,15 @@
                 template="/WEB-INF/templates/default.xhtml">
     <ui:define name="content">
         <f:metadata>
-            <f:viewParam name="#{socialClient.currentService.verifierParamName}" value="#{socialClient.verifier}"
+            <f:viewParam name="#{currentService.verifierParamName}" value="#{currentService.verifier}"
                          required="true"
-                         requiredMessage="We didn't get the authorization from #{socialClient.currentService.type}. Please go back and Try Again !"/>
+                         requiredMessage="We didn't get the authorization from #{currentService.type}. Please go back and Try Again !"/>
             <f:event type="preRenderView" listener="#{socialClient.connectCurrentService()}"/>
         </f:metadata>
         <h:messages/>
         <h1>Seam Social client Example</h1>
 
-        <p>Getting Authorization from #{socialClient.currentService.type}</p>
+        <p>Getting Authorization from #{currentService.type}</p>
         You're ready to use Seam Social
         <h:link outcome="openclient">client</h:link>
 

@@ -23,16 +23,16 @@ import java.util.List;
 import java.util.Map;
 
 import javax.enterprise.context.SessionScoped;
+import javax.enterprise.inject.Produces;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.jboss.solder.logging.Logger;
 import org.jboss.seam.social.MultiServicesManager;
-import org.jboss.seam.social.UserProfile;
 import org.jboss.seam.social.oauth.OAuthService;
 import org.jboss.seam.social.oauth.OAuthToken;
+import org.jboss.solder.logging.Logger;
 
 import com.google.common.base.Function;
 import com.google.common.collect.Maps;
@@ -60,16 +60,14 @@ public class SocialClient implements Serializable {
         this.manager = manager;
     }
 
+    @Produces
+    @Named
     public OAuthService getCurrentService() {
         return manager.getCurrentService();
     }
 
     public void setCurrentService(OAuthService currentService) {
         manager.setCurrentService(currentService);
-    }
-
-    public boolean isCurrentServiceOk() {
-        return manager.isCurrentServiceConnected();
     }
 
     public Map<String, OAuthService> getServicesMap() {
@@ -91,22 +89,8 @@ public class SocialClient implements Serializable {
         return getCurrentService().getAccessToken();
     }
 
-    public String getVerifier() {
-        return getCurrentService().getVerifier();
-    }
-
-    public void setVerifier(String verifier) {
-        getCurrentService().setVerifier(verifier);
-    }
-
     public void connectCurrentService() {
         manager.connectCurrentService();
-    }
-
-    public UserProfile getUser() {
-        UserProfile res = getCurrentService() == null ? null : getCurrentService().getMyProfile();
-
-        return res;
     }
 
     public String getCurrentServiceName() {
@@ -124,7 +108,7 @@ public class SocialClient implements Serializable {
     }
 
     public String getTimeLineUrl() {
-        if (isCurrentServiceOk())
+        if (getCurrentService().isConnected())
             return "/WEB-INF/fragments/" + getCurrentService().getType().toLowerCase() + ".xhtml";
         return "";
     }
