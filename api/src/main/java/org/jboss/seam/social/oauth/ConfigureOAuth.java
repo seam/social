@@ -46,9 +46,9 @@ import java.lang.annotation.Target;
 @Documented
 public @interface ConfigureOAuth {
 
-    String apiKey() default "";
+    String apiKey();
 
-    String apiSecret() default "";
+    String apiSecret();
 
     String callback() default "oob";
 
