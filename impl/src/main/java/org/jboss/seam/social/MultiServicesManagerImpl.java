@@ -14,27 +14,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.jboss.seam.social;
 
-import org.apache.commons.lang3.StringUtils;
-import org.jboss.seam.social.cdi.RelatedTo;
-import org.jboss.seam.social.oauth.OAuthService;
-
-import javax.annotation.PostConstruct;
-import javax.enterprise.inject.Any;
-import javax.enterprise.inject.Instance;
-import javax.inject.Inject;
-import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.annotation.PostConstruct;
+import javax.enterprise.inject.Any;
+import javax.enterprise.inject.Instance;
+import javax.inject.Inject;
+
+import org.apache.commons.lang3.StringUtils;
+import org.jboss.seam.social.cdi.RelatedTo;
+import org.jboss.seam.social.oauth.OAuthService;
+
 public class MultiServicesManagerImpl implements MultiServicesManager, Serializable {
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 2681869484541158766L;
 
@@ -80,6 +81,8 @@ public class MultiServicesManagerImpl implements MultiServicesManager, Serializa
     public OAuthService getNewService(String serviceName) {
         if (StringUtils.isEmpty(serviceName))
             throw new IllegalArgumentException("Empty service name provided");
+        if (!(listOfServices.contains(serviceName)))
+            throw new IllegalArgumentException("Service " + serviceName + " is not available");
         OAuthService service = serviceInstances.select(new RelatedTo.RelatedToLiteral(serviceName)).get();
         return service;
     }
@@ -94,17 +97,7 @@ public class MultiServicesManagerImpl implements MultiServicesManager, Serializa
         return services;
     }
 
-    /*
-     * @PostConstruct protected void init() { if (listOfServices == null || listOfServices.size() == 0) { listOfServices =
-     * Arrays.asList(Service.values()); } }
-     */
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.jboss.seam.social.manager.MultiServicesManager#addService(org.jboss.seam.social.oauth.OAuthService)
-     */
-    @Override
-    public void addService(OAuthService service) {
+    private void addService(OAuthService service) {
         services.add(service);
     }
 
@@ -138,9 +131,11 @@ public class MultiServicesManagerImpl implements MultiServicesManager, Serializa
 
     @Override
     public void destroyCurrentService() {
-        getServices().remove(getCurrentService());
-        getCurrentService().resetConnection();
-        setCurrentService(null);
+        if (getCurrentService() != null) {
+            getServices().remove(getCurrentService());
+            getCurrentService().resetConnection();
+            setCurrentService(getServices().size() > 0 ? getServices().iterator().next() : null);
+        }
     }
 
 }

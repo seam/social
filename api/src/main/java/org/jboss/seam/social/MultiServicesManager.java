@@ -36,12 +36,6 @@ public interface MultiServicesManager {
      */
     public List<String> getListOfServices();
 
-    /**
-     * Add a service to the Set of services to manage
-     * 
-     * @param service
-     */
-    public void addService(OAuthService service);
 
     /**
      * @return the Set of services connected
