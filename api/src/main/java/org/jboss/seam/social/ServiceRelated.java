@@ -14,29 +14,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social.twitter.model;
 
-import java.util.List;
+package org.jboss.seam.social;
 
-import org.jboss.seam.social.twitter.TwitterService;
+import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
 
 /**
- * Implementation of this interface contains a TwitterRelated search result It is returned by {@link TwitterService#search()}
+ * @author antoine
  * 
- * @author Antoine Sabot-Durand
  */
-public interface SearchResult {
-
-    public List<Tweet> getResults();
-
-    public void setResults(List<Tweet> results);
-
-    public long getMaxId();
-
-    public void setMaxId(long maxId);
-
-    public long getSinceId();
-
-    public void setSinceId(long sinceId);
+@Target(ANNOTATION_TYPE)
+@Retention(RUNTIME)
+@Documented
+public @interface ServiceRelated {
 
 }

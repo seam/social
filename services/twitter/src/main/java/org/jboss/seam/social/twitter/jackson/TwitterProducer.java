@@ -19,9 +19,9 @@ package org.jboss.seam.social.twitter.jackson;
 import javax.enterprise.inject.New;
 import javax.enterprise.inject.Produces;
 
-import org.jboss.seam.social.cdi.RelatedTo;
+import org.jboss.seam.social.RelatedTo;
 import org.jboss.seam.social.oauth.OAuthService;
-import org.jboss.seam.social.twitter.Twitter;
+import org.jboss.seam.social.twitter.TwitterService;
 
 /**
  * @author antoine
@@ -30,8 +30,8 @@ import org.jboss.seam.social.twitter.Twitter;
 public class TwitterProducer {
 
     @Produces
-    @RelatedTo(Twitter.TYPE)
-    protected OAuthService produceTwitter(@New TwitterJackson service) {
+    @RelatedTo(TwitterService.TYPE)
+    protected OAuthService produceTwitter(@New TwitterServiceJackson service) {
         return service;
     }
 

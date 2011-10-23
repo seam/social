@@ -22,7 +22,6 @@ import java.lang.annotation.Annotation;
 import javax.enterprise.inject.spi.InjectionPoint;
 import javax.inject.Inject;
 
-import org.jboss.seam.social.cdi.RelatedTo;
 import org.jboss.seam.social.oauth.OAuthServiceSettings;
 
 /**

@@ -30,7 +30,6 @@ import org.jboss.seam.social.HttpResponse;
 import org.jboss.seam.social.RestVerb;
 import org.jboss.seam.social.SeamSocialException;
 import org.jboss.seam.social.UserProfile;
-import org.jboss.seam.social.cdi.RelatedTo;
 import org.jboss.seam.social.oauth.ConfigureOAuth;
 import org.jboss.seam.social.oauth.OAuthProvider;
 import org.jboss.seam.social.oauth.OAuthRequest;

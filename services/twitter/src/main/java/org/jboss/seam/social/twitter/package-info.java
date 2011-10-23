@@ -17,6 +17,6 @@
 package org.jboss.seam.social.twitter;
 
 /**
- * This package contains API elements to manage interactions with TwitterRelated thru
+ * This package contains API elements to manage interactions with Twitter thru
  * CDI Beans
  */

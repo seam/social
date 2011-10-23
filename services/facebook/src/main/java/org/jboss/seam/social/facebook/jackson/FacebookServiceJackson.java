@@ -14,37 +14,40 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social.linkedin.jackson;
+
+package org.jboss.seam.social.facebook.jackson;
+
+import javax.inject.Inject;
 
 import org.codehaus.jackson.map.Module;
+import org.jboss.solder.logging.Logger;
 import org.jboss.seam.social.HttpResponse;
 import org.jboss.seam.social.OAuthServiceJackson;
 import org.jboss.seam.social.RestVerb;
 import org.jboss.seam.social.UserProfile;
-import org.jboss.seam.social.linkedin.LinkedIn;
-import org.jboss.seam.social.linkedin.model.LinkedInProfile;
-import org.jboss.seam.social.linkedin.model.Update;
-import org.jboss.seam.social.oauth.OAuthRequest;
+import org.jboss.seam.social.facebook.FacebookService;
+import org.jboss.seam.social.facebook.model.UserJackson;
 
 /**
  * @author Antoine Sabot-Durand
- * @author Craig Walls
  */
-public class LinkedInJackson extends OAuthServiceJackson implements LinkedIn {
 
-    private static final long serialVersionUID = -6718362913575146613L;
+public class FacebookServiceJackson extends OAuthServiceJackson implements FacebookService {
 
-    static final String PROFILE_URL = "https://api.linkedin.com/v1/people/~:(id,first-name,last-name,headline,industry,site-standard-profile-request,public-profile-url,picture-url)";
+    static final String USER_PROFILE_URL = "https://graph.facebook.com/me";
+    static final String LOGO_URL = "https://d2l6uygi1pgnys.cloudfront.net/2-2-08/images/buttons/facebook_connect.png";
+    static final String STATUS_UPDATE_URL = "https://graph.facebook.com/me/feed";
+    private static final String VERIFIER_PARAM_NAME = "code";
 
-    static final String LOGO_URL = "https://d2l6uygi1pgnys.cloudfront.net/1-9-05/images/buttons/linkedin_connect.png";
+    @Inject
+    private Logger log;
 
-    static final String NETWORK_UPDATE_URL = "http://api.linkedin.com/v1/people/~/person-activities";
+    private UserJackson myProfile;
 
-    @Override
-    protected HttpResponse sendSignedRequest(OAuthRequest request) {
-        request.addHeader("x-li-format", "json");
-        return super.sendSignedRequest(request);
-    }
+    /**
+     *
+     */
+    private static final long serialVersionUID = -1388022067022793683L;
 
     /*
      * (non-Javadoc)
@@ -59,7 +62,7 @@ public class LinkedInJackson extends OAuthServiceJackson implements LinkedIn {
     /*
      * (non-Javadoc)
      * 
-     * @see org.jboss.seam.social.oauth.OAuthService#getUserProfile()
+     * @see org.jboss.seam.social.oauth.OAuthService#getUser()
      */
     @Override
     public UserProfile getMyProfile() {
@@ -83,7 +86,6 @@ public class LinkedInJackson extends OAuthServiceJackson implements LinkedIn {
      */
     @Override
     public Object updateStatus() {
-
         return updateStatus(getStatus());
     }
 
@@ -93,28 +95,12 @@ public class LinkedInJackson extends OAuthServiceJackson implements LinkedIn {
      * @see org.jboss.seam.social.oauth.HasStatus#updateStatus(java.lang.String)
      */
     @Override
-    public Update updateStatus(String message) {
+    public Object updateStatus(String message) {
+        HttpResponse resp = sendSignedRequest(RestVerb.POST, STATUS_UPDATE_URL, "message", message);
+        log.debugf("Update staut is %s", message);
+        setStatus("");
+        log.debugf("Response is : %s", resp.getBody());
         return null;
-        // Update upd = new UpdateJaxb();
-        // String msg = "<a href=\"" + ((Profile) getMyProfile()).getStandardProfileUrl() + "\">" + getMyProfile().getFullName()
-        // + "</a> " + message;
-        // upd.setBody(msg);
-        // StringWriter writer = new StringWriter();
-        // try {
-        // marshaller.marshal(upd, writer);
-        // } catch (JAXBException e) {
-        // throw new SeamSocialException("Unable to marshal LinkedIn update", e);
-        // }
-        // String update = writer.toString();
-        //
-        // HttpResponse resp = sendSignedXmlRequest(RestVerb.POST, NETWORK_UPDATE_URL, update);
-        // if (resp.getCode() == 201) {
-        // setStatus("");
-        // // FIXME everything is ok should notify caller
-        // } else {
-        // // FIXME something went wrong should we throw an exception ?
-        // }
-        // return upd;
     }
 
     /*
@@ -124,8 +110,14 @@ public class LinkedInJackson extends OAuthServiceJackson implements LinkedIn {
      */
     @Override
     protected void initMyProfile() {
-        myProfile = jsonMapper.readValue(sendSignedRequest(RestVerb.GET, PROFILE_URL), LinkedInProfile.class);
+        HttpResponse resp = sendSignedRequest(RestVerb.GET, USER_PROFILE_URL);
+        myProfile = jsonMapper.readValue(resp, UserJackson.class);
 
+    }
+
+    @Override
+    public String getVerifierParamName() {
+        return VERIFIER_PARAM_NAME;
     }
 
     /*
@@ -135,7 +127,8 @@ public class LinkedInJackson extends OAuthServiceJackson implements LinkedIn {
      */
     @Override
     protected Module getJacksonModule() {
-        return new LinkedInModule();
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }

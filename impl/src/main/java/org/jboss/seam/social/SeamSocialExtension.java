@@ -16,6 +16,7 @@
  */
 package org.jboss.seam.social;
 
+import java.lang.annotation.Annotation;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -25,14 +26,15 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
 import javax.enterprise.inject.spi.Annotated;
 import javax.enterprise.inject.spi.AnnotatedType;
+import javax.enterprise.inject.spi.BeanManager;
 import javax.enterprise.inject.spi.Extension;
 import javax.enterprise.inject.spi.ProcessBean;
 import javax.enterprise.inject.spi.ProcessManagedBean;
 
-import org.jboss.solder.logging.Logger;
-import org.jboss.seam.social.cdi.RelatedTo;
 import org.jboss.seam.social.oauth.OAuthService;
 import org.jboss.seam.social.oauth.OAuthServiceSettings;
+import org.jboss.solder.logging.Logger;
+import org.jboss.solder.reflection.AnnotationInspector;
 
 /**
  * @author Antoine Sabot-Durand
@@ -42,10 +44,11 @@ import org.jboss.seam.social.oauth.OAuthServiceSettings;
 public class SeamSocialExtension implements Extension {
 
     private Set<String> servicesNames = new HashSet<String>();
+    private Set<Annotation> servicesQualifier = new HashSet<Annotation>();
     private Map<AnnotatedType<? extends OAuthService>, String> servicesBean = new HashMap<AnnotatedType<? extends OAuthService>, String>();
     private static final Logger log = Logger.getLogger(SeamSocialExtension.class);
 
-    public void processSettingsBeans(@Observes ProcessBean<OAuthServiceSettings> pbean) {
+    public void processSettingsBeans(@Observes ProcessBean<OAuthServiceSettings> pbean, BeanManager beanManager) {
 
         log.info("Starting enumeration of existing service settings");
         Annotated annotated = pbean.getAnnotated();
@@ -58,6 +61,7 @@ public class SeamSocialExtension implements Extension {
             servicesNames.add(name);
 
         }
+        servicesQualifier.addAll(AnnotationInspector.getAnnotations(annotated, ServiceRelated.class));
     }
 
     /**
@@ -73,7 +77,6 @@ public class SeamSocialExtension implements Extension {
             servicesBean.put(pbean.getAnnotatedBeanClass(), name);
         }
     }
-
 
     public Set<String> getSocialRelated() {
         return servicesNames;

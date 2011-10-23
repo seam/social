@@ -11,7 +11,8 @@ import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.seam.social.oauth.ConfigureOAuth;
 import org.jboss.seam.social.scribe.OAuthTokenScribe;
-import org.jboss.seam.social.twitter.Twitter;
+import org.jboss.seam.social.twitter.TwitterService;
+import org.jboss.seam.social.twitter.jackson.TwitterServiceJackson;
 import org.jboss.seam.social.twitter.model.SuggestionCategory;
 import org.jboss.seam.social.twitter.model.Tweet;
 import org.jboss.seam.social.twitter.model.TwitterProfile;
@@ -32,7 +33,7 @@ import org.junit.runner.RunWith;
 public class TwitterTest {
     @Inject
     @ConfigureOAuth(apiKey = "FQzlQC49UhvbMZoxUIvHTQ", apiSecret = "VQ5CZHG4qUoAkUUmckPn4iN4yyjBKcORTW0wnok4r1k")
-    Twitter twitter;
+    TwitterService twitterService;
 
     @Deployment
     public static Archive<?> createTestArchive() throws FileNotFoundException {
@@ -81,20 +82,20 @@ public class TwitterTest {
 
     @Before
     public void init() {
-        twitter.getSession().setAccessToken(
+        twitterService.getSession().setAccessToken(
                 new OAuthTokenScribe("334872715-u75bjYqWyQSYjFMnKeTDZUn8i0QAExjUQ4ENZXH3",
                         "08QG7HVqDjkr1oH1YfBRWmd0n8EG73CuzJgTjFI0sk"));
-        twitter.initAccessToken();
+        twitterService.initAccessToken();
     }
 
     @Test
     public void authorizationUrlTest() {
-        Assert.assertTrue(twitter.getAuthorizationUrl().startsWith("http"));
+        Assert.assertTrue(twitterService.getAuthorizationUrl().startsWith("http"));
     }
 
     @Test
     public void sendATweet() {
-        Tweet tweet = (Tweet) twitter.updateStatus("Tweet sent from JUnit at " + new Date().toString());
+        Tweet tweet = (Tweet) twitterService.updateStatus("Tweet sent from JUnit at " + new Date().toString());
         Assert.assertFalse(tweet.getId() == 0);
 
     }
@@ -102,14 +103,14 @@ public class TwitterTest {
     @Test
     public void searchUser() {
         init();
-        List<TwitterProfile> res = twitter.searchForUsers("antoine");
+        List<TwitterProfile> res = twitterService.searchForUsers("antoine");
         Assert.assertFalse(res.isEmpty());
 
     }
 
     @Test
     public void SuggestionCaegoriesNotEmpty() {
-        List<SuggestionCategory> res = twitter.getSuggestionCategories();
+        List<SuggestionCategory> res = twitterService.getSuggestionCategories();
         Assert.assertFalse(res.isEmpty());
 
     }
