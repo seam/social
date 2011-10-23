@@ -30,7 +30,7 @@ import org.jboss.seam.social.HttpResponse;
 import org.jboss.seam.social.OAuthServiceJackson;
 import org.jboss.seam.social.RestVerb;
 import org.jboss.seam.social.URLUtils;
-import org.jboss.seam.social.twitter.Twitter;
+import org.jboss.seam.social.twitter.TwitterService;
 import org.jboss.seam.social.twitter.model.SuggestionCategory;
 import org.jboss.seam.social.twitter.model.Tweet;
 import org.jboss.seam.social.twitter.model.TwitterProfile;
@@ -40,7 +40,7 @@ import org.jboss.seam.social.twitter.model.TwitterProfile;
  * 
  */
 
-public class TwitterJackson extends OAuthServiceJackson implements Twitter {
+public class TwitterServiceJackson extends OAuthServiceJackson implements TwitterService {
 
     /**
      * Typed list of TwitterProfile. This helps Jackson know which type to deserialize list contents into.

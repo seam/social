@@ -19,8 +19,8 @@ package org.jboss.seam.social.linkedin.jackson;
 import javax.enterprise.inject.New;
 import javax.enterprise.inject.Produces;
 
-import org.jboss.seam.social.cdi.RelatedTo;
-import org.jboss.seam.social.linkedin.LinkedIn;
+import org.jboss.seam.social.RelatedTo;
+import org.jboss.seam.social.linkedin.LinkedInService;
 import org.jboss.seam.social.oauth.OAuthService;
 
 /**
@@ -30,8 +30,8 @@ import org.jboss.seam.social.oauth.OAuthService;
 public class LinkedInProducer {
 
     @Produces
-    @RelatedTo(LinkedIn.TYPE)
-    protected OAuthService produceTwitter(@New LinkedInJackson service) {
+    @RelatedTo(LinkedInService.TYPE)
+    protected OAuthService produceTwitter(@New LinkedInServiceJackson service) {
         return service;
     }
 

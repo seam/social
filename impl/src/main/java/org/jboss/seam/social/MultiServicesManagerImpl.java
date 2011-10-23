@@ -29,7 +29,6 @@ import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 
 import org.apache.commons.lang3.StringUtils;
-import org.jboss.seam.social.cdi.RelatedTo;
 import org.jboss.seam.social.oauth.OAuthService;
 
 public class MultiServicesManagerImpl implements MultiServicesManager, Serializable {

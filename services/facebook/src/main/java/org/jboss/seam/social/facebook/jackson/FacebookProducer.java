@@ -19,8 +19,8 @@ package org.jboss.seam.social.facebook.jackson;
 import javax.enterprise.inject.New;
 import javax.enterprise.inject.Produces;
 
-import org.jboss.seam.social.cdi.RelatedTo;
-import org.jboss.seam.social.facebook.Facebook;
+import org.jboss.seam.social.RelatedTo;
+import org.jboss.seam.social.facebook.FacebookService;
 import org.jboss.seam.social.oauth.OAuthService;
 
 /**
@@ -30,8 +30,8 @@ import org.jboss.seam.social.oauth.OAuthService;
 public class FacebookProducer {
 
     @Produces
-    @RelatedTo(Facebook.TYPE)
-    protected OAuthService produceTwitter(@New FacebookJackson service) {
+    @RelatedTo(FacebookService.TYPE)
+    protected OAuthService produceTwitter(@New FacebookServiceJackson service) {
         return service;
     }
 

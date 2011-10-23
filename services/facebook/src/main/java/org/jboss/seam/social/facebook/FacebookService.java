@@ -14,29 +14,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social.twitter.model;
 
-import java.util.List;
+package org.jboss.seam.social.facebook;
 
-import org.jboss.seam.social.twitter.TwitterService;
+import org.jboss.seam.social.HasStatus;
+import org.jboss.seam.social.oauth.OAuthService;
 
 /**
- * Implementation of this interface contains a TwitterRelated search result It is returned by {@link TwitterService#search()}
+ * A specialization of {@link OAuthService} to add Facebook specific methods
  * 
  * @author Antoine Sabot-Durand
  */
-public interface SearchResult {
+public interface FacebookService extends OAuthService, HasStatus {
 
-    public List<Tweet> getResults();
-
-    public void setResults(List<Tweet> results);
-
-    public long getMaxId();
-
-    public void setMaxId(long maxId);
-
-    public long getSinceId();
-
-    public void setSinceId(long sinceId);
-
+    static final String TYPE = "Facebook";
 }
