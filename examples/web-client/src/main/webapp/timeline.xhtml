@@ -11,9 +11,9 @@
         <p>Your (future) Timeline</p>
         <h:form id="form">
             <h:panelGroup id="timeline"
-                          rendered="#{socialClient.currentServiceOk}">
-                Welcome #{socialClient.user.fullName}<br/>
-                You are now working with #{socialClient.currentService.name}<br/>
+                          rendered="#{currentService.connected}">
+                Welcome #{currentService.myProfile.fullName}<br/>
+                You are now working with #{currentService.name}<br/>
                 <ui:include src="#{socialClient.timeLineUrl}"/>
             </h:panelGroup>
             You can add a new connexion to those social network :
@@ -30,7 +30,7 @@
             close connexion on
             <h:commandLink
                     action="#{socialClient.resetConnection}"
-                    value="#{socialClient.currentService.name}"/>
+                    value="#{currentService.name}"/>
 
 
             Or choose the Social network you want to work with.. :

@@ -74,22 +74,7 @@ public class SeamSocialExtension implements Extension {
         }
     }
 
-    /**
-     * This listener register a new Bean without Qualifier for each bean with RalatedTo qualifier
-     * 
-     * @param abd
-     * @param bm
-     * @SuppressWarnings({ "unchecked", "rawtypes" }) public void afterBeanDiscovery(@Observes AfterBeanDiscovery abd,
-     *                     BeanManager bm) { for (String type : servicesBean.keySet()) { AnnotatedType<? extends OAuthService>
-     *                     annotatedType = servicesBean.get(type);
-     * 
-     *                     AnnotatedTypeBuilder annoBuilder = new
-     *                     AnnotatedTypeBuilder().readFromType(annotatedType).removeFromClass( RelatedTo.class); AnnotatedType
-     *                     myAnnotatedType = annoBuilder.create();
-     * 
-     *                     BeanBuilder beanBuilder = new BeanBuilder(bm).readFromType(myAnnotatedType);
-     *                     abd.addBean(beanBuilder.create()); } }
-     */
+
     public Set<String> getSocialRelated() {
         return servicesNames;
     }

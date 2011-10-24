@@ -6,10 +6,10 @@
 <body>
 <ui:composition>
     <h:panelGroup id="twittertl" layout="block">
-        <img src="#{socialClient.user.profileImageUrl}"/>
+        <img src="#{currentService.myProfile.profileImageUrl}"/>
         <br/>
-        <h:inputTextarea value="#{socialClient.currentService.status}" cols="60" rows="5"/>
-        <h:commandButton action="#{socialClient.currentService.updateStatus}"
+        <h:inputTextarea value="#{currentService.status}" cols="60" rows="5"/>
+        <h:commandButton action="#{currentService.updateStatus}"
                          value="Update your status">
             <f:ajax render="twittertl" execute="twittertl"/>
         </h:commandButton>

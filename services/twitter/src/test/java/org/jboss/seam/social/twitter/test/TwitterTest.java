@@ -1,4 +1,4 @@
-package org.jboss.seam.social.test;
+package org.jboss.seam.social.twitter.test;
 
 import java.io.FileNotFoundException;
 import java.util.Date;
@@ -64,7 +64,7 @@ public class TwitterTest {
                 .addAsLibraries(
                         DependencyResolvers.use(MavenDependencyResolver.class)
                                 .configureFrom("../../settings.xml")
-                                .loadReposFromPom("pom.xml")
+                                .loadMetadataFromPom("pom.xml")
                                 .artifact("org.jboss.solder:solder-impl").artifact("org.scribe:scribe")
                                 .resolveAs(GenericArchive.class));
         // ret.as(ZipExporter.class).exportTo(new File("mytest.war"), true);
