@@ -20,21 +20,28 @@ import java.lang.annotation.Annotation;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
 import java.util.Set;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
+import javax.enterprise.inject.spi.AfterDeploymentValidation;
 import javax.enterprise.inject.spi.Annotated;
 import javax.enterprise.inject.spi.AnnotatedType;
 import javax.enterprise.inject.spi.BeanManager;
 import javax.enterprise.inject.spi.Extension;
 import javax.enterprise.inject.spi.ProcessBean;
-import javax.enterprise.inject.spi.ProcessManagedBean;
+import javax.enterprise.inject.spi.ProcessProducer;
 
+import org.apache.commons.lang3.StringUtils;
 import org.jboss.seam.social.oauth.OAuthService;
 import org.jboss.seam.social.oauth.OAuthServiceSettings;
 import org.jboss.solder.logging.Logger;
 import org.jboss.solder.reflection.AnnotationInspector;
+
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
 
 /**
  * @author Antoine Sabot-Durand
@@ -44,7 +51,10 @@ import org.jboss.solder.reflection.AnnotationInspector;
 public class SeamSocialExtension implements Extension {
 
     private Set<String> servicesNames = new HashSet<String>();
-    private Set<Annotation> servicesQualifier = new HashSet<Annotation>();
+    private Set<Annotation> servicesQualifiersConfigured = new HashSet<Annotation>();
+    private Set<Annotation> servicesQualifiersAvailable = new HashSet<Annotation>();
+    private BiMap<String, Class<?>> servicesToQualifiers = HashBiMap.create();
+
     private Map<AnnotatedType<? extends OAuthService>, String> servicesBean = new HashMap<AnnotatedType<? extends OAuthService>, String>();
     private static final Logger log = Logger.getLogger(SeamSocialExtension.class);
 
@@ -61,25 +71,52 @@ public class SeamSocialExtension implements Extension {
             servicesNames.add(name);
 
         }
-        servicesQualifier.addAll(AnnotationInspector.getAnnotations(annotated, ServiceRelated.class));
+        servicesQualifiersConfigured.addAll(AnnotationInspector.getAnnotations(annotated, ServiceRelated.class));
     }
 
     /**
-     * This Listener build the List of existing OAuthServices with a RelatedTo Qualifier
+     * This Listener build the List of existing OAuthServices with a RelatedTo Qualifier This listener should be deprecated
+     * since this list of ben is not used
      * 
      * @param pbean
      */
-    public void processServicesBeans(@Observes ProcessManagedBean<OAuthService> pbean) {
-        Annotated annotated = pbean.getAnnotated();
+    @Deprecated
+    public void processServicesBeans(@Observes ProcessProducer<?, OAuthService> pbean) {
+        Annotated annotated = pbean.getAnnotatedMember();
         if (annotated.isAnnotationPresent(RelatedTo.class)) {
             RelatedTo related = annotated.getAnnotation(RelatedTo.class);
             String name = related.value();
-            servicesBean.put(pbean.getAnnotatedBeanClass(), name);
+            // servicesBean.put(pbean.getAnnotatedBeanClass(), name);
         }
+        servicesQualifiersAvailable.addAll(AnnotationInspector.getAnnotations(annotated, ServiceRelated.class));
     }
 
     public Set<String> getSocialRelated() {
         return servicesNames;
+    }
+
+    public void processAfterDeploymentValidation(@Observes AfterDeploymentValidation adv) {
+        log.info("validation phase");
+        for (Annotation qual : servicesQualifiersAvailable) {
+            String path = qual.annotationType().getName();
+            String name = "";
+            log.infof("Found service qualifier : %s", path);
+            try {
+                ResourceBundle bundle = ResourceBundle.getBundle(path);
+                name = bundle.getString("service.name");
+            } catch (MissingResourceException e) {
+                log.warnf("No properties configuration file found for %s creating default service name", path);
+                name = StringUtils.substringAfterLast(path, ".");
+            } finally {
+                servicesToQualifiers.put(name, qual.annotationType().getClass());
+            }
+
+        }
+
+    }
+
+    public BiMap<String, Class<?>> getServicesToQualifiers() {
+        return servicesToQualifiers;
     }
 
 }

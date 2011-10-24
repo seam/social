@@ -14,24 +14,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social.twitter.jackson;
+package org.jboss.seam.social.facebook.jackson;
 
 import javax.enterprise.inject.New;
 import javax.enterprise.inject.Produces;
 
 import org.jboss.seam.social.RelatedTo;
+import org.jboss.seam.social.facebook.Facebook;
+import org.jboss.seam.social.facebook.FacebookService;
 import org.jboss.seam.social.oauth.OAuthService;
-import org.jboss.seam.social.twitter.TwitterService;
 
 /**
  * @author antoine
  * 
  */
-public class TwitterProducer {
+public class FacebookServiceProducer {
+
+    @Deprecated
+    @Produces
+    @RelatedTo(FacebookService.TYPE)
+    protected OAuthService produceOldQualifiedFacebook(@New FacebookServiceJackson service) {
+        return service;
+    }
 
     @Produces
-    @RelatedTo(TwitterService.TYPE)
-    protected OAuthService produceTwitter(@New TwitterServiceJackson service) {
+    @Facebook
+    protected OAuthService produceQualifiedFacebook(@New FacebookServiceJackson service) {
         return service;
     }
 

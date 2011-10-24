@@ -17,38 +17,37 @@
 -->
 <beans xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:s="urn:java:ee"
-    xmlns:o="urn:java:org.jboss.seam.social"
-    xmlns:c="urn:java:org.jboss.seam.social.cdi">
+    xmlns:so="urn:java:org.jboss.seam.social">
 
-    <o:OAuthServiceSettingsImpl>
+    <so:OAuthServiceSettingsImpl>
         <s:modifies />
-        <c:RelatedTo>Twitter</c:RelatedTo>
-        <o:apiKey>FQzlQC49UhvbMZoxUIvHTQ</o:apiKey>
-        <o:apiSecret>VQ5CZHG4qUoAkUUmckPn4iN4yyjBKcORTW0wnok4r1k
-        </o:apiSecret>
-        <o:callback>http://localhost:8080/social-web-client/callback.jsf
-        </o:callback>
-    </o:OAuthServiceSettingsImpl>
+        <so:RelatedTo>Twitter</so:RelatedTo>
+        <so:apiKey>FQzlQC49UhvbMZoxUIvHTQ</so:apiKey>
+        <so:apiSecret>VQ5CZHG4qUoAkUUmckPn4iN4yyjBKcORTW0wnok4r1k
+        </so:apiSecret>
+        <so:callback>http://localhost:8080/social-web-client/callback.jsf
+        </so:callback>
+    </so:OAuthServiceSettingsImpl>
 
-    <o:OAuthServiceSettingsImpl>
+    <so:OAuthServiceSettingsImpl>
         <s:modifies />
-        <c:RelatedTo>LinkedIn</c:RelatedTo>
-        <o:apiKey>ympq1JR_oxeC3qZE4VwiDEr-9Rc9Am0YE1AJwwXJNREfqaF7J6hXfsncu_JFd13W
-        </o:apiKey>
-        <o:apiSecret>RwDk21M6qQeGT_zi2icmZV6tc5VsjRZPm7DWDIVt0Wsqu2eYBXt4Csg-FUbBZIIH
-        </o:apiSecret>
-        <o:callback>http://localhost:8080/social-web-client/callback.jsf
-        </o:callback>
-    </o:OAuthServiceSettingsImpl>
+        <so:RelatedTo>LinkedIn</so:RelatedTo>
+        <so:apiKey>ympq1JR_oxeC3qZE4VwiDEr-9Rc9Am0YE1AJwwXJNREfqaF7J6hXfsncu_JFd13W
+        </so:apiKey>
+        <so:apiSecret>RwDk21M6qQeGT_zi2icmZV6tc5VsjRZPm7DWDIVt0Wsqu2eYBXt4Csg-FUbBZIIH
+        </so:apiSecret>
+        <so:callback>http://localhost:8080/social-web-client/callback.jsf
+        </so:callback>
+    </so:OAuthServiceSettingsImpl>
 
-    <o:OAuthServiceSettingsImpl>
+    <so:OAuthServiceSettingsImpl>
         <s:modifies />
-        <c:RelatedTo>Facebook</c:RelatedTo>
-        <o:apiKey>204631749555557</o:apiKey>
-        <o:apiSecret>5d3132b1448a66d28e5c420b267cd65e</o:apiSecret>
-        <o:scope>publish_stream,read_stream</o:scope>
-        <o:callback>http://localhost:8080/social-web-client/callback.jsf
-        </o:callback>
-    </o:OAuthServiceSettingsImpl>
+        <so:RelatedTo>Facebook</so:RelatedTo>
+        <so:apiKey>204631749555557</so:apiKey>
+        <so:apiSecret>5d3132b1448a66d28e5c420b267cd65e</so:apiSecret>
+        <so:scope>publish_stream,read_stream</so:scope>
+        <so:callback>http://localhost:8080/social-web-client/callback.jsf
+        </so:callback>
+    </so:OAuthServiceSettingsImpl>
 
 </beans>

@@ -14,24 +14,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social.linkedin.jackson;
+package org.jboss.seam.social.linkedin;
 
 import javax.enterprise.inject.New;
 import javax.enterprise.inject.Produces;
 
 import org.jboss.seam.social.RelatedTo;
-import org.jboss.seam.social.linkedin.LinkedInService;
+import org.jboss.seam.social.linkedin.jackson.LinkedInServiceJackson;
 import org.jboss.seam.social.oauth.OAuthService;
 
 /**
  * @author antoine
  * 
  */
-public class LinkedInProducer {
+public class LinkedInServiceProducer {
 
+    @Deprecated
     @Produces
     @RelatedTo(LinkedInService.TYPE)
-    protected OAuthService produceTwitter(@New LinkedInServiceJackson service) {
+    protected OAuthService produceOldQualifiedLinkedIn(@New LinkedInServiceJackson service) {
+        return service;
+    }
+
+    @Produces
+    @LinkedIn
+    protected OAuthService produceQualifiedLinkedIn(@New LinkedInServiceJackson service) {
         return service;
     }
 
