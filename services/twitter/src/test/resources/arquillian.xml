@@ -6,4 +6,22 @@
         <deploymentExportPath>target/arquillian</deploymentExportPath>
     </engine>
 
+    <container qualifier="weld-ee-embedded-1.1">
+    </container>
+
+    <container qualifier="jbossas-managed-7">
+    </container>
+
+    <container qualifier="jbossas-remote-7">
+    </container>
+
+    <container qualifier="jbossas-managed-6">
+    </container>
+
+    <container qualifier="jbossas-remote-6">
+    </container>
+
+    <container qualifier="glassfish-remote-3.1">
+    </container>
+
 </arquillian>

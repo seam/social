@@ -44,10 +44,10 @@
     <modules>
         <module>api</module>
         <module>impl</module>
-        <module>examples/web-client</module>
         <module>services/twitter</module>
         <module>services/facebook</module>
         <module>services/linkedin</module>
+        <module>testsuite</module>
     </modules>
 
     <properties>
@@ -95,7 +95,6 @@
                 <version>${project.version}</version>
             </dependency>
             
-
             <dependency>
                 <groupId>org.scribe</groupId>
                 <artifactId>scribe</artifactId>
@@ -127,9 +126,6 @@
             <modules>
                 <module>docs</module>
                 <module>dist</module>
-                <module>services/twitter</module>
-                <module>services/linkedin</module>
-                <module>services/facebook</module>
                 <module>examples/web-client</module>
             </modules>
         </profile>

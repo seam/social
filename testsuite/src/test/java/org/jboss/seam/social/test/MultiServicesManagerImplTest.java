@@ -33,11 +33,6 @@ import org.jboss.seam.social.OAuthServiceBase;
 import org.jboss.seam.social.UserProfile;
 import org.jboss.seam.social.oauth.OAuthService;
 import org.jboss.shrinkwrap.api.Archive;
-import org.jboss.shrinkwrap.api.GenericArchive;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.jboss.shrinkwrap.resolver.api.DependencyResolvers;
-import org.jboss.shrinkwrap.resolver.api.maven.MavenDependencyResolver;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -46,20 +41,9 @@ import org.junit.runner.RunWith;
 @RunWith(Arquillian.class)
 public class MultiServicesManagerImplTest {
 
-    @Deployment
+    @Deployment(name="MultiServicesManagerImpl")
     public static Archive<?> createTestArchive() throws FileNotFoundException {
-
-        Archive<?> ret = ShrinkWrap
-                .create(WebArchive.class, "social.war")
-                .addClasses(MultiServicesManagerImpl.class)
-
-                .addAsLibraries(
-                        DependencyResolvers.use(MavenDependencyResolver.class).configureFrom("../settings.xml")
-                                .loadMetadataFromPom("pom.xml").artifact("org.jboss.solder:solder-impl")
-                                .artifact("org.scribe:scribe").resolveAs(GenericArchive.class));
-        // ret.as(ZipExporter.class).exportTo(new File("mytest.war"), true);
-
-        return ret;
+        return Deployments.baseDeployment();
     }
 
     @Inject
