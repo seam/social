@@ -18,7 +18,7 @@ For more information, see the [Seam Social project page](http://seamframework.or
 
 ##Building
 
-    mvn -Pweld-ee-embedded-1.1 clean install
+    mvn clean install
 
 you need to be connected to internet to launch the tests. You can build without the tests like that :
 
@@ -56,16 +56,17 @@ Right now, Seam Social provides only one convenient way to declare an OAuthConfi
 
     <beans xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	    xmlns:s="urn:java:ee"
-	    xmlns:o="urn:java:org.jboss.seam.social.core">
-     	<o:OAuthServiceSettingsImpl>
-		    <s:modifies />
-	        <o:RelatedTo>Twitter</o:RelatedTo>
-	        <o:apiKey>FQzlQC49UhvbMZoxUIvHTQ</o:apiKey>
-	        <o:apiSecret>VQ5CZHG4qUoAkUUmckPn4iN4yyjBKcORTW0wnok4r1k
-	        </o:apiSecret>
-	        <o:callback>http://localhost:8080/social-web-client/callback.jsf
-	        </o:callback>
-		</o:OAuthServiceSettingsImpl>
+	    xmlns:so="urn:java:org.jboss.seam.social">
+
+	    <so:OAuthServiceSettingsImpl>
+	        <s:modifies />
+	        <so:Twitter/>
+	        <so:apiKey>FQzlQC49UhvbMZoxUIvHTQ</so:apiKey>
+	        <so:apiSecret>VQ5CZHG4qUoAkUUmckPn4iN4yyjBKcORTW0wnok4r1k
+	        </so:apiSecret>
+	        <so:callback>http://localhost:8080/social-web-client/callback.jsf
+	        </so:callback>
+	    </so:OAuthServiceSettingsImpl>
     </beans>
 
 Api Key and Api secret is provided by the service you want to consume (here Twitter). You can use the values above since they're coming from "Seam Social" Twitter application. Callback depends on your application : it's the URL that will collect OAuth verifier
@@ -101,7 +102,7 @@ or using the generic OAuthService with a Qualifier
     public class mySessionBean implements Serializable {
         ...
         @Inject
-        @RelatedTo("Twitter")
+        @Twitter
         OAuthService service;
         ...
     }
