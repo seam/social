@@ -12,7 +12,6 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.seam.social.oauth.ConfigureOAuth;
 import org.jboss.seam.social.scribe.OAuthTokenScribe;
 import org.jboss.seam.social.twitter.TwitterService;
-import org.jboss.seam.social.twitter.jackson.TwitterServiceJackson;
 import org.jboss.seam.social.twitter.model.SuggestionCategory;
 import org.jboss.seam.social.twitter.model.Tweet;
 import org.jboss.seam.social.twitter.model.TwitterProfile;
@@ -41,41 +40,25 @@ public class TwitterTest {
          * File beanFile = new File("src/test/resources/META-INF/beans.xml"); if (!beanFile.exists()) throw new
          * FileNotFoundException();
          */
-        WebArchive ret = ShrinkWrap
-                .create(WebArchive.class, "test.war")
-                .addAsLibraries(
-                        ShrinkWrap.create(
-                                ZipImporter.class, "seam-social-api.jar")
-                                .importFrom(new File("../../api/target/seam-social-api.jar"))
-                                .as(JavaArchive.class),
-                        ShrinkWrap.create(
-                                ZipImporter.class, "seam-social.jar")
-                                .importFrom(new File("../../impl/target/seam-social.jar"))
-                                .as(JavaArchive.class),                        
-                        ShrinkWrap.create(
-                                ZipImporter.class, "seam-social-twitter.jar")
-                                .importFrom(new File("target/seam-social-twitter.jar"))
-                                .as(JavaArchive.class)
-                        );
-                
+        WebArchive ret = ShrinkWrap.create(WebArchive.class, "test.war").addAsLibraries(
+                ShrinkWrap.create(ZipImporter.class, "seam-social-api.jar")
+                        .importFrom(new File("../../api/target/seam-social-api.jar")).as(JavaArchive.class),
+                ShrinkWrap.create(ZipImporter.class, "seam-social.jar")
+                        .importFrom(new File("../../impl/target/seam-social.jar")).as(JavaArchive.class),
+                ShrinkWrap.create(ZipImporter.class, "seam-social-twitter.jar")
+                        .importFrom(new File("target/seam-social-twitter.jar")).as(JavaArchive.class));
+
         if ("weld-ee-embedded-1.1".equals(System.getProperty("arquillian"))) {
             // Don't embed dependencies that are already in the CL in the embedded container from surefire
-            ret.addAsLibraries(
-                    DependencyResolvers.use(MavenDependencyResolver.class).configureFrom("../../settings.xml")
-                            .loadMetadataFromPom("../../impl/pom.xml")
-                            .artifact("org.jboss.solder:solder-impl")                            
-                            .resolveAs(GenericArchive.class));
-        }
-        else {
-            ret.addAsLibraries(
-                    DependencyResolvers.use(MavenDependencyResolver.class).configureFrom("../../settings.xml")
-                            .loadMetadataFromPom("../../impl/pom.xml")
-                            .artifact("org.jboss.solder:solder-impl")
-                            .artifact("org.scribe:scribe")
-                            .artifact("org.apache.commons:commons-lang3")
-                            .artifact("org.codehaus.jackson:jackson-mapper-asl")
-                            .artifact("com.google.guava:guava")
-                            .resolveAs(GenericArchive.class));
+            ret.addAsLibraries(DependencyResolvers.use(MavenDependencyResolver.class).configureFrom("../../settings.xml")
+                    .loadMetadataFromPom("../../impl/pom.xml").artifact("org.jboss.solder:solder-impl")
+                    .resolveAs(GenericArchive.class));
+        } else {
+            ret.addAsLibraries(DependencyResolvers.use(MavenDependencyResolver.class).configureFrom("../../settings.xml")
+                    .loadMetadataFromPom("../../impl/pom.xml").artifact("org.jboss.solder:solder-impl")
+                    .artifact("org.scribe:scribe").artifact("org.apache.commons:commons-lang3")
+                    .artifact("org.codehaus.jackson:jackson-mapper-asl").artifact("com.google.guava:guava")
+                    .resolveAs(GenericArchive.class));
         }
         return ret;
     }
