@@ -1,7 +1,6 @@
 package org.jboss.seam.social.twitter.test;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.Date;
 import java.util.List;
 
@@ -35,31 +34,22 @@ public class TwitterTest {
     TwitterService twitterService;
 
     @Deployment
-    public static Archive<?> createTestArchive() throws FileNotFoundException {
-        /*
-         * File beanFile = new File("src/test/resources/META-INF/beans.xml"); if (!beanFile.exists()) throw new
-         * FileNotFoundException();
-         */
+    public static Archive<?> createTestArchive() {
+
         WebArchive ret = ShrinkWrap.create(WebArchive.class, "test.war").addAsLibraries(
-                ShrinkWrap.create(ZipImporter.class, "seam-social-api.jar")
-                        .importFrom(new File("../../api/target/seam-social-api.jar")).as(JavaArchive.class),
-                ShrinkWrap.create(ZipImporter.class, "seam-social.jar")
-                        .importFrom(new File("../../impl/target/seam-social.jar")).as(JavaArchive.class),
                 ShrinkWrap.create(ZipImporter.class, "seam-social-twitter.jar")
                         .importFrom(new File("target/seam-social-twitter.jar")).as(JavaArchive.class));
 
+        MavenDependencyResolver resolver = DependencyResolvers.use(MavenDependencyResolver.class)
+                .loadMetadataFromPom("pom.xml").artifact("org.jboss.seam.social:seam-social");
+
         if ("weld-ee-embedded-1.1".equals(System.getProperty("arquillian"))) {
-            // Don't embed dependencies that are already in the CL in the embedded container from surefire
-            ret.addAsLibraries(DependencyResolvers.use(MavenDependencyResolver.class).configureFrom("../../settings.xml")
-                    .loadMetadataFromPom("../../impl/pom.xml").artifact("org.jboss.solder:solder-impl")
-                    .resolveAs(GenericArchive.class));
-        } else {
-            ret.addAsLibraries(DependencyResolvers.use(MavenDependencyResolver.class).configureFrom("../../settings.xml")
-                    .loadMetadataFromPom("../../impl/pom.xml").artifact("org.jboss.solder:solder-impl")
-                    .artifact("org.scribe:scribe").artifact("org.apache.commons:commons-lang3")
-                    .artifact("org.codehaus.jackson:jackson-mapper-asl").artifact("com.google.guava:guava")
-                    .resolveAs(GenericArchive.class));
+            // Exclude guava for weld embedded as it seems to cause conflict with weld's version
+            resolver = resolver.exclusion("com.google.guava:guava");
         }
+
+        ret.addAsLibraries(resolver.resolveAs(GenericArchive.class));
+
         return ret;
     }
 
