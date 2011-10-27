@@ -14,31 +14,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social.linkedin;
+package org.jboss.seam.social.facebook;
 
-import static java.lang.annotation.ElementType.FIELD;
-import static java.lang.annotation.ElementType.METHOD;
-import static java.lang.annotation.ElementType.PARAMETER;
-import static java.lang.annotation.ElementType.TYPE;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
+import javax.enterprise.inject.New;
+import javax.enterprise.inject.Produces;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.Retention;
-import java.lang.annotation.Target;
+import org.jboss.seam.social.Facebook;
+import org.jboss.seam.social.facebook.jackson.FacebookServiceJackson;
 
-import javax.inject.Qualifier;
-
-import org.jboss.seam.social.ServiceRelated;
-
-@ServiceRelated
-@Qualifier
-@Target({ TYPE, METHOD, PARAMETER, FIELD })
-@Retention(RUNTIME)
-@Documented
 /**
  * @author antoine
- *
+ * 
  */
-public @interface LinkedIn {
+public class FacebookServiceProducer {
+
+    @Produces
+    @Facebook
+    protected FacebookService produceQualifiedFacebook(@New FacebookServiceJackson service) {
+        return service;
+    }
 
 }

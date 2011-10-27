@@ -20,13 +20,13 @@ package org.jboss.seam.social.facebook.jackson;
 import javax.inject.Inject;
 
 import org.codehaus.jackson.map.Module;
-import org.jboss.solder.logging.Logger;
 import org.jboss.seam.social.HttpResponse;
 import org.jboss.seam.social.OAuthServiceJackson;
 import org.jboss.seam.social.RestVerb;
 import org.jboss.seam.social.UserProfile;
 import org.jboss.seam.social.facebook.FacebookService;
 import org.jboss.seam.social.facebook.model.UserJackson;
+import org.jboss.solder.logging.Logger;
 
 /**
  * @author Antoine Sabot-Durand
@@ -67,16 +67,6 @@ public class FacebookServiceJackson extends OAuthServiceJackson implements Faceb
     @Override
     public UserProfile getMyProfile() {
         return myProfile;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.jboss.seam.social.oauth.OAuthService#getType()
-     */
-    @Override
-    public String getType() {
-        return TYPE;
     }
 
     /*

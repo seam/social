@@ -16,6 +16,11 @@
  */
 package org.jboss.seam.social;
 
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -24,12 +29,7 @@ import javax.enterprise.inject.Instance;
 import javax.enterprise.inject.spi.InjectionPoint;
 import javax.inject.Inject;
 
-import org.jboss.solder.logging.Logger;
-import org.jboss.seam.social.HasStatus;
-import org.jboss.seam.social.HttpResponse;
-import org.jboss.seam.social.RestVerb;
-import org.jboss.seam.social.SeamSocialException;
-import org.jboss.seam.social.UserProfile;
+import org.apache.commons.lang3.StringUtils;
 import org.jboss.seam.social.oauth.ConfigureOAuth;
 import org.jboss.seam.social.oauth.OAuthProvider;
 import org.jboss.seam.social.oauth.OAuthRequest;
@@ -37,6 +37,7 @@ import org.jboss.seam.social.oauth.OAuthService;
 import org.jboss.seam.social.oauth.OAuthServiceSettings;
 import org.jboss.seam.social.oauth.OAuthSessionSettings;
 import org.jboss.seam.social.oauth.OAuthToken;
+import org.jboss.solder.logging.Logger;
 
 /**
  * @author Antoine Sabot-Durand
@@ -68,6 +69,12 @@ public abstract class OAuthServiceBase implements OAuthService, HasStatus {
     @Inject
     protected InjectionPoint ip;
 
+    @Inject
+    protected SeamSocialExtension socialConfig;
+
+    private String type;
+    private Annotation qualifier;
+
     protected UserProfile myProfile;
 
     private boolean connected = false;
@@ -87,7 +94,7 @@ public abstract class OAuthServiceBase implements OAuthService, HasStatus {
             setting = new OAuthServiceSettingsImpl(apiKey, apiSecret, callback, scope, getType());
         } else
             try {
-                setting = settingsInstances.select(new RelatedTo.RelatedToLiteral(getType())).get();
+                setting = settingsInstances.select(getQualifier()).get();
             } catch (Exception e) {
                 throw new SeamSocialException("Unable to find settings for service " + getType(), e);
                 // TODO later we can provide another way to get those settings (properties, jpa, etc...)
@@ -96,6 +103,12 @@ public abstract class OAuthServiceBase implements OAuthService, HasStatus {
         setSettings(setting);
 
         provider.initProvider(settings);
+    }
+
+    public String getType() {
+        if (StringUtils.isEmpty(type))
+            type = socialConfig.getServicesToQualifier().get(getQualifier());
+        return type;
     }
 
     @Override
@@ -320,4 +333,24 @@ public abstract class OAuthServiceBase implements OAuthService, HasStatus {
         return true;
     }
 
+    @Override
+    public Annotation getQualifier() {
+        if (qualifier == null) {
+            List<Type> allTypes = new ArrayList<Type>(Arrays.asList(this.getClass().getGenericInterfaces()));
+            Type superClass = this.getClass().getGenericSuperclass();
+            if (superClass != null)
+                allTypes.add(superClass);
+            for (Type type : socialConfig.getClassToQualifier().keySet()) {
+
+                if (allTypes.contains(type)) {
+                    qualifier = socialConfig.getClassToQualifier().get(type);
+                    break;
+                }
+            }
+            if (qualifier == null)
+                throw new SeamSocialException("Unable tho find Service Related Qualifier for bean of class "
+                        + this.getClass().toString());
+        }
+        return qualifier;
+    }
 }

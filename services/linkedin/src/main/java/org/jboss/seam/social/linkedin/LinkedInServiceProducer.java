@@ -19,9 +19,8 @@ package org.jboss.seam.social.linkedin;
 import javax.enterprise.inject.New;
 import javax.enterprise.inject.Produces;
 
-import org.jboss.seam.social.RelatedTo;
+import org.jboss.seam.social.LinkedIn;
 import org.jboss.seam.social.linkedin.jackson.LinkedInServiceJackson;
-import org.jboss.seam.social.oauth.OAuthService;
 
 /**
  * @author antoine
@@ -29,16 +28,9 @@ import org.jboss.seam.social.oauth.OAuthService;
  */
 public class LinkedInServiceProducer {
 
-    @Deprecated
-    @Produces
-    @RelatedTo(LinkedInService.TYPE)
-    protected OAuthService produceOldQualifiedLinkedIn(@New LinkedInServiceJackson service) {
-        return service;
-    }
-
     @Produces
     @LinkedIn
-    protected OAuthService produceQualifiedLinkedIn(@New LinkedInServiceJackson service) {
+    protected LinkedInService produceQualifiedLinkedIn(@New LinkedInServiceJackson service) {
         return service;
     }
 

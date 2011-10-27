@@ -19,8 +19,7 @@ package org.jboss.seam.social.twitter;
 import javax.enterprise.inject.New;
 import javax.enterprise.inject.Produces;
 
-import org.jboss.seam.social.RelatedTo;
-import org.jboss.seam.social.oauth.OAuthService;
+import org.jboss.seam.social.Twitter;
 import org.jboss.seam.social.twitter.jackson.TwitterServiceJackson;
 
 /**
@@ -29,16 +28,9 @@ import org.jboss.seam.social.twitter.jackson.TwitterServiceJackson;
  */
 public class TwitterServiceProducer {
 
-    @Deprecated
-    @Produces
-    @RelatedTo(TwitterService.TYPE)
-    protected OAuthService produceOldQualifiedTwitter(@New TwitterServiceJackson service) {
-        return service;
-    }
-
     @Produces
     @Twitter
-    protected OAuthService produceQualifiedTwitter(@New TwitterServiceJackson service) {
+    protected TwitterService produceQualifiedTwitter(@New TwitterServiceJackson service) {
         return service;
     }
 

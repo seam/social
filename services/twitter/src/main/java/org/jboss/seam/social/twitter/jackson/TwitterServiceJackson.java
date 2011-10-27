@@ -25,7 +25,6 @@ import org.codehaus.jackson.annotate.JsonCreator;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.Module;
-import org.jboss.solder.logging.Logger;
 import org.jboss.seam.social.HttpResponse;
 import org.jboss.seam.social.OAuthServiceJackson;
 import org.jboss.seam.social.RestVerb;
@@ -34,6 +33,7 @@ import org.jboss.seam.social.twitter.TwitterService;
 import org.jboss.seam.social.twitter.model.SuggestionCategory;
 import org.jboss.seam.social.twitter.model.Tweet;
 import org.jboss.seam.social.twitter.model.TwitterProfile;
+import org.jboss.solder.logging.Logger;
 
 /**
  * @author Antoine Sabot-Durand
@@ -107,16 +107,6 @@ public class TwitterServiceJackson extends OAuthServiceJackson implements Twitte
     @Override
     public String getServiceLogo() {
         return LOGO_URL;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.jboss.seam.social.oauth.OAuthService#getType()
-     */
-    @Override
-    public String getType() {
-        return TYPE;
     }
 
     /*

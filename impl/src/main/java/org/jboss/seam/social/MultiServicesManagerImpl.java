@@ -82,7 +82,7 @@ public class MultiServicesManagerImpl implements MultiServicesManager, Serializa
             throw new IllegalArgumentException("Empty service name provided");
         if (!(listOfServices.contains(serviceName)))
             throw new IllegalArgumentException("Service " + serviceName + " is not available");
-        OAuthService service = serviceInstances.select(new RelatedTo.RelatedToLiteral(serviceName)).get();
+        OAuthService service = serviceInstances.select(socialConfig.getServicesToQualifier().inverse().get(serviceName)).get();
         return service;
     }
 

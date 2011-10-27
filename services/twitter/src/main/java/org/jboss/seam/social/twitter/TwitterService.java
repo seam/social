@@ -30,7 +30,6 @@ import org.jboss.seam.social.twitter.model.TwitterProfile;
  */
 
 public interface TwitterService extends OAuthService, HasStatus {
-    static final String TYPE = "Twitter";
 
     /**
      * Retrieves the authenticated user's Twitter ID.

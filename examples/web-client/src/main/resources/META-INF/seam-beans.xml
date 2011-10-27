@@ -21,7 +21,7 @@
 
     <so:OAuthServiceSettingsImpl>
         <s:modifies />
-        <so:RelatedTo>Twitter</so:RelatedTo>
+        <so:Twitter/>
         <so:apiKey>FQzlQC49UhvbMZoxUIvHTQ</so:apiKey>
         <so:apiSecret>VQ5CZHG4qUoAkUUmckPn4iN4yyjBKcORTW0wnok4r1k
         </so:apiSecret>
@@ -31,7 +31,7 @@
 
     <so:OAuthServiceSettingsImpl>
         <s:modifies />
-        <so:RelatedTo>LinkedIn</so:RelatedTo>
+        <so:LinkedIn />
         <so:apiKey>ympq1JR_oxeC3qZE4VwiDEr-9Rc9Am0YE1AJwwXJNREfqaF7J6hXfsncu_JFd13W
         </so:apiKey>
         <so:apiSecret>RwDk21M6qQeGT_zi2icmZV6tc5VsjRZPm7DWDIVt0Wsqu2eYBXt4Csg-FUbBZIIH
@@ -42,7 +42,7 @@
 
     <so:OAuthServiceSettingsImpl>
         <s:modifies />
-        <so:RelatedTo>Facebook</so:RelatedTo>
+        <so:Facebook />
         <so:apiKey>204631749555557</so:apiKey>
         <so:apiSecret>5d3132b1448a66d28e5c420b267cd65e</so:apiSecret>
         <so:scope>publish_stream,read_stream</so:scope>

@@ -93,12 +93,11 @@ public class OAuthServiceSettingsImpl implements OAuthServiceSettings, Serializa
     }
 
     @Inject
-    public OAuthServiceSettingsImpl(InjectionPoint ip) {
+    public OAuthServiceSettingsImpl(InjectionPoint ip, SeamSocialExtension config) {
 
         for (Annotation quali : ip.getQualifiers()) {
-            if (quali.annotationType().equals(RelatedTo.class))
-                this.serviceName = ((RelatedTo) quali).value();
-
+            if (quali.annotationType().isAnnotationPresent(ServiceRelated.class))
+                this.serviceName = config.getServicesToQualifier().get(quali);
         }
     }
 

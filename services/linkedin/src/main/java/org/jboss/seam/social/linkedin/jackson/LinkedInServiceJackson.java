@@ -69,16 +69,6 @@ public class LinkedInServiceJackson extends OAuthServiceJackson implements Linke
     /*
      * (non-Javadoc)
      * 
-     * @see org.jboss.seam.social.oauth.OAuthService#getType()
-     */
-    @Override
-    public String getType() {
-        return TYPE;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
      * @see org.jboss.seam.social.oauth.HasStatus#updateStatus()
      */
     @Override

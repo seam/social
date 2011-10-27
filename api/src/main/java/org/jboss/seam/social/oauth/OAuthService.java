@@ -17,6 +17,7 @@
 package org.jboss.seam.social.oauth;
 
 import java.io.Serializable;
+import java.lang.annotation.Annotation;
 import java.util.Map;
 
 import org.jboss.seam.social.HttpResponse;
@@ -122,7 +123,15 @@ public interface OAuthService extends Serializable {
      * 
      * @return name of the network
      */
+    @Deprecated
     public String getType();
+
+    /**
+     * Returns the Qualifier used for this social network
+     * 
+     * @return Annotation being a Qualifier
+     */
+    public Annotation getQualifier();
 
     /**
      * Initialize and set an OAuth access token from its public and private keys

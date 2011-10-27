@@ -17,6 +17,7 @@
 package org.jboss.seam.social;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -28,7 +29,6 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
 import javax.enterprise.inject.spi.AfterDeploymentValidation;
 import javax.enterprise.inject.spi.Annotated;
-import javax.enterprise.inject.spi.AnnotatedType;
 import javax.enterprise.inject.spi.BeanManager;
 import javax.enterprise.inject.spi.Extension;
 import javax.enterprise.inject.spi.ProcessBean;
@@ -53,9 +53,12 @@ public class SeamSocialExtension implements Extension {
     private Set<String> servicesNames = new HashSet<String>();
     private Set<Annotation> servicesQualifiersConfigured = new HashSet<Annotation>();
     private Set<Annotation> servicesQualifiersAvailable = new HashSet<Annotation>();
-    private BiMap<String, Class<?>> servicesToQualifiers = HashBiMap.create();
+    private BiMap<Annotation, String> servicesToQualifier = HashBiMap.create();
+    private Map<Type, Annotation> classToQualifier = new HashMap<Type, Annotation>();
 
-    private Map<AnnotatedType<? extends OAuthService>, String> servicesBean = new HashMap<AnnotatedType<? extends OAuthService>, String>();
+    // private Map<AnnotatedType<? extends OAuthService>, String> servicesBean = new HashMap<AnnotatedType<? extends
+    // OAuthService>, String>();
+
     private static final Logger log = Logger.getLogger(SeamSocialExtension.class);
 
     public void processSettingsBeans(@Observes ProcessBean<OAuthServiceSettings> pbean, BeanManager beanManager) {
@@ -63,32 +66,25 @@ public class SeamSocialExtension implements Extension {
         log.info("Starting enumeration of existing service settings");
         Annotated annotated = pbean.getAnnotated();
 
-        if (annotated.isAnnotationPresent(RelatedTo.class)) {
-            RelatedTo related = annotated.getAnnotation(RelatedTo.class);
-            String name = related.value();
-
-            log.infof("Found configuration for service %s", name);
-            servicesNames.add(name);
-
-        }
         servicesQualifiersConfigured.addAll(AnnotationInspector.getAnnotations(annotated, ServiceRelated.class));
     }
 
     /**
-     * This Listener build the List of existing OAuthServices with a RelatedTo Qualifier This listener should be deprecated
-     * since this list of ben is not used
+     * This Listener build the List of existing OAuthServices with a Qualifier having the meta annotation @ServiceRelated
      * 
      * @param pbean
      */
-    @Deprecated
+
     public void processServicesBeans(@Observes ProcessProducer<?, OAuthService> pbean) {
         Annotated annotated = pbean.getAnnotatedMember();
-        if (annotated.isAnnotationPresent(RelatedTo.class)) {
-            RelatedTo related = annotated.getAnnotation(RelatedTo.class);
-            String name = related.value();
-            // servicesBean.put(pbean.getAnnotatedBeanClass(), name);
-        }
-        servicesQualifiersAvailable.addAll(AnnotationInspector.getAnnotations(annotated, ServiceRelated.class));
+        Type type = annotated.getBaseType();
+        Set<Annotation> qualifiers = AnnotationInspector.getAnnotations(annotated, ServiceRelated.class);
+        servicesQualifiersAvailable.addAll(qualifiers);
+        if (qualifiers.size() > 0)
+            if (qualifiers.size() > 1)
+                log.errorf("The bean of type %s has more than one Service Related Qualifier", type);
+            else
+                classToQualifier.put(type, qualifiers.iterator().next());
     }
 
     public Set<String> getSocialRelated() {
@@ -108,15 +104,22 @@ public class SeamSocialExtension implements Extension {
                 log.warnf("No properties configuration file found for %s creating default service name", path);
                 name = StringUtils.substringAfterLast(path, ".");
             } finally {
-                servicesToQualifiers.put(name, qual.annotationType().getClass());
+                servicesToQualifier.put(qual, name);
             }
 
+        }
+        for (Annotation annot : servicesQualifiersAvailable) {
+            servicesNames.add(servicesToQualifier.get(annot));
         }
 
     }
 
-    public BiMap<String, Class<?>> getServicesToQualifiers() {
-        return servicesToQualifiers;
+    public BiMap<Annotation, String> getServicesToQualifier() {
+        return servicesToQualifier;
+    }
+
+    public Map<Type, Annotation> getClassToQualifier() {
+        return classToQualifier;
     }
 
 }

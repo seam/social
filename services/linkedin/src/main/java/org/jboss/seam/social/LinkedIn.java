@@ -26,46 +26,19 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
-import javax.enterprise.util.AnnotationLiteral;
 import javax.inject.Qualifier;
 
-@Deprecated
+import org.jboss.seam.social.ServiceRelated;
+
+@ServiceRelated
 @Qualifier
 @Target({ TYPE, METHOD, PARAMETER, FIELD })
 @Retention(RUNTIME)
 @Documented
 /**
- * This qualifier allows association of a Bean to a given Service
- * @author Antoine Sabot-Durand
+ * @author antoine
  *
  */
-public @interface RelatedTo {
-
-    String value();
-
-    /**
-     * Annotation literal for @{link RelatedTo} qualifier.
-     */
-    @SuppressWarnings("all")
-    public static class RelatedToLiteral extends AnnotationLiteral<RelatedTo> implements RelatedTo {
-
-        private final String value;
-
-        public RelatedToLiteral(String value) {
-            super();
-            this.value = value;
-        }
-
-        /*
-         * (non-Javadoc)
-         * 
-         * @see org.jboss.seam.social.oauth.RelatedTo#service()
-         */
-        @Override
-        public String value() {
-            return value;
-        }
-
-    }
+public @interface LinkedIn {
 
 }

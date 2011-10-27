@@ -25,7 +25,4 @@ import org.jboss.seam.social.oauth.OAuthService;
  * @author Antoine Sabot-Durand
  */
 public interface LinkedInService extends OAuthService, HasStatus {
-
-    static final String TYPE = "LinkedIn";
-
 }
