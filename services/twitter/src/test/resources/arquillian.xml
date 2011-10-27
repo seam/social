@@ -3,7 +3,7 @@
 
     <!-- Uncomment to have test archives exported to the file system for inspection -->
     <engine>
-        <deploymentExportPath>target/arquillian</deploymentExportPath>
+        <property name="deploymentExportPath">target/arquillian</property>
     </engine>
 
     <container qualifier="weld-ee-embedded-1.1">
