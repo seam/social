@@ -121,9 +121,8 @@ public interface OAuthService extends Serializable {
     /**
      * Returns the name/type of the Social Network we're connected to
      * 
-     * @return name of the network
+     * @return name of the service
      */
-    @Deprecated
     public String getType();
 
     /**
