@@ -11,10 +11,23 @@
         <p>Your (future) Timeline</p>
         <h:form id="form">
             <h:panelGroup id="timeline"
-                          rendered="#{currentService.connected}">
+                          rendered="#{not(empty currentService) and currentService.connected}">
                 Welcome #{currentService.myProfile.fullName}<br/>
                 You are now working with #{currentService.name}<br/>
                 <ui:include src="#{socialClient.timeLineUrl}"/>
+                <br/>
+                You can close connexion on
+            <h:commandLink
+                    action="#{socialClient.resetConnection}"
+                    value="#{currentService.name}"/>
+                <br/>
+                Or choose the Social network you want to work with.. :
+            <h:selectOneRadio id="chooseService"
+                              value="#{socialClient.currentServiceName}">
+                <f:selectItems value="#{socialClient.services}" var="serv"
+                               itemValue="#{serv.name}" itemLabel="#{serv.name}"/>
+                <f:ajax render="form"/>
+            </h:selectOneRadio>
             </h:panelGroup>
             You can add a new connexion to those social network :
             <ul>
@@ -27,19 +40,10 @@
 				</ui:repeat>
 			</ul>
             <br/>
-            close connexion on
-            <h:commandLink
-                    action="#{socialClient.resetConnection}"
-                    value="#{currentService.name}"/>
+            
 
 
-            Or choose the Social network you want to work with.. :
-            <h:selectOneRadio id="chooseService"
-                              value="#{socialClient.currentServiceName}">
-                <f:selectItems value="#{socialClient.services}" var="serv"
-                               itemValue="#{serv.name}" itemLabel="#{serv.name}"/>
-                <f:ajax render="form"/>
-            </h:selectOneRadio>
+            
         </h:form>
     </ui:define>
 </ui:composition>

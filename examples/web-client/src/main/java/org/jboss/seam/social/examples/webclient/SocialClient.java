@@ -108,7 +108,7 @@ public class SocialClient implements Serializable {
     }
 
     public String getTimeLineUrl() {
-        if (getCurrentService().isConnected())
+        if (getCurrentService() != null && getCurrentService().isConnected())
             return "/WEB-INF/fragments/" + getCurrentService().getType().toLowerCase() + ".xhtml";
         return "";
     }
