@@ -25,7 +25,10 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
 /**
- * @author antoine
+ * 
+ * This Meta-annotation is used to annotate services Qualifiers
+ * 
+ * @author Antoine Sabot-Durand
  * 
  */
 @Target(ANNOTATION_TYPE)
