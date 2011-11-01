@@ -21,6 +21,7 @@ import java.lang.annotation.Annotation;
 import java.util.Map;
 
 import org.jboss.seam.social.HttpResponse;
+import org.jboss.seam.social.RestService;
 import org.jboss.seam.social.RestVerb;
 import org.jboss.seam.social.UserProfile;
 
@@ -29,7 +30,7 @@ import org.jboss.seam.social.UserProfile;
  * 
  * @author Antoine Sabot-Durand
  */
-public interface OAuthService extends Serializable {
+public interface OAuthService extends RestService, Serializable {
 
     /**
      * @return the access token for the OAuth service
