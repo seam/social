@@ -48,7 +48,7 @@ To consume an OAuth service you need to declare an application on the service pl
 To use an OAuth service bean in Seam social you need to provide these configuration information in two ways :
 
 + thru an OAuthConfigSettings bean
-+ by adding the @ConfigureOAuth annotation when injecting the OAuth service bean  
++ by adding the @OAuthConfiguration annotation when injecting the OAuth service bean  
 
 ###Create an OAutConfigSettings bean thru Seam configuration (in bean.xml)
 
@@ -71,12 +71,12 @@ Right now, Seam Social provides only one convenient way to declare an OAuthConfi
 
 Api Key and Api secret is provided by the service you want to consume (here Twitter). You can use the values above since they're coming from "Seam Social" Twitter application. Callback depends on your application : it's the URL that will collect OAuth verifier
 
-###Adding the @ConfigureOAuth annotation when injecting the OAuth service bean
+###Adding the @OAuthConfiguration annotation when injecting the OAuth service bean
 
-You can simply add the @ConfigureOAuth annotation to the injection point. It can be done like that :
+You can simply add the @OAuthConfiguration annotation to the injection point. It can be done like that :
 	
 	@Inject
-	@ConfigureOAuth(apiKey = "FQzlQC49UhvbMZoxUIvHTQ", apiSecret = "VQ5CZHG4qUoAkUUmckPn4iN4yyjBKcORTW0wnok4r1k", callback="http://localhost:8080/social-web-client/callback.jsf")
+	@OAuthConfiguration(apiKey = "FQzlQC49UhvbMZoxUIvHTQ", apiSecret = "VQ5CZHG4qUoAkUUmckPn4iN4yyjBKcORTW0wnok4r1k", callback="http://localhost:8080/social-web-client/callback.jsf")
 	Twitter twitter;
 
 With this notation the injected bean is configured with the given OAuth values.
