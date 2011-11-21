@@ -22,7 +22,7 @@
     <parent>
         <groupId>org.jboss.seam.social</groupId>
         <artifactId>seam-social-parent</artifactId>
-        <version>3.1.0-SNAPSHOT</version>
+        <version>3.1.0.Beta5</version>
     </parent>
 
     <artifactId>seam-social-distribution</artifactId>
