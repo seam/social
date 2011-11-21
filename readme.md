@@ -143,3 +143,6 @@ Getting the Twitter user profile
 
 After building you can deploy the war generated in example/web-client/target
 in a Java EE 6 container implementing web profile (tested with JBoss 6 but should work in glassfish too)
+
+##Known issues
++ Right now the Web example app doesn't run well on JBoss AS 7.0.2 : probably due to a JSF bug.
