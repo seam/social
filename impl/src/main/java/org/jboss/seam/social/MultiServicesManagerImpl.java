@@ -17,9 +17,11 @@
 
 package org.jboss.seam.social;
 
+import static com.google.common.collect.Lists.newArrayList;
+import static com.google.common.collect.Sets.newHashSet;
+import static org.apache.commons.lang3.StringUtils.isEmpty;
+
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -28,16 +30,22 @@ import javax.enterprise.inject.Any;
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 
-import org.apache.commons.lang3.StringUtils;
 import org.jboss.seam.social.oauth.OAuthService;
 
+/**
+ * 
+ * Default implementation of {@link MultiServicesManager}
+ * 
+ * @author Antoine Sabot-Durand
+ * 
+ */
 public class MultiServicesManagerImpl implements MultiServicesManager, Serializable {
 
-    /**
-     *
-     */
     private static final long serialVersionUID = 2681869484541158766L;
 
+    /*
+     * @Inject private Log log;
+     */
     @Inject
     @Any
     private Instance<OAuthService> serviceInstances;
@@ -53,14 +61,9 @@ public class MultiServicesManagerImpl implements MultiServicesManager, Serializa
 
     @PostConstruct
     void init() {
-        listOfServices = new ArrayList<String>(socialConfig.getSocialRelated());
+        listOfServices = newArrayList(socialConfig.getSocialRelated());
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.jboss.seam.social.manager.MultiServicesManager#getListOfServices()
-     */
     @Override
     public List<String> getListOfServices() {
         return listOfServices;
@@ -68,17 +71,12 @@ public class MultiServicesManagerImpl implements MultiServicesManager, Serializa
 
     public MultiServicesManagerImpl() {
         super();
-        services = new HashSet<OAuthService>();
+        services = newHashSet();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.jboss.seam.social.manager.MultiServicesManager#addService(org.jboss.seam.social.oauth.Service)
-     */
     @Override
     public OAuthService getNewService(String serviceName) {
-        if (StringUtils.isEmpty(serviceName))
+        if (isEmpty(serviceName))
             throw new IllegalArgumentException("Empty service name provided");
         if (!(listOfServices.contains(serviceName)))
             throw new IllegalArgumentException("Service " + serviceName + " is not available");
@@ -86,11 +84,6 @@ public class MultiServicesManagerImpl implements MultiServicesManager, Serializa
         return service;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.jboss.seam.social.manager.MultiServicesManager#getServices()
-     */
     @Override
     public Set<OAuthService> getServices() {
         return services;

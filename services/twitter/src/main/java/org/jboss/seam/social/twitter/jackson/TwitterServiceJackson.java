@@ -25,10 +25,10 @@ import org.codehaus.jackson.annotate.JsonCreator;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.Module;
-import org.jboss.seam.social.HttpResponse;
 import org.jboss.seam.social.OAuthServiceJackson;
-import org.jboss.seam.social.RestVerb;
 import org.jboss.seam.social.URLUtils;
+import org.jboss.seam.social.rest.RestResponse;
+import org.jboss.seam.social.rest.RestVerb;
 import org.jboss.seam.social.twitter.TwitterService;
 import org.jboss.seam.social.twitter.model.SuggestionCategory;
 import org.jboss.seam.social.twitter.model.Tweet;
@@ -92,7 +92,7 @@ public class TwitterServiceJackson extends OAuthServiceJackson implements Twitte
 
     @Override
     public Tweet updateStatus(String message) {
-        HttpResponse resp = sendSignedRequest(RestVerb.POST, TWEET_URL, "status", message);
+        RestResponse resp = sendSignedRequest(RestVerb.POST, TWEET_URL, "status", message);
         log.infof("update status is %s", message);
         setStatus("");
         return jsonMapper.readValue(resp, Tweet.class);

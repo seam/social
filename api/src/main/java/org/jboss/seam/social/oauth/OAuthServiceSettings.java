@@ -16,6 +16,8 @@
  */
 package org.jboss.seam.social.oauth;
 
+import java.io.Serializable;
+
 /**
  * Interface for model containing settings needed to access to an OAuth 1.0a service It's used by {@link OAuthService} to setup
  * connection to OAuth Service
@@ -23,7 +25,7 @@ package org.jboss.seam.social.oauth;
  * @author Antoine Sabot-Durand
  * @see OAuthService
  */
-public interface OAuthServiceSettings {
+public interface OAuthServiceSettings extends Serializable {
 
     /**
      * @return the key consumer key for the OAuth service
@@ -69,10 +71,5 @@ public interface OAuthServiceSettings {
      * @return
      */
     String getServiceName();
-
-    /**
-     * @param serviceName
-     */
-    void setServiceName(String serviceName);
 
 }

@@ -16,7 +16,7 @@
  */
 package org.jboss.seam.social.oauth;
 
-import org.jboss.seam.social.RestVerb;
+import org.jboss.seam.social.rest.RestVerb;
 
 /**
  * @author Antoine Sabot-Durand

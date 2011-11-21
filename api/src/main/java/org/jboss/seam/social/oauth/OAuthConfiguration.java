@@ -32,7 +32,7 @@ import java.lang.annotation.Target;
  * 
  * <pre>
  * &#064;Inject
- * &#064;ConfigureOAuth(apiKey = &quot;a consumer key&quot;, apiSecret = &quot;a consumer secret&quot;, callback = &quot;a call back URL&quot;)
+ * &#064;OAuthConfiguration(apiKey = &quot;a consumer key&quot;, apiSecret = &quot;a consumer secret&quot;, callback = &quot;a call back URL&quot;)
  * Twitter service;
  * </pre>
  * <p/>
@@ -44,7 +44,7 @@ import java.lang.annotation.Target;
 @Target({ TYPE, METHOD, PARAMETER, FIELD })
 @Retention(RUNTIME)
 @Documented
-public @interface ConfigureOAuth {
+public @interface OAuthConfiguration {
 
     String apiKey();
 

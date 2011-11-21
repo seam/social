@@ -16,7 +16,6 @@
  */
 package org.jboss.seam.social;
 
-import java.io.Serializable;
 import java.lang.annotation.Annotation;
 
 import javax.enterprise.inject.spi.InjectionPoint;
@@ -25,10 +24,12 @@ import javax.inject.Inject;
 import org.jboss.seam.social.oauth.OAuthServiceSettings;
 
 /**
+ * 
+ * 
  * @author Antoine Sabot-Durand
  */
 
-public class OAuthServiceSettingsImpl implements OAuthServiceSettings, Serializable {
+public class OAuthServiceSettingsImpl implements OAuthServiceSettings {
     /**
      *
      */
@@ -85,11 +86,6 @@ public class OAuthServiceSettingsImpl implements OAuthServiceSettings, Serializa
     @Override
     public String getServiceName() {
         return serviceName;
-    }
-
-    @Override
-    public void setServiceName(String serviceName) {
-        this.serviceName = serviceName;
     }
 
     @Inject

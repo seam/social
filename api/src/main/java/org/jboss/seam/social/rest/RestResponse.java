@@ -14,13 +14,42 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social;
+package org.jboss.seam.social.rest;
+
+import java.io.InputStream;
+import java.util.Map;
 
 /**
- * Enum containing the verb used in REST request.
+ * Implementation of this interface represent an Http Response
  * 
  * @author Antoine Sabot-Durand
  */
-public enum RestVerb {
-    GET, POST, PUT, DELETE
+public interface RestResponse {
+
+    /**
+     * @return the body of the response in a {@link String}
+     */
+    public String getBody();
+
+    /**
+     * @return the body of the response in a {@link InputStream}
+     */
+    public InputStream getStream();
+
+    /**
+     * @return the HTTP return code of the response
+     */
+    public int getCode();
+
+    /**
+     * @return the HTTP Response headers in {@link Map}
+     */
+    public Map<String, String> getHeaders();
+
+    /**
+     * @param name of the HTTP header
+     * @return the value of the HTTP header
+     */
+    public String getHeader(String name);
+
 }

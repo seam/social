@@ -8,7 +8,7 @@ import javax.inject.Inject;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.seam.social.oauth.ConfigureOAuth;
+import org.jboss.seam.social.oauth.OAuthConfiguration;
 import org.jboss.seam.social.scribe.OAuthTokenScribe;
 import org.jboss.seam.social.twitter.TwitterService;
 import org.jboss.seam.social.twitter.model.SuggestionCategory;
@@ -30,7 +30,7 @@ import org.junit.runner.RunWith;
 @RunWith(Arquillian.class)
 public class TwitterTest {
     @Inject
-    @ConfigureOAuth(apiKey = "FQzlQC49UhvbMZoxUIvHTQ", apiSecret = "VQ5CZHG4qUoAkUUmckPn4iN4yyjBKcORTW0wnok4r1k")
+    @OAuthConfiguration(apiKey = "FQzlQC49UhvbMZoxUIvHTQ", apiSecret = "VQ5CZHG4qUoAkUUmckPn4iN4yyjBKcORTW0wnok4r1k")
     TwitterService twitterService;
 
     @Deployment
@@ -41,7 +41,7 @@ public class TwitterTest {
                         .importFrom(new File("target/seam-social-twitter.jar")).as(JavaArchive.class));
 
         MavenDependencyResolver resolver = DependencyResolvers.use(MavenDependencyResolver.class)
-                .loadMetadataFromPom("pom.xml").goOffline().artifact("org.jboss.seam.social:seam-social");
+                .loadMetadataFromPom("pom.xml").goOffline().artifact("org.jboss.seam.social:seam-social").artifact("org.jboss.solder:solder-impl");
 
         if ("weld-ee-embedded-1.1".equals(System.getProperty("arquillian"))) {
             // Exclude guava for weld embedded as it seems to cause conflict with weld's version

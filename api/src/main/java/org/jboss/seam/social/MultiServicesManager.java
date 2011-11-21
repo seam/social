@@ -16,6 +16,7 @@
  */
 package org.jboss.seam.social;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
 
@@ -29,7 +30,7 @@ import org.jboss.seam.social.oauth.OAuthService;
  * @author Antoine Sabot-Durand
  * 
  */
-public interface MultiServicesManager {
+public interface MultiServicesManager extends Serializable {
 
     /**
      * @return Set of available service to connect to
