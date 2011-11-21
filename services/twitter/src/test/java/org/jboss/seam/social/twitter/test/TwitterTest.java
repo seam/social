@@ -41,7 +41,7 @@ public class TwitterTest {
                         .importFrom(new File("target/seam-social-twitter.jar")).as(JavaArchive.class));
 
         MavenDependencyResolver resolver = DependencyResolvers.use(MavenDependencyResolver.class)
-                .loadMetadataFromPom("pom.xml").artifact("org.jboss.seam.social:seam-social");
+                .loadMetadataFromPom("pom.xml").goOffline().artifact("org.jboss.seam.social:seam-social");
 
         if ("weld-ee-embedded-1.1".equals(System.getProperty("arquillian"))) {
             // Exclude guava for weld embedded as it seems to cause conflict with weld's version
