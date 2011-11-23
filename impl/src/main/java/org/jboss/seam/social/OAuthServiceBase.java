@@ -16,9 +16,10 @@
  */
 package org.jboss.seam.social;
 
+import static com.google.common.collect.Lists.newArrayList;
+
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -329,8 +330,8 @@ public abstract class OAuthServiceBase implements OAuthService, HasStatus {
     @Override
     public Annotation getQualifier() {
         if (qualifier == null) {
-            log.debugf("building the list of direct ancestor (Interface and Class) for bean %s", this.getClass().toString());
-            List<Type> allTypes = new ArrayList<Type>(Arrays.asList(this.getClass().getGenericInterfaces()));
+            log.debugf("building the list of direct ancestors (Interface and Class) for bean %s", this.getClass().toString());
+            List<Type> allTypes = newArrayList(Arrays.asList(this.getClass().getGenericInterfaces()));
             Type superClass = this.getClass().getGenericSuperclass();
             if (superClass != null)
                 allTypes.add(superClass);

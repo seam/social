@@ -43,9 +43,6 @@ public class MultiServicesManagerImpl implements MultiServicesManager, Serializa
 
     private static final long serialVersionUID = 2681869484541158766L;
 
-    /*
-     * @Inject private Log log;
-     */
     @Inject
     @Any
     private Instance<OAuthService> serviceInstances;

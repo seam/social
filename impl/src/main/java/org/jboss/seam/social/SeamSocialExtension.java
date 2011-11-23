@@ -16,10 +16,11 @@
  */
 package org.jboss.seam.social;
 
+import static com.google.common.collect.Maps.newHashMap;
+import static com.google.common.collect.Sets.newHashSet;
+
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
@@ -50,14 +51,11 @@ import com.google.common.collect.HashBiMap;
 @ApplicationScoped
 public class SeamSocialExtension implements Extension {
 
-    private Set<String> servicesNames = new HashSet<String>();
-    private Set<Annotation> servicesQualifiersConfigured = new HashSet<Annotation>();
-    private Set<Annotation> servicesQualifiersAvailable = new HashSet<Annotation>();
+    private Set<String> servicesNames = newHashSet();
+    private Set<Annotation> servicesQualifiersConfigured = newHashSet();
+    private Set<Annotation> servicesQualifiersAvailable = newHashSet();
     private BiMap<Annotation, String> servicesToQualifier = HashBiMap.create();
-    private Map<Type, Annotation> classToQualifier = new HashMap<Type, Annotation>();
-
-    // private Map<AnnotatedType<? extends OAuthService>, String> servicesBean = new HashMap<AnnotatedType<? extends
-    // OAuthService>, String>();
+    private Map<Type, Annotation> classToQualifier = newHashMap();
 
     private static final Logger log = Logger.getLogger(SeamSocialExtension.class);
 

@@ -32,6 +32,10 @@ import org.scribe.model.Verb;
  */
 public class OAuthRequestScribe implements OAuthRequest {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 6560621737726192278L;
     private org.scribe.model.OAuthRequest request;
 
     org.scribe.model.OAuthRequest getDelegate() {

@@ -30,9 +30,7 @@ import org.jboss.seam.social.oauth.OAuthServiceSettings;
  */
 
 public class OAuthServiceSettingsImpl implements OAuthServiceSettings {
-    /**
-     *
-     */
+
     private static final long serialVersionUID = -8018722725677732853L;
 
     private String apiKey;
