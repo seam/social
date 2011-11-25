@@ -20,6 +20,7 @@ import static com.google.common.collect.Lists.newArrayList;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -36,6 +37,7 @@ import org.jboss.seam.social.oauth.OAuthToken;
 import org.jboss.solder.logging.Logger;
 
 import com.google.common.base.Function;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 @Named

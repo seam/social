@@ -21,6 +21,7 @@ import static com.google.common.collect.Sets.newHashSet;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
