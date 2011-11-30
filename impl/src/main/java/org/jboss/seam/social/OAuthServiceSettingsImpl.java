@@ -16,23 +16,21 @@
  */
 package org.jboss.seam.social;
 
-import java.io.Serializable;
 import java.lang.annotation.Annotation;
 
 import javax.enterprise.inject.spi.InjectionPoint;
 import javax.inject.Inject;
 
-import org.jboss.seam.social.cdi.RelatedTo;
 import org.jboss.seam.social.oauth.OAuthServiceSettings;
 
 /**
+ * 
+ * 
  * @author Antoine Sabot-Durand
  */
 
-public class OAuthServiceSettingsImpl implements OAuthServiceSettings, Serializable {
-    /**
-     *
-     */
+public class OAuthServiceSettingsImpl implements OAuthServiceSettings {
+
     private static final long serialVersionUID = -8018722725677732853L;
 
     private String apiKey;
@@ -88,18 +86,12 @@ public class OAuthServiceSettingsImpl implements OAuthServiceSettings, Serializa
         return serviceName;
     }
 
-    @Override
-    public void setServiceName(String serviceName) {
-        this.serviceName = serviceName;
-    }
-
     @Inject
-    public OAuthServiceSettingsImpl(InjectionPoint ip) {
+    public OAuthServiceSettingsImpl(InjectionPoint ip, SeamSocialExtension config) {
 
         for (Annotation quali : ip.getQualifiers()) {
-            if (quali.annotationType().equals(RelatedTo.class))
-                this.serviceName = ((RelatedTo) quali).value();
-
+            if (quali.annotationType().isAnnotationPresent(ServiceRelated.class))
+                this.serviceName = config.getServicesToQualifier().get(quali);
         }
     }
 

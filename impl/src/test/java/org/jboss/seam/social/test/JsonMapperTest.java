@@ -19,9 +19,9 @@ package org.jboss.seam.social.test;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import org.jboss.seam.social.HttpResponse;
 import org.jboss.seam.social.JsonMapper;
 import org.jboss.seam.social.SeamSocialException;
+import org.jboss.seam.social.rest.RestResponse;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -40,7 +40,7 @@ public class JsonMapperTest {
 
     @Test(expected = SeamSocialException.class)
     public void testReadEmptyBody() {
-        HttpResponse resp = mock(HttpResponse.class);
+        RestResponse resp = mock(RestResponse.class);
         when(resp.getBody()).thenReturn("");
 
         jm.readValue(resp, Object.class);
@@ -48,7 +48,7 @@ public class JsonMapperTest {
 
     @Test(expected = NullPointerException.class)
     public void testReadNullBody() {
-        HttpResponse resp = mock(HttpResponse.class);
+        RestResponse resp = mock(RestResponse.class);
         when(resp.getBody()).thenReturn(null);
 
         jm.readValue(resp, Object.class);

@@ -20,10 +20,10 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import org.jboss.seam.social.HttpResponse;
-import org.jboss.seam.social.RestVerb;
 import org.jboss.seam.social.SeamSocialException;
 import org.jboss.seam.social.oauth.OAuthRequest;
+import org.jboss.seam.social.rest.RestResponse;
+import org.jboss.seam.social.rest.RestVerb;
 import org.scribe.model.Verb;
 
 /**
@@ -32,6 +32,10 @@ import org.scribe.model.Verb;
  */
 public class OAuthRequestScribe implements OAuthRequest {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 6560621737726192278L;
     private org.scribe.model.OAuthRequest request;
 
     org.scribe.model.OAuthRequest getDelegate() {
@@ -67,9 +71,9 @@ public class OAuthRequestScribe implements OAuthRequest {
      * @see org.jboss.seam.social.oauth.OAuthRequest#send()
      */
     @Override
-    public HttpResponse send() {
+    public RestResponse send() {
         try {
-            return new HttpResponseScribe(request.send());
+            return new RestResponseScribe(request.send());
         } catch (IOException e) {
             throw new SeamSocialException("Unable to send Scribe request", e);
         }

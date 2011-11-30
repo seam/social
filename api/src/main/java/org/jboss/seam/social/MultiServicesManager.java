@@ -16,6 +16,7 @@
  */
 package org.jboss.seam.social;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
 
@@ -23,19 +24,18 @@ import org.jboss.seam.social.oauth.OAuthService;
 
 /**
  * Implementation of this interface allow to manage multiple OAuth connection. The connection to service are backed by a Set to
- * avoid null or double connection. Uniqueness of a connection is based on service type and User name on the service
+ * avoid null or duplicate connection. Uniqueness of a connection is based on service type and User name on the service
  * 
  * 
  * @author Antoine Sabot-Durand
  * 
  */
-public interface MultiServicesManager {
+public interface MultiServicesManager extends Serializable {
 
     /**
      * @return Set of available service to connect to
      */
     public List<String> getListOfServices();
-
 
     /**
      * @return the Set of services connected
@@ -53,7 +53,7 @@ public interface MultiServicesManager {
     /**
      * @return the current service
      */
-    OAuthService getCurrentService();
+    public OAuthService getCurrentService();
 
     /**
      * Set the current service. The service which is active at the moment

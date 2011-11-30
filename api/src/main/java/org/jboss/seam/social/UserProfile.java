@@ -19,7 +19,7 @@ package org.jboss.seam.social;
 import java.io.Serializable;
 
 /**
- * Generci abstract class to define a basic user information
+ * Generic abstract class to define a basic user information
  * 
  * @author Antoine Sabot-Durand
  */

@@ -16,12 +16,12 @@
  */
 package org.jboss.seam.social.scribe;
 
-import org.jboss.seam.social.RestVerb;
 import org.jboss.seam.social.SeamSocialException;
 import org.jboss.seam.social.oauth.OAuthProvider;
 import org.jboss.seam.social.oauth.OAuthRequest;
 import org.jboss.seam.social.oauth.OAuthServiceSettings;
 import org.jboss.seam.social.oauth.OAuthToken;
+import org.jboss.seam.social.rest.RestVerb;
 import org.scribe.builder.ServiceBuilder;
 import org.scribe.builder.api.Api;
 import org.scribe.model.Token;
@@ -102,7 +102,7 @@ public class OAuthProviderScribe implements OAuthProvider {
      */
     @Override
     public void initProvider(OAuthServiceSettings settings) {
-        Class<? extends Api> apiClass = getApiClass(settings.getServiceName());
+        Class<? extends Api> apiClass = getApiClass(settings.getServiceName()); // TODO : should get API class differently !
         ServiceBuilder serviceBuilder = new ServiceBuilder().provider(apiClass).apiKey(settings.getApiKey())
                 .apiSecret(settings.getApiSecret());
         if (settings.getCallback() != null && !("".equals(settings.getCallback())))

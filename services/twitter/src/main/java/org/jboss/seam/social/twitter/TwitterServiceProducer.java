@@ -14,18 +14,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package org.jboss.seam.social.twitter;
 
-package org.jboss.seam.social.facebook;
+import javax.enterprise.inject.New;
+import javax.enterprise.inject.Produces;
 
-import org.jboss.seam.social.HasStatus;
-import org.jboss.seam.social.oauth.OAuthService;
+import org.jboss.seam.social.Twitter;
+import org.jboss.seam.social.twitter.jackson.TwitterServiceJackson;
 
 /**
- * A specialization of {@link OAuthService} to add Facebook specific methods
+ * @author antoine
  * 
- * @author Antoine Sabot-Durand
  */
-public interface Facebook extends OAuthService, HasStatus {
+public class TwitterServiceProducer {
 
-    static final String TYPE = "Facebook";
+    @Produces
+    @Twitter
+    protected TwitterService produceQualifiedTwitter(@New TwitterServiceJackson service) {
+        return service;
+    }
+
 }

@@ -17,20 +17,20 @@
 package org.jboss.seam.social.linkedin.jackson;
 
 import org.codehaus.jackson.map.Module;
-import org.jboss.seam.social.HttpResponse;
 import org.jboss.seam.social.OAuthServiceJackson;
-import org.jboss.seam.social.RestVerb;
 import org.jboss.seam.social.UserProfile;
-import org.jboss.seam.social.linkedin.LinkedIn;
+import org.jboss.seam.social.linkedin.LinkedInService;
 import org.jboss.seam.social.linkedin.model.LinkedInProfile;
 import org.jboss.seam.social.linkedin.model.Update;
 import org.jboss.seam.social.oauth.OAuthRequest;
+import org.jboss.seam.social.rest.RestResponse;
+import org.jboss.seam.social.rest.RestVerb;
 
 /**
  * @author Antoine Sabot-Durand
  * @author Craig Walls
  */
-public class LinkedInJackson extends OAuthServiceJackson implements LinkedIn {
+public class LinkedInServiceJackson extends OAuthServiceJackson implements LinkedInService {
 
     private static final long serialVersionUID = -6718362913575146613L;
 
@@ -41,7 +41,7 @@ public class LinkedInJackson extends OAuthServiceJackson implements LinkedIn {
     static final String NETWORK_UPDATE_URL = "http://api.linkedin.com/v1/people/~/person-activities";
 
     @Override
-    protected HttpResponse sendSignedRequest(OAuthRequest request) {
+    protected RestResponse sendSignedRequest(OAuthRequest request) {
         request.addHeader("x-li-format", "json");
         return super.sendSignedRequest(request);
     }
@@ -64,16 +64,6 @@ public class LinkedInJackson extends OAuthServiceJackson implements LinkedIn {
     @Override
     public UserProfile getMyProfile() {
         return myProfile;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.jboss.seam.social.oauth.OAuthService#getType()
-     */
-    @Override
-    public String getType() {
-        return TYPE;
     }
 
     /*

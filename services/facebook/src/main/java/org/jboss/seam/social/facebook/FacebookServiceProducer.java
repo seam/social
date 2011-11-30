@@ -14,13 +14,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social;
+package org.jboss.seam.social.facebook;
+
+import javax.enterprise.inject.New;
+import javax.enterprise.inject.Produces;
+
+import org.jboss.seam.social.Facebook;
+import org.jboss.seam.social.facebook.jackson.FacebookServiceJackson;
 
 /**
- * Enum containing the verb used in REST request.
+ * @author antoine
  * 
- * @author Antoine Sabot-Durand
  */
-public enum RestVerb {
-    GET, POST, PUT, DELETE
+public class FacebookServiceProducer {
+
+    @Produces
+    @Facebook
+    protected FacebookService produceQualifiedFacebook(@New FacebookServiceJackson service) {
+        return service;
+    }
+
 }

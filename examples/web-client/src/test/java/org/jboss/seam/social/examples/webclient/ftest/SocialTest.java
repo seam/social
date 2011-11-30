@@ -57,6 +57,14 @@ public class SocialTest {
     protected final XPathLocator FACEBOOK_PASSWORD = xp("//input[@id='pass']");
     protected final XPathLocator FACEBOOK_LOGIN = xp("//input[@name='login']");
     protected final XPathLocator FACEBOOK_ALLOW = xp("//input[@name='grant_clicked']");
+    
+    protected static final XPathLocator LINKEDIN_CLOSE_CONNECTION = xp("//a[contains(text(),'LinkedIn - Sean Quentin')]");
+    protected static final XPathLocator TWITTER_CLOSE_CONNECTION = xp("//a[contains(text(),'Twitter - Sean Quentin')]");
+    protected static final XPathLocator FACEBOOK_CLOSE_CONNECTION = xp("//a[contains(text(),'Facebook - Sean Quentin')]");
+    private static final String LINKEDIN_CONNECTION = "You are now working with LinkedIn - Sean Quentin";
+    private static final String TWITTER_CONNECTION = "You are now working with Twitter - Sean Quentin";
+    private static final String FACEBOOK_CONNECTION = "You are now working with Facebook - Sean Quentin";
+    
     public static final String ARCHIVE_NAME = "social-web-client.war";
     public static final String BUILD_DIRECTORY = "target";
     
@@ -94,11 +102,12 @@ public class SocialTest {
 
         waitModel.interval(checkInterval).timeout(modelTimeout / 2).until(elementPresent.locator(CALLBACK_HEADER));
 
-        // We are back now
-        assertEquals(selenium.getLocation().toString().contains(contextRoot.toString()), true);
-
         // We go to the twitter client
         waitForHttp(selenium).click(CALLBACK_CLIENT);
+        
+        //closing connection
+        waitForHttp(selenium).click(TWITTER_CLOSE_CONNECTION);
+        assertFalse("Can't close active connection!",selenium.isTextPresent(TWITTER_CONNECTION));
     }
 
     @Test
@@ -115,9 +124,12 @@ public class SocialTest {
 
         waitModel.interval(checkInterval).timeout(modelTimeout / 2).until(elementPresent.locator(CALLBACK_HEADER));
 
-        assertEquals(selenium.getLocation().toString().contains(contextRoot.toString()), true);
         // We go to the LinkedIn client
         waitForHttp(selenium).click(CALLBACK_CLIENT);
+       
+        //closing connection
+        waitForHttp(selenium).click(LINKEDIN_CLOSE_CONNECTION);
+        assertFalse("Can't close active connection!",selenium.isTextPresent(LINKEDIN_CONNECTION));
     }
 
     @Test
@@ -144,10 +156,12 @@ public class SocialTest {
         // Now we expect to be redirected to our callback page
         waitModel.interval(checkInterval).timeout(modelTimeout / 2).until(elementPresent.locator(CALLBACK_HEADER));
 
-        assertEquals(selenium.getLocation().toString().contains(contextRoot.toString()), true);
-
         // We go to the Facebook client
         waitForHttp(selenium).click(CALLBACK_CLIENT);
+ 
+        //closing connection
+        waitForHttp(selenium).click(FACEBOOK_CLOSE_CONNECTION);
+        assertFalse("Can't close active connection!",selenium.isTextPresent(FACEBOOK_CONNECTION));
     }
 
     public String getProperty(String key) {

@@ -14,18 +14,42 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social.linkedin;
+package org.jboss.seam.social.rest;
 
-import org.jboss.seam.social.HasStatus;
-import org.jboss.seam.social.oauth.OAuthService;
+import java.io.InputStream;
+import java.util.Map;
 
 /**
- * A specialization of {@link OAuthService} to add LinkedIn specific methods
+ * Implementation of this interface represent an Http Response
  * 
  * @author Antoine Sabot-Durand
  */
-public interface LinkedIn extends OAuthService, HasStatus {
+public interface RestResponse {
 
-    static final String TYPE = "LinkedIn";
+    /**
+     * @return the body of the response in a {@link String}
+     */
+    public String getBody();
+
+    /**
+     * @return the body of the response in a {@link InputStream}
+     */
+    public InputStream getStream();
+
+    /**
+     * @return the HTTP return code of the response
+     */
+    public int getCode();
+
+    /**
+     * @return the HTTP Response headers in {@link Map}
+     */
+    public Map<String, String> getHeaders();
+
+    /**
+     * @param name of the HTTP header
+     * @return the value of the HTTP header
+     */
+    public String getHeader(String name);
 
 }

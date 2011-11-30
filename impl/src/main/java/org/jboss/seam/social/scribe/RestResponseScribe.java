@@ -20,13 +20,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
 
-import org.jboss.seam.social.HttpResponse;
+import org.jboss.seam.social.rest.RestResponse;
 import org.scribe.model.Response;
 
 /**
  * @author Antoine Sabot-Durand
  */
-public class HttpResponseScribe implements HttpResponse {
+public class RestResponseScribe implements RestResponse {
 
     private Response getDelegate() {
         if (delegate == null) {
@@ -37,7 +37,7 @@ public class HttpResponseScribe implements HttpResponse {
 
     private Response delegate;
 
-    protected HttpResponseScribe(Response response) throws IOException {
+    protected RestResponseScribe(Response response) throws IOException {
         delegate = response;
     }
 

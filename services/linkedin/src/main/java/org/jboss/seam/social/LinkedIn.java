@@ -16,40 +16,29 @@
  */
 package org.jboss.seam.social;
 
-import java.io.InputStream;
-import java.util.Map;
+import static java.lang.annotation.ElementType.FIELD;
+import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.ElementType.PARAMETER;
+import static java.lang.annotation.ElementType.TYPE;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
+
+import javax.inject.Qualifier;
+
+import org.jboss.seam.social.ServiceRelated;
+
+@ServiceRelated
+@Qualifier
+@Target({ TYPE, METHOD, PARAMETER, FIELD })
+@Retention(RUNTIME)
+@Documented
 /**
- * Implementation of this interface represent an Http Response
- * 
- * @author Antoine Sabot-Durand
+ * @author antoine
+ *
  */
-public interface HttpResponse {
-
-    /**
-     * @return the body of the response in a {@link String}
-     */
-    public String getBody();
-
-    /**
-     * @return the body of the response in a {@link InputStream}
-     */
-    public InputStream getStream();
-
-    /**
-     * @return the HTTP return code of the response
-     */
-    public int getCode();
-
-    /**
-     * @return the HTTP Response headers in {@link Map}
-     */
-    public Map<String, String> getHeaders();
-
-    /**
-     * @param name of the HTTP header
-     * @return the value of the HTTP header
-     */
-    public String getHeader(String name);
+public @interface LinkedIn {
 
 }

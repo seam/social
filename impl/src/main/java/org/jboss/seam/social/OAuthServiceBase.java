@@ -16,6 +16,12 @@
  */
 package org.jboss.seam.social;
 
+import static com.google.common.collect.Lists.newArrayList;
+
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Type;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -24,30 +30,27 @@ import javax.enterprise.inject.Instance;
 import javax.enterprise.inject.spi.InjectionPoint;
 import javax.inject.Inject;
 
-import org.jboss.solder.logging.Logger;
-import org.jboss.seam.social.HasStatus;
-import org.jboss.seam.social.HttpResponse;
-import org.jboss.seam.social.RestVerb;
-import org.jboss.seam.social.SeamSocialException;
-import org.jboss.seam.social.UserProfile;
-import org.jboss.seam.social.cdi.RelatedTo;
-import org.jboss.seam.social.oauth.ConfigureOAuth;
+import org.apache.commons.lang3.StringUtils;
+import org.jboss.seam.social.oauth.OAuthConfiguration;
 import org.jboss.seam.social.oauth.OAuthProvider;
 import org.jboss.seam.social.oauth.OAuthRequest;
 import org.jboss.seam.social.oauth.OAuthService;
 import org.jboss.seam.social.oauth.OAuthServiceSettings;
 import org.jboss.seam.social.oauth.OAuthSessionSettings;
 import org.jboss.seam.social.oauth.OAuthToken;
+import org.jboss.seam.social.rest.RestResponse;
+import org.jboss.seam.social.rest.RestVerb;
+import org.jboss.solder.logging.Logger;
 
 /**
+ * This Abstract implementation of {@link OAuthService} uses an {@link OAuthProvider} to deal with remote OAuth Services
+ * 
+ * 
  * @author Antoine Sabot-Durand
  */
 
 public abstract class OAuthServiceBase implements OAuthService, HasStatus {
 
-    /**
-     *
-     */
     private static final long serialVersionUID = -8423894021913341674L;
     private static final String VERIFIER_PARAM_NAME = "oauth_verifier";
 
@@ -69,26 +72,44 @@ public abstract class OAuthServiceBase implements OAuthService, HasStatus {
     @Inject
     protected InjectionPoint ip;
 
+    @Inject
+    protected SeamSocialExtension socialConfig;
+
+    private String type;
+    private Annotation qualifier;
+
     protected UserProfile myProfile;
 
     private boolean connected = false;
     private String status;
 
+    /**
+     * This method tries to find a configuration for the current service. It does it in this order :
+     * <ol>
+     * <li>looks for an {@link OAuthConfiguration} annotation to get value in it and build an {@link OAuthServiceSettings} from
+     * these</li>
+     * <li>looks for a {@link OAuthServiceSettings} bean with the same service qualifier (having the {@link ServiceRelated} meta
+     * annotation)</li>
+     * </ol>
+     * 
+     * 
+     */
+    // TODO : later we should replace this by a SettingsResolver Bean
     protected void init() {
 
         OAuthServiceSettings setting;
 
-        if (ip.getAnnotated().isAnnotationPresent(ConfigureOAuth.class)) {
-            ConfigureOAuth configureOAuth = ip.getAnnotated().getAnnotation(ConfigureOAuth.class);
+        if (ip.getAnnotated().isAnnotationPresent(OAuthConfiguration.class)) {
+            OAuthConfiguration oAuthConfiguration = ip.getAnnotated().getAnnotation(OAuthConfiguration.class);
 
-            String apiKey = configureOAuth.apiKey();
-            String apiSecret = configureOAuth.apiSecret();
-            String callback = configureOAuth.callback();
-            String scope = configureOAuth.scope();
+            String apiKey = oAuthConfiguration.apiKey();
+            String apiSecret = oAuthConfiguration.apiSecret();
+            String callback = oAuthConfiguration.callback();
+            String scope = oAuthConfiguration.scope();
             setting = new OAuthServiceSettingsImpl(apiKey, apiSecret, callback, scope, getType());
         } else
             try {
-                setting = settingsInstances.select(new RelatedTo.RelatedToLiteral(getType())).get();
+                setting = settingsInstances.select(getQualifier()).get();
             } catch (Exception e) {
                 throw new SeamSocialException("Unable to find settings for service " + getType(), e);
                 // TODO later we can provide another way to get those settings (properties, jpa, etc...)
@@ -97,6 +118,12 @@ public abstract class OAuthServiceBase implements OAuthService, HasStatus {
         setSettings(setting);
 
         provider.initProvider(settings);
+    }
+
+    public String getType() {
+        if (StringUtils.isEmpty(type))
+            type = socialConfig.getServicesToQualifier().get(getQualifier());
+        return type;
     }
 
     @Override
@@ -109,21 +136,11 @@ public abstract class OAuthServiceBase implements OAuthService, HasStatus {
         this.sessionSettings = session;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.jboss.seam.social.oauth.OAuthSessionSettings#getStatus()
-     */
     @Override
     public String getStatus() {
         return status;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.jboss.seam.social.oauth.OAuthSessionSettings#setStatus(java.lang.String)
-     */
     @Override
     public void setStatus(String status) {
         this.status = status;
@@ -134,11 +151,6 @@ public abstract class OAuthServiceBase implements OAuthService, HasStatus {
         return getType() + " - " + (connected ? getMyProfile().getFullName() : "not connected");
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.jboss.seam.social.oauth.OAuthServiceBase#getSettings()
-     */
     @Override
     public OAuthServiceSettings getSettings() {
         return settings;
@@ -153,9 +165,6 @@ public abstract class OAuthServiceBase implements OAuthService, HasStatus {
         return getProvider().getAuthorizationUrl(getRequestToken());
     }
 
-    /**
-     * @return
-     */
     private OAuthProvider getProvider() {
         return provider;
     }
@@ -181,9 +190,6 @@ public abstract class OAuthServiceBase implements OAuthService, HasStatus {
 
     }
 
-    /**
-     * 
-     */
     abstract protected void initMyProfile();
 
     @Override
@@ -195,20 +201,20 @@ public abstract class OAuthServiceBase implements OAuthService, HasStatus {
 
     }
 
-    protected HttpResponse sendSignedRequest(OAuthRequest request) {
+    protected RestResponse sendSignedRequest(OAuthRequest request) {
         getProvider().signRequest(getAccessToken(), request);
         return request.send();
     }
 
     @Override
-    public HttpResponse sendSignedRequest(RestVerb verb, String uri) {
+    public RestResponse sendSignedRequest(RestVerb verb, String uri) {
         OAuthRequest request = provider.requestFactory(verb, uri);
         return sendSignedRequest(request);
 
     }
 
     @Override
-    public HttpResponse sendSignedRequest(RestVerb verb, String uri, String key, Object value) {
+    public RestResponse sendSignedRequest(RestVerb verb, String uri, String key, Object value) {
         OAuthRequest request = provider.requestFactory(verb, uri);
 
         request.addBodyParameter(key, value.toString());
@@ -218,7 +224,7 @@ public abstract class OAuthServiceBase implements OAuthService, HasStatus {
     }
 
     @Override
-    public HttpResponse sendSignedXmlRequest(RestVerb verb, String uri, String payload) {
+    public RestResponse sendSignedXmlRequest(RestVerb verb, String uri, String payload) {
         OAuthRequest request = provider.requestFactory(verb, uri);
         /*
          * Useless with Scribe 1.2.3 //TODO have a test on Facebook and LinkedIn to check that
@@ -234,7 +240,7 @@ public abstract class OAuthServiceBase implements OAuthService, HasStatus {
     }
 
     @Override
-    public HttpResponse sendSignedRequest(RestVerb verb, String uri, Map<String, Object> params) {
+    public RestResponse sendSignedRequest(RestVerb verb, String uri, Map<String, Object> params) {
         OAuthRequest request = provider.requestFactory(verb, uri);
         for (Entry<String, Object> ent : params.entrySet()) {
             request.addBodyParameter(ent.getKey(), ent.getValue().toString());
@@ -321,4 +327,29 @@ public abstract class OAuthServiceBase implements OAuthService, HasStatus {
         return true;
     }
 
+    @Override
+    public Annotation getQualifier() {
+        if (qualifier == null) {
+            log.debugf("building the list of direct ancestors (Interface and Class) for bean %s", this.getClass().toString());
+            List<Type> allTypes = newArrayList(Arrays.asList(this.getClass().getGenericInterfaces()));
+            Type superClass = this.getClass().getGenericSuperclass();
+            if (superClass != null)
+                allTypes.add(superClass);
+            log.debugf("This bean implents or extends %s others type", allTypes.size());
+            for (Type type : socialConfig.getClassToQualifier().keySet()) {
+                log.debugf("Comparing the type of the bean with %s", type);
+
+                if (allTypes.contains(type)) {
+                    log.debugf("Found that bean has type %s", type);
+
+                    qualifier = socialConfig.getClassToQualifier().get(type);
+                    break;
+                }
+            }
+            if (qualifier == null)
+                throw new SeamSocialException("Unable tho find Service Related Qualifier for bean of class "
+                        + this.getClass().toString());
+        }
+        return qualifier;
+    }
 }

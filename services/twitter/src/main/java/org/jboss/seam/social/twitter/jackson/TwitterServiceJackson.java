@@ -25,22 +25,22 @@ import org.codehaus.jackson.annotate.JsonCreator;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.Module;
-import org.jboss.solder.logging.Logger;
-import org.jboss.seam.social.HttpResponse;
 import org.jboss.seam.social.OAuthServiceJackson;
-import org.jboss.seam.social.RestVerb;
 import org.jboss.seam.social.URLUtils;
-import org.jboss.seam.social.twitter.Twitter;
+import org.jboss.seam.social.rest.RestResponse;
+import org.jboss.seam.social.rest.RestVerb;
+import org.jboss.seam.social.twitter.TwitterService;
 import org.jboss.seam.social.twitter.model.SuggestionCategory;
 import org.jboss.seam.social.twitter.model.Tweet;
 import org.jboss.seam.social.twitter.model.TwitterProfile;
+import org.jboss.solder.logging.Logger;
 
 /**
  * @author Antoine Sabot-Durand
  * 
  */
 
-public class TwitterJackson extends OAuthServiceJackson implements Twitter {
+public class TwitterServiceJackson extends OAuthServiceJackson implements TwitterService {
 
     /**
      * Typed list of TwitterProfile. This helps Jackson know which type to deserialize list contents into.
@@ -92,7 +92,7 @@ public class TwitterJackson extends OAuthServiceJackson implements Twitter {
 
     @Override
     public Tweet updateStatus(String message) {
-        HttpResponse resp = sendSignedRequest(RestVerb.POST, TWEET_URL, "status", message);
+        RestResponse resp = sendSignedRequest(RestVerb.POST, TWEET_URL, "status", message);
         log.infof("update status is %s", message);
         setStatus("");
         return jsonMapper.readValue(resp, Tweet.class);
@@ -107,16 +107,6 @@ public class TwitterJackson extends OAuthServiceJackson implements Twitter {
     @Override
     public String getServiceLogo() {
         return LOGO_URL;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.jboss.seam.social.oauth.OAuthService#getType()
-     */
-    @Override
-    public String getType() {
-        return TYPE;
     }
 
     /*

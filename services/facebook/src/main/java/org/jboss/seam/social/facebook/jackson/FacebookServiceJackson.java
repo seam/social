@@ -20,19 +20,19 @@ package org.jboss.seam.social.facebook.jackson;
 import javax.inject.Inject;
 
 import org.codehaus.jackson.map.Module;
-import org.jboss.solder.logging.Logger;
-import org.jboss.seam.social.HttpResponse;
 import org.jboss.seam.social.OAuthServiceJackson;
-import org.jboss.seam.social.RestVerb;
 import org.jboss.seam.social.UserProfile;
-import org.jboss.seam.social.facebook.Facebook;
+import org.jboss.seam.social.facebook.FacebookService;
 import org.jboss.seam.social.facebook.model.UserJackson;
+import org.jboss.seam.social.rest.RestResponse;
+import org.jboss.seam.social.rest.RestVerb;
+import org.jboss.solder.logging.Logger;
 
 /**
  * @author Antoine Sabot-Durand
  */
 
-public class FacebookJackson extends OAuthServiceJackson implements Facebook {
+public class FacebookServiceJackson extends OAuthServiceJackson implements FacebookService {
 
     static final String USER_PROFILE_URL = "https://graph.facebook.com/me";
     static final String LOGO_URL = "https://d2l6uygi1pgnys.cloudfront.net/2-2-08/images/buttons/facebook_connect.png";
@@ -72,16 +72,6 @@ public class FacebookJackson extends OAuthServiceJackson implements Facebook {
     /*
      * (non-Javadoc)
      * 
-     * @see org.jboss.seam.social.oauth.OAuthService#getType()
-     */
-    @Override
-    public String getType() {
-        return TYPE;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
      * @see org.jboss.seam.social.oauth.HasStatus#updateStatus()
      */
     @Override
@@ -96,7 +86,7 @@ public class FacebookJackson extends OAuthServiceJackson implements Facebook {
      */
     @Override
     public Object updateStatus(String message) {
-        HttpResponse resp = sendSignedRequest(RestVerb.POST, STATUS_UPDATE_URL, "message", message);
+        RestResponse resp = sendSignedRequest(RestVerb.POST, STATUS_UPDATE_URL, "message", message);
         log.debugf("Update staut is %s", message);
         setStatus("");
         log.debugf("Response is : %s", resp.getBody());
@@ -110,7 +100,7 @@ public class FacebookJackson extends OAuthServiceJackson implements Facebook {
      */
     @Override
     protected void initMyProfile() {
-        HttpResponse resp = sendSignedRequest(RestVerb.GET, USER_PROFILE_URL);
+        RestResponse resp = sendSignedRequest(RestVerb.GET, USER_PROFILE_URL);
         myProfile = jsonMapper.readValue(resp, UserJackson.class);
 
     }

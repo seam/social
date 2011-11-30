@@ -23,91 +23,41 @@ import org.jboss.seam.social.oauth.OAuthToken;
  * @author antoine
  */
 public class OAuthSessionSettingsImpl implements OAuthSessionSettings {
-    /**
-     * 
-     */
+
     private OAuthToken requestToken;
-    /**
-     * 
-     */
+
     private OAuthToken accessToken;
-    /**
-     * 
-     */
+
     private String verifier;
-    /**
-     * 
-     */
- 
-    
 
-    /**
-     * 
-     */
-    private String status;
-
-   
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.jboss.seam.social.oauth.OAuthSessionSettings#getRequestToken()
-     */
     @Override
     public OAuthToken getRequestToken() {
         return requestToken;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.jboss.seam.social.oauth.OAuthSessionSettings#setRequestToken(org.jboss.seam.social.oauth.OAuthTokenScribe)
-     */
     @Override
     public void setRequestToken(OAuthToken requestToken) {
         this.requestToken = requestToken;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.jboss.seam.social.oauth.OAuthSessionSettings#getAccessToken()
-     */
     @Override
     public OAuthToken getAccessToken() {
         return accessToken;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.jboss.seam.social.oauth.OAuthSessionSettings#setAccessToken(org.jboss.seam.social.oauth.OAuthTokenScribe)
-     */
     @Override
     public void setAccessToken(OAuthToken accessToken) {
         this.accessToken = accessToken;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.jboss.seam.social.oauth.OAuthSessionSettings#getVerifier()
-     */
     @Override
     public String getVerifier() {
         return verifier;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.jboss.seam.social.oauth.OAuthSessionSettings#setVerifier(java.lang.String)
-     */
     @Override
     public void setVerifier(String verifier) {
         this.verifier = verifier;
     }
 
-
-   
 }

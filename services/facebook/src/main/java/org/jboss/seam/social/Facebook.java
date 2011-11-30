@@ -1,3 +1,6 @@
+/**
+ * 
+ */
 /*
  * JBoss, Home of Professional Open Source
  * Copyright 2011, Red Hat Middleware LLC, and individual contributors
@@ -14,7 +17,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social.oauth;
+package org.jboss.seam.social;
 
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.METHOD;
@@ -26,31 +29,19 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
-/**
- * An annotation to set OAuthService directly in the code It can be used like this :
- * <p/>
- * 
- * <pre>
- * &#064;Inject
- * &#064;ConfigureOAuth(apiKey = &quot;a consumer key&quot;, apiSecret = &quot;a consumer secret&quot;, callback = &quot;a call back URL&quot;)
- * Twitter service;
- * </pre>
- * <p/>
- * It's one of the alternates solution initialize an OAuth service configuration
- * 
- * @author Antoine Sabot-Durand
- */
+import javax.inject.Qualifier;
 
+import org.jboss.seam.social.ServiceRelated;
+
+@Qualifier
+@ServiceRelated
 @Target({ TYPE, METHOD, PARAMETER, FIELD })
 @Retention(RUNTIME)
 @Documented
-public @interface ConfigureOAuth {
+/**
+ * @author antoine
+ *
+ */
+public @interface Facebook {
 
-    String apiKey();
-
-    String apiSecret();
-
-    String callback() default "oob";
-
-    String scope() default "";
 }

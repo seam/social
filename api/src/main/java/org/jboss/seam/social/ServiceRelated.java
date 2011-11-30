@@ -14,25 +14,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social.facebook.jackson;
 
-import javax.enterprise.inject.New;
-import javax.enterprise.inject.Produces;
+package org.jboss.seam.social;
 
-import org.jboss.seam.social.cdi.RelatedTo;
-import org.jboss.seam.social.facebook.Facebook;
-import org.jboss.seam.social.oauth.OAuthService;
+import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
 
 /**
- * @author antoine
+ * 
+ * This Meta-annotation is used to annotate services Qualifiers
+ * 
+ * @author Antoine Sabot-Durand
  * 
  */
-public class FacebookProducer {
-
-    @Produces
-    @RelatedTo(Facebook.TYPE)
-    protected OAuthService produceTwitter(@New FacebookJackson service) {
-        return service;
-    }
+@Target(ANNOTATION_TYPE)
+@Retention(RUNTIME)
+@Documented
+public @interface ServiceRelated {
 
 }

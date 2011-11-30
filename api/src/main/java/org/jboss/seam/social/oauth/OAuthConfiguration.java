@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social.cdi;
+package org.jboss.seam.social.oauth;
 
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.METHOD;
@@ -26,45 +26,31 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
-import javax.enterprise.util.AnnotationLiteral;
-import javax.inject.Qualifier;
+/**
+ * An annotation to set OAuthService directly in the code It can be used like this :
+ * <p/>
+ * 
+ * <pre>
+ * &#064;Inject
+ * &#064;OAuthConfiguration(apiKey = &quot;a consumer key&quot;, apiSecret = &quot;a consumer secret&quot;, callback = &quot;a call back URL&quot;)
+ * Twitter service;
+ * </pre>
+ * <p/>
+ * It's one of the alternates solution initialize an OAuth service configuration
+ * 
+ * @author Antoine Sabot-Durand
+ */
 
-@Qualifier
 @Target({ TYPE, METHOD, PARAMETER, FIELD })
 @Retention(RUNTIME)
 @Documented
-/**
- * This qualifier allows association of a Bean to a given Service
- * @author Antoine Sabot-Durand
- *
- */
-public @interface RelatedTo {
+public @interface OAuthConfiguration {
 
-    String value();
+    String apiKey();
 
-    /**
-     * Annotation literal for @{link RelatedTo} qualifier.
-     */
-    @SuppressWarnings("all")
-    public static class RelatedToLiteral extends AnnotationLiteral<RelatedTo> implements RelatedTo {
+    String apiSecret();
 
-        private final String value;
+    String callback() default "oob";
 
-        public RelatedToLiteral(String value) {
-            super();
-            this.value = value;
-        }
-
-        /*
-         * (non-Javadoc)
-         * 
-         * @see org.jboss.seam.social.oauth.RelatedTo#service()
-         */
-        @Override
-        public String value() {
-            return value;
-        }
-
-    }
-
+    String scope() default "";
 }

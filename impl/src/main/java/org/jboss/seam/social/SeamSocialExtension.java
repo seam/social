@@ -16,23 +16,34 @@
  */
 package org.jboss.seam.social;
 
-import java.util.HashMap;
+import static com.google.common.collect.Maps.newHashMap;
+import static com.google.common.collect.Sets.newHashSet;
+
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Type;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
 import java.util.Set;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
+import javax.enterprise.inject.spi.AfterDeploymentValidation;
 import javax.enterprise.inject.spi.Annotated;
-import javax.enterprise.inject.spi.AnnotatedType;
+import javax.enterprise.inject.spi.BeanManager;
 import javax.enterprise.inject.spi.Extension;
 import javax.enterprise.inject.spi.ProcessBean;
-import javax.enterprise.inject.spi.ProcessManagedBean;
+import javax.enterprise.inject.spi.ProcessProducer;
 
-import org.jboss.solder.logging.Logger;
-import org.jboss.seam.social.cdi.RelatedTo;
+import org.apache.commons.lang3.StringUtils;
 import org.jboss.seam.social.oauth.OAuthService;
 import org.jboss.seam.social.oauth.OAuthServiceSettings;
+import org.jboss.solder.logging.Logger;
+import org.jboss.solder.reflection.AnnotationInspector;
+
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
 
 /**
  * @author Antoine Sabot-Durand
@@ -41,42 +52,73 @@ import org.jboss.seam.social.oauth.OAuthServiceSettings;
 @ApplicationScoped
 public class SeamSocialExtension implements Extension {
 
-    private Set<String> servicesNames = new HashSet<String>();
-    private Map<AnnotatedType<? extends OAuthService>, String> servicesBean = new HashMap<AnnotatedType<? extends OAuthService>, String>();
+    private Set<String> servicesNames = newHashSet();
+    private Set<Annotation> servicesQualifiersConfigured = newHashSet();
+    private Set<Annotation> servicesQualifiersAvailable = newHashSet();
+    private BiMap<Annotation, String> servicesToQualifier = HashBiMap.create();
+    private Map<Type, Annotation> classToQualifier = newHashMap();
+
     private static final Logger log = Logger.getLogger(SeamSocialExtension.class);
 
-    public void processSettingsBeans(@Observes ProcessBean<OAuthServiceSettings> pbean) {
+    public void processSettingsBeans(@Observes ProcessBean<OAuthServiceSettings> pbean, BeanManager beanManager) {
 
         log.info("Starting enumeration of existing service settings");
         Annotated annotated = pbean.getAnnotated();
 
-        if (annotated.isAnnotationPresent(RelatedTo.class)) {
-            RelatedTo related = annotated.getAnnotation(RelatedTo.class);
-            String name = related.value();
-
-            log.infof("Found configuration for service %s", name);
-            servicesNames.add(name);
-
-        }
+        servicesQualifiersConfigured.addAll(AnnotationInspector.getAnnotations(annotated, ServiceRelated.class));
     }
 
     /**
-     * This Listener build the List of existing OAuthServices with a RelatedTo Qualifier
+     * This Listener build the List of existing OAuthServices with a Qualifier having the meta annotation @ServiceRelated
      * 
      * @param pbean
      */
-    public void processServicesBeans(@Observes ProcessManagedBean<OAuthService> pbean) {
-        Annotated annotated = pbean.getAnnotated();
-        if (annotated.isAnnotationPresent(RelatedTo.class)) {
-            RelatedTo related = annotated.getAnnotation(RelatedTo.class);
-            String name = related.value();
-            servicesBean.put(pbean.getAnnotatedBeanClass(), name);
-        }
-    }
 
+    public void processServicesBeans(@Observes ProcessProducer<?, OAuthService> pbean) {
+        Annotated annotated = pbean.getAnnotatedMember();
+        Type type = annotated.getBaseType();
+        Set<Annotation> qualifiers = AnnotationInspector.getAnnotations(annotated, ServiceRelated.class);
+        servicesQualifiersAvailable.addAll(qualifiers);
+        if (qualifiers.size() > 0)
+            if (qualifiers.size() > 1)
+                log.errorf("The bean of type %s has more than one Service Related Qualifier", type);
+            else
+                classToQualifier.put(type, qualifiers.iterator().next());
+    }
 
     public Set<String> getSocialRelated() {
         return servicesNames;
+    }
+
+    public void processAfterDeploymentValidation(@Observes AfterDeploymentValidation adv) {
+        log.info("validation phase");
+        for (Annotation qual : servicesQualifiersAvailable) {
+            String path = qual.annotationType().getName();
+            String name = "";
+            log.infof("Found service qualifier : %s", path);
+            try {
+                ResourceBundle bundle = ResourceBundle.getBundle(path);
+                name = bundle.getString("service.name");
+            } catch (MissingResourceException e) {
+                log.warnf("No properties configuration file found for %s creating default service name", path);
+                name = StringUtils.substringAfterLast(path, ".");
+            } finally {
+                servicesToQualifier.put(qual, name);
+            }
+
+        }
+        for (Annotation annot : servicesQualifiersAvailable) {
+            servicesNames.add(servicesToQualifier.get(annot));
+        }
+
+    }
+
+    public BiMap<Annotation, String> getServicesToQualifier() {
+        return servicesToQualifier;
+    }
+
+    public Map<Type, Annotation> getClassToQualifier() {
+        return classToQualifier;
     }
 
 }

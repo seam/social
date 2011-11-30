@@ -23,23 +23,29 @@ import javax.enterprise.context.ApplicationScoped;
 
 import org.codehaus.jackson.map.Module;
 import org.codehaus.jackson.map.ObjectMapper;
-import org.jboss.seam.social.HttpResponse;
-import org.jboss.seam.social.SeamSocialException;
+import org.jboss.seam.social.rest.RestResponse;
 
 /**
+ * This Bean manage the Json Mapper to serialize and de-serialize Json data coming from and sent to services It uses an
+ * {@link ObjectMapper} Jackson.
+ * 
  * @author Antoine Sabot-Durand
  */
 @ApplicationScoped
 public class JsonMapper implements Serializable {
 
-    /**
-     *
-     */
     private static final long serialVersionUID = -2012295612034078749L;
 
     private final ObjectMapper delegate = new ObjectMapper();
 
-    public <T> T readValue(HttpResponse resp, Class<T> clazz) {
+    /**
+     * Parse the content of the provided {@link RestResponse} to de-serialize to an object of the given Class
+     * 
+     * @param resp the response to de-serialize
+     * @param clazz the target class of the object
+     * @return an object of the given Class with fields comming from the response
+     */
+    public <T> T readValue(RestResponse resp, Class<T> clazz) {
         try {
             String msg = resp.getBody();
             return delegate.readValue(msg, clazz);
@@ -48,6 +54,12 @@ public class JsonMapper implements Serializable {
         }
     }
 
+    /**
+     * 
+     * Register a Jackson configuration {@link Module} to set special rules for de-serialization
+     * 
+     * @param module to register
+     */
     public void registerModule(Module module) {
         delegate.registerModule(module);
     }

@@ -16,19 +16,18 @@
  */
 package org.jboss.seam.social.oauth;
 
-import java.io.Serializable;
 import java.util.Map;
 
-import org.jboss.seam.social.HttpResponse;
-import org.jboss.seam.social.RestVerb;
-import org.jboss.seam.social.UserProfile;
+import org.jboss.seam.social.rest.RestResponse;
+import org.jboss.seam.social.rest.RestService;
+import org.jboss.seam.social.rest.RestVerb;
 
 /**
  * Implementation of this interface is used to manage a generic OAuth Service
  * 
  * @author Antoine Sabot-Durand
  */
-public interface OAuthService extends Serializable {
+public interface OAuthService extends RestService {
 
     /**
      * @return the access token for the OAuth service
@@ -66,7 +65,7 @@ public interface OAuthService extends Serializable {
      * @param uri the REST address of the request
      * @return an HttpResponse containing the response. It could be in various format (json, xml, string)
      */
-    public HttpResponse sendSignedRequest(RestVerb verb, String uri);
+    public RestResponse sendSignedRequest(RestVerb verb, String uri);
 
     /**
      * Send an OAuth request signed with a list a parameter
@@ -76,7 +75,7 @@ public interface OAuthService extends Serializable {
      * @param params a Map of key value parameters to send in the header of the request
      * @return an HttpResponse containing the response. It could be in various format (json, xml, string)
      */
-    public HttpResponse sendSignedRequest(RestVerb verb, String uri, Map<String, Object> params);
+    public RestResponse sendSignedRequest(RestVerb verb, String uri, Map<String, Object> params);
 
     /**
      * Send an OAuth request signed with a single parameter
@@ -87,7 +86,7 @@ public interface OAuthService extends Serializable {
      * @param value value of the parameter
      * @return an HttpResponse containing the response. It could be in various format (json, xml, string)
      */
-    public HttpResponse sendSignedRequest(RestVerb verb, String uri, String key, Object value);
+    public RestResponse sendSignedRequest(RestVerb verb, String uri, String key, Object value);
 
     /**
      * Initialize OAuth settings
@@ -102,27 +101,6 @@ public interface OAuthService extends Serializable {
      * @param verifierStr
      */
     public void setVerifier(String verifierStr);
-
-    /**
-     * Returns the logo of the service
-     * 
-     * @return the URL of the logo for the service
-     */
-    public String getServiceLogo();
-
-    /**
-     * Returns the status of this ServiceHndler
-     * 
-     * @return true if the connection process is over and successful
-     */
-    public boolean isConnected();
-
-    /**
-     * Returns the name/type of the Social Network we're connected to
-     * 
-     * @return name of the network
-     */
-    public String getType();
 
     /**
      * Initialize and set an OAuth access token from its public and private keys
@@ -140,11 +118,6 @@ public interface OAuthService extends Serializable {
     public void setAccessToken(OAuthToken token);
 
     /**
-     * Close connexion and reset all token (logout)
-     */
-    public void resetConnection();
-
-    /**
      * Send an OAuth request signed with an XML Paylad as content
      * 
      * @param verb the REST verb of the request
@@ -152,7 +125,7 @@ public interface OAuthService extends Serializable {
      * @param payload the content of the XML payload to send to the service
      * @return an HttpResponse containing the response. It could be in various format (json, xml, string)
      */
-    public HttpResponse sendSignedXmlRequest(RestVerb verb, String uri, String payload);
+    public RestResponse sendSignedXmlRequest(RestVerb verb, String uri, String payload);
 
     /**
      * @return the name of the URL param name containing verifier code sent bakc by the remote service
@@ -170,15 +143,5 @@ public interface OAuthService extends Serializable {
      * @return the session settings of the given service
      */
     public OAuthSessionSettings getSession();
-
-    /**
-     * @return the name of the service with this session
-     */
-    public String getName();
-
-    /**
-     * @return
-     */
-    UserProfile getMyProfile();
 
 }

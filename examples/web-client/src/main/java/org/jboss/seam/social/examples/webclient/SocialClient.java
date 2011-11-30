@@ -16,6 +16,8 @@
  */
 package org.jboss.seam.social.examples.webclient;
 
+import static com.google.common.collect.Lists.newArrayList;
+
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -35,6 +37,7 @@ import org.jboss.seam.social.oauth.OAuthToken;
 import org.jboss.solder.logging.Logger;
 
 import com.google.common.base.Function;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 @Named
@@ -82,7 +85,7 @@ public class SocialClient implements Serializable {
     }
 
     public List<OAuthService> getServices() {
-        return new ArrayList<OAuthService>(manager.getServices());
+        return newArrayList(manager.getServices());
     }
 
     public OAuthToken getAccessToken() {
@@ -108,7 +111,7 @@ public class SocialClient implements Serializable {
     }
 
     public String getTimeLineUrl() {
-        if (getCurrentService().isConnected())
+        if (getCurrentService() != null && getCurrentService().isConnected())
             return "/WEB-INF/fragments/" + getCurrentService().getType().toLowerCase() + ".xhtml";
         return "";
     }
