@@ -58,12 +58,12 @@ public class SocialTest {
     protected final XPathLocator FACEBOOK_LOGIN = xp("//input[@name='login']");
     protected final XPathLocator FACEBOOK_ALLOW = xp("//input[@name='grant_clicked']");
     
-    protected static final XPathLocator LINKEDIN_CLOSE_CONNECTION = xp("//a[contains(text(),'LinkedIn - Sean Quentin')]");
-    protected static final XPathLocator TWITTER_CLOSE_CONNECTION = xp("//a[contains(text(),'Twitter - Sean Quentin')]");
-    protected static final XPathLocator FACEBOOK_CLOSE_CONNECTION = xp("//a[contains(text(),'Facebook - Sean Quentin')]");
-    private static final String LINKEDIN_CONNECTION = "You are now working with LinkedIn - Sean Quentin";
-    private static final String TWITTER_CONNECTION = "You are now working with Twitter - Sean Quentin";
-    private static final String FACEBOOK_CONNECTION = "You are now working with Facebook - Sean Quentin";
+    protected static final XPathLocator LINKEDIN_CLOSE_CONNECTION = xp("//a[contains(text(),'LinkedIn ')]");
+    protected static final XPathLocator TWITTER_CLOSE_CONNECTION = xp("//a[contains(text(),'Twitter ')]");
+    protected static final XPathLocator FACEBOOK_CLOSE_CONNECTION = xp("//a[contains(text(),'Facebook ')]");
+    private static final String LINKEDIN_CONNECTION = "You are now working with LinkedIn ";
+    private static final String TWITTER_CONNECTION = "You are now working with Twitter ";
+    private static final String FACEBOOK_CONNECTION = "You are now working with Facebook ";
     
     public static final String ARCHIVE_NAME = "social-web-client.war";
     public static final String BUILD_DIRECTORY = "target";
