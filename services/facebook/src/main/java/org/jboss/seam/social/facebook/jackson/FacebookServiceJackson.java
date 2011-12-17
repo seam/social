@@ -19,11 +19,11 @@ package org.jboss.seam.social.facebook.jackson;
 
 import javax.inject.Inject;
 
-import org.codehaus.jackson.map.Module;
-import org.jboss.seam.social.OAuthServiceJackson;
+import org.jboss.seam.social.Facebook;
 import org.jboss.seam.social.UserProfile;
 import org.jboss.seam.social.facebook.FacebookService;
 import org.jboss.seam.social.facebook.model.UserJackson;
+import org.jboss.seam.social.oauth.OAuthServiceBase;
 import org.jboss.seam.social.rest.RestResponse;
 import org.jboss.seam.social.rest.RestVerb;
 import org.jboss.solder.logging.Logger;
@@ -31,8 +31,8 @@ import org.jboss.solder.logging.Logger;
 /**
  * @author Antoine Sabot-Durand
  */
-
-public class FacebookServiceJackson extends OAuthServiceJackson implements FacebookService {
+@Facebook
+public class FacebookServiceJackson extends OAuthServiceBase implements FacebookService {
 
     static final String USER_PROFILE_URL = "https://graph.facebook.com/me";
     static final String LOGO_URL = "https://d2l6uygi1pgnys.cloudfront.net/2-2-08/images/buttons/facebook_connect.png";
@@ -41,9 +41,6 @@ public class FacebookServiceJackson extends OAuthServiceJackson implements Faceb
 
     @Inject
     private Logger log;
-
-    private UserJackson myProfile;
-
     /**
      *
      */
@@ -66,17 +63,7 @@ public class FacebookServiceJackson extends OAuthServiceJackson implements Faceb
      */
     @Override
     public UserProfile getMyProfile() {
-        return myProfile;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.jboss.seam.social.oauth.HasStatus#updateStatus()
-     */
-    @Override
-    public Object updateStatus() {
-        return updateStatus(getStatus());
+        return getSession().getUserProfile();
     }
 
     /*
@@ -88,7 +75,6 @@ public class FacebookServiceJackson extends OAuthServiceJackson implements Faceb
     public Object updateStatus(String message) {
         RestResponse resp = sendSignedRequest(RestVerb.POST, STATUS_UPDATE_URL, "message", message);
         log.debugf("Update staut is %s", message);
-        setStatus("");
         log.debugf("Response is : %s", resp.getBody());
         return null;
     }
@@ -100,25 +86,14 @@ public class FacebookServiceJackson extends OAuthServiceJackson implements Faceb
      */
     @Override
     protected void initMyProfile() {
-        RestResponse resp = sendSignedRequest(RestVerb.GET, USER_PROFILE_URL);
-        myProfile = jsonMapper.readValue(resp, UserJackson.class);
+        getSession().setUserProfile(
+                jsonService.requestObject(sendSignedRequest(RestVerb.GET, USER_PROFILE_URL), UserJackson.class));
 
     }
 
     @Override
     public String getVerifierParamName() {
         return VERIFIER_PARAM_NAME;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.jboss.seam.social.OAuthServiceJackson#getJacksonModule()
-     */
-    @Override
-    protected Module getJacksonModule() {
-        // TODO Auto-generated method stub
-        return null;
     }
 
 }

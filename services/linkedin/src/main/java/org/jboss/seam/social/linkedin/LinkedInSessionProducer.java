@@ -14,20 +14,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social;
+package org.jboss.seam.social.linkedin;
+
+import javax.enterprise.context.SessionScoped;
+import javax.enterprise.inject.Produces;
+import javax.enterprise.util.AnnotationLiteral;
+
+import org.jboss.seam.social.LinkedIn;
+import org.jboss.seam.social.oauth.OAuthSession;
+import org.jboss.seam.social.oauth.OAuthSessionImpl;
 
 /**
- * Social network Handler implementing this interface will support status update
+ * @author antoine
  * 
- * @author Antoine Sabot-Durand
  */
-public interface HasStatus {
+public class LinkedInSessionProducer {
 
-    /**
-     * Send the status in parameter
-     * 
-     * @param message the status to send
-     * @return an Object corresponding to the update
-     */
-    public Object updateStatus(String message);
+    @SuppressWarnings("serial")
+    @Produces
+    @LinkedIn
+    @SessionScoped
+    protected OAuthSession produceOAuthSession() {
+        return new OAuthSessionImpl(new AnnotationLiteral<LinkedIn>() {
+        });
+    }
+
 }

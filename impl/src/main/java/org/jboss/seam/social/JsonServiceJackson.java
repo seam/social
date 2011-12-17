@@ -16,31 +16,49 @@
  */
 package org.jboss.seam.social;
 
+import java.io.Serializable;
+
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Any;
+import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 
 import org.codehaus.jackson.map.Module;
+import org.jboss.seam.social.rest.RestResponse;
 
 /**
+ * 
+ * This Bean drives all the upper services for serialize/deserialize Object to/from Json It also register all the Jackson Mixin
+ * module declared in social service modules.
+ * 
  * @author Antoine Sabot-Durand
  * 
  */
-
-public abstract class OAuthServiceJackson extends OAuthServiceBase {
+@ApplicationScoped
+public class JsonServiceJackson implements Serializable {
 
     private static final long serialVersionUID = -7806134655399349774L;
 
     @Inject
     protected JsonMapper jsonMapper;
 
-    @PostConstruct
-    protected void init() {
-        super.init();
-        Module module = getJacksonModule();
-        if (module != null)
-            jsonMapper.registerModule(module);
+    @Inject
+    @Any
+    protected Instance<Module> moduleInstances;
+
+    /**
+     * @return
+     */
+    public <T> T requestObject(RestResponse resp, Class<T> clazz) {
+        return jsonMapper.readValue(resp, clazz);
     }
 
-    protected abstract Module getJacksonModule();
+    @PostConstruct
+    protected void init() {
+        for (Module module : moduleInstances) {
+            jsonMapper.registerModule(module);
+        }
+    }
 
 }

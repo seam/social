@@ -16,43 +16,26 @@
  */
 package org.jboss.seam.social.oauth;
 
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+
+import java.lang.annotation.Retention;
+
+import org.jboss.solder.bean.generic.GenericType;
+
 /**
- * Instances of this interface contains data for a session connection to a given service.
  * 
- * @see OAuthService
  * @author Antoine Sabot-Durand
  * 
  */
-public interface OAuthSessionSettings {
+@Retention(RUNTIME)
+@GenericType(OAuthService.class)
+public @interface OAuthApplication {
+    String apiKey();
 
-    /**
-     * @return the requestToken
-     */
-    public OAuthToken getRequestToken();
+    String apiSecret();
 
-    /**
-     * @param requestToken the requestToken to set
-     */
-    public void setRequestToken(OAuthToken requestToken);
+    String callback() default "oob";
 
-    /**
-     * @return the accessToken
-     */
-    public OAuthToken getAccessToken();
-
-    /**
-     * @param accessToken the accessToken to set
-     */
-    public void setAccessToken(OAuthToken accessToken);
-
-    /**
-     * @return the verifier
-     */
-    public String getVerifier();
-
-    /**
-     * @param verifier the verifier to set
-     */
-    public void setVerifier(String verifier);
+    String scope() default "";
 
 }

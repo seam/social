@@ -42,11 +42,6 @@ public interface OAuthService extends RestService {
     public String getAuthorizationUrl();
 
     /**
-     * @return the settings of the service
-     */
-    public OAuthServiceSettings getSettings();
-
-    /**
      * Access to OAuth verifier
      * 
      * @return the OAUth verifier
@@ -89,13 +84,6 @@ public interface OAuthService extends RestService {
     public RestResponse sendSignedRequest(RestVerb verb, String uri, String key, Object value);
 
     /**
-     * Initialize OAuth settings
-     * 
-     * @param settings
-     */
-    public void setSettings(OAuthServiceSettings settings);
-
-    /**
      * Used to initialize verifier code returned by OAuth service
      * 
      * @param verifierStr
@@ -133,15 +121,8 @@ public interface OAuthService extends RestService {
     public String getVerifierParamName();
 
     /**
-     * Set the Session settings of the given service
-     * 
-     * @param session
-     */
-    public void setSession(OAuthSessionSettings session);
-
-    /**
      * @return the session settings of the given service
      */
-    public OAuthSessionSettings getSession();
+    public OAuthSession getSession();
 
 }

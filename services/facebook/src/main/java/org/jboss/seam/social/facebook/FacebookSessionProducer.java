@@ -14,24 +14,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social.twitter;
+package org.jboss.seam.social.facebook;
 
-import javax.enterprise.inject.New;
+import javax.enterprise.context.SessionScoped;
 import javax.enterprise.inject.Produces;
+import javax.enterprise.util.AnnotationLiteral;
 
-import org.jboss.seam.social.Twitter;
-import org.jboss.seam.social.twitter.jackson.TwitterServiceJackson;
+import org.jboss.seam.social.Facebook;
+import org.jboss.seam.social.oauth.OAuthSession;
+import org.jboss.seam.social.oauth.OAuthSessionImpl;
 
 /**
  * @author antoine
  * 
  */
-public class TwitterServiceProducer {
+public class FacebookSessionProducer {
 
+    @SuppressWarnings("serial")
     @Produces
-    @Twitter
-    protected TwitterService produceQualifiedTwitter(@New TwitterServiceJackson service) {
-        return service;
+    @Facebook
+    @SessionScoped
+    protected OAuthSession produceOAuthSession() {
+        return new OAuthSessionImpl(new AnnotationLiteral<Facebook>() {
+        });
     }
 
 }

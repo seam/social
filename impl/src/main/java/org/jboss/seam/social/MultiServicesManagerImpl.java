@@ -17,20 +17,26 @@
 
 package org.jboss.seam.social;
 
+import static com.google.common.collect.Iterables.getLast;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Sets.newHashSet;
-import static org.apache.commons.lang3.StringUtils.isEmpty;
 
 import java.io.Serializable;
+import java.lang.annotation.Annotation;
 import java.util.List;
 import java.util.Set;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.SessionScoped;
 import javax.enterprise.inject.Any;
 import javax.enterprise.inject.Instance;
+import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.jboss.seam.social.oauth.OAuthService;
+import org.jboss.seam.social.oauth.OAuthSession;
+import org.jboss.seam.social.oauth.OAuthSessionImpl;
 
 /**
  * 
@@ -39,6 +45,7 @@ import org.jboss.seam.social.oauth.OAuthService;
  * @author Antoine Sabot-Durand
  * 
  */
+@SessionScoped
 public class MultiServicesManagerImpl implements MultiServicesManager, Serializable {
 
     private static final long serialVersionUID = 2681869484541158766L;
@@ -52,13 +59,17 @@ public class MultiServicesManagerImpl implements MultiServicesManager, Serializa
 
     private List<String> listOfServices;
 
-    private Set<OAuthService> services;
+    private Set<OAuthSession> activeSessions;
 
-    private OAuthService currentService;
+    @Produces
+    @Named
+    @Current
+    private OAuthSession currentSession;
 
     @PostConstruct
     void init() {
         listOfServices = newArrayList(socialConfig.getSocialRelated());
+        socialConfig.setMultiSession(true);
     }
 
     @Override
@@ -68,36 +79,12 @@ public class MultiServicesManagerImpl implements MultiServicesManager, Serializa
 
     public MultiServicesManagerImpl() {
         super();
-        services = newHashSet();
-    }
-
-    @Override
-    public OAuthService getNewService(String serviceName) {
-        if (isEmpty(serviceName))
-            throw new IllegalArgumentException("Empty service name provided");
-        if (!(listOfServices.contains(serviceName)))
-            throw new IllegalArgumentException("Service " + serviceName + " is not available");
-        OAuthService service = serviceInstances.select(socialConfig.getServicesToQualifier().inverse().get(serviceName)).get();
-        return service;
-    }
-
-    @Override
-    public Set<OAuthService> getServices() {
-        return services;
-    }
-
-    private void addService(OAuthService service) {
-        services.add(service);
+        activeSessions = newHashSet();
     }
 
     @Override
     public OAuthService getCurrentService() {
-        return currentService;
-    }
-
-    @Override
-    public void setCurrentService(OAuthService currentService) {
-        this.currentService = currentService;
+        return serviceInstances.select(getCurrentSession().getServiceQualifier()).get();
     }
 
     @Override
@@ -108,23 +95,38 @@ public class MultiServicesManagerImpl implements MultiServicesManager, Serializa
     @Override
     public void connectCurrentService() {
         getCurrentService().initAccessToken();
-        addService(getCurrentService());
+        activeSessions.add(currentSession);
     }
 
     @Override
-    public String initNewService(String servType) {
-        setCurrentService(getNewService(servType));
+    public String initNewSession(String servType) {
+        Annotation qualifier = SeamSocialExtension.getServicesToQualifier().inverse().get(servType);
+        setCurrentSession(new OAuthSessionImpl(qualifier));
         return getCurrentService().getAuthorizationUrl();
 
     }
 
     @Override
-    public void destroyCurrentService() {
-        if (getCurrentService() != null) {
-            getServices().remove(getCurrentService());
-            getCurrentService().resetConnection();
-            setCurrentService(getServices().size() > 0 ? getServices().iterator().next() : null);
+    public void destroyCurrentSession() {
+        if (getCurrentSession() != null) {
+            activeSessions.remove(getCurrentSession());
+            setCurrentSession(activeSessions.size() > 0 ? getLast(activeSessions) : null);
         }
+    }
+
+    @Override
+    public void setCurrentSession(OAuthSession currentSession) {
+        this.currentSession = currentSession;
+    }
+
+    @Override
+    public OAuthSession getCurrentSession() {
+        return currentSession;
+    }
+
+    @Override
+    public Set<OAuthSession> getActiveSessions() {
+        return activeSessions;
     }
 
 }

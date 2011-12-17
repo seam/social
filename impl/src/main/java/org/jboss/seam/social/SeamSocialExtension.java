@@ -21,7 +21,6 @@ import static com.google.common.collect.Sets.newHashSet;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
@@ -34,11 +33,10 @@ import javax.enterprise.inject.spi.Annotated;
 import javax.enterprise.inject.spi.BeanManager;
 import javax.enterprise.inject.spi.Extension;
 import javax.enterprise.inject.spi.ProcessBean;
-import javax.enterprise.inject.spi.ProcessProducer;
 
 import org.apache.commons.lang3.StringUtils;
+import org.jboss.seam.social.oauth.OAuthApplication;
 import org.jboss.seam.social.oauth.OAuthService;
-import org.jboss.seam.social.oauth.OAuthServiceSettings;
 import org.jboss.solder.logging.Logger;
 import org.jboss.solder.reflection.AnnotationInspector;
 
@@ -54,18 +52,27 @@ public class SeamSocialExtension implements Extension {
 
     private Set<String> servicesNames = newHashSet();
     private Set<Annotation> servicesQualifiersConfigured = newHashSet();
-    private Set<Annotation> servicesQualifiersAvailable = newHashSet();
-    private BiMap<Annotation, String> servicesToQualifier = HashBiMap.create();
+    private static Set<Annotation> servicesQualifiersAvailable = newHashSet();
+    private static BiMap<Annotation, String> servicesToQualifier = HashBiMap.create();
     private Map<Type, Annotation> classToQualifier = newHashMap();
+    private boolean multiSession = false;
 
     private static final Logger log = Logger.getLogger(SeamSocialExtension.class);
 
-    public void processSettingsBeans(@Observes ProcessBean<OAuthServiceSettings> pbean, BeanManager beanManager) {
+    /**
+     * This observer methods build the list of existing Qualifiers having the ServiceRelated meta Annotation on configured
+     * service (having the {@link OAuthApplication} Annotation)
+     * 
+     * @param pbean
+     * @param beanManager
+     */
+    public void processSettingsBeans(@Observes ProcessBean<OAuthService> pbean, BeanManager beanManager) {
 
         log.info("Starting enumeration of existing service settings");
         Annotated annotated = pbean.getAnnotated();
-
-        servicesQualifiersConfigured.addAll(AnnotationInspector.getAnnotations(annotated, ServiceRelated.class));
+        if (annotated.isAnnotationPresent(OAuthApplication.class)) {
+            servicesQualifiersConfigured.addAll(AnnotationInspector.getAnnotations(annotated, ServiceRelated.class));
+        }
     }
 
     /**
@@ -74,8 +81,8 @@ public class SeamSocialExtension implements Extension {
      * @param pbean
      */
 
-    public void processServicesBeans(@Observes ProcessProducer<?, OAuthService> pbean) {
-        Annotated annotated = pbean.getAnnotatedMember();
+    public void processServicesBeans(@Observes ProcessBean<OAuthService> pbean) {
+        Annotated annotated = pbean.getAnnotated();
         Type type = annotated.getBaseType();
         Set<Annotation> qualifiers = AnnotationInspector.getAnnotations(annotated, ServiceRelated.class);
         servicesQualifiersAvailable.addAll(qualifiers);
@@ -113,12 +120,24 @@ public class SeamSocialExtension implements Extension {
 
     }
 
-    public BiMap<Annotation, String> getServicesToQualifier() {
+    public static BiMap<Annotation, String> getServicesToQualifier() {
         return servicesToQualifier;
     }
 
     public Map<Type, Annotation> getClassToQualifier() {
         return classToQualifier;
+    }
+
+    public static Set<Annotation> getServicesQualifiersAvailable() {
+        return servicesQualifiersAvailable;
+    }
+
+    public boolean isMultiSession() {
+        return multiSession;
+    }
+
+    public void setMultiSession(boolean multiSession) {
+        this.multiSession = multiSession;
     }
 
 }

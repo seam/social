@@ -24,11 +24,12 @@ import javax.inject.Inject;
 import org.codehaus.jackson.annotate.JsonCreator;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
-import org.codehaus.jackson.map.Module;
-import org.jboss.seam.social.OAuthServiceJackson;
+import org.jboss.seam.social.Twitter;
 import org.jboss.seam.social.URLUtils;
+import org.jboss.seam.social.oauth.OAuthServiceBase;
 import org.jboss.seam.social.rest.RestResponse;
 import org.jboss.seam.social.rest.RestVerb;
+import org.jboss.seam.social.twitter.RateLimitStatus;
 import org.jboss.seam.social.twitter.TwitterService;
 import org.jboss.seam.social.twitter.model.SuggestionCategory;
 import org.jboss.seam.social.twitter.model.Tweet;
@@ -39,8 +40,8 @@ import org.jboss.solder.logging.Logger;
  * @author Antoine Sabot-Durand
  * 
  */
-
-public class TwitterServiceJackson extends OAuthServiceJackson implements TwitterService {
+@Twitter
+public class TwitterServiceJackson extends OAuthServiceBase implements TwitterService {
 
     /**
      * Typed list of TwitterProfile. This helps Jackson know which type to deserialize list contents into.
@@ -94,8 +95,7 @@ public class TwitterServiceJackson extends OAuthServiceJackson implements Twitte
     public Tweet updateStatus(String message) {
         RestResponse resp = sendSignedRequest(RestVerb.POST, TWEET_URL, "status", message);
         log.infof("update status is %s", message);
-        setStatus("");
-        return jsonMapper.readValue(resp, Tweet.class);
+        return jsonService.requestObject(resp, Tweet.class);
 
     }
 
@@ -107,16 +107,6 @@ public class TwitterServiceJackson extends OAuthServiceJackson implements Twitte
     @Override
     public String getServiceLogo() {
         return LOGO_URL;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.jboss.seam.social.twitter.Twitter#updateStatus()
-     */
-    @Override
-    public Tweet updateStatus() {
-        return updateStatus(getStatus());
     }
 
     public String getProfileId() {
@@ -131,18 +121,18 @@ public class TwitterServiceJackson extends OAuthServiceJackson implements Twitte
 
     @Override
     public TwitterProfile getMyProfile() {
-        return (TwitterProfile) myProfile;
+        return (TwitterProfile) getSession().getUserProfile();
     }
 
     public TwitterProfile getUserProfile(String screenName) {
-        return jsonMapper.readValue(
+        return jsonService.requestObject(
                 sendSignedRequest(RestVerb.GET,
                         URLUtils.appendParametersToQueryString(GET_USER_PROFILE_URL, "screen_name", screenName)),
                 TwitterProfile.class);
     }
 
     public TwitterProfile getUserProfile(long userId) {
-        return jsonMapper.readValue(
+        return jsonService.requestObject(
                 sendSignedRequest(RestVerb.GET,
                         URLUtils.appendParametersToQueryString(GET_USER_PROFILE_URL, "user_id", String.valueOf(userId))),
                 TwitterProfile.class);
@@ -151,7 +141,7 @@ public class TwitterServiceJackson extends OAuthServiceJackson implements Twitte
     @Override
     public List<TwitterProfile> getUsers(Long... userIds) {
         String joinedIds = URLUtils.commaJoiner.join(userIds);
-        return jsonMapper.readValue(
+        return jsonService.requestObject(
                 sendSignedRequest(RestVerb.GET,
                         URLUtils.appendParametersToQueryString(GET_USER_PROFILE_URL, "user_id", joinedIds)),
                 TwitterProfileList.class);
@@ -160,7 +150,7 @@ public class TwitterServiceJackson extends OAuthServiceJackson implements Twitte
     @Override
     public List<TwitterProfile> getUsers(String... screenNames) {
         String joinedScreenNames = URLUtils.commaJoiner.join(screenNames);
-        return jsonMapper.readValue(
+        return jsonService.requestObject(
                 sendSignedRequest(RestVerb.GET,
                         URLUtils.appendParametersToQueryString(GET_USER_PROFILE_URL, "screen_name", joinedScreenNames)),
                 TwitterProfileList.class);
@@ -168,7 +158,7 @@ public class TwitterServiceJackson extends OAuthServiceJackson implements Twitte
 
     public List<TwitterProfile> searchForUsers(String query) {
         requireAuthorization();
-        return jsonMapper.readValue(
+        return jsonService.requestObject(
                 sendSignedRequest(RestVerb.GET, URLUtils.appendParametersToQueryString(SEARCH_USER_URL, "q", query)),
                 TwitterProfileList.class);
     }
@@ -176,11 +166,11 @@ public class TwitterServiceJackson extends OAuthServiceJackson implements Twitte
     @Override
     public List<SuggestionCategory> getSuggestionCategories() {
         requireAuthorization();
-        return jsonMapper.readValue(sendSignedRequest(RestVerb.GET, SUGGESTION_CATEGORIES), SuggestionCategoryList.class);
+        return jsonService.requestObject(sendSignedRequest(RestVerb.GET, SUGGESTION_CATEGORIES), SuggestionCategoryList.class);
     }
 
     public List<TwitterProfile> getSuggestions(String slug) {
-        return jsonMapper.readValue(
+        return jsonService.requestObject(
                 sendSignedRequest(RestVerb.GET, "https://api.twitter.com/1/users/suggestions/" + slug + ".json"),
                 TwitterProfileUsersList.class).getList();
     }
@@ -192,18 +182,15 @@ public class TwitterServiceJackson extends OAuthServiceJackson implements Twitte
      */
     @Override
     protected void initMyProfile() {
-        myProfile = jsonMapper.readValue(sendSignedRequest(RestVerb.GET, VERIFY_CREDENTIALS_URL), TwitterProfile.class);
-
+        getSession().setUserProfile(
+                jsonService.requestObject(sendSignedRequest(RestVerb.GET, VERIFY_CREDENTIALS_URL), TwitterProfile.class));
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.jboss.seam.social.OAuthServiceJackson#getJacksonModule()
-     */
     @Override
-    protected Module getJacksonModule() {
-        return new TwitterModule();
+    public RateLimitStatus getRateLimitStatus() {
+        return jsonService.requestObject(
+                sendSignedRequest(RestVerb.GET, "https://api.twitter.com/1/account/rate_limit_status.json"),
+                RateLimitStatus.class);
     }
 
 }

@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social.rest;
+package org.jboss.seam.social.oauth;
 
 import java.io.Serializable;
 import java.lang.annotation.Annotation;
@@ -22,47 +22,54 @@ import java.lang.annotation.Annotation;
 import org.jboss.seam.social.UserProfile;
 
 /**
- * @author antoine
+ * Instances of this interface contains data for a session connection to a given service.
+ * 
+ * @see OAuthService
+ * @author Antoine Sabot-Durand
  * 
  */
-public interface RestService extends Serializable {
+public interface OAuthSession extends Serializable {
+
+    /**
+     * @return the requestToken
+     */
+    public OAuthToken getRequestToken();
+
+    /**
+     * @param requestToken the requestToken to set
+     */
+    public void setRequestToken(OAuthToken requestToken);
+
+    /**
+     * @return the accessToken
+     */
+    public OAuthToken getAccessToken();
+
+    /**
+     * @param accessToken the accessToken to set
+     */
+    public void setAccessToken(OAuthToken accessToken);
+
+    /**
+     * @return the verifier
+     */
+    public String getVerifier();
+
+    /**
+     * @param verifier the verifier to set
+     */
+    public void setVerifier(String verifier);
+
+    public void setUserProfile(UserProfile userProfile);
+
+    public UserProfile getUserProfile();
+
+    public Annotation getServiceQualifier();
 
     /**
      * @return
      */
-    public UserProfile getMyProfile();
-
-    /**
-     * Returns the logo of the service
-     * 
-     * @return the URL of the logo for the service
-     */
-    public String getServiceLogo();
-
-    /**
-     * Returns the status of this ServiceHndler
-     * 
-     * @return true if the connection process is over and successful
-     */
     public boolean isConnected();
 
-    /**
-     * Returns the name/type of the Social Network we're connected to
-     * 
-     * @return name of the service
-     */
-    public String getType();
-
-    /**
-     * Returns the Qualifier used for this social network
-     * 
-     * @return Annotation being a Qualifier
-     */
-    public Annotation getQualifier();
-
-    /**
-     * Close connexion if needed
-     */
-    public void resetConnection();
-
+    public String getName();
 }

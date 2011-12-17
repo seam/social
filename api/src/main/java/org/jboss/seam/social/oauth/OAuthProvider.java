@@ -70,7 +70,7 @@ public interface OAuthProvider {
      * 
      * @param settings
      */
-    public void initProvider(OAuthServiceSettings settings);
+    // public void initProvider(OAuthServiceSettings settings);
 
     /**
      * Creates an OAuthRequest with the given Rest Verb and uri
