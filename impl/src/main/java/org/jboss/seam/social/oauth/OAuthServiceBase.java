@@ -16,13 +16,9 @@
  */
 package org.jboss.seam.social.oauth;
 
-import static com.google.common.collect.Lists.newArrayList;
 import static org.jboss.seam.social.SeamSocialExtension.getServicesToQualifier;
 
 import java.lang.annotation.Annotation;
-import java.lang.reflect.Type;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -219,32 +215,32 @@ public abstract class OAuthServiceBase implements OAuthService, HasStatus {
         return getSession().getUserProfile();
     }
 
-    @Override
-    public Annotation getQualifier() {
-        if (qualifier == null) {
-            log.debugf("building the list of direct ancestors (Interface and Class) for bean %s", this.getClass().toString());
-            List<Type> allTypes = newArrayList(Arrays.asList(this.getClass().getGenericInterfaces()));
-            allTypes.add(this.getClass());
-            Type superClass = this.getClass().getGenericSuperclass();
-            if (superClass != null)
-                allTypes.add(superClass);
-            log.debugf("This bean implents or extends %s others type", allTypes.size());
-            for (Type type : socialConfig.getClassToQualifier().keySet()) {
-                log.debugf("Comparing the type of the bean with %s", type);
-
-                if (allTypes.contains(type)) {
-                    log.debugf("Found that bean has type %s", type);
-
-                    qualifier = socialConfig.getClassToQualifier().get(type);
-                    break;
-                }
-            }
-            if (qualifier == null)
-                throw new SeamSocialException("Unable tho find Service Related Qualifier for bean of class "
-                        + this.getClass().toString());
-        }
-        return qualifier;
-    }
+    // @Override
+    // public Annotation getQualifier() {
+    // if (qualifier == null) {
+    // log.debugf("building the list of direct ancestors (Interface and Class) for bean %s", this.getClass().toString());
+    // List<Type> allTypes = newArrayList(Arrays.asList(this.getClass().getGenericInterfaces()));
+    // allTypes.add(this.getClass());
+    // Type superClass = this.getClass().getGenericSuperclass();
+    // if (superClass != null)
+    // allTypes.add(superClass);
+    // log.debugf("This bean implents or extends %s others type", allTypes.size());
+    // for (Type type : socialConfig.getClassToQualifier().keySet()) {
+    // log.debugf("Comparing the type of the bean with %s", type);
+    //
+    // if (allTypes.contains(type)) {
+    // log.debugf("Found that bean has type %s", type);
+    //
+    // qualifier = socialConfig.getClassToQualifier().get(type);
+    // break;
+    // }
+    // }
+    // if (qualifier == null)
+    // throw new SeamSocialException("Unable tho find Service Related Qualifier for bean of class "
+    // + this.getClass().toString());
+    // }
+    // return qualifier;
+    // }
 
     public OAuthSession getSession() {
         OAuthSession session;

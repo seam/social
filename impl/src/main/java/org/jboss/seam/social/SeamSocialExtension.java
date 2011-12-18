@@ -16,12 +16,9 @@
  */
 package org.jboss.seam.social;
 
-import static com.google.common.collect.Maps.newHashMap;
 import static com.google.common.collect.Sets.newHashSet;
 
 import java.lang.annotation.Annotation;
-import java.lang.reflect.Type;
-import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import java.util.Set;
@@ -54,7 +51,6 @@ public class SeamSocialExtension implements Extension {
     private Set<Annotation> servicesQualifiersConfigured = newHashSet();
     private static Set<Annotation> servicesQualifiersAvailable = newHashSet();
     private static BiMap<Annotation, String> servicesToQualifier = HashBiMap.create();
-    private Map<Type, Annotation> classToQualifier = newHashMap();
     private boolean multiSession = false;
 
     private static final Logger log = Logger.getLogger(SeamSocialExtension.class);
@@ -79,18 +75,13 @@ public class SeamSocialExtension implements Extension {
      * This Listener build the List of existing OAuthServices with a Qualifier having the meta annotation @ServiceRelated
      * 
      * @param pbean
+     * @throws IllegalAccessException
+     * @throws InstantiationException
      */
-
-    public void processServicesBeans(@Observes ProcessBean<OAuthService> pbean) {
-        Annotated annotated = pbean.getAnnotated();
-        Type type = annotated.getBaseType();
-        Set<Annotation> qualifiers = AnnotationInspector.getAnnotations(annotated, ServiceRelated.class);
+    public void processServicesBeans(@Observes ProcessBean<ServiceConfiguration> pbean) throws InstantiationException,
+            IllegalAccessException {
+        Set<Annotation> qualifiers = AnnotationInspector.getAnnotations(pbean.getAnnotated(), ServiceRelated.class);
         servicesQualifiersAvailable.addAll(qualifiers);
-        if (qualifiers.size() > 0)
-            if (qualifiers.size() > 1)
-                log.errorf("The bean of type %s has more than one Service Related Qualifier", type);
-            else
-                classToQualifier.put(type, qualifiers.iterator().next());
     }
 
     public Set<String> getSocialRelated() {
@@ -114,7 +105,7 @@ public class SeamSocialExtension implements Extension {
             }
 
         }
-        for (Annotation annot : servicesQualifiersAvailable) {
+        for (Annotation annot : servicesQualifiersConfigured) {
             servicesNames.add(servicesToQualifier.get(annot));
         }
 
@@ -122,10 +113,6 @@ public class SeamSocialExtension implements Extension {
 
     public static BiMap<Annotation, String> getServicesToQualifier() {
         return servicesToQualifier;
-    }
-
-    public Map<Type, Annotation> getClassToQualifier() {
-        return classToQualifier;
     }
 
     public static Set<Annotation> getServicesQualifiersAvailable() {

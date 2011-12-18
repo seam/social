@@ -19,6 +19,7 @@ package org.jboss.seam.social.oauth;
 import java.lang.annotation.Annotation;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.SessionScoped;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 
@@ -33,6 +34,8 @@ import org.jboss.solder.bean.generic.GenericConfiguration;
  */
 @GenericConfiguration(OAuthApplication.class)
 public class OAuthGenericManager {
+
+    Annotation qual;
 
     @Inject
     @Generic
@@ -52,13 +55,19 @@ public class OAuthGenericManager {
         return new OAuthProviderScribe(settings);
     }
 
+    @Produces
+    @SessionScoped
+    protected OAuthSession produceSession() {
+        return new OAuthSessionImpl(qual);
+    }
+
     @PostConstruct
     void init() {
         String apiKey = app.apiKey();
         String apiSecret = app.apiSecret();
         String callback = app.callback();
         String scope = app.scope();
-        Annotation qual = service.getQualifier();
+        qual = service.getQualifier();
         settings = new OAuthServiceSettingsImpl(qual, apiKey, apiSecret, callback, scope);
     }
 

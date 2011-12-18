@@ -16,7 +16,10 @@
  */
 package org.jboss.seam.social.linkedin.jackson;
 
-import org.jboss.seam.social.LinkedIn;
+import static org.jboss.seam.social.LinkedInLiteral.INSTANCE;
+
+import java.lang.annotation.Annotation;
+
 import org.jboss.seam.social.UserProfile;
 import org.jboss.seam.social.linkedin.LinkedInService;
 import org.jboss.seam.social.linkedin.model.LinkedInProfile;
@@ -30,7 +33,6 @@ import org.jboss.seam.social.rest.RestVerb;
  * @author Antoine Sabot-Durand
  * @author Craig Walls
  */
-@LinkedIn
 public class LinkedInServiceJackson extends OAuthServiceBase implements LinkedInService {
 
     private static final long serialVersionUID = -6718362913575146613L;
@@ -109,6 +111,16 @@ public class LinkedInServiceJackson extends OAuthServiceBase implements LinkedIn
         getSession().setUserProfile(
                 jsonService.requestObject(sendSignedRequest(RestVerb.GET, PROFILE_URL), LinkedInProfile.class));
 
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.jboss.seam.social.rest.RestService#getQualifier()
+     */
+    @Override
+    public Annotation getQualifier() {
+        return INSTANCE;
     }
 
 }

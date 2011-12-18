@@ -14,29 +14,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social;
 
-import static java.lang.annotation.ElementType.FIELD;
-import static java.lang.annotation.ElementType.METHOD;
-import static java.lang.annotation.ElementType.PARAMETER;
-import static java.lang.annotation.ElementType.TYPE;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
+package org.jboss.seam.social.linkedin;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.Retention;
-import java.lang.annotation.Target;
+import org.jboss.seam.social.LinkedIn;
+import org.jboss.seam.social.ServiceConfiguration;
+import org.jboss.seam.social.oauth.OAuthService;
 
-import javax.inject.Qualifier;
-
-@ServiceRelated
-@Qualifier
-@Target({ TYPE, METHOD, PARAMETER, FIELD })
-@Retention(RUNTIME)
-@Documented
 /**
  * @author antoine
- *
+ * 
  */
-public @interface LinkedIn {
+@LinkedIn
+public class LinkedInConfiguration implements ServiceConfiguration {
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.jboss.seam.social.ServiceConfiguration#getServiceClass()
+     */
+    @Override
+    public Class<? extends OAuthService> getServiceClass() {
+        return LinkedInService.class;
+    }
 
 }

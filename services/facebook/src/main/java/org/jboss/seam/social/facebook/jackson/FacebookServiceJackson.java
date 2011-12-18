@@ -17,9 +17,12 @@
 
 package org.jboss.seam.social.facebook.jackson;
 
+import static org.jboss.seam.social.FacebookLiteral.INSTANCE;
+
+import java.lang.annotation.Annotation;
+
 import javax.inject.Inject;
 
-import org.jboss.seam.social.Facebook;
 import org.jboss.seam.social.UserProfile;
 import org.jboss.seam.social.facebook.FacebookService;
 import org.jboss.seam.social.facebook.model.UserJackson;
@@ -31,7 +34,6 @@ import org.jboss.solder.logging.Logger;
 /**
  * @author Antoine Sabot-Durand
  */
-@Facebook
 public class FacebookServiceJackson extends OAuthServiceBase implements FacebookService {
 
     static final String USER_PROFILE_URL = "https://graph.facebook.com/me";
@@ -94,6 +96,16 @@ public class FacebookServiceJackson extends OAuthServiceBase implements Facebook
     @Override
     public String getVerifierParamName() {
         return VERIFIER_PARAM_NAME;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.jboss.seam.social.rest.RestService#getQualifier()
+     */
+    @Override
+    public Annotation getQualifier() {
+        return INSTANCE;
     }
 
 }

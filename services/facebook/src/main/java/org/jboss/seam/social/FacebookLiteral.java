@@ -13,30 +13,17 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
-package org.jboss.seam.social.linkedin;
+ */package org.jboss.seam.social;
 
-import javax.enterprise.context.SessionScoped;
-import javax.enterprise.inject.Produces;
 import javax.enterprise.util.AnnotationLiteral;
-
-import org.jboss.seam.social.LinkedIn;
-import org.jboss.seam.social.oauth.OAuthSession;
-import org.jboss.seam.social.oauth.OAuthSessionImpl;
 
 /**
  * @author antoine
  * 
  */
-public class LinkedInSessionProducer {
+public class FacebookLiteral extends AnnotationLiteral<Facebook> implements Facebook {
 
-    @SuppressWarnings("serial")
-    @Produces
-    @LinkedIn
-    @SessionScoped
-    protected OAuthSession produceOAuthSession() {
-        return new OAuthSessionImpl(new AnnotationLiteral<LinkedIn>() {
-        });
-    }
+    private static final long serialVersionUID = 6670724512843515808L;
+    public static Facebook INSTANCE = new FacebookLiteral();
 
 }

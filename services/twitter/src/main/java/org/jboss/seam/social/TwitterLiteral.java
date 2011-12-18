@@ -13,30 +13,16 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
-package org.jboss.seam.social.facebook;
+ */package org.jboss.seam.social;
 
-import javax.enterprise.context.SessionScoped;
-import javax.enterprise.inject.Produces;
 import javax.enterprise.util.AnnotationLiteral;
-
-import org.jboss.seam.social.Facebook;
-import org.jboss.seam.social.oauth.OAuthSession;
-import org.jboss.seam.social.oauth.OAuthSessionImpl;
 
 /**
  * @author antoine
  * 
  */
-public class FacebookSessionProducer {
+public class TwitterLiteral extends AnnotationLiteral<Twitter> implements Twitter {
 
-    @SuppressWarnings("serial")
-    @Produces
-    @Facebook
-    @SessionScoped
-    protected OAuthSession produceOAuthSession() {
-        return new OAuthSessionImpl(new AnnotationLiteral<Facebook>() {
-        });
-    }
-
+    private static final long serialVersionUID = 5431958087840055287L;
+    public static Twitter INSTANCE = new TwitterLiteral();
 }

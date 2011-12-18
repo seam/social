@@ -16,6 +16,9 @@
  */
 package org.jboss.seam.social.twitter.jackson;
 
+import static org.jboss.seam.social.TwitterLiteral.INSTANCE;
+
+import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +27,6 @@ import javax.inject.Inject;
 import org.codehaus.jackson.annotate.JsonCreator;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
-import org.jboss.seam.social.Twitter;
 import org.jboss.seam.social.URLUtils;
 import org.jboss.seam.social.oauth.OAuthServiceBase;
 import org.jboss.seam.social.rest.RestResponse;
@@ -40,7 +42,6 @@ import org.jboss.solder.logging.Logger;
  * @author Antoine Sabot-Durand
  * 
  */
-@Twitter
 public class TwitterServiceJackson extends OAuthServiceBase implements TwitterService {
 
     /**
@@ -193,4 +194,13 @@ public class TwitterServiceJackson extends OAuthServiceBase implements TwitterSe
                 RateLimitStatus.class);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.jboss.seam.social.rest.RestService#getQualifier()
+     */
+    @Override
+    public Annotation getQualifier() {
+        return INSTANCE;
+    }
 }

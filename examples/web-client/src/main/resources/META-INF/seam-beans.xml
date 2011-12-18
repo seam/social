@@ -22,6 +22,7 @@
 
     <o:TwitterServiceJackson>
         <s:modifies />
+        <o:Twitter/>
         <s:ApplicationScoped />
         <o:OAuthApplication apiKey="FQzlQC49UhvbMZoxUIvHTQ"
             apiSecret="VQ5CZHG4qUoAkUUmckPn4iN4yyjBKcORTW0wnok4r1k"
@@ -30,6 +31,7 @@
 
     <o:LinkedInServiceJackson>
         <s:modifies />
+        <o:LinkedIn/>
         <s:ApplicationScoped />
         <o:OAuthApplication
             apiKey="ympq1JR_oxeC3qZE4VwiDEr-9Rc9Am0YE1AJwwXJNREfqaF7J6hXfsncu_JFd13W"
@@ -39,6 +41,7 @@
 
     <o:FacebookServiceJackson>
         <s:modifies />
+        <o:Facebook/>
         <s:ApplicationScoped />
         <o:OAuthApplication apiKey="204631749555557"
             apiSecret="5d3132b1448a66d28e5c420b267cd65e"
