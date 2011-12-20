@@ -16,7 +16,7 @@
  */
 package org.jboss.seam.social;
 
-import java.io.Serializable;
+import java.io.IOException;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
@@ -25,39 +25,55 @@ import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 
 import org.codehaus.jackson.map.Module;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.jboss.seam.social.rest.RestResponse;
 
 /**
- * 
- * This Bean drives all the upper services for serialize/deserialize Object to/from Json It also register all the Jackson Mixin
- * module declared in social service modules.
+ * This Bean manage the Json Mapper to serialize and de-serialize Json data coming from and sent to services It uses an
+ * {@link ObjectMapper} Jackson.
  * 
  * @author Antoine Sabot-Durand
- * 
  */
 @ApplicationScoped
-public class JsonServiceJackson implements Serializable {
+public class JsonMapperJackson implements JsonMapper {
 
-    private static final long serialVersionUID = -7806134655399349774L;
+    private static final long serialVersionUID = -2012295612034078749L;
 
-    @Inject
-    protected JsonMapper jsonMapper;
+    private final ObjectMapper delegate = new ObjectMapper();
 
     @Inject
     @Any
     protected Instance<Module> moduleInstances;
 
-    /**
-     * @return
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.jboss.seam.social.JsonMapper#requestObject(org.jboss.seam.social.rest.RestResponse, java.lang.Class)
      */
+    @Override
     public <T> T requestObject(RestResponse resp, Class<T> clazz) {
-        return jsonMapper.readValue(resp, clazz);
+        try {
+            String msg = resp.getBody();
+            return delegate.readValue(msg, clazz);
+        } catch (IOException e) {
+            throw new SeamSocialException("Unable to map Json response", e);
+        }
+    }
+
+    /**
+     * 
+     * Register a Jackson configuration {@link Module} to set special rules for de-serialization
+     * 
+     * @param module to register
+     */
+    public void registerModule(Module module) {
+        delegate.registerModule(module);
     }
 
     @PostConstruct
     protected void init() {
         for (Module module : moduleInstances) {
-            jsonMapper.registerModule(module);
+            registerModule(module);
         }
     }
 

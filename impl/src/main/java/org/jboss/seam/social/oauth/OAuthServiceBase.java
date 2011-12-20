@@ -30,7 +30,7 @@ import javax.inject.Inject;
 import org.apache.commons.lang3.StringUtils;
 import org.jboss.seam.social.Current;
 import org.jboss.seam.social.HasStatus;
-import org.jboss.seam.social.JsonServiceJackson;
+import org.jboss.seam.social.JsonMapper;
 import org.jboss.seam.social.SeamSocialException;
 import org.jboss.seam.social.SeamSocialExtension;
 import org.jboss.seam.social.UserProfile;
@@ -58,7 +58,7 @@ public abstract class OAuthServiceBase implements OAuthService, HasStatus {
     private Instance<OAuthProvider> providers;
 
     @Inject
-    protected JsonServiceJackson jsonService;
+    protected JsonMapper jsonService;
 
     @Inject
     private Logger log;

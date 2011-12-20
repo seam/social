@@ -19,23 +19,23 @@ package org.jboss.seam.social.test;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import org.jboss.seam.social.JsonMapper;
+import org.jboss.seam.social.JsonMapperJackson;
 import org.jboss.seam.social.SeamSocialException;
 import org.jboss.seam.social.rest.RestResponse;
 import org.junit.Before;
 import org.junit.Test;
 
-public class JsonMapperTest {
-    JsonMapper jm;
+public class JsonMapperJacksonTest {
+    JsonMapperJackson jm;
 
     @Before
     public void setUp() {
-        jm = new JsonMapper();
+        jm = new JsonMapperJackson();
     }
 
     @Test(expected = NullPointerException.class)
     public void testReadNullResponse() {
-        jm.readValue(null, Object.class);
+        jm.requestObject(null, Object.class);
     }
 
     @Test(expected = SeamSocialException.class)
@@ -43,7 +43,7 @@ public class JsonMapperTest {
         RestResponse resp = mock(RestResponse.class);
         when(resp.getBody()).thenReturn("");
 
-        jm.readValue(resp, Object.class);
+        jm.requestObject(resp, Object.class);
     }
 
     @Test(expected = NullPointerException.class)
@@ -51,7 +51,7 @@ public class JsonMapperTest {
         RestResponse resp = mock(RestResponse.class);
         when(resp.getBody()).thenReturn(null);
 
-        jm.readValue(resp, Object.class);
+        jm.requestObject(resp, Object.class);
     }
 
     @Test(expected = NullPointerException.class)
