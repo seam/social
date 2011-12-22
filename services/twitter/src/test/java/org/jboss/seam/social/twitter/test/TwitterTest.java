@@ -31,7 +31,8 @@ import org.jboss.seam.social.oauth.OAuthProvider;
 import org.jboss.seam.social.oauth.OAuthSession;
 import org.jboss.seam.social.oauth.OAuthToken;
 import org.jboss.seam.social.scribe.OAuthTokenScribe;
-import org.jboss.seam.social.twitter.TwitterService;
+import org.jboss.seam.social.twitter.TwitterBaseService;
+import org.jboss.seam.social.twitter.TwitterUserService;
 import org.jboss.seam.social.twitter.model.SuggestionCategory;
 import org.jboss.seam.social.twitter.model.Tweet;
 import org.jboss.seam.social.twitter.model.TwitterProfile;
@@ -57,7 +58,10 @@ public class TwitterTest {
 
     @Inject
     @Twitter
-    TwitterService twitterService;
+    TwitterBaseService twitterBaseService;
+
+    @Inject
+    TwitterUserService userService;
 
     @Inject
     @Twitter
@@ -101,31 +105,31 @@ public class TwitterTest {
         OAuthToken token = new OAuthTokenScribe("334872715-u75bjYqWyQSYjFMnKeTDZUn8i0QAExjUQ4ENZXH3",
                 "08QG7HVqDjkr1oH1YfBRWmd0n8EG73CuzJgTjFI0sk");
         session.setAccessToken(token);
-        twitterService.initAccessToken();
+        twitterBaseService.initAccessToken();
     }
 
     @Test
     public void authorizationUrlTest() {
-        Assert.assertTrue(twitterService.getAuthorizationUrl().startsWith("http"));
+        Assert.assertTrue(twitterBaseService.getAuthorizationUrl().startsWith("http"));
     }
 
     @Test
     public void sendATweet() {
-        Tweet tweet = (Tweet) ((HasStatus) twitterService).updateStatus("Tweet sent from JUnit at " + new Date().toString());
+        Tweet tweet = (Tweet) ((HasStatus) twitterBaseService).updateStatus("Tweet sent from JUnit at " + new Date().toString());
         Assert.assertFalse(tweet.getId() == 0);
 
     }
 
     @Test
     public void searchUser() {
-        List<TwitterProfile> res = ((TwitterService) twitterService).searchForUsers("antoine");
+        List<TwitterProfile> res = userService.searchForUsers("antoine");
         Assert.assertFalse(res.isEmpty());
 
     }
 
     @Test
     public void SuggestionCaegoriesNotEmpty() {
-        List<SuggestionCategory> res = ((TwitterService) twitterService).getSuggestionCategories();
+        List<SuggestionCategory> res = userService.getSuggestionCategories();
         Assert.assertFalse(res.isEmpty());
 
     }

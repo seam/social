@@ -21,6 +21,8 @@ import java.lang.annotation.Annotation;
 
 import org.jboss.seam.social.UserProfile;
 
+import com.google.common.collect.Multimap;
+
 /**
  * @author antoine
  * 
@@ -64,5 +66,25 @@ public interface RestService extends Serializable {
      * Close connexion if needed
      */
     public void resetConnection();
+
+    /**
+     * @return
+     */
+    public String getApiRootUrl();
+
+    /**
+     * @param url
+     * @param key
+     * @param value
+     * @return
+     */
+    public String buildUri(String url, String key, String value);
+
+    /**
+     * @param url
+     * @param parameters
+     * @return
+     */
+    public String buildUri(String url, Multimap<String, String> parameters);
 
 }

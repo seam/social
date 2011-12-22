@@ -17,6 +17,7 @@
 package org.jboss.seam.social.oauth;
 
 import static org.jboss.seam.social.SeamSocialExtension.getServicesToQualifier;
+import static org.jboss.seam.social.rest.RestVerb.GET;
 
 import java.lang.annotation.Annotation;
 import java.util.Map;
@@ -33,19 +34,22 @@ import org.jboss.seam.social.HasStatus;
 import org.jboss.seam.social.JsonMapper;
 import org.jboss.seam.social.SeamSocialException;
 import org.jboss.seam.social.SeamSocialExtension;
+import org.jboss.seam.social.URLUtils;
 import org.jboss.seam.social.UserProfile;
 import org.jboss.seam.social.rest.RestResponse;
 import org.jboss.seam.social.rest.RestVerb;
 import org.jboss.solder.logging.Logger;
 
+import com.google.common.collect.Multimap;
+
 /**
- * This Abstract implementation of {@link OAuthService} uses an {@link OAuthProvider} to deal with remote OAuth Services
+ * This Abstract implementation of {@link OAuthBaseService} uses an {@link OAuthProvider} to deal with remote OAuth Services
  * 
  * 
  * @author Antoine Sabot-Durand
  */
 
-public abstract class OAuthServiceBase implements OAuthService, HasStatus {
+public abstract class OAuthBaseServiceImpl implements OAuthBaseService, HasStatus {
 
     private static final long serialVersionUID = -8423894021913341674L;
     private static final String VERIFIER_PARAM_NAME = "oauth_verifier";
@@ -71,7 +75,6 @@ public abstract class OAuthServiceBase implements OAuthService, HasStatus {
     protected SeamSocialExtension socialConfig;
 
     private String type;
-    private Annotation qualifier;
 
     public String getType() {
         if (StringUtils.isEmpty(type))
@@ -185,7 +188,8 @@ public abstract class OAuthServiceBase implements OAuthService, HasStatus {
         return getSession().isConnected();
     }
 
-    protected void requireAuthorization() {
+    @Override
+    public void requireAuthorization() {
         if (!isConnected()) {
             throw new SeamSocialException("This action requires an OAuth connexion");
         }
@@ -215,33 +219,7 @@ public abstract class OAuthServiceBase implements OAuthService, HasStatus {
         return getSession().getUserProfile();
     }
 
-    // @Override
-    // public Annotation getQualifier() {
-    // if (qualifier == null) {
-    // log.debugf("building the list of direct ancestors (Interface and Class) for bean %s", this.getClass().toString());
-    // List<Type> allTypes = newArrayList(Arrays.asList(this.getClass().getGenericInterfaces()));
-    // allTypes.add(this.getClass());
-    // Type superClass = this.getClass().getGenericSuperclass();
-    // if (superClass != null)
-    // allTypes.add(superClass);
-    // log.debugf("This bean implents or extends %s others type", allTypes.size());
-    // for (Type type : socialConfig.getClassToQualifier().keySet()) {
-    // log.debugf("Comparing the type of the bean with %s", type);
-    //
-    // if (allTypes.contains(type)) {
-    // log.debugf("Found that bean has type %s", type);
-    //
-    // qualifier = socialConfig.getClassToQualifier().get(type);
-    // break;
-    // }
-    // }
-    // if (qualifier == null)
-    // throw new SeamSocialException("Unable tho find Service Related Qualifier for bean of class "
-    // + this.getClass().toString());
-    // }
-    // return qualifier;
-    // }
-
+    @Override
     public OAuthSession getSession() {
         OAuthSession session;
         if (socialConfig.isMultiSession())
@@ -251,4 +229,32 @@ public abstract class OAuthServiceBase implements OAuthService, HasStatus {
         return session;
 
     }
+
+    @Override
+    public <T> T requestObject(String uri, Class<T> clazz) {
+        return jsonService.requestObject(sendSignedRequest(GET, uri), clazz);
+    }
+
+    @Override
+    public String buildUri(String url) {
+        return getApiRootUrl() + url;
+    }
+
+    @Override
+    public String buildUri(String url, String key, String value) {
+        return URLUtils.buildUri(buildUri(url), key, value);
+    }
+
+    /**
+     * @param searchUserUrl
+     * @param parameters
+     * @return
+     */
+    @Override
+    public String buildUri(String url, Multimap<String, String> parameters) {
+        return URLUtils.buildUri(buildUri(url), parameters);
+    }
+
+    @Override
+    public abstract String getApiRootUrl();
 }

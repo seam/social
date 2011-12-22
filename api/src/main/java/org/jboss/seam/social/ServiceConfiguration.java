@@ -3,7 +3,7 @@
  */
 package org.jboss.seam.social;
 
-import org.jboss.seam.social.oauth.OAuthService;
+import org.jboss.seam.social.oauth.OAuthBaseService;
 
 /**
  * @author antoine
@@ -11,6 +11,6 @@ import org.jboss.seam.social.oauth.OAuthService;
  */
 public interface ServiceConfiguration {
 
-    public Class<? extends OAuthService> getServiceClass();
+    public Class<? extends OAuthBaseService> getServiceClass();
 
 }

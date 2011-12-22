@@ -34,7 +34,7 @@ import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.jboss.seam.social.oauth.OAuthService;
+import org.jboss.seam.social.oauth.OAuthBaseService;
 import org.jboss.seam.social.oauth.OAuthSession;
 import org.jboss.seam.social.oauth.OAuthSessionImpl;
 
@@ -52,7 +52,7 @@ public class MultiServicesManagerImpl implements MultiServicesManager, Serializa
 
     @Inject
     @Any
-    private Instance<OAuthService> serviceInstances;
+    private Instance<OAuthBaseService> serviceInstances;
 
     @Inject
     private SeamSocialExtension socialConfig;
@@ -83,7 +83,7 @@ public class MultiServicesManagerImpl implements MultiServicesManager, Serializa
     }
 
     @Override
-    public OAuthService getCurrentService() {
+    public OAuthBaseService getCurrentService() {
         return serviceInstances.select(getCurrentSession().getServiceQualifier()).get();
     }
 

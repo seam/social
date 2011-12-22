@@ -19,7 +19,7 @@ package org.jboss.seam.social.facebook;
 
 import org.jboss.seam.social.Facebook;
 import org.jboss.seam.social.ServiceConfiguration;
-import org.jboss.seam.social.oauth.OAuthService;
+import org.jboss.seam.social.oauth.OAuthBaseService;
 
 /**
  * @author antoine
@@ -34,7 +34,7 @@ public class FacebookConfiguration implements ServiceConfiguration {
      * @see org.jboss.seam.social.ServiceConfiguration#getServiceClass()
      */
     @Override
-    public Class<? extends OAuthService> getServiceClass() {
+    public Class<? extends OAuthBaseService> getServiceClass() {
         return FacebookService.class;
     }
 

@@ -18,10 +18,10 @@ package org.jboss.seam.social.twitter.model;
 
 import java.util.List;
 
-import org.jboss.seam.social.twitter.TwitterService;
+import org.jboss.seam.social.twitter.TwitterBaseService;
 
 /**
- * Implementation of this interface contains a TwitterRelated search result It is returned by {@link TwitterService#search()}
+ * Implementation of this interface contains a TwitterRelated search result It is returned by {@link TwitterBaseService#search()}
  * 
  * @author Antoine Sabot-Durand
  */

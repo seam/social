@@ -17,12 +17,12 @@
 package org.jboss.seam.social.linkedin;
 
 import org.jboss.seam.social.HasStatus;
-import org.jboss.seam.social.oauth.OAuthService;
+import org.jboss.seam.social.oauth.OAuthBaseService;
 
 /**
- * A specialization of {@link OAuthService} to add LinkedIn specific methods
+ * A specialization of {@link OAuthBaseService} to add LinkedIn specific methods
  * 
  * @author Antoine Sabot-Durand
  */
-public interface LinkedInService extends OAuthService, HasStatus {
+public interface LinkedInService extends OAuthBaseService, HasStatus {
 }

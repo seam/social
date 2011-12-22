@@ -16,9 +16,12 @@
  */
 package org.jboss.seam.social;
 
+import static com.google.common.collect.HashMultimap.create;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -28,7 +31,9 @@ import java.util.Set;
 import com.google.common.base.Function;
 import com.google.common.base.Joiner;
 import com.google.common.base.Joiner.MapJoiner;
+import com.google.common.collect.Collections2;
 import com.google.common.collect.Maps;
+import com.google.common.collect.Multimap;
 
 /**
  * Utils to deal with URL and url-encodings
@@ -37,6 +42,16 @@ import com.google.common.collect.Maps;
  * @author Antoine Sabot-Durand
  */
 public class URLUtils {
+
+    private static class formUrlEncodeFunc implements Function<String, String> {
+
+        @Override
+        public String apply(String input) {
+            // TODO Auto-generated method stub
+            return formURLEncode(input);
+        }
+    }
+
     private static final String EMPTY_STRING = "";
     private static final String UTF_8 = "UTF-8";
     private static final String PAIR_SEPARATOR = "=";
@@ -65,21 +80,19 @@ public class URLUtils {
      * @param map any map
      * @return form-url-encoded string
      */
-    public static String formURLEncodeMap(Map<String, String> map) {
+    public static String formURLEncodeMap(Multimap<String, String> map) {
         return (map.size() <= 0) ? EMPTY_STRING : doFormUrlEncode(map);
     }
 
-    private static String doFormUrlEncode(Map<String, String> map) {
-        Map<String, String> urlEncodedMap = Maps.transformValues(map, new Function<String, String>() {
-
-            @Override
-            public String apply(String input) {
-                // TODO Auto-generated method stub
-                return formURLEncode(input);
-            }
-
-        });
-
+    private static String doFormUrlEncode(Multimap<String, String> map) {
+        Map<String, String> res = Maps.newHashMap();
+        String vstring;
+        for (String key : map.keySet()) {
+            Collection<String> values = Collections2.transform(map.get(key), new formUrlEncodeFunc());
+            vstring = commaJoiner.join(values);
+            res.put(key, vstring);
+        }
+        Map<String, String> urlEncodedMap = Maps.transformValues(res, new formUrlEncodeFunc());
         return queryMapJoiner.join(urlEncodedMap);
     }
 
@@ -132,7 +145,7 @@ public class URLUtils {
      * @param params any map
      * @return new url with parameters on query string
      */
-    public static String appendParametersToQueryString(String url, Map<String, String> params) {
+    public static String buildUri(String url, Multimap<String, String> params) {
         String queryString = URLUtils.formURLEncodeMap(params);
         if (queryString.equals(EMPTY_STRING)) {
             return url;
@@ -150,7 +163,7 @@ public class URLUtils {
      * @param params any map
      * @return new url with parameters on query string
      */
-    public static String appendParametersToQueryString(String url, String key, String value) {
+    public static String buildUri(String url, String key, String value) {
         if ("".equals(key) || key == null) {
             return url;
         } else {
@@ -208,5 +221,31 @@ public class URLUtils {
         String apply(String string) {
             return string.replace(ch, toCh);
         }
+    }
+
+    public static Multimap<String, String> buildPagingParametersWithCount(int page, int pageSize, long sinceId, long maxId) {
+        Multimap<String, String> parameters = create();
+        parameters.put("page", String.valueOf(page));
+        parameters.put("count", String.valueOf(pageSize));
+        if (sinceId > 0) {
+            parameters.put("since_id", String.valueOf(sinceId));
+        }
+        if (maxId > 0) {
+            parameters.put("max_id", String.valueOf(maxId));
+        }
+        return parameters;
+    }
+
+    public static Multimap<String, String> buildPagingParametersWithPerPage(int page, int pageSize, long sinceId, long maxId) {
+        Multimap<String, String> parameters = create();
+        parameters.put("page", String.valueOf(page));
+        parameters.put("per_page", String.valueOf(pageSize));
+        if (sinceId > 0) {
+            parameters.put("since_id", String.valueOf(sinceId));
+        }
+        if (maxId > 0) {
+            parameters.put("max_id", String.valueOf(maxId));
+        }
+        return parameters;
     }
 }

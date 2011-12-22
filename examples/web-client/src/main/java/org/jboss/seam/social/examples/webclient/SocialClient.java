@@ -32,7 +32,7 @@ import javax.inject.Named;
 
 import org.jboss.seam.social.HasStatus;
 import org.jboss.seam.social.MultiServicesManager;
-import org.jboss.seam.social.oauth.OAuthService;
+import org.jboss.seam.social.oauth.OAuthBaseService;
 import org.jboss.seam.social.oauth.OAuthSession;
 import org.jboss.seam.social.oauth.OAuthToken;
 
@@ -91,7 +91,7 @@ public class SocialClient implements Serializable {
 
     @Produces
     @Named
-    public OAuthService getCurrentService() {
+    public OAuthBaseService getCurrentService() {
         return manager.getCurrentService();
     }
 

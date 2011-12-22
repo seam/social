@@ -26,7 +26,7 @@ import javax.inject.Inject;
 import org.jboss.seam.social.UserProfile;
 import org.jboss.seam.social.facebook.FacebookService;
 import org.jboss.seam.social.facebook.model.UserJackson;
-import org.jboss.seam.social.oauth.OAuthServiceBase;
+import org.jboss.seam.social.oauth.OAuthBaseServiceImpl;
 import org.jboss.seam.social.rest.RestResponse;
 import org.jboss.seam.social.rest.RestVerb;
 import org.jboss.solder.logging.Logger;
@@ -34,7 +34,7 @@ import org.jboss.solder.logging.Logger;
 /**
  * @author Antoine Sabot-Durand
  */
-public class FacebookServiceJackson extends OAuthServiceBase implements FacebookService {
+public class FacebookServiceJackson extends OAuthBaseServiceImpl implements FacebookService {
 
     static final String USER_PROFILE_URL = "https://graph.facebook.com/me";
     static final String LOGO_URL = "https://d2l6uygi1pgnys.cloudfront.net/2-2-08/images/buttons/facebook_connect.png";
@@ -51,7 +51,7 @@ public class FacebookServiceJackson extends OAuthServiceBase implements Facebook
     /*
      * (non-Javadoc)
      * 
-     * @see org.jboss.seam.social.oauth.OAuthService#getServiceLogo()
+     * @see org.jboss.seam.social.oauth.OAuthBaseService#getServiceLogo()
      */
     @Override
     public String getServiceLogo() {
@@ -61,7 +61,7 @@ public class FacebookServiceJackson extends OAuthServiceBase implements Facebook
     /*
      * (non-Javadoc)
      * 
-     * @see org.jboss.seam.social.oauth.OAuthService#getUser()
+     * @see org.jboss.seam.social.oauth.OAuthBaseService#getUser()
      */
     @Override
     public UserProfile getMyProfile() {
@@ -106,6 +106,17 @@ public class FacebookServiceJackson extends OAuthServiceBase implements Facebook
     @Override
     public Annotation getQualifier() {
         return INSTANCE;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.jboss.seam.social.oauth.OAuthBaseServiceImpl#getApiRootUrl()
+     */
+    @Override
+    public String getApiRootUrl() {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }

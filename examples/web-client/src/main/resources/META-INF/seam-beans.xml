@@ -20,14 +20,14 @@
     xmlns:o="urn:java:org.jboss.seam.social:org.jboss.seam.social.oauth:org.jboss.seam.social.twitter.jackson:org.jboss.seam.social.linkedin.jackson:org.jboss.seam.social.facebook.jackson">
 
 
-    <o:TwitterServiceJackson>
+    <o:TwitterBaseServiceImpl>
         <s:modifies />
         <o:Twitter/>
         <s:ApplicationScoped />
         <o:OAuthApplication apiKey="FQzlQC49UhvbMZoxUIvHTQ"
             apiSecret="VQ5CZHG4qUoAkUUmckPn4iN4yyjBKcORTW0wnok4r1k"
             callback="http://localhost:8080/social-web-client/callback.jsf" />
-    </o:TwitterServiceJackson>
+    </o:TwitterBaseServiceImpl>
 
     <o:LinkedInServiceJackson>
         <s:modifies />

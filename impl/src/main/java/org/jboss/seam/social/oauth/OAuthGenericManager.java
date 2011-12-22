@@ -39,7 +39,7 @@ public class OAuthGenericManager {
 
     @Inject
     @Generic
-    OAuthService service;
+    OAuthBaseService service;
 
     @Inject
     @Generic

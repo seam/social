@@ -24,7 +24,7 @@ import org.jboss.seam.social.UserProfile;
 /**
  * Instances of this interface contains data for a session connection to a given service.
  * 
- * @see OAuthService
+ * @see OAuthBaseService
  * @author Antoine Sabot-Durand
  * 
  */

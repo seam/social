@@ -58,6 +58,10 @@
             <groupId>org.jboss.seam.security</groupId>
             <artifactId>seam-security-api</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+        </dependency>
     </dependencies>
 
 </project>
