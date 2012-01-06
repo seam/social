@@ -14,34 +14,35 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social.twitter.model;
+package org.jboss.seam.social.twitter;
 
 /**
- * Enumeration of image sizes supported by Twitter
+ * Represents a suggestion category; a category of users that Twitter may suggest that a user follow.
  * 
  * @author Craig Walls
  * @author Antoine Sabot-Durand
  */
-public enum ImageSize {
+public class SuggestionCategory {
+    private final String name;
+    private final String slug;
+    private final int size;
 
-    /**
-     * 24px x 24px
-     */
-    MINI,
+    public SuggestionCategory(String name, String slug, int size) {
+        this.name = name;
+        this.slug = slug;
+        this.size = size;
+    }
 
-    /**
-     * 48px x 48px
-     */
-    NORMAL,
+    public String getName() {
+        return name;
+    }
 
-    /**
-     * 73px x 73px
-     */
-    BIGGER,
+    public String getSlug() {
+        return slug;
+    }
 
-    /**
-     * The original image size
-     */
-    ORIGINAL
+    public int getSize() {
+        return size;
+    }
 
 }

@@ -18,8 +18,6 @@ package org.jboss.seam.social.twitter;
 
 import java.util.List;
 
-import org.jboss.seam.social.twitter.model.Tweet;
-import org.jboss.seam.social.twitter.model.TwitterProfile;
 
 /**
  * Interface defining the operations for sending and retrieving tweets.

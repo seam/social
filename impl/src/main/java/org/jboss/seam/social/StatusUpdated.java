@@ -14,29 +14,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social.twitter.model;
-
-import java.util.List;
-
-import org.jboss.seam.social.twitter.TwitterBaseService;
+package org.jboss.seam.social;
 
 /**
- * Implementation of this interface contains a TwitterRelated search result It is returned by {@link TwitterBaseService#search()}
+ * @author antoine
  * 
- * @author Antoine Sabot-Durand
  */
-public interface SearchResult {
+public class StatusUpdated extends AbstractSocialEvent {
 
-    public List<Tweet> getResults();
-
-    public void setResults(List<Tweet> results);
-
-    public long getMaxId();
-
-    public void setMaxId(long maxId);
-
-    public long getSinceId();
-
-    public void setSinceId(long sinceId);
+    /**
+     * @param status
+     * @param message
+     * @param payload
+     */
+    public StatusUpdated(Status status, String message, Object payload) {
+        super(status, message, payload);
+    }
 
 }

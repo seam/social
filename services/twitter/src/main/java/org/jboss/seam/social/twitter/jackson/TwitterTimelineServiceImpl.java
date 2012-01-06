@@ -19,10 +19,21 @@ package org.jboss.seam.social.twitter.jackson;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jboss.seam.social.URLUtils;
-import org.jboss.seam.social.twitter.TwitterTimelineService;
-import org.jboss.seam.social.twitter.model.Tweet;
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.event.Event;
+import javax.inject.Inject;
+import javax.inject.Named;
 
+import org.jboss.seam.social.SocialEvent.Status;
+import org.jboss.seam.social.StatusUpdated;
+import org.jboss.seam.social.Twitter;
+import org.jboss.seam.social.URLUtils;
+import org.jboss.seam.social.twitter.StatusDetails;
+import org.jboss.seam.social.twitter.Tweet;
+import org.jboss.seam.social.twitter.TwitterProfile;
+import org.jboss.seam.social.twitter.TwitterTimelineService;
+
+import com.google.common.collect.LinkedListMultimap;
 import com.google.common.collect.Multimap;
 
 /**
@@ -30,7 +41,9 @@ import com.google.common.collect.Multimap;
  * @author Craig Walls
  * 
  */
-public abstract class TwitterTimelineServiceImpl extends TwitterBaseServiceImpl implements TwitterTimelineService {
+@Named
+@ApplicationScoped
+public class TwitterTimelineServiceImpl extends TwitterBaseServiceImpl implements TwitterTimelineService {
 
     /**
      * 
@@ -39,6 +52,10 @@ public abstract class TwitterTimelineServiceImpl extends TwitterBaseServiceImpl 
     private static final String USER_TIMELINE_URL = "statuses/user_timeline.json";
     private static final String HOME_TIMELINE_URL = "statuses/home_timeline.json";
     private static final String PUBLIC_TIMELINE_URL = "statuses/public_timeline.json";
+
+    @Inject
+    @Twitter
+    private Event<StatusUpdated> statusUpdateEventProducer;
 
     @Override
     public List<Tweet> getPublicTimeline() {
@@ -230,65 +247,97 @@ public abstract class TwitterTimelineServiceImpl extends TwitterBaseServiceImpl 
     }
 
     public Tweet updateStatus(String message) {
-        return null;
+        return updateStatus(message, new StatusDetails());
     }
 
-    /*
-     * public Tweet updateStatus(String message) { return updateStatus(message, new StatusDetails()); }
-     * 
-     * public Tweet updateStatus(String message, Resource media) { return updateStatus(message, media, new StatusDetails()); }
-     * 
-     * public Tweet updateStatus(String message, StatusDetails details) { requireAuthorization(); Multimap<String, Object>
-     * tweetParams = new LinkedMultiValueMap<String, Object>(); tweetParams.add("status", message);
-     * tweetParams.putAll(details.toParameterMap()); return restTemplate.postForObject(buildUri("statuses/update.json"),
-     * tweetParams, Tweet.class); }
-     * 
-     * public Tweet updateStatus(String message, Resource media, StatusDetails details) { requireAuthorization();
-     * Multimap<String, Object> tweetParams = new LinkedMultiValueMap<String, Object>(); tweetParams.add("status", message);
-     * tweetParams.add("media", media); tweetParams.putAll(details.toParameterMap()); return
-     * restTemplate.postForObject("https://upload.twitter.com/1/statuses/update_with_media.json", tweetParams, Tweet.class); }
-     * 
-     * public void deleteStatus(long tweetId) { requireAuthorization(); restTemplate.delete(buildUri("statuses/destroy/" +
-     * tweetId + ".json")); }
-     * 
-     * public void retweet(long tweetId) { requireAuthorization(); Multimap<String, Object> data = new
-     * LinkedMultiValueMap<String, Object>(); restTemplate.postForObject(buildUri("statuses/retweet/" + tweetId + ".json"),
-     * data, String.class); }
-     * 
-     * public List<Tweet> getRetweets(long tweetId) { return getRetweets(tweetId, 100); }
-     * 
-     * public List<Tweet> getRetweets(long tweetId, int count) { Multimap<String, String> parameters = new
-     * LinkedMultiValueMap<String, String>(); parameters.set("count", String.valueOf(count)); return
-     * requestObject(buildUri("statuses/retweets/" + tweetId + ".json", parameters), TweetList.class); }
-     * 
-     * public List<TwitterProfile> getRetweetedBy(long tweetId) { return getRetweetedBy(tweetId, 1, 100); }
-     * 
-     * public List<TwitterProfile> getRetweetedBy(long tweetId, int page, int pageSize) { Multimap<String, String> parameters =
-     * URLUtils.buildPagingParametersWithCount(page, pageSize, 0, 0); return requestObject(buildUri("statuses/" + tweetId +
-     * "/retweeted_by.json", parameters), TwitterProfileList.class); }
-     * 
-     * public List<Long> getRetweetedByIds(long tweetId) { return getRetweetedByIds(tweetId, 1, 100); }
-     * 
-     * public List<Long> getRetweetedByIds(long tweetId, int page, int pageSize) { requireAuthorization(); // requires
-     * authentication, even though getRetweetedBy() does not. Multimap<String, String> parameters =
-     * URLUtils.buildPagingParametersWithCount(page, pageSize, 0, 0); return restTemplate .getForObject(buildUri("statuses/" +
-     * tweetId + "/retweeted_by/ids.json", parameters), LongList.class); }
-     * 
-     * public List<Tweet> getFavorites() { return getFavorites(1, 20); }
-     * 
-     * public List<Tweet> getFavorites(int page, int pageSize) { requireAuthorization(); // Note: The documentation for
-     * /favorites.json doesn't list the count parameter, but it works anyway. Multimap<String, String> parameters =
-     * URLUtils.buildPagingParametersWithCount(page, pageSize, 0, 0); return requestObject(buildUri("favorites.json",
-     * parameters), TweetList.class); }
-     * 
-     * public void addToFavorites(long tweetId) { requireAuthorization(); Multimap<String, Object> data = new
-     * LinkedMultiValueMap<String, Object>(); restTemplate.postForObject(buildUri("favorites/create/" + tweetId + ".json"),
-     * data, String.class); }
-     * 
-     * public void removeFromFavorites(long tweetId) { requireAuthorization(); Multimap<String, Object> data = new
-     * LinkedMultiValueMap<String, Object>(); restTemplate.postForObject(buildUri("favorites/destroy/" + tweetId + ".json"),
-     * data, String.class); }
-     */
+    // public Tweet updateStatus(String message, Resource media) {
+    // return updateStatus(message, media, new StatusDetails());
+    // }
+
+    public Tweet updateStatus(String message, StatusDetails details) {
+        Tweet res;
+        requireAuthorization();
+        Multimap<String, Object> tweetParams = LinkedListMultimap.create();
+        tweetParams.put("status", message);
+        tweetParams.putAll(details.toParameterMap());
+        res = postObject(buildUri("statuses/update.json"), tweetParams, Tweet.class);
+        statusUpdateEventProducer.fire(new StatusUpdated(Status.SUCCESS, message, res));
+        return res;
+
+    }
+
+    // public Tweet updateStatus(String message, Resource media, StatusDetails details) {
+    // requireAuthorization();
+    // Multimap<String, Object> tweetParams = LinkedHashMultimap.create();
+    // tweetParams.add("status", message);
+    // tweetParams.add("media", media);
+    // tweetParams.putAll(details.toParameterMap());
+    // return restTemplate.postForObject("https://upload.twitter.com/1/statuses/update_with_media.json", tweetParams,
+    // Tweet.class);
+    // }
+
+    public void deleteStatus(long tweetId) {
+        requireAuthorization();
+        delete(buildUri("statuses/destroy/" + tweetId + ".json"));
+    }
+
+    public void retweet(long tweetId) {
+        requireAuthorization();
+        Multimap<String, Object> data = LinkedListMultimap.create();
+        postObject(buildUri("statuses/retweet/" + tweetId + ".json"), data, String.class);
+    }
+
+    public List<Tweet> getRetweets(long tweetId) {
+        return getRetweets(tweetId, 100);
+    }
+
+    public List<Tweet> getRetweets(long tweetId, int count) {
+        Multimap<String, String> parameters = LinkedListMultimap.create();
+        parameters.put("count", String.valueOf(count));
+        return requestObject(buildUri("statuses/retweets/" + tweetId + ".json", parameters), TweetList.class);
+    }
+
+    public List<TwitterProfile> getRetweetedBy(long tweetId) {
+        return getRetweetedBy(tweetId, 1, 100);
+    }
+
+    public List<TwitterProfile> getRetweetedBy(long tweetId, int page, int pageSize) {
+        Multimap<String, String> parameters = URLUtils.buildPagingParametersWithCount(page, pageSize, 0, 0);
+        return requestObject(buildUri("statuses/" + tweetId + "/retweeted_by.json", parameters), TwitterProfileList.class);
+    }
+
+    public List<Long> getRetweetedByIds(long tweetId) {
+        return getRetweetedByIds(tweetId, 1, 100);
+    }
+
+    public List<Long> getRetweetedByIds(long tweetId, int page, int pageSize) {
+        requireAuthorization(); // requires authentication, even though getRetweetedBy() does not.
+        Multimap<String, String> parameters = URLUtils.buildPagingParametersWithCount(page, pageSize, 0, 0);
+        return requestObject(buildUri("statuses/" + tweetId + "/retweeted_by/ids.json", parameters), LongList.class);
+    }
+
+    public List<Tweet> getFavorites() {
+        return getFavorites(1, 20);
+    }
+
+    public List<Tweet> getFavorites(int page, int pageSize) {
+        requireAuthorization(); // Note: The documentation for favorites.json doesn't list the count parameter, but it works
+                                // anyway.
+        Multimap<String, String> parameters = URLUtils.buildPagingParametersWithCount(page, pageSize, 0, 0);
+        return requestObject(buildUri("favorites.json", parameters), TweetList.class);
+    }
+
+    public void addToFavorites(long tweetId) {
+        requireAuthorization();
+        Multimap<String, Object> data = LinkedListMultimap.create();
+        postObject(buildUri("favorites/create/" + tweetId + ".json"), data, String.class);
+    }
+
+    public void removeFromFavorites(long tweetId) {
+        requireAuthorization();
+        Multimap<String, Object> data = LinkedListMultimap.create();
+        postObject(buildUri("favorites/destroy/" + tweetId + ".json"), data, String.class);
+    }
 
     @SuppressWarnings("serial")
     private static class LongList extends ArrayList<Long> {

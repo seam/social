@@ -85,6 +85,22 @@ public interface RestService extends Serializable {
      * @param parameters
      * @return
      */
-    public String buildUri(String url, Multimap<String, String> parameters);
+    public String buildUri(String url, Multimap<String, ? extends Object> parameters);
+
+    /**
+     * @param <T>
+     * @param uri
+     * @param clazz
+     * @return
+     */
+    public <T> T requestObject(String uri, Class<T> clazz);
+
+    /**
+     * @param uri
+     * @param params
+     * @param clazz
+     * @return
+     */
+    public <T> T postObject(String uri, Multimap<String, Object> params, Class<T> clazz);
 
 }

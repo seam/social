@@ -14,35 +14,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social.twitter.model;
+package org.jboss.seam.social;
 
 /**
- * Represents a suggestion category; a category of users that Twitter may suggest that a user follow.
- * 
- * @author Craig Walls
  * @author Antoine Sabot-Durand
+ * 
  */
-public class SuggestionCategory {
-    private final String name;
-    private final String slug;
-    private final int size;
+public interface SocialEvent {
 
-    public SuggestionCategory(String name, String slug, int size) {
-        this.name = name;
-        this.slug = slug;
-        this.size = size;
+    public enum Status {
+        SUCCESS, FAILURE
     }
 
-    public String getName() {
-        return name;
-    }
+    public Status getStatus();
 
-    public String getSlug() {
-        return slug;
-    }
+    public String getMessage();
 
-    public int getSize() {
-        return size;
-    }
+    public Object getPayload();
 
 }

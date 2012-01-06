@@ -18,6 +18,7 @@ package org.jboss.seam.social.oauth;
 
 import static org.jboss.seam.social.SeamSocialExtension.getServicesToQualifier;
 import static org.jboss.seam.social.rest.RestVerb.GET;
+import static org.jboss.seam.social.rest.RestVerb.POST;
 
 import java.lang.annotation.Annotation;
 import java.util.Map;
@@ -30,7 +31,6 @@ import javax.inject.Inject;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jboss.seam.social.Current;
-import org.jboss.seam.social.HasStatus;
 import org.jboss.seam.social.JsonMapper;
 import org.jboss.seam.social.SeamSocialException;
 import org.jboss.seam.social.SeamSocialExtension;
@@ -49,7 +49,7 @@ import com.google.common.collect.Multimap;
  * @author Antoine Sabot-Durand
  */
 
-public abstract class OAuthBaseServiceImpl implements OAuthBaseService, HasStatus {
+public abstract class OAuthBaseServiceImpl implements OAuthBaseService {
 
     private static final long serialVersionUID = -8423894021913341674L;
     private static final String VERIFIER_PARAM_NAME = "oauth_verifier";
@@ -236,6 +236,20 @@ public abstract class OAuthBaseServiceImpl implements OAuthBaseService, HasStatu
     }
 
     @Override
+    public <T> T postObject(String uri, Multimap<String, Object> params, Class<T> clazz) {
+        OAuthRequest request = getProvider().requestFactory(POST, uri);
+        Map<String, String> reqParams = request.getBodyParams();
+        Map<String, String> unifiedParams = URLUtils.multimapToMap(params);
+        reqParams.putAll(unifiedParams);
+
+        return jsonService.requestObject(sendSignedRequest(request), clazz);
+    }
+
+    public void delete(String uri) {
+        sendSignedRequest(RestVerb.DELETE, uri);
+    }
+
+    @Override
     public String buildUri(String url) {
         return getApiRootUrl() + url;
     }
@@ -251,7 +265,7 @@ public abstract class OAuthBaseServiceImpl implements OAuthBaseService, HasStatu
      * @return
      */
     @Override
-    public String buildUri(String url, Multimap<String, String> parameters) {
+    public String buildUri(String url, Multimap<String, ? extends Object> parameters) {
         return URLUtils.buildUri(buildUri(url), parameters);
     }
 

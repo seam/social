@@ -73,7 +73,7 @@ public class FacebookServiceJackson extends OAuthBaseServiceImpl implements Face
      * 
      * @see org.jboss.seam.social.oauth.HasStatus#updateStatus(java.lang.String)
      */
-    @Override
+
     public Object updateStatus(String message) {
         RestResponse resp = sendSignedRequest(RestVerb.POST, STATUS_UPDATE_URL, "message", message);
         log.debugf("Update staut is %s", message);

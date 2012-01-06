@@ -1,13 +1,12 @@
 /*
- * JBoss, Home of Professional Open Source
- * Copyright 2011, Red Hat Middleware LLC, and individual contributors
- * by the @authors tag. See the copyright.txt in the distribution for a
- * full listing of individual contributors.
+ * Copyright 2010 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -16,14 +15,17 @@
  */
 package org.jboss.seam.social.twitter;
 
-import org.jboss.seam.social.oauth.OAuthBaseService;
-
 /**
- * A specialization of {@link OAuthBaseService} to add TwitterRelated specific methods
+ * Exception thrown when an attempt is made to send a direct message to an invalid recipient; that is, a recipient who is not
+ * following the authenticated user.
  * 
- * @author Antoine Sabot-Durand
+ * @author Craig Walls
  */
+public class InvalidMessageRecipientException extends IllegalArgumentException {
+    private static final long serialVersionUID = 1L;
 
-public interface TwitterBaseService extends OAuthBaseService {
+    public InvalidMessageRecipientException(String message) {
+        super(message);
+    }
 
 }

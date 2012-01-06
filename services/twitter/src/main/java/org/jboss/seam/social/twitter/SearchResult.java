@@ -14,14 +14,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social.linkedin;
+package org.jboss.seam.social.twitter;
 
-import org.jboss.seam.social.oauth.OAuthBaseService;
+import java.util.List;
+
 
 /**
- * A specialization of {@link OAuthBaseService} to add LinkedIn specific methods
+ * Implementation of this interface contains a TwitterRelated search result It is returned by {@link TwitterBaseService#search()}
  * 
  * @author Antoine Sabot-Durand
  */
-public interface LinkedInService extends OAuthBaseService {
+public interface SearchResult {
+
+    public List<Tweet> getResults();
+
+    public void setResults(List<Tweet> results);
+
+    public long getMaxId();
+
+    public void setMaxId(long maxId);
+
+    public long getSinceId();
+
+    public void setSinceId(long sinceId);
+
 }

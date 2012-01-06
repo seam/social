@@ -25,17 +25,17 @@ import javax.inject.Inject;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.seam.social.HasStatus;
 import org.jboss.seam.social.Twitter;
 import org.jboss.seam.social.oauth.OAuthProvider;
 import org.jboss.seam.social.oauth.OAuthSession;
 import org.jboss.seam.social.oauth.OAuthToken;
 import org.jboss.seam.social.scribe.OAuthTokenScribe;
+import org.jboss.seam.social.twitter.SuggestionCategory;
+import org.jboss.seam.social.twitter.Tweet;
 import org.jboss.seam.social.twitter.TwitterBaseService;
+import org.jboss.seam.social.twitter.TwitterProfile;
+import org.jboss.seam.social.twitter.TwitterTimelineService;
 import org.jboss.seam.social.twitter.TwitterUserService;
-import org.jboss.seam.social.twitter.model.SuggestionCategory;
-import org.jboss.seam.social.twitter.model.Tweet;
-import org.jboss.seam.social.twitter.model.TwitterProfile;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.GenericArchive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -59,6 +59,9 @@ public class TwitterTest {
     @Inject
     @Twitter
     TwitterBaseService twitterBaseService;
+
+    @Inject
+    TwitterTimelineService tl;
 
     @Inject
     TwitterUserService userService;
@@ -115,7 +118,7 @@ public class TwitterTest {
 
     @Test
     public void sendATweet() {
-        Tweet tweet = (Tweet) ((HasStatus) twitterBaseService).updateStatus("Tweet sent from JUnit at " + new Date().toString());
+        Tweet tweet = tl.updateStatus("Tweet sent from JUnit at " + new Date().toString());
         Assert.assertFalse(tweet.getId() == 0);
 
     }

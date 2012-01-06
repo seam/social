@@ -17,7 +17,6 @@
 
 package org.jboss.seam.social.facebook;
 
-import org.jboss.seam.social.HasStatus;
 import org.jboss.seam.social.oauth.OAuthBaseService;
 
 /**
@@ -25,5 +24,5 @@ import org.jboss.seam.social.oauth.OAuthBaseService;
  * 
  * @author Antoine Sabot-Durand
  */
-public interface FacebookService extends OAuthBaseService, HasStatus {
+public interface FacebookService extends OAuthBaseService {
 }

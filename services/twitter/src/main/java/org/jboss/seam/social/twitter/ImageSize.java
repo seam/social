@@ -14,14 +14,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social.linkedin;
-
-import org.jboss.seam.social.oauth.OAuthBaseService;
+package org.jboss.seam.social.twitter;
 
 /**
- * A specialization of {@link OAuthBaseService} to add LinkedIn specific methods
+ * Enumeration of image sizes supported by Twitter
  * 
+ * @author Craig Walls
  * @author Antoine Sabot-Durand
  */
-public interface LinkedInService extends OAuthBaseService {
+public enum ImageSize {
+
+    /**
+     * 24px x 24px
+     */
+    MINI,
+
+    /**
+     * 48px x 48px
+     */
+    NORMAL,
+
+    /**
+     * 73px x 73px
+     */
+    BIGGER,
+
+    /**
+     * The original image size
+     */
+    ORIGINAL
+
 }

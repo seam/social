@@ -9,11 +9,18 @@
         <img src="#{currentSession.userProfile.profileImageUrl}"/>
         <br/>
         <h:inputTextarea value="#{socialClient.status}" cols="60" rows="5"/>
-        <h:commandButton action="#{socialClient.updateStatus}"
+        <h:commandButton action="#{twitterTimelineServiceImpl.updateStatus(socialClient.status)}"
                          value="Update your status">
             <f:ajax render="twittertl" execute="twittertl"/>
         </h:commandButton>
         <br/>
+        <ul>
+        <ui:repeat var="tweet" value="#{twitterTimelineServiceImpl.getHomeTimeline(1,30)}">
+        <li>
+        #{tweet.fromUser} / #{tweet.text}
+        </li>
+        </ui:repeat>
+        </ul>
     </h:panelGroup>
 </ui:composition>
 </body>

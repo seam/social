@@ -132,14 +132,6 @@ public interface OAuthBaseService extends RestService {
     public String buildUri(String url);
 
     /**
-     * @param <T>
-     * @param uri
-     * @param clazz
-     * @return
-     */
-    public <T> T requestObject(String uri, Class<T> clazz);
-
-    /**
      * 
      */
     void requireAuthorization();

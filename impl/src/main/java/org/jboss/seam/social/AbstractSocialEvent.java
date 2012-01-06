@@ -17,17 +17,41 @@
 package org.jboss.seam.social;
 
 /**
- * Social network Handler implementing this interface will support status update
- * 
  * @author Antoine Sabot-Durand
+ * 
  */
-public interface HasStatus {
+public abstract class AbstractSocialEvent implements SocialEvent {
 
-    /**
-     * Send the status in parameter
-     * 
-     * @param message the status to send
-     * @return an Object corresponding to the update
-     */
-    public Object updateStatus(String message);
+    private final Status status;
+
+    private final String message;
+
+    private final Object payload;
+
+    public AbstractSocialEvent(Status status, String message) {
+        this(status, message, null);
+    }
+
+    public AbstractSocialEvent(Status status, String message, Object payload) {
+        super();
+        this.status = status;
+        this.message = message;
+        this.payload = payload;
+    }
+
+    @Override
+    public Status getStatus() {
+        return status;
+    }
+
+    @Override
+    public String getMessage() {
+        return message;
+    }
+
+    @Override
+    public Object getPayload() {
+        return payload;
+    }
+
 }

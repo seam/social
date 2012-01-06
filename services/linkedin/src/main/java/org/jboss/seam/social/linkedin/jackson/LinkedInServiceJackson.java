@@ -24,8 +24,8 @@ import org.jboss.seam.social.UserProfile;
 import org.jboss.seam.social.linkedin.LinkedInService;
 import org.jboss.seam.social.linkedin.model.LinkedInProfile;
 import org.jboss.seam.social.linkedin.model.Update;
-import org.jboss.seam.social.oauth.OAuthRequest;
 import org.jboss.seam.social.oauth.OAuthBaseServiceImpl;
+import org.jboss.seam.social.oauth.OAuthRequest;
 import org.jboss.seam.social.rest.RestResponse;
 import org.jboss.seam.social.rest.RestVerb;
 
@@ -76,7 +76,7 @@ public class LinkedInServiceJackson extends OAuthBaseServiceImpl implements Link
      * 
      * @see org.jboss.seam.social.oauth.HasStatus#updateStatus(java.lang.String)
      */
-    @Override
+
     public Update updateStatus(String message) {
         return null;
         // Update upd = new UpdateJaxb();

@@ -18,9 +18,6 @@ package org.jboss.seam.social.twitter;
 
 import java.util.List;
 
-import org.jboss.seam.social.twitter.model.ImageSize;
-import org.jboss.seam.social.twitter.model.SuggestionCategory;
-import org.jboss.seam.social.twitter.model.TwitterProfile;
 
 /**
  * Interface defining the operations for retrieving information about Twitter users.

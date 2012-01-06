@@ -43,12 +43,12 @@ import com.google.common.collect.Multimap;
  */
 public class URLUtils {
 
-    private static class formUrlEncodeFunc implements Function<String, String> {
+    private static class formUrlEncodeFunc implements Function<Object, String> {
 
         @Override
-        public String apply(String input) {
+        public String apply(Object input) {
             // TODO Auto-generated method stub
-            return formURLEncode(input);
+            return formURLEncode(input.toString());
         }
     }
 
@@ -77,23 +77,39 @@ public class URLUtils {
     /**
      * Turns a map into a form-urlencoded string
      * 
-     * @param map any map
+     * @param params any map
      * @return form-url-encoded string
      */
-    public static String formURLEncodeMap(Multimap<String, String> map) {
-        return (map.size() <= 0) ? EMPTY_STRING : doFormUrlEncode(map);
+    public static String formURLEncodeMap(Multimap<String, ? extends Object> params) {
+        return (params.size() <= 0) ? EMPTY_STRING : doFormUrlEncode(params);
     }
 
-    private static String doFormUrlEncode(Multimap<String, String> map) {
+    private static String doFormUrlEncode(Multimap<String, ? extends Object> params) {
+        Map<String, String> urlEncodedMap = multimapToMap(params);
+        return queryMapJoiner.join(urlEncodedMap);
+    }
+
+    /**
+     * @param params
+     * @return
+     */
+    public static Map<String, String> multimapToMap(Multimap<String, ? extends Object> params) {
         Map<String, String> res = Maps.newHashMap();
         String vstring;
-        for (String key : map.keySet()) {
-            Collection<String> values = Collections2.transform(map.get(key), new formUrlEncodeFunc());
+        for (String key : params.keySet()) {
+
+            Collection<String> values = Collections2.transform(params.get(key), new Function<Object, String>() {
+
+                @Override
+                public String apply(Object input) {
+                    return input.toString();
+                }
+            });
             vstring = commaJoiner.join(values);
             res.put(key, vstring);
         }
-        Map<String, String> urlEncodedMap = Maps.transformValues(res, new formUrlEncodeFunc());
-        return queryMapJoiner.join(urlEncodedMap);
+        // Map<String, String> urlEncodedMap = Maps.transformValues(res, new formUrlEncodeFunc());
+        return res;
     }
 
     /**
@@ -145,7 +161,7 @@ public class URLUtils {
      * @param params any map
      * @return new url with parameters on query string
      */
-    public static String buildUri(String url, Multimap<String, String> params) {
+    public static String buildUri(String url, Multimap<String, ? extends Object> params) {
         String queryString = URLUtils.formURLEncodeMap(params);
         if (queryString.equals(EMPTY_STRING)) {
             return url;

@@ -23,7 +23,7 @@ import javax.inject.Inject;
 import org.jboss.seam.social.TwitterLiteral;
 import org.jboss.seam.social.oauth.OAuthBaseServiceImpl;
 import org.jboss.seam.social.twitter.TwitterBaseService;
-import org.jboss.seam.social.twitter.model.TwitterProfile;
+import org.jboss.seam.social.twitter.TwitterProfile;
 import org.jboss.solder.logging.Logger;
 
 /**
@@ -70,12 +70,6 @@ public class TwitterBaseServiceImpl extends OAuthBaseServiceImpl implements Twit
     @Override
     public TwitterProfile getMyProfile() {
         return (TwitterProfile) getSession().getUserProfile();
-    }
-
-    @Override
-    public Object updateStatus(String message) {
-        // TODO Auto-generated method stub
-        return null;
     }
 
     @Override

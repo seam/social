@@ -24,17 +24,21 @@ import java.util.List;
 import java.util.Map;
 
 import javax.enterprise.context.SessionScoped;
+import javax.enterprise.event.Observes;
+import javax.enterprise.inject.Any;
 import javax.enterprise.inject.Produces;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.jboss.seam.social.HasStatus;
 import org.jboss.seam.social.MultiServicesManager;
+import org.jboss.seam.social.SocialEvent;
+import org.jboss.seam.social.StatusUpdated;
 import org.jboss.seam.social.oauth.OAuthBaseService;
 import org.jboss.seam.social.oauth.OAuthSession;
 import org.jboss.seam.social.oauth.OAuthToken;
+import org.jboss.solder.logging.Logger;
 
 import com.google.common.base.Function;
 import com.google.common.collect.Maps;
@@ -49,6 +53,9 @@ public class SocialClient implements Serializable {
     private static final long serialVersionUID = 3723552335163650582L;
 
     private String Status;
+
+    @Inject
+    private Logger log;
 
     public String getStatus() {
         return Status;
@@ -133,12 +140,15 @@ public class SocialClient implements Serializable {
 
     }
 
-    public void resetConnection() {
-        manager.destroyCurrentSession();
+    protected void statusUpdateObserver(@Observes @Any StatusUpdated statusUpdate) {
+        if (statusUpdate.getStatus().equals(SocialEvent.Status.SUCCESS)) {
+            log.debugf("Status update with : %s ", statusUpdate.getMessage());
+            setStatus("");
+        }
     }
 
-    public void updateStatus() {
-        ((HasStatus) getCurrentService()).updateStatus(Status);
+    public void resetConnection() {
+        manager.destroyCurrentSession();
     }
 
 }
