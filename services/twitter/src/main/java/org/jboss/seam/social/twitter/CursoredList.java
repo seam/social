@@ -1,12 +1,13 @@
 /*
- * Copyright 2011 the original author or authors.
+ * JBoss, Home of Professional Open Source
+ * Copyright 2011, Red Hat Middleware LLC, and individual contributors
+ * by the @authors tag. See the copyright.txt in the distribution for a
+ * full listing of individual contributors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -20,54 +21,55 @@ import java.util.Collection;
 
 /**
  * List that includes previous and next cursors for paging through items returned from Twitter in cursored pages.
+ * 
  * @author Craig Walls
  * @param <T> the list element type
  */
 @SuppressWarnings("serial")
 public class CursoredList<T> extends ArrayList<T> {
-	
-	private final long previousCursor;
 
-	private final long nextCursor;
+    private final long previousCursor;
 
-	public CursoredList(Collection<? extends T> collection, long previousCursor, long nextCursor) {
-		super(collection);
-		this.previousCursor = previousCursor;
-		this.nextCursor = nextCursor;
-	}
+    private final long nextCursor;
 
-	public CursoredList(int initialCapacity, long previousCursor, long nextCursor) {
-		super(initialCapacity);
-		this.previousCursor = previousCursor;
-		this.nextCursor = nextCursor;
-	}
+    public CursoredList(Collection<? extends T> collection, long previousCursor, long nextCursor) {
+        super(collection);
+        this.previousCursor = previousCursor;
+        this.nextCursor = nextCursor;
+    }
 
-	/**
-	 * The cursor to retrieve the previous page of results.
-	 */
-	public long getPreviousCursor() {
-		return previousCursor;
-	}
+    public CursoredList(int initialCapacity, long previousCursor, long nextCursor) {
+        super(initialCapacity);
+        this.previousCursor = previousCursor;
+        this.nextCursor = nextCursor;
+    }
 
-	/**
-	 * The cursor to retrieve the next page of results.
-	 */
-	public long getNextCursor() {
-		return nextCursor;
-	}
+    /**
+     * The cursor to retrieve the previous page of results.
+     */
+    public long getPreviousCursor() {
+        return previousCursor;
+    }
 
-	/**
-	 * Returns true if there is a previous page of results.
-	 */
-	public boolean hasPrevious() {
-		return previousCursor > 0;
-	}
+    /**
+     * The cursor to retrieve the next page of results.
+     */
+    public long getNextCursor() {
+        return nextCursor;
+    }
 
-	/**
-	 * Returns true if there is a next page of results.
-	 */
-	public boolean hasNext() {
-		return nextCursor > 0;
-	}
+    /**
+     * Returns true if there is a previous page of results.
+     */
+    public boolean hasPrevious() {
+        return previousCursor > 0;
+    }
+
+    /**
+     * Returns true if there is a next page of results.
+     */
+    public boolean hasNext() {
+        return nextCursor > 0;
+    }
 
 }
