@@ -2,33 +2,28 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
    "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd"  [ ]>
 <preface>
-   <title>Introduction</title>
-   <para>
-      The goal of Seam Social is to provide CDI components to access some of the social network services.
-      It is focused on OAuth 1.0 and 2.0 services. At least Seam Social provides a way to get one's profile
-      for a given service. There are services like Twitter for which Seam Social provides a lot of model object
-      to manage timeline and friends in the service.</para>
-    <para>
-      Seam social was created with genericity and polymorphism concepts in minds allowing users to deal with a collection of OAuth
-      sessions, it also allows you to create your own extension to connect to an OAuth server.
-   </para>
-   <para>
-   This version of Seam Social provides support for the following OAuth Services with the following level
-   </para>
-   <table >
-  
-   <tr><td>Service</td><td>Profile</td><td>Update</td><td>Timeline</td><td>Friends</td></tr>
-  
+  <title>Introduction</title>
    
-   <tr><td>Twitter</td><td>X</td><td>X</td><td>O</td><td>O</td></tr>
-   <tr><td>LinkedIn</td><td>X</td><td>O</td><td>O</td><td>O</td></tr>
-   <tr><td>Facebook</td><td>X</td><td>X</td><td>O</td><td>O</td></tr>
+  <para>
+    Seam Social Provides CDI Beans and extensions for interacting with a number of major social networks. 
+    Currently it provides these services and eases mixing them:
+  </para>
+   
+  <itemizedlist>
+    <listitem>A generic portable REST client API</listitem>
+    <listitem>A generic API to deal with OAuth 1.0a and 2.0 services</listitem>
+    <listitem>A generic API to work with JSON serialization and de-serialization</listitem>
+    <listitem>A generic identification API to retrieve basic user information from a Social Service</listitem>
+    <listitem>Specific APIs for interacting with Twitter, Facebook and LinkedIn Services</listitem>
+    <listitem>A multiservices manager API allowing to deal with multiple OAuth applications and sessions in the same application</listitem>
+    <listitem>An easy way to extend it by creating a new module for a new services</listitem>
+  </itemizedlist>
 
-   
 
-   </table>
-   
-   <para>More services and level of support to come.</para>
+  <para>
+    Seam Social is independent of CDI implementation and fully portable between Java EE 6 and Servlet environments 
+    enhanced with CDI. It can be also used with CDI in Java SE (desktop application).
+  </para>
    
 
 <!--

@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding="utf-8"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+   "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd"  [ ]>
+<chapter id="social.advanced">
+  <title>Seam Social Advanced Usage</title>
+  
+  <section>
+    <title>Working with Multi Service Manager</title>
+    
+    <para>
+      Seam Social provides a <code>MultiServicesManager</code> bean that can help you to manage multiple services and 
+      sessions for one user. Without this bean you’ll be able to have multiple services but only one session for each 
+      service.  The web app example application is a good starting point to learn how to use <code>MultiServicesManager</code>
+      bean.
+    </para>
+  </section>
+  
+  <section>
+    <title>Provided Modules</title>
+    
+    <para>
+      Right now Seam Social comes with 3 basic service modules : Twitter, Facebook and LinkedIn. For this first Seam Social 
+      release (3.1.0), our main goal was to create a good core API for identification so provided modules have very basic
+      functionalities.  Check the JavaDoc to learn about them.  We’ll provide more functionalities and modules for the next 
+      release. 
+    </para>
+  </section>
+  
+  <section>
+    <title>Extending Seam Social</title>
+    
+    <para>
+      To extend Seam Social by supporting a new service you’ll have to provide the following class or ressources :
+    </para>
+    
+    <itemizedlist>
+      <listitem>
+        A Qualifier for your service bearing the <code>@SocialRelated</code> meta annotation and the corresponding 
+        literal. You’ll also need to create a properties file having the same name than your Qualifier. All of these 
+        should reside in the <code>org.jboss.seam.social</code> package.
+      </listitem>
+      <listitem>
+        An implementation of the <code>OAuthService</code> interface. Extending the <code>OAuthServiceBase</code> is 
+        probably the easiest way to get it. It’s good practice to create an interface for this bean to have an easy way 
+        to switch implementations if needed.
+      </listitem>
+      <listitem>
+        A configuration bean implementing <code>ServiceConfiguration</code> having the service qualifier. Implements the
+        <code>getServiceClass()</code> method by returning the class you created in step 2.
+      </listitem>
+      <listitem>
+        A model class extending UserProfile abstract class.
+      </listitem>
+    </itemizedlist>
+    
+    <para>
+      The Facebook module is a good example of such an extension.
+    </para>    
+  </section>
+
+</chapter>

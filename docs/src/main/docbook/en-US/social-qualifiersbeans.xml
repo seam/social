@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding="utf-8"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+   "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd"  [ ]>
+<chapter id="social.qualifiersbeans">
+  <title>Seam Social Qualifiers and Beans</title>
+  
+  <section>
+    <title>Service Qualifiers</title>
+    
+    <para>
+      Each OAuth Application needs a specific qualifier bearing the <code>@ServiceRelated</code> Meta annotation. 
+      Out of the box Seam Social provides one default OAuth application qualifier for each social services provides 
+      (<code>@Twitter</code>, <code>@LinkedIn</code>, <code>@Facebook</code>). Should you need to support more than one 
+      application for a given service, you’d have to create a new service related qualifier (<code>@TwitterMyApp</code>
+      for instance).  Please refer to the "Extending Seam Social" section to learn more about this.     
+      Those qualifiers will be used on all the bean attached to a given OAuth application. They are useful to avoid 
+      ambiguous injection in the generic part of the API :
+    </para>
+    
+    <programlisting><![CDATA[@Inject
+@Twitter
+OAuthService twiterService;]]></programlisting>
+
+    <para>and</para>
+
+    <programlisting><![CDATA[@Inject
+@Facebook
+OAuthService fbService;]]></programlisting>
+
+    <para>
+      Inject two different beans implementing the same interface (OAuthService).
+    </para>
+  </section>
+  
+  <section>
+    <title>Basic JSON Beans</title>
+    
+    <para>
+      JSON exchanges are managed by two beans:
+    </para>
+    
+    <itemizedlist>
+      <listitem><code>JsonMapper</code> which deals with the implementation of JSON parser (Right now Jackson)</listitem>
+      <listitem><code>JsonService</code> which has a higher function and uses <code>JsonMapper</code> to provide 
+      decoupling from the Json parser.</listitem>
+    </itemizedlist>
+  </section>
+  
+  <section>
+    <title>Beans created by @OAuthApplication</title>
+    
+    <para>
+      Seam social uses the Generic bean functionality provided by Solder. Thus when you write :
+    </para>
+    
+    <programlisting><![CDATA[    @OAuthApplication(apiKey = "FQzlQC49UhvbMZoxUIvHTQ", 
+            apiSecret = "VQ5CZHG4qUoAkUUmckPn4iN4yyjBKcORTW0wnok4r1k")
+    @Twitter
+    @Produces
+    TwitterService twitterServiceProducer(TwitterService ts) {
+        return ts;
+    }]]></programlisting>
+
+    <para>
+      The Generic extension creates the followings CDI beans with the same qualifier as the produced services 
+      (<code>@Twitter</code> in the example above) for you :
+    </para>
+    
+    <itemizedlist>
+      <listitem>
+        OAuthService : the producer creates this first bean. It’s the center of all OAuth exchange. Calling basic 
+        function in OAuthProvider it uses Settings to initiate connection and then uses Session information and JSon 
+        Mapper bean to transform exchange to and from object.
+      </listitem>
+      <listitem>
+        OAuthServiceSettings : this bean has the same scope than the service and contains all the configuration of the 
+        OAuth Application plus the Service Related Qualifier of the service.
+      </listitem>
+      <listitem>
+        OAuthProvider : this bean has the same scope than the service. It contains all the basic function to deal with 
+        OAuth exchange like the creation of tokens and request signatures. Its main purpose is to deal with implementation 
+        of OAuth management library (right now Scribe).
+      </listitem>
+      <listitem>
+        OAuthSession : this session scoped bean contains all the OAuth Information needed to interact with remote service. 
+        Mainly the AccessToken.  
+      </listitem>
+    </itemizedlist>
+  </section>
+
+</chapter>

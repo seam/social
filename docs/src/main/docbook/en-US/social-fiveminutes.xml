@@ -1,0 +1,158 @@
+<?xml version='1.0' encoding="utf-8"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+   "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd"  [ ]>
+<chapter id="social.fiveminutes">
+  <title>Seam Social in 5 minutes</title>
+  
+  <para>
+    The Web example app is quite simple and gives a good idea of the possibilities with Seam Social.
+    The main steps you need to take to use Seam Social are:
+  </para>
+  
+  <itemizedlist>
+    <listitem>Declare an OAuth configuration</listitem>
+    <listitem>Inject an <code>OAuthService</code> bean</listitem>
+    <listitem>Request the Authorization URL for the service and get a request token</listitem>
+    <listitem>Store the verifier in the <code>OAuthService</code> bean and initialize the access token</listitem>
+    <listitem>Use the service</listitem>
+  </itemizedlist>
+  
+  <para>
+    Should you need to fully understand each step, the complete OAuth lifecycle can be found 
+    <ulink url="https://dev.twitter.com/docs/auth/oauth">here</ulink> or 
+    <ulink url="https://developer.linkedin.com/documents/authentication">here</ulink>.
+  </para>
+  
+  <section>
+    <title>Declaring an OAuth Configuration</title>
+    
+    <para>
+      To consume an OAuth service you need to declare an application on the service platform (i.e. for
+      Twitter you can do this at <ulink url="https://dev.twitter.com/apps/new"/>.  The declaration of an
+      application is done with the <code>@OAuthApplication</code> annotation which must contain at least:
+    </para>
+    
+    <itemizedlist>
+      <listitem>An OAuth API public key</listitem>
+      <listitem>An OAuth API private/secret key</listitem>
+    </itemizedlist>
+    
+    <para>
+      If you don't know what this is about, please refer to the OAuth concepts in your service documentation.
+    </para>
+    
+    <para>
+      To use an OAuth Service Bean in Seam Social you need to provide the following configuration information
+      by producing the right <code>OAuthService</code> bean:
+    </para>
+    
+    <itemizedlist>
+      <listitem>Via a producer method or subclassing</listitem>
+      <listitem>Via an XML configuration (Using Solder's bean configuration feature).</listitem>
+    </itemizedlist>
+  </section>
+  
+  <section>  
+    <title>Configuration with a producer method or a bean definition</title>
+    
+    <para>
+      The simplest way to configure your service is to create a producer method like so:
+    </para>
+    
+    <programlisting><![CDATA[   @OAuthApplication(apiKey = "FQzlQC49UhvbMZoxUIvHTQ", apiSecret = "VQ5CZHG4qUoAkUUmckPn4iN4yyjBKcORTW0wnok4r1k")
+    @Twitter
+    @Produces
+    TwitterService twitterServiceProducer(TwitterService ts) {
+        return ts;
+    }]]></programlisting>
+    
+    <para>
+      You can also create a bean by subclassing the implementation of the service like this:
+    </para>
+    
+    <programlisting><![CDATA[  @OAuthApplication(apiKey = "FQzlQC49UhvbMZoxUIvHTQ", apiSecret = "VQ5CZHG4qUoAkUUmckPn4iN4yyjBKcORTW0wnok4r1k")
+    @Twitter
+    public class MyTwitterBean extends TwitterServiceJackson {
+    
+…
+}]]></programlisting>
+
+    <para>
+      The API key and API secret are provided by the service you want to consume (here Twitter).
+      You can use the values above since they're coming from the "Seam Social" Twitter application.
+      The callback depends on your application - it's the URL that will collect the OAuth verifier.
+    </para>
+      
+  </section>
+  
+  <section>
+    <title>Injecting the Service Bean into your code</title>
+    
+    <para>
+      You can now inject the bean with the right service qualifier:
+    </para>
+    
+    <programlisting><![CDATA[@Named
+@SessionScoped
+public class mySessionBean implements Serializable {
+    ...
+    @Inject
+    @Twitter
+    TwitterService service;
+    ...
+}]]></programlisting>
+
+  </section>
+  
+  <section>
+    <title>Request the OAuth authorization URL</title>
+    
+    <para>
+      You can now ask for the authorization URL for your service:
+    </para>
+    
+    <programlisting><![CDATA[String authURL = service.getAuthorizationUrl();]]></programlisting>
+    
+    <para>
+      Calling this URL will bring the user on the service connection page and right delegation for the
+      application.  If the user gives rights to the application to use the service on their behalf the 
+      service will send you back a special code (verifier) that you must inject into the service to 
+      initiate the connection.      
+    </para>
+  </section>
+  
+  <section>
+    <title>Set the verifier and initiate connection</title>
+    
+    <para>
+      As the verifier comes back to the application after an action of the final user, you have to set up
+      a servlet or a JSF page (the URL of which is the callback URL you configured when you set up the 
+      service) to catch it and add it to the current session.  Here is an example with JSF:
+    </para>
+    
+    <programlisting><![CDATA[<f:metadata>
+    <f:viewParam name="#{mySessionBean.twitterService.verifierParamName}"
+        value="#{mySessionBean.twitterService.verifier}"
+                 required="true"
+                 requiredMessage="Error with Twitter. Retry later"/>
+    <f:event type="preRenderView"
+        listener="#{mySessionBean.twitterService.initAccessToken()}"/>
+</f:metadata>]]></programlisting>
+
+    <para>
+      The service is now connected - you have an access token.
+    </para>
+  </section>
+  
+  <section>
+    <title>Send request to the service</title>
+    
+    <para>
+      You can now use the service with your rights:
+    </para>
+    
+    <programlisting><![CDATA[TwitterProfile user = twitter.getMyProfile();
+String fullName = user.getFullName();]]></programlisting>
+  </section>
+
+</chapter>
