@@ -13,34 +13,17 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
-package org.jboss.seam.social;
+ */package org.jboss.seam.social;
 
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
-
-import org.codehaus.jackson.map.Module;
+import javax.enterprise.util.AnnotationLiteral;
 
 /**
- * @author Antoine Sabot-Durand
+ * @author antoine
  * 
  */
+public class FacebookLiteral extends AnnotationLiteral<Facebook> implements Facebook {
 
-public abstract class OAuthServiceJackson extends OAuthServiceBase {
-
-    private static final long serialVersionUID = -7806134655399349774L;
-
-    @Inject
-    protected JsonMapper jsonMapper;
-
-    @PostConstruct
-    protected void init() {
-        super.init();
-        Module module = getJacksonModule();
-        if (module != null)
-            jsonMapper.registerModule(module);
-    }
-
-    protected abstract Module getJacksonModule();
+    private static final long serialVersionUID = 6670724512843515808L;
+    public static Facebook INSTANCE = new FacebookLiteral();
 
 }

@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.jboss.seam.social.oauth.OAuthService;
+import org.jboss.seam.social.oauth.OAuthSession;
 
 /**
  * Implementation of this interface allow to manage multiple OAuth connection. The connection to service are backed by a Set to
@@ -38,29 +39,18 @@ public interface MultiServicesManager extends Serializable {
     public List<String> getListOfServices();
 
     /**
-     * @return the Set of services connected
-     */
-    public Set<OAuthService> getServices();
-
-    /**
      * Instantiate a new service from a Service String name
      * 
      * @param serviceName the name of the service
      * @return the Bean of the new service
+     * 
+     *         public OAuthService getService(String serviceName);
      */
-    public OAuthService getNewService(String serviceName);
 
     /**
      * @return the current service
      */
     public OAuthService getCurrentService();
-
-    /**
-     * Set the current service. The service which is active at the moment
-     * 
-     * @param currentService
-     */
-    public void setCurrentService(OAuthService currentService);
 
     /**
      * @return the status of the current service.
@@ -78,11 +68,26 @@ public interface MultiServicesManager extends Serializable {
      * @param servType the type of the service to Instantiate
      * @return the authorization url to call to start the OAuth process
      */
-    public String initNewService(String type);
+    public String initNewSession(String type);
 
     /**
      * Disconnect the current service and remove it from Set of managed service. Reset the currentService to null
      */
-    public void destroyCurrentService();
+    public void destroyCurrentSession();
+
+    /**
+     * @return
+     */
+    public OAuthSession getCurrentSession();
+
+    /**
+     * @param currentSession
+     */
+    public void setCurrentSession(OAuthSession currentSession);
+
+    /**
+     * @return
+     */
+    Set<OAuthSession> getActiveSessions();
 
 }

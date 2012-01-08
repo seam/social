@@ -20,7 +20,6 @@ import static com.google.common.collect.Lists.newArrayList;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -31,13 +30,13 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.jboss.seam.social.HasStatus;
 import org.jboss.seam.social.MultiServicesManager;
 import org.jboss.seam.social.oauth.OAuthService;
+import org.jboss.seam.social.oauth.OAuthSession;
 import org.jboss.seam.social.oauth.OAuthToken;
-import org.jboss.solder.logging.Logger;
 
 import com.google.common.base.Function;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 @Named
@@ -49,11 +48,18 @@ public class SocialClient implements Serializable {
      */
     private static final long serialVersionUID = 3723552335163650582L;
 
-    @Inject
-    private MultiServicesManager manager;
+    private String Status;
+
+    public String getStatus() {
+        return Status;
+    }
+
+    public void setStatus(String status) {
+        Status = status;
+    }
 
     @Inject
-    private Logger log;
+    private MultiServicesManager manager;
 
     public MultiServicesManager getManager() {
         return manager;
@@ -63,45 +69,50 @@ public class SocialClient implements Serializable {
         this.manager = manager;
     }
 
+    public OAuthSession getCurrentSession() {
+        return manager.getCurrentSession();
+    }
+
+    public void setCurrentSession(OAuthSession currentSession) {
+        manager.setCurrentSession(currentSession);
+    }
+
+    public Map<String, OAuthSession> getSessionsMap() {
+        return Maps.uniqueIndex(getSessions(), new Function<OAuthSession, String>() {
+
+            @Override
+            public String apply(OAuthSession arg0) {
+
+                return arg0.toString();
+            }
+
+        });
+    }
+
     @Produces
     @Named
     public OAuthService getCurrentService() {
         return manager.getCurrentService();
     }
 
-    public void setCurrentService(OAuthService currentService) {
-        manager.setCurrentService(currentService);
-    }
-
-    public Map<String, OAuthService> getServicesMap() {
-        return Maps.uniqueIndex(getServices(), new Function<OAuthService, String>() {
-
-            @Override
-            public String apply(OAuthService arg0) {
-
-                return arg0.getName();
-            }
-        });
-    }
-
-    public List<OAuthService> getServices() {
-        return newArrayList(manager.getServices());
+    public List<OAuthSession> getSessions() {
+        return newArrayList(manager.getActiveSessions());
     }
 
     public OAuthToken getAccessToken() {
-        return getCurrentService().getAccessToken();
+        return getCurrentSession().getAccessToken();
     }
 
     public void connectCurrentService() {
         manager.connectCurrentService();
     }
 
-    public String getCurrentServiceName() {
-        return getCurrentService() == null ? "" : getCurrentService().getName();
+    public String getCurrentSessionName() {
+        return manager.getCurrentSession() == null ? "" : manager.getCurrentSession().toString();
     }
 
-    public void setCurrentServiceName(String cursrvHdlStr) {
-        setCurrentService(getServicesMap().get(cursrvHdlStr));
+    public void setCurrentSessionName(String cursrvHdlStr) {
+        setCurrentSession(getSessionsMap().get(cursrvHdlStr));
     }
 
     public void redirectToAuthorizationURL(String url) throws IOException {
@@ -111,19 +122,23 @@ public class SocialClient implements Serializable {
     }
 
     public String getTimeLineUrl() {
-        if (getCurrentService() != null && getCurrentService().isConnected())
-            return "/WEB-INF/fragments/" + getCurrentService().getType().toLowerCase() + ".xhtml";
+        if (getCurrentSession() != null && getCurrentSession().isConnected())
+            return "/WEB-INF/fragments/" + getManager().getCurrentService().getType().toLowerCase() + ".xhtml";
         return "";
     }
 
     public void serviceInit(String servType) throws IOException {
 
-        redirectToAuthorizationURL(manager.initNewService(servType));
+        redirectToAuthorizationURL(manager.initNewSession(servType));
 
     }
 
     public void resetConnection() {
-        manager.destroyCurrentService();
+        manager.destroyCurrentSession();
+    }
+
+    public void updateStatus() {
+        ((HasStatus) getCurrentService()).updateStatus(Status);
     }
 
 }

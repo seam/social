@@ -6,10 +6,10 @@
 <body>
 <ui:composition>
     <h:panelGroup id="facebooktl" layout="block">
-        <img src="#{currentService.myProfile.profileImageUrl}"/>
+        <img src="#{currentSession.userProfile.profileImageUrl}"/>
         <br/>
-           <h:inputTextarea value="#{currentService.status}" cols="60" rows="5"/>
-        <h:commandButton action="#{currentService.updateStatus}"
+  <h:inputTextarea value="#{socialClient.status}" cols="60" rows="5"/>
+        <h:commandButton action="#{socialClient.updateStatus}"
                          value="Update your status">
                 <f:ajax render="facebooktl" execute="facebooktl"/>
             </h:commandButton>

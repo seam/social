@@ -3,281 +3,48 @@
    "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd"  [ ]>
 <chapter id="social.gettingstarted">
   <title>Getting Started</title>
+  
   <para>
-    Provides CDI Beans and extensions to interact with major social
-    network.
+    If you are using Maven, you need to add the Seam Social core libraries to your <literal>pom.xml</literal>:
   </para>
-  <para>
-    Provides:
-  </para>
-  <itemizedlist>
-    <listitem>
-      <para>
-        OAuth connectors to authentify with an OAuth providers
-      </para>
-    </listitem>
-    <listitem>
-      <para>
-        Support for Authentication for Twitter, LinkedIn and Facebook
-        only right now
-      </para>
-    </listitem>
-    <listitem>
-      <para>
-        Status update for Facebook Twitter and LinkedIn
-      </para>
-    </listitem>
-    <listitem>
-      <para>
-        Support for multi-account (multi-service and multi session for
-        the same service)
-      </para>
-    </listitem>
-  </itemizedlist>
-  <para>
-    Seam Social is independent of CDI implementation and fully portable
-    between Java EE 6 and Servlet environments enhanced with CDI. It can
-    be also used with CDI in JSE (desktop application). It is build on
-    top of
-    <ulink url="https://github.com/fernandezpablo85/scribe-java">scribe-java
-    from fernandezpablo85</ulink>
-  </para>
-  <para>
-    For more information, see the
-    <ulink url="http://seamframework.org/Seam3/Social">Seam Social
-    project page</ulink>.
-  </para>
-  <section id="building">
-    <title>Building</title>
-    <programlisting>
-mvn -Pweld-ee-embedded-1.1 clean install
-</programlisting>
-    <para>
-      you need to be connected to internet to launch the tests. You can
-      build without the tests like that :
-    </para>
-    <programlisting>
-mvn clean install -DskipTests=true
-</programlisting>
-  </section>
-  <section id="usage-big-picture">
-    <title>Usage big picture</title>
-    <para>
-      The Web example app is quite simple and give a good idea of
-      possibilities of Seam Social Framework.
-    </para>
-    <para>
-      Main steps to use Seam Social are :
-    </para>
-    <itemizedlist>
-      <listitem>
-        <para>
-          Declare an OAuth configuration
-        </para>
-      </listitem>
-      <listitem>
-        <para>
-          Inject an OAuthService bean
-        </para>
-      </listitem>
-      <listitem>
-        <para>
-          Request the Authorization URL for the service and get a
-          request token
-        </para>
-      </listitem>
-      <listitem>
-        <para>
-          Store the verifier in OAuthService bean and init access token
-        </para>
-      </listitem>
-      <listitem>
-        <para>
-          Use the service
-        </para>
-      </listitem>
-    </itemizedlist>
-    <para>
-      Should you need to fully understand each step, the complete OAuth
-      lifecycle can be found
-      <ulink url="https://dev.twitter.com/docs/auth/oauth">here</ulink>
-      or
-      <ulink url="https://developer.linkedin.com/documents/authentication">here</ulink>
-    </para>
-  </section>
-  <section id="starting-with-oauth-configuration">
-    <title>Starting with OAuth configuration</title>
-    <para>
-      To consume an OAuth service you need to declare an application on
-      the service platform (i.e. for Twitter you can do, this on
-      <ulink url="https://dev.twitter.com/apps/new">https://dev.twitter.com/apps/new</ulink>).
-      The declaration of an application contains at least :
-    </para>
-    <itemizedlist>
-      <listitem>
-        <para>
-          an API public key
-        </para>
-      </listitem>
-      <listitem>
-        <para>
-          an API private/secret key
-        </para>
-      </listitem>
-    </itemizedlist>
-    <para>
-      To use an OAuth service bean in Seam social you need to provide
-      these configuration information in two ways :
-    </para>
-    <itemizedlist>
-      <listitem>
-        <para>
-          thru an OAuthConfigSettings bean
-        </para>
-      </listitem>
-      <listitem>
-        <para>
-          by adding the @ConfigureOAuth annotation when injecting the
-          OAuth service bean
-        </para>
-      </listitem>
-    </itemizedlist>
-    <section id="create-an-oautconfigsettings-bean-thru-seam-configuration-in-bean.xml">
-      <title>Create an OAutConfigSettings bean thru Seam configuration
-      (in bean.xml)</title>
-      <para>
-        Right now, Seam Social provides only one convenient way to
-        declare an OAuthConfigSettings bean. It can be done thru Seam
-        configuration file (beans.xml). Here is an example of such a
-        configuration :
-      </para>
-      <programlisting>
-&lt;beans xmlns=&quot;http://java.sun.com/xml/ns/javaee&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
-    xmlns:s=&quot;urn:java:ee&quot;
-    xmlns:o=&quot;urn:java:org.jboss.seam.social.core&quot;&gt;
-    &lt;o:OAuthServiceSettingsImpl&gt;
-        &lt;s:modifies /&gt;
-        &lt;o:RelatedTo&gt;Twitter&lt;/o:RelatedTo&gt;
-        &lt;o:apiKey&gt;FQzlQC49UhvbMZoxUIvHTQ&lt;/o:apiKey&gt;
-        &lt;o:apiSecret&gt;VQ5CZHG4qUoAkUUmckPn4iN4yyjBKcORTW0wnok4r1k
-        &lt;/o:apiSecret&gt;
-        &lt;o:callback&gt;http://localhost:8080/social-web-client/callback.jsf
-        &lt;/o:callback&gt;
-    &lt;/o:OAuthServiceSettingsImpl&gt;
-&lt;/beans&gt;
-</programlisting>
-      <para>
-        Api Key and Api secret is provided by the service you want to
-        consume (here Twitter). You can use the values above since
-        they're coming from &quot;Seam Social&quot; Twitter application.
-        Callback depends on your application : it's the URL that will
-        collect OAuth verifier
-      </para>
-    </section>
-    <section id="adding-the-configureoauth-annotation-when-injecting-the-oauth-service-bean">
-      <title>Adding the @ConfigureOAuth annotation when injecting the
-      OAuth service bean</title>
-      <para>
-        You can simply add the @ConfigureOAuth annotation to the
-        injection point. It can be done like that :
-      </para>
-      <programlisting>
-@Inject
-@ConfigureOAuth(apiKey = &quot;FQzlQC49UhvbMZoxUIvHTQ&quot;, apiSecret = &quot;VQ5CZHG4qUoAkUUmckPn4iN4yyjBKcORTW0wnok4r1k&quot;, callback=&quot;http://localhost:8080/social-web-client/callback.jsf&quot;)
-Twitter twitter;
-</programlisting>
-      <para>
-        With this notation the injected bean is configured with the
-        given OAuth values.
-      </para>
-    </section>
-  </section>
-  <section id="inject-an-oauthservice-bean-with-one-of-the-following-ways">
-    <title>Inject an OAuthService bean with one of the following ways
-    :</title>
-    <para>
-      Using the Interface of the service
-    </para>
-    <programlisting>
-@Named
-@SessionScoped
-public class mySessionBean implements Serializable {
-    ...
-    @Inject
-    public Twitter twitter;
-    ...
-}
-</programlisting>
-    <para>
-      or using the generic OAuthService with a Qualifier
-    </para>
-    <programlisting>
-@Named
-@SessionScoped
-public class mySessionBean implements Serializable {
-    ...
-    @Inject
-    @RelatedTo(&quot;Twitter&quot;)
-    OAuthService service;
-    ...
-}
-</programlisting>
-    <para>
-      The two are equivalent but the second one give you a way to do
-      polymorphic calls to the service. The OAuthService provides
-      methods in relation to authentication.
-    </para>
-  </section>
-  <section id="request-the-authorization-url-for-the-service-and-redirect-the-app-to-this-url">
-    <title>Request the Authorization URL for the service and redirect
-    the app to this url</title>
-    <para>
-      If we go on with the same example, we can get this authorization
-      URL with this call :
-    </para>
-    <programlisting>
-twitter.getAuthorizationUrl();
-</programlisting>
-    <para>
-      It will return the URL needed to initiate connection to the
-      service.
-    </para>
-  </section>
-  <section id="store-the-verifier-in-oauthservice-bean-and-init-access-token">
-    <title>Store the verifier in OAuthService bean and init access
-    token</title>
-    <para>
-      When we return from the service connection to the callback URL, we
-      get a verifier that we need to store in the OAuthService and init
-      the access token In JSF we do this like that
-    </para>
-    <programlisting>
-&lt;f:metadata&gt;
-    &lt;f:viewParam name=&quot;#{mySessionBean.twitter.verifierParamName}&quot;
-        value=&quot;#{mySessionBean.twitter.verifier}&quot;
-                 required=&quot;true&quot;
-                 requiredMessage=&quot;Error with Twitter. Retry later&quot;/&gt;
-    &lt;f:event type=&quot;preRenderView&quot;
-        listener=&quot;#{mySessionBean.twitter.initAccessToken()}&quot;/&gt;
-&lt;/f:metadata&gt;
-</programlisting>
-  </section>
-  <section id="after-what-we-can-send-calls-to-the-service">
-    <title>After what we can send calls to the service</title>
-    <para>
-      Getting the Twitter user profile
-    </para>
-    <programlisting>
-TwitterProfile user = twitter.getMyProfile();
-String fullName = user.getFullName();
-</programlisting>
-  </section>
-  <section id="testing">
-    <title>Testing</title>
-    <para>
-      After building you can deploy the war generated in
-      example/web-client/target in a Java EE 6 container implementing
-      web profile (tested with JBoss 6 but should work in glassfish too)
-    </para>
-  </section>
+
+  <programlisting><![CDATA[
+        <dependency>
+            <groupId>org.jboss.seam.social</groupId>
+            <artifactId>seam-social-api</artifactId>
+            <version> ${seam.social.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.jboss.seam.social</groupId>
+            <artifactId>seam-social</artifactId>
+            <version> ${seam.social.version}</version>
+            <scope>runtime</scope>
+        </dependency>]]></programlisting>
+  
+You also have to add specific dependencies on the services you need in your code
+
+  <programlisting><![CDATA[    <dependency>
+        <groupId>org.jboss.seam.social</groupId>
+        <artifactId>seam-social-twitter</artifactId>
+        <version> ${seam.social.version}</version>
+        <scope>runtime</scope>
+    </dependency>
+    
+    <dependency>
+        <groupId>org.jboss.seam.social</groupId>
+        <artifactId>seam-social-facebook</artifactId>
+        <version> ${seam.social.version}</version>
+        <scope>runtime</scope>
+    </dependency>
+    
+    <dependency>
+        <groupId>org.jboss.seam.social</groupId>
+        <artifactId>seam-social-linkedin</artifactId>
+        <version> ${seam.social.version}</version>
+        <scope>runtime</scope>
+    </dependency>]]></programlisting>
+
+
 </chapter>

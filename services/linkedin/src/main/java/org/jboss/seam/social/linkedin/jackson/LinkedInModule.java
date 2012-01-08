@@ -18,6 +18,7 @@ package org.jboss.seam.social.linkedin.jackson;
 
 import org.codehaus.jackson.Version;
 import org.codehaus.jackson.map.module.SimpleModule;
+import org.jboss.seam.social.LinkedIn;
 import org.jboss.seam.social.linkedin.model.LinkedInConnections;
 import org.jboss.seam.social.linkedin.model.LinkedInProfile;
 
@@ -27,6 +28,7 @@ import org.jboss.seam.social.linkedin.model.LinkedInProfile;
  * @author Craig Walls
  * @author Antoine Sabot-Durand
  */
+@LinkedIn
 class LinkedInModule extends SimpleModule {
 
     public LinkedInModule() {

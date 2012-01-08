@@ -14,24 +14,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.jboss.seam.social.facebook;
 
-import javax.enterprise.inject.New;
-import javax.enterprise.inject.Produces;
-
 import org.jboss.seam.social.Facebook;
-import org.jboss.seam.social.facebook.jackson.FacebookServiceJackson;
+import org.jboss.seam.social.ServiceConfiguration;
+import org.jboss.seam.social.oauth.OAuthService;
 
 /**
  * @author antoine
  * 
  */
-public class FacebookServiceProducer {
+@Facebook
+public class FacebookConfiguration implements ServiceConfiguration {
 
-    @Produces
-    @Facebook
-    protected FacebookService produceQualifiedFacebook(@New FacebookServiceJackson service) {
-        return service;
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.jboss.seam.social.ServiceConfiguration#getServiceClass()
+     */
+    @Override
+    public Class<? extends OAuthService> getServiceClass() {
+        return FacebookService.class;
     }
 
 }

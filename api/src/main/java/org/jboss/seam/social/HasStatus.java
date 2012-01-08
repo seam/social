@@ -24,25 +24,6 @@ package org.jboss.seam.social;
 public interface HasStatus {
 
     /**
-     * @return the status update
-     */
-    public String getStatus();
-
-    /**
-     * Set the status to update
-     * 
-     * @param status
-     */
-    public void setStatus(String status);
-
-    /**
-     * Send the status to the social network
-     * 
-     * @return an Object corresponding to the update
-     */
-    public Object updateStatus();
-
-    /**
      * Send the status in parameter
      * 
      * @param message the status to send

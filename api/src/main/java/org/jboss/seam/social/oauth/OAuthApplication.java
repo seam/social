@@ -16,36 +16,20 @@
  */
 package org.jboss.seam.social.oauth;
 
-import static java.lang.annotation.ElementType.FIELD;
-import static java.lang.annotation.ElementType.METHOD;
-import static java.lang.annotation.ElementType.PARAMETER;
-import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
-import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
-import java.lang.annotation.Target;
+
+import org.jboss.solder.bean.generic.GenericType;
 
 /**
- * An annotation to set OAuthService directly in the code It can be used like this :
- * <p/>
- * 
- * <pre>
- * &#064;Inject
- * &#064;OAuthConfiguration(apiKey = &quot;a consumer key&quot;, apiSecret = &quot;a consumer secret&quot;, callback = &quot;a call back URL&quot;)
- * Twitter service;
- * </pre>
- * <p/>
- * It's one of the alternates solution initialize an OAuth service configuration
  * 
  * @author Antoine Sabot-Durand
+ * 
  */
-
-@Target({ TYPE, METHOD, PARAMETER, FIELD })
 @Retention(RUNTIME)
-@Documented
-public @interface OAuthConfiguration {
-
+@GenericType(OAuthService.class)
+public @interface OAuthApplication {
     String apiKey();
 
     String apiSecret();
@@ -53,4 +37,5 @@ public @interface OAuthConfiguration {
     String callback() default "oob";
 
     String scope() default "";
+
 }

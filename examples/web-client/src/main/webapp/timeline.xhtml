@@ -11,20 +11,20 @@
         <p>Your (future) Timeline</p>
         <h:form id="form">
             <h:panelGroup id="timeline"
-                          rendered="#{not(empty currentService) and currentService.connected}">
-                Welcome #{currentService.myProfile.fullName}<br/>
-                You are now working with #{currentService.name}<br/>
+                          rendered="#{not(empty currentSession) and currentSession.connected}">
+                Welcome #{currentSession.userProfile.fullName}<br/>
+                You are now working with #{currentSession.name}<br/>
                 <ui:include src="#{socialClient.timeLineUrl}"/>
                 <br/>
                 You can close connexion on
             <h:commandLink
                     action="#{socialClient.resetConnection}"
-                    value="#{currentService.name}"/>
+                    value="#{currentSession.name}"/>
                 <br/>
                 Or choose the Social network you want to work with.. :
             <h:selectOneRadio id="chooseService"
-                              value="#{socialClient.currentServiceName}">
-                <f:selectItems value="#{socialClient.services}" var="serv"
+                              value="#{socialClient.currentSessionName}">
+                <f:selectItems value="#{socialClient.sessions}" var="serv"
                                itemValue="#{serv.name}" itemLabel="#{serv.name}"/>
                 <f:ajax render="form"/>
             </h:selectOneRadio>

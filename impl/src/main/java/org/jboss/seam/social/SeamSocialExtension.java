@@ -16,13 +16,9 @@
  */
 package org.jboss.seam.social;
 
-import static com.google.common.collect.Maps.newHashMap;
 import static com.google.common.collect.Sets.newHashSet;
 
 import java.lang.annotation.Annotation;
-import java.lang.reflect.Type;
-import java.util.HashSet;
-import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import java.util.Set;
@@ -34,11 +30,10 @@ import javax.enterprise.inject.spi.Annotated;
 import javax.enterprise.inject.spi.BeanManager;
 import javax.enterprise.inject.spi.Extension;
 import javax.enterprise.inject.spi.ProcessBean;
-import javax.enterprise.inject.spi.ProcessProducer;
 
 import org.apache.commons.lang3.StringUtils;
+import org.jboss.seam.social.oauth.OAuthApplication;
 import org.jboss.seam.social.oauth.OAuthService;
-import org.jboss.seam.social.oauth.OAuthServiceSettings;
 import org.jboss.solder.logging.Logger;
 import org.jboss.solder.reflection.AnnotationInspector;
 
@@ -54,36 +49,39 @@ public class SeamSocialExtension implements Extension {
 
     private Set<String> servicesNames = newHashSet();
     private Set<Annotation> servicesQualifiersConfigured = newHashSet();
-    private Set<Annotation> servicesQualifiersAvailable = newHashSet();
-    private BiMap<Annotation, String> servicesToQualifier = HashBiMap.create();
-    private Map<Type, Annotation> classToQualifier = newHashMap();
+    private static Set<Annotation> servicesQualifiersAvailable = newHashSet();
+    private static BiMap<Annotation, String> servicesToQualifier = HashBiMap.create();
+    private boolean multiSession = false;
 
     private static final Logger log = Logger.getLogger(SeamSocialExtension.class);
 
-    public void processSettingsBeans(@Observes ProcessBean<OAuthServiceSettings> pbean, BeanManager beanManager) {
+    /**
+     * This observer methods build the list of existing Qualifiers having the ServiceRelated meta Annotation on configured
+     * service (having the {@link OAuthApplication} Annotation)
+     * 
+     * @param pbean
+     * @param beanManager
+     */
+    public void processSettingsBeans(@Observes ProcessBean<OAuthService> pbean, BeanManager beanManager) {
 
         log.info("Starting enumeration of existing service settings");
         Annotated annotated = pbean.getAnnotated();
-
-        servicesQualifiersConfigured.addAll(AnnotationInspector.getAnnotations(annotated, ServiceRelated.class));
+        if (annotated.isAnnotationPresent(OAuthApplication.class)) {
+            servicesQualifiersConfigured.addAll(AnnotationInspector.getAnnotations(annotated, ServiceRelated.class));
+        }
     }
 
     /**
      * This Listener build the List of existing OAuthServices with a Qualifier having the meta annotation @ServiceRelated
      * 
      * @param pbean
+     * @throws IllegalAccessException
+     * @throws InstantiationException
      */
-
-    public void processServicesBeans(@Observes ProcessProducer<?, OAuthService> pbean) {
-        Annotated annotated = pbean.getAnnotatedMember();
-        Type type = annotated.getBaseType();
-        Set<Annotation> qualifiers = AnnotationInspector.getAnnotations(annotated, ServiceRelated.class);
+    public void processServicesBeans(@Observes ProcessBean<ServiceConfiguration> pbean) throws InstantiationException,
+            IllegalAccessException {
+        Set<Annotation> qualifiers = AnnotationInspector.getAnnotations(pbean.getAnnotated(), ServiceRelated.class);
         servicesQualifiersAvailable.addAll(qualifiers);
-        if (qualifiers.size() > 0)
-            if (qualifiers.size() > 1)
-                log.errorf("The bean of type %s has more than one Service Related Qualifier", type);
-            else
-                classToQualifier.put(type, qualifiers.iterator().next());
     }
 
     public Set<String> getSocialRelated() {
@@ -107,18 +105,26 @@ public class SeamSocialExtension implements Extension {
             }
 
         }
-        for (Annotation annot : servicesQualifiersAvailable) {
+        for (Annotation annot : servicesQualifiersConfigured) {
             servicesNames.add(servicesToQualifier.get(annot));
         }
 
     }
 
-    public BiMap<Annotation, String> getServicesToQualifier() {
+    public static BiMap<Annotation, String> getServicesToQualifier() {
         return servicesToQualifier;
     }
 
-    public Map<Type, Annotation> getClassToQualifier() {
-        return classToQualifier;
+    public static Set<Annotation> getServicesQualifiersAvailable() {
+        return servicesQualifiersAvailable;
+    }
+
+    public boolean isMultiSession() {
+        return multiSession;
+    }
+
+    public void setMultiSession(boolean multiSession) {
+        this.multiSession = multiSession;
     }
 
 }

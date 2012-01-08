@@ -17,17 +17,15 @@
 -->
 <beans xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:s="urn:java:ee"
-    xmlns:o="urn:java:org.jboss.seam.social:org.jboss.seam.social.scribe">
-
-    <o:OAuthServiceSettingsImpl>
-        <s:modifies />
-        <!--o:RelatedTo>Twitter</o:RelatedTo-->
-        <o:apiKey>FQzlQC49UhvbMZoxUIvHTQ</o:apiKey>
-        <o:apiSecret>VQ5CZHG4qUoAkUUmckPn4iN4yyjBKcORTW0wnok4r1k
-        </o:apiSecret>
-        <o:callback>http://localhost:8080/seam-social-web-client/callback.jsf
-        </o:callback>
-    </o:OAuthServiceSettingsImpl>
+    xmlns:o="urn:java:org.jboss.seam.social:org.jboss.seam.social.oauth:org.jboss.seam.social.twitter.jackson">
 
 
+<o:TwitterServiceJackson>
+    <s:modifies/>
+        <o:Twitter />
+        <o:OAuthApplication apiKey="FQzlQC49UhvbMZoxUIvHTQ"
+            apiSecret="VQ5CZHG4qUoAkUUmckPn4iN4yyjBKcORTW0wnok4r1k"
+            callback="http://localhost:8080/social-web-client/callback.jsf"/>
+    </o:TwitterServiceJackson>
+    
 </beans>

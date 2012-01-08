@@ -14,14 +14,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social;
+package org.jboss.seam.social.oauth;
+
+import static org.jboss.seam.social.SeamSocialExtension.getServicesToQualifier;
 
 import java.lang.annotation.Annotation;
-
-import javax.enterprise.inject.spi.InjectionPoint;
-import javax.inject.Inject;
-
-import org.jboss.seam.social.oauth.OAuthServiceSettings;
 
 /**
  * 
@@ -41,7 +38,7 @@ public class OAuthServiceSettingsImpl implements OAuthServiceSettings {
 
     private String scope;
 
-    private String serviceName;
+    private Annotation serviceQualifier;
 
     public String getApiKey() {
         return apiKey;
@@ -83,31 +80,38 @@ public class OAuthServiceSettingsImpl implements OAuthServiceSettings {
 
     @Override
     public String getServiceName() {
-        return serviceName;
+        return getServicesToQualifier().get(serviceQualifier);
     }
 
-    @Inject
-    public OAuthServiceSettingsImpl(InjectionPoint ip, SeamSocialExtension config) {
-
-        for (Annotation quali : ip.getQualifiers()) {
-            if (quali.annotationType().isAnnotationPresent(ServiceRelated.class))
-                this.serviceName = config.getServicesToQualifier().get(quali);
-        }
-    }
-
-    OAuthServiceSettingsImpl(String apiKey, String apiSecret, String callback, String scope, String serviceName) {
+    OAuthServiceSettingsImpl(Annotation serviceQualifier, String apiKey, String apiSecret, String callback, String scope) {
         super();
         this.apiKey = apiKey;
         this.apiSecret = apiSecret;
         this.callback = callback;
         this.scope = scope;
-        this.serviceName = serviceName;
+        this.serviceQualifier = serviceQualifier;
     }
 
     @Override
     public String toString() {
         return "OAuthServiceSettingsImpl [apiKey=" + apiKey + ", apiSecret=" + apiSecret + ", callback=" + callback
-                + ", scope=" + scope + ", serviceName=" + serviceName + "]";
+                + ", scope=" + scope + ", serviceName=" + getServiceName() + "]";
+    }
+
+    /**
+     * @return the serviceQualifier
+     */
+    @Override
+    public Annotation getServiceQualifier() {
+        return serviceQualifier;
+    }
+
+    /**
+     * @param serviceQualifier the serviceQualifier to set
+     */
+    @Override
+    public void setServiceQualifier(Annotation serviceQualifier) {
+        this.serviceQualifier = serviceQualifier;
     }
 
 }

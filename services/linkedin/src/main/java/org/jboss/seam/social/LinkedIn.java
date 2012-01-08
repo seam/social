@@ -28,8 +28,6 @@ import java.lang.annotation.Target;
 
 import javax.inject.Qualifier;
 
-import org.jboss.seam.social.ServiceRelated;
-
 @ServiceRelated
 @Qualifier
 @Target({ TYPE, METHOD, PARAMETER, FIELD })

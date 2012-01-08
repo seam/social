@@ -113,4 +113,6 @@ public interface TwitterService extends OAuthService, HasStatus {
      */
     List<TwitterProfile> getSuggestions(String slug);
 
+    public RateLimitStatus getRateLimitStatus();
+
 }

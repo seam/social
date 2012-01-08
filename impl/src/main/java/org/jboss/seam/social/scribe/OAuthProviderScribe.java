@@ -95,13 +95,8 @@ public class OAuthProviderScribe implements OAuthProvider {
         return getService().getAuthorizationUrl(extractToken(tok));
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.jboss.seam.social.oauth.OAuthProvider#initProvider(org.jboss.seam.social.oauth.OAuthServiceSettings)
-     */
-    @Override
-    public void initProvider(OAuthServiceSettings settings) {
+    public OAuthProviderScribe(OAuthServiceSettings settings) {
+        super();
         Class<? extends Api> apiClass = getApiClass(settings.getServiceName()); // TODO : should get API class differently !
         ServiceBuilder serviceBuilder = new ServiceBuilder().provider(apiClass).apiKey(settings.getApiKey())
                 .apiSecret(settings.getApiSecret());
@@ -111,7 +106,6 @@ public class OAuthProviderScribe implements OAuthProvider {
             serviceBuilder.scope(settings.getScope());
         }
         service = serviceBuilder.build();
-
     }
 
     /**

@@ -14,45 +14,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social.oauth;
+
+package org.jboss.seam.social;
+
+import java.io.Serializable;
+
+import org.jboss.seam.social.rest.RestResponse;
 
 /**
- * Instances of this interface contains data for a session connection to a given service.
  * 
- * @see OAuthService
+ * Implementation of this Interface will manage Json Serialization / De-serialization to and from Object
+ * 
  * @author Antoine Sabot-Durand
  * 
  */
-public interface OAuthSessionSettings {
+public interface JsonMapper extends Serializable {
 
     /**
-     * @return the requestToken
+     * Parse the content of the provided {@link RestResponse} to de-serialize to an object of the given Class
+     * 
+     * @param resp the response to de-serialize
+     * @param clazz the target class of the object
+     * @return an object of the given Class with fields coming from the response
      */
-    public OAuthToken getRequestToken();
-
-    /**
-     * @param requestToken the requestToken to set
-     */
-    public void setRequestToken(OAuthToken requestToken);
-
-    /**
-     * @return the accessToken
-     */
-    public OAuthToken getAccessToken();
-
-    /**
-     * @param accessToken the accessToken to set
-     */
-    public void setAccessToken(OAuthToken accessToken);
-
-    /**
-     * @return the verifier
-     */
-    public String getVerifier();
-
-    /**
-     * @param verifier the verifier to set
-     */
-    public void setVerifier(String verifier);
+    public <T> T requestObject(RestResponse resp, Class<T> clazz);
 
 }

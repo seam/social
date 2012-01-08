@@ -65,9 +65,4 @@ public interface RestService extends Serializable {
      */
     public void resetConnection();
 
-    /**
-     * @return the name of the service with this session
-     */
-    public String getName();
-
 }

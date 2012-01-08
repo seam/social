@@ -17,6 +17,7 @@
 package org.jboss.seam.social.oauth;
 
 import java.io.Serializable;
+import java.lang.annotation.Annotation;
 
 /**
  * Interface for model containing settings needed to access to an OAuth 1.0a service It's used by {@link OAuthService} to setup
@@ -60,16 +61,26 @@ public interface OAuthServiceSettings extends Serializable {
     /**
      * @param scope scope requested for this OAuth 2.0 service
      */
-    void setScope(String scope);
+    public void setScope(String scope);
 
     /**
      * @return the scope requested
      */
-    String getScope();
+    public String getScope();
 
     /**
      * @return
      */
-    String getServiceName();
+    public String getServiceName();
+
+    /**
+     * @return
+     */
+    public Annotation getServiceQualifier();
+
+    /**
+     * @param serviceQualifier
+     */
+    public void setServiceQualifier(Annotation serviceQualifier);
 
 }

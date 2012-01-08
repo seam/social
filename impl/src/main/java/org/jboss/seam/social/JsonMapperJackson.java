@@ -17,9 +17,12 @@
 package org.jboss.seam.social;
 
 import java.io.IOException;
-import java.io.Serializable;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Any;
+import javax.enterprise.inject.Instance;
+import javax.inject.Inject;
 
 import org.codehaus.jackson.map.Module;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -32,20 +35,23 @@ import org.jboss.seam.social.rest.RestResponse;
  * @author Antoine Sabot-Durand
  */
 @ApplicationScoped
-public class JsonMapper implements Serializable {
+public class JsonMapperJackson implements JsonMapper {
 
     private static final long serialVersionUID = -2012295612034078749L;
 
     private final ObjectMapper delegate = new ObjectMapper();
 
-    /**
-     * Parse the content of the provided {@link RestResponse} to de-serialize to an object of the given Class
+    @Inject
+    @Any
+    protected Instance<Module> moduleInstances;
+
+    /*
+     * (non-Javadoc)
      * 
-     * @param resp the response to de-serialize
-     * @param clazz the target class of the object
-     * @return an object of the given Class with fields comming from the response
+     * @see org.jboss.seam.social.JsonMapper#requestObject(org.jboss.seam.social.rest.RestResponse, java.lang.Class)
      */
-    public <T> T readValue(RestResponse resp, Class<T> clazz) {
+    @Override
+    public <T> T requestObject(RestResponse resp, Class<T> clazz) {
         try {
             String msg = resp.getBody();
             return delegate.readValue(msg, clazz);
@@ -62,6 +68,13 @@ public class JsonMapper implements Serializable {
      */
     public void registerModule(Module module) {
         delegate.registerModule(module);
+    }
+
+    @PostConstruct
+    protected void init() {
+        for (Module module : moduleInstances) {
+            registerModule(module);
+        }
     }
 
 }

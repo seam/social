@@ -16,13 +16,16 @@
  */
 package org.jboss.seam.social.linkedin.jackson;
 
-import org.codehaus.jackson.map.Module;
-import org.jboss.seam.social.OAuthServiceJackson;
+import static org.jboss.seam.social.LinkedInLiteral.INSTANCE;
+
+import java.lang.annotation.Annotation;
+
 import org.jboss.seam.social.UserProfile;
 import org.jboss.seam.social.linkedin.LinkedInService;
 import org.jboss.seam.social.linkedin.model.LinkedInProfile;
 import org.jboss.seam.social.linkedin.model.Update;
 import org.jboss.seam.social.oauth.OAuthRequest;
+import org.jboss.seam.social.oauth.OAuthServiceBase;
 import org.jboss.seam.social.rest.RestResponse;
 import org.jboss.seam.social.rest.RestVerb;
 
@@ -30,7 +33,7 @@ import org.jboss.seam.social.rest.RestVerb;
  * @author Antoine Sabot-Durand
  * @author Craig Walls
  */
-public class LinkedInServiceJackson extends OAuthServiceJackson implements LinkedInService {
+public class LinkedInServiceJackson extends OAuthServiceBase implements LinkedInService {
 
     private static final long serialVersionUID = -6718362913575146613L;
 
@@ -63,22 +66,13 @@ public class LinkedInServiceJackson extends OAuthServiceJackson implements Linke
      */
     @Override
     public UserProfile getMyProfile() {
-        return myProfile;
+        return getSession().getUserProfile();
     }
 
     /*
-     * (non-Javadoc)
      * 
-     * @see org.jboss.seam.social.oauth.HasStatus#updateStatus()
-     */
-    @Override
-    public Object updateStatus() {
-
-        return updateStatus(getStatus());
-    }
-
-    /*
-     * (non-Javadoc)
+     * 
+     * /* (non-Javadoc)
      * 
      * @see org.jboss.seam.social.oauth.HasStatus#updateStatus(java.lang.String)
      */
@@ -114,18 +108,19 @@ public class LinkedInServiceJackson extends OAuthServiceJackson implements Linke
      */
     @Override
     protected void initMyProfile() {
-        myProfile = jsonMapper.readValue(sendSignedRequest(RestVerb.GET, PROFILE_URL), LinkedInProfile.class);
+        getSession().setUserProfile(
+                jsonService.requestObject(sendSignedRequest(RestVerb.GET, PROFILE_URL), LinkedInProfile.class));
 
     }
 
     /*
      * (non-Javadoc)
      * 
-     * @see org.jboss.seam.social.OAuthServiceJackson#getJacksonModule()
+     * @see org.jboss.seam.social.rest.RestService#getQualifier()
      */
     @Override
-    protected Module getJacksonModule() {
-        return new LinkedInModule();
+    public Annotation getQualifier() {
+        return INSTANCE;
     }
 
 }

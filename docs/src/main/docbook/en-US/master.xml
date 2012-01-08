@@ -7,9 +7,11 @@
 
    <toc />
 
-   <xi:include  href="social-introduction.xml" />
-   
+   <xi:include  href="social-introduction.xml" />   
    <xi:include  href="social-gettingstarted.xml" />
+   <xi:include  href="social-fiveminutes.xml" />
+   <xi:include  href="social-qualifiersbeans.xml" />
+   <xi:include  href="social-advanced.xml" />
 
   
 </book>
