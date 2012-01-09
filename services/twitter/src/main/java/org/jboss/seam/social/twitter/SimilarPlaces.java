@@ -35,7 +35,7 @@ public class SimilarPlaces extends ArrayList<Place> {
 	}
 
 	/**
-	 * A prototype place that matches the criteria for the call to {@link GeoService#findSimilarPlaces(double, double, String)}, 
+	 * A prototype place that matches the criteria for the call to {@link TwitterGeoService#findSimilarPlaces(double, double, String)}, 
 	 * including a create token that can be used to create the place.
 	 */
 	public PlacePrototype getPlacePrototype() {
