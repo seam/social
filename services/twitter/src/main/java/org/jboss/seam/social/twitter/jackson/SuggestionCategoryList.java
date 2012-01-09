@@ -24,6 +24,7 @@ import org.jboss.seam.social.twitter.SuggestionCategory;
  * Typed list of SuggestionCategory. This helps Jackson know what type to deserialize the list contents into.
  * 
  * @author Craig Walls
+ * @author Antoine Sabot-Durand
  */
 @SuppressWarnings("serial")
 class SuggestionCategoryList extends ArrayList<SuggestionCategory> {

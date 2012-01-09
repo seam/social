@@ -17,7 +17,7 @@
 package org.jboss.seam.social.twitter;
 
 public enum PlaceType {
-	
-	POINT_OF_INTEREST, NEIGHBORHOOD, CITY, ADMIN, COUNTRY
+
+    POINT_OF_INTEREST, NEIGHBORHOOD, CITY, ADMIN, COUNTRY
 
 }

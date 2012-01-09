@@ -25,6 +25,7 @@ import org.jboss.seam.social.twitter.Place;
  * used to create a new place.
  * 
  * @author Craig Walls
+ * @author Antoine Sabot-Durand
  */
 class SimilarPlacesResponse {
 

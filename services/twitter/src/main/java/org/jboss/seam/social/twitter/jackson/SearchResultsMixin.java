@@ -27,6 +27,7 @@ import org.jboss.seam.social.twitter.Tweet;
  * Mixin class for adding Jackson annotations to SearchResults.
  * 
  * @author Craig Walls
+ * @author Antoine Sabot-Durand
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 class SearchResultsMixin {

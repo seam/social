@@ -29,6 +29,7 @@ import org.jboss.seam.social.twitter.UserList;
  * Holder for list of UserList, pulled from JSON object's "lists" property.
  * 
  * @author Craig Walls
+ * @author Antoine Sabot-Durand
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 class UserListList {

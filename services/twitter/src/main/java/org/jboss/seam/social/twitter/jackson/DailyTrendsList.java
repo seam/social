@@ -29,6 +29,7 @@ import org.jboss.seam.social.twitter.Trend;
  * Holder of a list of daily trends.
  * 
  * @author Craig Walls
+ * @author Antoine Sabot-Durand
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 class DailyTrendsList extends AbstractTrendsList {

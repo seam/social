@@ -23,42 +23,42 @@ import java.util.Date;
  */
 public class RateLimitStatus {
 
-	private final int hourlyLimit;
-	
-	private final int remainingHits;
-	
-	private final long resetTimeInSeconds;
-	
-	private final Date resetTime;
-	
-	public RateLimitStatus(int hourlyLimit, int remainingHits, long resetTimeInSeconds) {
-		this.hourlyLimit = hourlyLimit;
-		this.remainingHits = remainingHits;
-		this.resetTimeInSeconds = resetTimeInSeconds;
-		this.resetTime = new Date(resetTimeInSeconds * 1000);
-	}
-	
-	public int getHourlyLimit() {
-		return hourlyLimit;
-	}
+    private final int hourlyLimit;
 
-	public int getRemainingHits() {
-		return remainingHits;
-	}
+    private final int remainingHits;
 
-	public long getResetTimeInSeconds() {
-		return resetTimeInSeconds;
-	}
-	
-	public Date getResetTime() {
-		return resetTime;
-	}
+    private final long resetTimeInSeconds;
 
-	/**
-	 * The approximate number of seconds until the rate limits are reset.
-	 * Note that this method recalculates the seconds until reset on each call.
-	 */
-	public int getSecondsUntilReset() {
-		return (int) (resetTimeInSeconds - System.currentTimeMillis() / 1000);
-	}
+    private final Date resetTime;
+
+    public RateLimitStatus(int hourlyLimit, int remainingHits, long resetTimeInSeconds) {
+        this.hourlyLimit = hourlyLimit;
+        this.remainingHits = remainingHits;
+        this.resetTimeInSeconds = resetTimeInSeconds;
+        this.resetTime = new Date(resetTimeInSeconds * 1000);
+    }
+
+    public int getHourlyLimit() {
+        return hourlyLimit;
+    }
+
+    public int getRemainingHits() {
+        return remainingHits;
+    }
+
+    public long getResetTimeInSeconds() {
+        return resetTimeInSeconds;
+    }
+
+    public Date getResetTime() {
+        return resetTime;
+    }
+
+    /**
+     * The approximate number of seconds until the rate limits are reset. Note that this method recalculates the seconds until
+     * reset on each call.
+     */
+    public int getSecondsUntilReset() {
+        return (int) (resetTimeInSeconds - System.currentTimeMillis() / 1000);
+    }
 }

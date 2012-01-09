@@ -31,8 +31,9 @@ import org.jboss.seam.social.rest.RestVerb;
 
 /**
  * @author Antoine Sabot-Durand
- * @author Craig Walls
- */
+* @author Craig Walls
+* @author Antoine Sabot-Durand
+*/
 public class LinkedInServiceJackson extends OAuthBaseServiceImpl implements LinkedInService {
 
     private static final long serialVersionUID = -6718362913575146613L;

@@ -24,6 +24,7 @@ import org.jboss.seam.social.twitter.TwitterProfile;
  * Typed list of TwitterProfile. This helps Jackson know which type to deserialize list contents into.
  * 
  * @author Craig Walls
+ * @author Antoine Sabot-Durand
  */
 @SuppressWarnings("serial")
 class TwitterProfileList extends ArrayList<TwitterProfile> {

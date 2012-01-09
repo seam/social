@@ -22,16 +22,16 @@ import org.codehaus.jackson.annotate.JsonProperty;
 
 /**
  * Mixin class for adding Jackson annotations to RateLimitStatus.
+ * 
  * @author Craig Walls
+ * @author Antoine Sabot-Durand
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 class RateLimitStatusMixin {
-	
-	@JsonCreator
-	RateLimitStatusMixin(
-			@JsonProperty("hourly_limit") int hourlyLimit,
-			@JsonProperty("remaining_hits") int remainingHits,
-			@JsonProperty("reset_time_in_seconds") long resetTimeInSeconds
-			) {}
+
+    @JsonCreator
+    RateLimitStatusMixin(@JsonProperty("hourly_limit") int hourlyLimit, @JsonProperty("remaining_hits") int remainingHits,
+            @JsonProperty("reset_time_in_seconds") long resetTimeInSeconds) {
+    }
 
 }

@@ -24,6 +24,7 @@ import org.jboss.seam.social.twitter.DirectMessage;
  * Typed list of direct messages. This helps Jackson know what type to deserialize list content into.
  * 
  * @author Craig Walls
+ * @author Antoine Sabot-Durand
  */
 @SuppressWarnings("serial")
 class DirectMessageList extends ArrayList<DirectMessage> {

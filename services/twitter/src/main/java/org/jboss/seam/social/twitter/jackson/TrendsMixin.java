@@ -29,6 +29,7 @@ import org.jboss.seam.social.twitter.Trend;
  * Mixin class for adding Jackson annotations to Trends.
  * 
  * @author Craig Walls
+ * @author Antoine Sabot-Durand
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 abstract class TrendsMixin {

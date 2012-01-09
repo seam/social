@@ -25,6 +25,7 @@ import org.jboss.seam.social.twitter.Trends;
  * annotation.
  * 
  * @author Craig Walls
+ * @author Antoine Sabot-Durand
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonDeserialize(using = LocalTrendsDeserializer.class)

@@ -34,6 +34,7 @@ import org.jboss.seam.social.twitter.Trends;
  * Abstract model class representing a list of trends.
  * 
  * @author Craig Walls
+ * @author Antoine Sabot-Durand
  */
 class AbstractTrendsList {
     private final List<Trends> list;

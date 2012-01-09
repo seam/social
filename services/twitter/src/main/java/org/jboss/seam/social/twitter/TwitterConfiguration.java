@@ -21,7 +21,7 @@ import org.jboss.seam.social.Twitter;
 import org.jboss.seam.social.oauth.OAuthBaseService;
 
 /**
- * @author antoine
+ * @author Antoine Sabot-Durand
  * 
  */
 @Twitter

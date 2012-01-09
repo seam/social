@@ -20,41 +20,43 @@ import java.util.Date;
 
 /**
  * Represents a direct message.
+ * 
  * @author Craig Walls
+ * @author Antoine Sabot-Durand
  */
 public class DirectMessage {
-	private final long id;
-	private final String text;
-	private final TwitterProfile sender;
-	private final TwitterProfile recipient;
-	private final Date createdAt;
+    private final long id;
+    private final String text;
+    private final TwitterProfile sender;
+    private final TwitterProfile recipient;
+    private final Date createdAt;
 
-	public DirectMessage(long id, String text, TwitterProfile sender, TwitterProfile recipient, Date createdAt) {
-		this.id = id;
-		this.text = text;
-		this.sender = sender;
-		this.recipient = recipient;
-		this.createdAt = createdAt;
-	}
-	
-	public long getId() {
-		return id;
-	}
+    public DirectMessage(long id, String text, TwitterProfile sender, TwitterProfile recipient, Date createdAt) {
+        this.id = id;
+        this.text = text;
+        this.sender = sender;
+        this.recipient = recipient;
+        this.createdAt = createdAt;
+    }
 
-	public String getText() {
-		return text;
-	}
+    public long getId() {
+        return id;
+    }
 
-	public TwitterProfile getSender() {
-		return sender;
-	}
-	
-	public TwitterProfile getRecipient() {
-		return recipient;
-	}
+    public String getText() {
+        return text;
+    }
 
-	public Date getCreatedAt() {
-		return createdAt;
-	}
+    public TwitterProfile getSender() {
+        return sender;
+    }
+
+    public TwitterProfile getRecipient() {
+        return recipient;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
 
 }

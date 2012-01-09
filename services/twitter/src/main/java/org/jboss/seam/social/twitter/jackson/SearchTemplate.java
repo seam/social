@@ -32,6 +32,7 @@ import com.google.common.collect.Multimap;
  * Implementation of {@link SearchOperations}, providing a binding to Twitter's search and trend-oriented REST resources.
  * 
  * @author Craig Walls
+ * @author Antoine Sabot-Durand
  */
 class SearchTemplate extends TwitterServiceImpl implements SearchService {
 

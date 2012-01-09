@@ -19,26 +19,27 @@ package org.jboss.seam.social.twitter;
 import java.util.Date;
 import java.util.List;
 
-
 /**
  * Represents a list of trending topics at a specific point in time.
+ * 
  * @author Craig Walls
+ * @author Antoine Sabot-Durand
  */
 public class Trends {
-	private final Date time;
-	private final List<Trend> trends;
+    private final Date time;
+    private final List<Trend> trends;
 
-	public Trends(Date time, List<Trend> trends) {
-		this.time = time;
-		this.trends = trends;
-	}
+    public Trends(Date time, List<Trend> trends) {
+        this.time = time;
+        this.trends = trends;
+    }
 
-	public Date getTime() {
-		return time;
-	}
+    public Date getTime() {
+        return time;
+    }
 
-	public List<Trend> getTrends() {
-		return trends;
-	}
+    public List<Trend> getTrends() {
+        return trends;
+    }
 
 }

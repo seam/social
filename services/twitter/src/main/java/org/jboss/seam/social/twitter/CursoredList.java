@@ -23,6 +23,7 @@ import java.util.Collection;
  * List that includes previous and next cursors for paging through items returned from Twitter in cursored pages.
  * 
  * @author Craig Walls
+ * @author Antoine Sabot-Durand
  * @param <T> the list element type
  */
 @SuppressWarnings("serial")

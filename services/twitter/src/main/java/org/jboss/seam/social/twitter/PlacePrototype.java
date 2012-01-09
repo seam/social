@@ -17,56 +17,59 @@
 package org.jboss.seam.social.twitter;
 
 /**
- * Represents a new place that could be created. 
- * This is the type returned from calls to {@link TwitterGeoService#findSimilarPlaces(double, double, String)}.
- * It is the only type that can be given to {@link TwitterGeoService#createPlace(PlacePrototype)} to create a new place.
- * This guarantees consistency between the query performed when finding similar places and when creating a new place so that the create token will be valid. 
+ * Represents a new place that could be created. This is the type returned from calls to
+ * {@link TwitterGeoService#findSimilarPlaces(double, double, String)}. It is the only type that can be given to
+ * {@link TwitterGeoService#createPlace(PlacePrototype)} to create a new place. This guarantees consistency between the query
+ * performed when finding similar places and when creating a new place so that the create token will be valid.
+ * 
  * @author Craig Walls
+ * @author Antoine Sabot-Durand
  */
 public class PlacePrototype {
-	
-	private final double latitude;
-	
-	private final double longitude;
-	
-	private final String name;
 
-	private final String containedWithin;
+    private final double latitude;
 
-	private final String createToken;
+    private final double longitude;
 
-	private final String streetAddress;
+    private final String name;
 
-	public PlacePrototype(String createToken, double latitude, double longitude, String name, String streetAddress, String containedWithin) {
-		this.createToken = createToken;
-		this.latitude = latitude;
-		this.longitude = longitude;
-		this.name = name;
-		this.streetAddress = streetAddress;
-		this.containedWithin = containedWithin;
-	}
-	
-	public double getLatitude() {
-		return latitude;
-	}
+    private final String containedWithin;
 
-	public double getLongitude() {
-		return longitude;
-	}
+    private final String createToken;
 
-	public String getName() {
-		return name;
-	}
-	
-	public String getStreetAddress() {
-		return streetAddress;
-	}
+    private final String streetAddress;
 
-	public String getContainedWithin() {
-		return containedWithin;
-	}
+    public PlacePrototype(String createToken, double latitude, double longitude, String name, String streetAddress,
+            String containedWithin) {
+        this.createToken = createToken;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.name = name;
+        this.streetAddress = streetAddress;
+        this.containedWithin = containedWithin;
+    }
 
-	public String getCreateToken() {
-		return createToken;
-	}
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getStreetAddress() {
+        return streetAddress;
+    }
+
+    public String getContainedWithin() {
+        return containedWithin;
+    }
+
+    public String getCreateToken() {
+        return createToken;
+    }
 }

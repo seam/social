@@ -18,24 +18,26 @@ package org.jboss.seam.social.twitter;
 
 /**
  * Represents a single trending topic.
+ * 
  * @author Craig Walls
+ * @author Antoine Sabot-Durand
  */
 public class Trend {
-	private final String name;
+    private final String name;
 
-	private final String query;
+    private final String query;
 
-	public Trend(String name, String query) {
-		this.name = name;
-		this.query = query;
-	}
+    public Trend(String name, String query) {
+        this.name = name;
+        this.query = query;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public String getQuery() {
-		return query;
-	}
+    public String getQuery() {
+        return query;
+    }
 
 }

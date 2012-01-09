@@ -21,6 +21,7 @@ package org.jboss.seam.social.twitter;
  * following the authenticated user.
  * 
  * @author Craig Walls
+ * @author Antoine Sabot-Durand
  */
 public class InvalidMessageRecipientException extends IllegalArgumentException {
     private static final long serialVersionUID = 1L;

@@ -36,6 +36,7 @@ import org.jboss.seam.social.twitter.Trends;
  * Deserializer to read local trends data into a LocalTrendsHolder object.
  * 
  * @author Craig Walls
+ * @author Antoine Sabot-Durand
  */
 class LocalTrendsDeserializer extends JsonDeserializer<LocalTrendsHolder> {
 

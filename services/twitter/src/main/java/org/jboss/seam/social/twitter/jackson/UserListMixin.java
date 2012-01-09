@@ -29,28 +29,26 @@ import org.codehaus.jackson.map.annotate.JsonDeserialize;
 
 /**
  * Mixin class for adding Jackson annotations to UserList.
+ * 
  * @author Craig Walls
+ * @author Antoine Sabot-Durand
  */
-@JsonIgnoreProperties(ignoreUnknown=true)
+@JsonIgnoreProperties(ignoreUnknown = true)
 abstract class UserListMixin {
 
-	@JsonCreator
-	UserListMixin(
-			@JsonProperty("id") long id, 
-			@JsonProperty("name") String name, 
-			@JsonProperty("full_name") String fullName, 
-			@JsonProperty("uri") String uriPath, 
-			@JsonProperty("description") String description, 
-			@JsonProperty("slug") String slug, 
-			@JsonProperty("mode") @JsonDeserialize(using=ModeDeserializer.class) boolean isPublic, 
-			@JsonProperty("following") boolean isFollowing, 
-			@JsonProperty("member_count") int memberCount, 
-			@JsonProperty("subscriber_count") int subscriberCount) {}
+    @JsonCreator
+    UserListMixin(@JsonProperty("id") long id, @JsonProperty("name") String name, @JsonProperty("full_name") String fullName,
+            @JsonProperty("uri") String uriPath, @JsonProperty("description") String description,
+            @JsonProperty("slug") String slug,
+            @JsonProperty("mode") @JsonDeserialize(using = ModeDeserializer.class) boolean isPublic,
+            @JsonProperty("following") boolean isFollowing, @JsonProperty("member_count") int memberCount,
+            @JsonProperty("subscriber_count") int subscriberCount) {
+    }
 
-	private static class ModeDeserializer extends JsonDeserializer<Boolean> {
-		@Override
-		public Boolean deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {			
-			return jp.getText().equals("public");
-		}
-	}
+    private static class ModeDeserializer extends JsonDeserializer<Boolean> {
+        @Override
+        public Boolean deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+            return jp.getText().equals("public");
+        }
+    }
 }

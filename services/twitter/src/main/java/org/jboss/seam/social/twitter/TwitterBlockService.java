@@ -22,6 +22,7 @@ import java.util.List;
  * Interface defining the operations for blocking and unblocking users
  * 
  * @author Craig Walls
+ * @author Antoine Sabot-Durand
  */
 public interface TwitterBlockService {
 

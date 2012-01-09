@@ -25,15 +25,15 @@ import org.codehaus.jackson.map.annotate.JsonDeserialize;
 
 /**
  * Mixin class for adding Jackson annotations to SavedSearch.
+ * 
  * @author Craig Walls
+ * @author Antoine Sabot-Durand
  */
-@JsonIgnoreProperties(ignoreUnknown=true)
+@JsonIgnoreProperties(ignoreUnknown = true)
 abstract class SavedSearchMixin {
-	@JsonCreator
-	SavedSearchMixin(
-			@JsonProperty("id") long id,
-			@JsonProperty("name") String name,
-			@JsonProperty("query") String query,
-			@JsonProperty("position") int position,
-			@JsonProperty("created_at") @JsonDeserialize(using=TimelineDateDeserializer.class) Date createdAt) {}
+    @JsonCreator
+    SavedSearchMixin(@JsonProperty("id") long id, @JsonProperty("name") String name, @JsonProperty("query") String query,
+            @JsonProperty("position") int position,
+            @JsonProperty("created_at") @JsonDeserialize(using = TimelineDateDeserializer.class) Date createdAt) {
+    }
 }

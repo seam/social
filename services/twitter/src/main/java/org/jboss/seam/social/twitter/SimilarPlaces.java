@@ -20,26 +20,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Represents the results of a similar places search. 
- * Includes places that match the search criteria and a {@link PlacePrototype} that can be used to create a new place.
+ * Represents the results of a similar places search. Includes places that match the search criteria and a
+ * {@link PlacePrototype} that can be used to create a new place.
+ * 
  * @author Craig Walls
+ * @author Antoine Sabot-Durand
  */
 @SuppressWarnings("serial")
 public class SimilarPlaces extends ArrayList<Place> {
-	
-	private final PlacePrototype placePrototype;
-	
-	public SimilarPlaces(List<Place> places, PlacePrototype placePrototype) {
-		super(places);
-		this.placePrototype = placePrototype;
-	}
 
-	/**
-	 * A prototype place that matches the criteria for the call to {@link TwitterGeoService#findSimilarPlaces(double, double, String)}, 
-	 * including a create token that can be used to create the place.
-	 */
-	public PlacePrototype getPlacePrototype() {
-		return placePrototype;
-	}
-	
+    private final PlacePrototype placePrototype;
+
+    public SimilarPlaces(List<Place> places, PlacePrototype placePrototype) {
+        super(places);
+        this.placePrototype = placePrototype;
+    }
+
+    /**
+     * A prototype place that matches the criteria for the call to
+     * {@link TwitterGeoService#findSimilarPlaces(double, double, String)}, including a create token that can be used to create
+     * the place.
+     */
+    public PlacePrototype getPlacePrototype() {
+        return placePrototype;
+    }
+
 }

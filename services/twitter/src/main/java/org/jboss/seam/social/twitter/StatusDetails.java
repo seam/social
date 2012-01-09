@@ -25,6 +25,7 @@ import com.google.common.collect.Multimap;
  * Carries optional metadata pertaining to a Twitter status update.
  * 
  * @author Craig Walls
+ * @author Antoine Sabot-Durand
  */
 public class StatusDetails {
 

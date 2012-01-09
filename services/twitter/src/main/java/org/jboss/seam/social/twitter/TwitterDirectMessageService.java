@@ -22,6 +22,7 @@ import java.util.List;
  * Interface defining the Twitter operations for working with direct messages.
  * 
  * @author Craig Walls
+ * @author Antoine Sabot-Durand
  */
 public interface TwitterDirectMessageService {
 

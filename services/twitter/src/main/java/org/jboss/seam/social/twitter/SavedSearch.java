@@ -20,46 +20,47 @@ import java.util.Date;
 
 /**
  * Represents a saved search.
+ * 
  * @author Craig Walls
+ * @author Antoine Sabot-Durand
  */
 public class SavedSearch {
-	private final long id;
+    private final long id;
 
-	private final String name;
+    private final String name;
 
-	private final String query;
+    private final String query;
 
-	private final Date createdAt;
+    private final Date createdAt;
 
-	private final int position;
+    private final int position;
 
-	public SavedSearch(long id, String name, String query, int position, Date createdAt) {
-		this.id = id;
-		this.name = name;
-		this.query = query;
-		this.position = position;
-		this.createdAt = createdAt;
-	}
+    public SavedSearch(long id, String name, String query, int position, Date createdAt) {
+        this.id = id;
+        this.name = name;
+        this.query = query;
+        this.position = position;
+        this.createdAt = createdAt;
+    }
 
-	public long getId() {
-		return id;
-	}
+    public long getId() {
+        return id;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public String getQuery() {
-		return query;
-	}
+    public String getQuery() {
+        return query;
+    }
 
-	public Date getCreatedAt() {
-		return createdAt;
-	}
+    public Date getCreatedAt() {
+        return createdAt;
+    }
 
-	public int getPosition() {
-		return position;
-	}
+    public int getPosition() {
+        return position;
+    }
 
 }
-

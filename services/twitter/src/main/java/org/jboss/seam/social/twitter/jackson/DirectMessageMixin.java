@@ -28,6 +28,7 @@ import org.jboss.seam.social.twitter.TwitterProfile;
  * Mixin class for adding Jackson annotations to DirectMessage.
  * 
  * @author Craig Walls
+ * @author Antoine Sabot-Durand
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 abstract class DirectMessageMixin {

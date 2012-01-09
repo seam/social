@@ -22,12 +22,15 @@ import org.codehaus.jackson.annotate.JsonProperty;
 
 /**
  * Mixin class for adding Jackson annotations to Trend.
+ * 
  * @author Craig Walls
+ * @author Antoine Sabot-Durand
  */
-@JsonIgnoreProperties(ignoreUnknown=true)
+@JsonIgnoreProperties(ignoreUnknown = true)
 abstract class TrendMixin {
 
-	@JsonCreator
-	TrendMixin(@JsonProperty("name") String name, @JsonProperty("query") String query) {}
+    @JsonCreator
+    TrendMixin(@JsonProperty("name") String name, @JsonProperty("query") String query) {
+    }
 
 }

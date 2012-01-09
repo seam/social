@@ -27,6 +27,7 @@ import org.jboss.seam.social.twitter.TwitterProfile;
  * Holder for list of TwitterProfile objects pulled from a JSON object's "users" property.
  * 
  * @author Craig Walls
+ * @author Antoine Sabot-Durand
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 class TwitterProfileUsersList {

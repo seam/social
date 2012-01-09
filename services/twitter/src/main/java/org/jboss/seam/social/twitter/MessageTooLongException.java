@@ -16,12 +16,12 @@
  */
 package org.jboss.seam.social.twitter;
 
-
 /**
  * Exception indicating that an attempt was made to post a status or send a direct message where the length exceeds Twitter's
  * 140 character limit.
  * 
  * @author Craig Walls
+ * @author Antoine Sabot-Durand
  */
 @SuppressWarnings("serial")
 public class MessageTooLongException extends IllegalArgumentException {

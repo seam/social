@@ -20,6 +20,7 @@ package org.jboss.seam.social.twitter;
  * Interface defining the operations for working with a user's friends and followers.
  * 
  * @author Craig Walls
+ * @author Antoine Sabot-Durand
  */
 public interface TwitterFriendService {
 

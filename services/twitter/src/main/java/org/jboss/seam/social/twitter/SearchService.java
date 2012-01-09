@@ -22,6 +22,7 @@ import java.util.List;
  * Interface defining the operations for searching Twitter and retrieving trending data.
  * 
  * @author Craig Walls
+ * @author Antoine Sabot-Durand
  */
 public interface SearchService {
 
