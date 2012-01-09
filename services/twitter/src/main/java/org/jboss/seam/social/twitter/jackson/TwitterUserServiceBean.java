@@ -39,7 +39,7 @@ import com.google.common.collect.Multimap;
  * @author Craig Walls
  */
 @Named
-public class TwitterUserServiceImpl extends TwitterBaseServiceImpl implements TwitterUserService {
+public class TwitterUserServiceBean extends TwitterBaseServiceImpl implements TwitterUserService {
 
     /**
      * 
@@ -81,56 +81,46 @@ public class TwitterUserServiceImpl extends TwitterBaseServiceImpl implements Tw
     static final String LOOKUP = "users/lookup.json";
     static final String RATE_LIMIT_STATUS = "account/rate_limit_status.json";
 
-    @Override
     public String getProfileId() {
         requireAuthorization();
         return getMyProfile().getId();
     }
 
-    @Override
     public String getScreenName() {
         requireAuthorization();
         return getMyProfile().getScreenName();
     }
 
-    @Override
     public TwitterProfile getUserProfile(String screenName) {
         return requestObject(buildUri(GET_USER_PROFILE_URL, "screen_name", screenName), TwitterProfile.class);
     }
 
-    @Override
     public TwitterProfile getUserProfile(long userId) {
         return requestObject(buildUri(GET_USER_PROFILE_URL, "user_id", String.valueOf(userId)), TwitterProfile.class);
     }
 
-    @Override
     public byte[] getUserProfileImage(String screenName) {
         return getUserProfileImage(screenName, ImageSize.NORMAL);
     }
 
-    @Override
     public byte[] getUserProfileImage(String screenName, ImageSize size) {
         throw new UnsupportedOperationException("Not supported yet");
     }
 
-    @Override
     public List<TwitterProfile> getUsers(String... userIds) {
         String joinedIds = URLUtils.commaJoiner.join(userIds);
         return requestObject(buildUri(LOOKUP, "user_id", joinedIds), TwitterProfileList.class);
     }
 
-    @Override
     public List<TwitterProfile> getUsersByName(String... screenNames) {
         String joinedScreenNames = URLUtils.commaJoiner.join(screenNames);
         return requestObject(buildUri(LOOKUP, "screen_name", joinedScreenNames), TwitterProfileList.class);
     }
 
-    @Override
     public List<TwitterProfile> searchForUsers(String query) {
         return searchForUsers(query, 1, 20);
     }
 
-    @Override
     public List<TwitterProfile> searchForUsers(String query, int page, int pageSize) {
         requireAuthorization();
         Multimap<String, String> parameters = URLUtils.buildPagingParametersWithPerPage(page, pageSize, 0, 0);
@@ -138,17 +128,14 @@ public class TwitterUserServiceImpl extends TwitterBaseServiceImpl implements Tw
         return requestObject(buildUri(SEARCH_USER_URL, parameters), TwitterProfileList.class);
     }
 
-    @Override
     public List<SuggestionCategory> getSuggestionCategories() {
         return requestObject(buildUri(SUGGESTION_CATEGORIES), SuggestionCategoryList.class);
     }
 
-    @Override
     public List<TwitterProfile> getSuggestions(String slug) {
         return requestObject(buildUri("users/suggestions/" + slug + ".json"), TwitterProfileUsersList.class).getList();
     }
 
-    @Override
     public RateLimitStatus getRateLimitStatus() {
         return requestObject(buildUri(RATE_LIMIT_STATUS), RateLimitStatus.class);
     }

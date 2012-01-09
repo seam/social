@@ -70,7 +70,7 @@ public interface OAuthBaseService extends RestService {
      * @param params a Map of key value parameters to send in the header of the request
      * @return an HttpResponse containing the response. It could be in various format (json, xml, string)
      */
-    public RestResponse sendSignedRequest(RestVerb verb, String uri, Map<String, Object> params);
+    public RestResponse sendSignedRequest(RestVerb verb, String uri, Map<String, ? extends Object> params);
 
     /**
      * Send an OAuth request signed with a single parameter

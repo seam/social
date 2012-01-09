@@ -156,9 +156,9 @@ public abstract class OAuthBaseServiceImpl implements OAuthBaseService {
     }
 
     @Override
-    public RestResponse sendSignedRequest(RestVerb verb, String uri, Map<String, Object> params) {
+    public RestResponse sendSignedRequest(RestVerb verb, String uri, Map<String, ? extends Object> params) {
         OAuthRequest request = getProvider().requestFactory(verb, uri);
-        for (Entry<String, Object> ent : params.entrySet()) {
+        for (Entry<String, ? extends Object> ent : params.entrySet()) {
             request.addBodyParameter(ent.getKey(), ent.getValue().toString());
         }
         return sendSignedRequest(request);
@@ -236,7 +236,12 @@ public abstract class OAuthBaseServiceImpl implements OAuthBaseService {
     }
 
     @Override
-    public <T> T postObject(String uri, Multimap<String, Object> params, Class<T> clazz) {
+    public <T> T requestObject(String uri, Class<T> clazz, Map<String, ? extends Object> params) {
+        return jsonService.requestObject(sendSignedRequest(GET, uri, params), clazz);
+    }
+
+    @Override
+    public <T> T postObject(String uri, Multimap<String, ? extends Object> params, Class<T> clazz) {
         OAuthRequest request = getProvider().requestFactory(POST, uri);
         Map<String, String> reqParams = request.getBodyParams();
         Map<String, String> unifiedParams = URLUtils.multimapToMap(params);

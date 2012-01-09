@@ -43,7 +43,7 @@ import com.google.common.collect.Multimap;
  */
 @Named
 @ApplicationScoped
-public class TwitterTimelineServiceImpl extends TwitterBaseServiceImpl implements TwitterTimelineService {
+public class TwitterTimelineServiceBean extends TwitterBaseServiceImpl implements TwitterTimelineService {
 
     /**
      * 

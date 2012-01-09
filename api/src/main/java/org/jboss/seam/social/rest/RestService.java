@@ -18,6 +18,7 @@ package org.jboss.seam.social.rest;
 
 import java.io.Serializable;
 import java.lang.annotation.Annotation;
+import java.util.Map;
 
 import org.jboss.seam.social.UserProfile;
 
@@ -101,6 +102,14 @@ public interface RestService extends Serializable {
      * @param clazz
      * @return
      */
-    public <T> T postObject(String uri, Multimap<String, Object> params, Class<T> clazz);
+    public <T> T postObject(String uri, Multimap<String, ? extends Object> params, Class<T> clazz);
+
+    /**
+     * @param uri
+     * @param clazz
+     * @param params
+     * @return
+     */
+    public <T> T requestObject(String uri, Class<T> clazz, Map<String, ? extends Object> params);
 
 }
