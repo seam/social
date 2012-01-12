@@ -54,6 +54,10 @@
             <artifactId>solder-impl</artifactId>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>org.jboss.seam.security</groupId>
+            <artifactId>seam-security-api</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

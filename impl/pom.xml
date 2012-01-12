@@ -63,6 +63,19 @@
         </dependency>
 
         <dependency>
+            <groupId>org.jboss.seam.security</groupId>
+            <artifactId>seam-security</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>javax.faces</groupId>
+            <artifactId>jsf-api</artifactId>
+            <scope>provided</scope>
+            <version>2.0</version>
+        </dependency>
+
+        <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
         </dependency>
