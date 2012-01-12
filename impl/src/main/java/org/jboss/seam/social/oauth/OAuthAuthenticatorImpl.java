@@ -18,6 +18,7 @@ package org.jboss.seam.social.oauth;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.lang.annotation.Annotation;
 import java.util.Collection;
 import java.util.List;
 
@@ -37,6 +38,7 @@ import org.jboss.seam.security.Authenticator.AuthenticationStatus;
 import org.jboss.seam.security.events.DeferredAuthenticationEvent;
 import org.jboss.seam.security.management.picketlink.IdentitySessionProducer;
 import org.jboss.seam.social.MultiServicesManager;
+import org.jboss.seam.social.SeamSocialExtension;
 import org.jboss.solder.logging.Logger;
 import org.picketlink.idm.api.Group;
 import org.picketlink.idm.api.IdentitySession;
@@ -51,6 +53,10 @@ import org.picketlink.idm.common.exception.IdentityException;
  * 
  * Based on OpenIdAuthenticator from Seam Security External module.
  * 
+ * The OAuthAuthenticatorImpl has two modes of operation, depending on the value of the serviceName
+ *  1. Using the only configured OAuthService if serviceName is null, this will raise an IllegalStateException if there is no or more than one available @ServiceRelated OAuthService. 
+ *  2. Using the multiServicesManager, in which case the serviceName selects the service which which to create a new connection. 
+ * 
  * @author maschmid
  *
  */
@@ -62,7 +68,7 @@ public class OAuthAuthenticatorImpl extends BaseAuthenticator implements OAuthAu
 
     @Inject
     @Any
-    private Instance<OAuthService> oauthService;
+    private Instance<OAuthService> serviceInstances;
     
     private String serviceName = null;
     
@@ -76,7 +82,7 @@ public class OAuthAuthenticatorImpl extends BaseAuthenticator implements OAuthAu
     Instance<Identity> identity;
     
     @Inject
-    MultiServicesManager multiServicesManager;
+    Instance<MultiServicesManager> multiServicesManager;
     
     @Inject
     Instance<IdentitySession> identitySession;
@@ -86,6 +92,9 @@ public class OAuthAuthenticatorImpl extends BaseAuthenticator implements OAuthAu
     
     @Inject
     Logger log;
+    
+    @Inject
+    SeamSocialExtension extension;
     
     @Inject BeanManager beanManager;
     
@@ -109,90 +118,68 @@ public class OAuthAuthenticatorImpl extends BaseAuthenticator implements OAuthAu
     
     @Override
     public List<String> getListOfServices() {
-        return multiServicesManager.getListOfServices();
+        return multiServicesManager.get().getListOfServices();
+    }
+    
+    private OAuthService getUnambiguousService() {
+        // Attempts to get the only configured service
+        if (extension.getSocialRelated().size() == 1) {
+            String name = extension.getSocialRelated().iterator().next();
+            Annotation qualifier = SeamSocialExtension.getServicesToQualifier().inverse().get(name);
+            return serviceInstances.select(qualifier).get();
+        }
+        else {
+            throw new IllegalStateException("Service name not set and there is no unambiguous OAuthService available");
+        }
+    }
+    
+    private OAuthService getCurrentService() {
+        if (serviceName == null) {
+            return getUnambiguousService();
+        }
+        else {
+            return multiServicesManager.get().getCurrentService();
+        }
     }
     
     @Override
     public void authenticate() {
                
-        if (serviceName == null) {
-            
-            log.debug("Service name null, authenticating with unamgiguous oauthService");
-            
-            if (!oauthService.isUnsatisfied() && !oauthService.isAmbiguous()) {
-                OAuthService unambiguousOAuthService = oauthService.get();
-                
-                try {
-                    FacesContext.getCurrentInstance().getExternalContext().redirect(unambiguousOAuthService.getAuthorizationUrl());
-                    setStatus(AuthenticationStatus.DEFERRED);
-                } catch (IOException e) {
-                    log.error("Failed to redirect ", e);
-                    setStatus(AuthenticationStatus.FAILURE);            
-                }
-            }
-            else {
-                throw new IllegalStateException("Service name not set and there is no unambiguous OAuthService available");
-            }
+        String authorizationUrl;
+        
+        if (serviceName == null) {            
+            log.debug("Service name null, authenticating with unamgiguous oauthService");            
+            OAuthService oauthService = getUnambiguousService();
+            authorizationUrl = oauthService.getAuthorizationUrl();
         }
-        else {
-            
+        else {      
             log.debug("authenticating service \"" + serviceName + "\"");
-            
-            String serviceUrl = multiServicesManager.initNewSession(serviceName);
-            
-            try {
-                FacesContext.getCurrentInstance().getExternalContext().redirect(serviceUrl);
-                setStatus(AuthenticationStatus.DEFERRED);
-            } catch (IOException e) {
-                log.error("Failed to redirect ", e);
-                setStatus(AuthenticationStatus.FAILURE);
-            }
+            authorizationUrl = multiServicesManager.get().initNewSession(serviceName);
         }
+        
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect(authorizationUrl);
+                 setStatus(AuthenticationStatus.DEFERRED);
+             } catch (IOException e) {
+                 log.error("Failed to redirect ", e);
+                 setStatus(AuthenticationStatus.FAILURE);            
+             }
     }
+    
     
     @Override
     public String getVerifierParamName() {
-        if (serviceName != null) {
-            return multiServicesManager.getCurrentService().getVerifierParamName();
-        }
-        else {            
-            if (!oauthService.isUnsatisfied() && !oauthService.isAmbiguous()) {
-                return oauthService.get().getVerifierParamName();
-            }
-            else {
-                throw new IllegalStateException("Service name not set and there is no unambiguous OAuthService available");
-            }
-        }
+        return getCurrentService().getVerifierParamName();
     }
     
     @Override
     public String getVerifier() {
-        if (serviceName != null) {
-            return multiServicesManager.getCurrentSession().getVerifier();
-        }
-        else {
-            if (!oauthService.isUnsatisfied() && !oauthService.isAmbiguous()) {
-                return oauthService.get().getVerifier();
-            }
-            else {
-                throw new IllegalStateException("Service name not set and there is no unambiguous OAuthService available");
-            }
-        }
+        return getCurrentService().getVerifier();
     }
     
     @Override
     public void setVerifier(String verifier) {
-        if (serviceName != null) {
-            multiServicesManager.getCurrentSession().setVerifier(verifier);
-        }
-        else {        
-            if (!oauthService.isUnsatisfied() && !oauthService.isAmbiguous()) {
-                oauthService.get().setVerifier(verifier);
-            }
-            else {
-                throw new IllegalStateException("Service name not set and there is no unambiguous OAuthService available");
-            }
-        }
+        getCurrentService().setVerifier(verifier);
     }
 
     @Override
@@ -202,23 +189,18 @@ public class OAuthAuthenticatorImpl extends BaseAuthenticator implements OAuthAu
         OAuthSession currentSession;
 
         if (serviceName != null) {
-            multiServicesManager.connectCurrentService();
+            MultiServicesManager manager = multiServicesManager.get();
+            manager.connectCurrentService();
            
-            currentService = multiServicesManager.getCurrentService();
-            currentSession = multiServicesManager.getCurrentSession();
+            currentService = manager.getCurrentService();
+            currentSession = manager.getCurrentSession();
         }
         else {
-            if (!oauthService.isUnsatisfied() && !oauthService.isAmbiguous()) {
-                currentService = oauthService.get();
-                currentSession = currentService.getSession();
+            currentService = getUnambiguousService();
+            currentSession = currentService.getSession();
                 
-                currentService.initAccessToken();
-            }
-            else {
-                throw new IllegalStateException("Service name not set and there is no unambiguous OAuthService available");
-            }
+            currentService.initAccessToken();
         }
-        
             
         OAuthUser user = new OAuthUser(currentService.getType(), currentSession.getUserProfile());
                 
