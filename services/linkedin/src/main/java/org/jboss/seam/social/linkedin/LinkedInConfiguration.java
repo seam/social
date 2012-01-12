@@ -19,7 +19,7 @@ package org.jboss.seam.social.linkedin;
 
 import org.jboss.seam.social.LinkedIn;
 import org.jboss.seam.social.ServiceConfiguration;
-import org.jboss.seam.social.oauth.OAuthBaseService;
+import org.jboss.seam.social.oauth.OAuthService;
 
 /**
  * @author antoine
@@ -34,7 +34,7 @@ public class LinkedInConfiguration implements ServiceConfiguration {
      * @see org.jboss.seam.social.ServiceConfiguration#getServiceClass()
      */
     @Override
-    public Class<? extends OAuthBaseService> getServiceClass() {
+    public Class<? extends OAuthService> getServiceClass() {
         return LinkedInService.class;
     }
 

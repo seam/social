@@ -20,7 +20,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
 
-import org.jboss.seam.social.oauth.OAuthBaseService;
+import org.jboss.seam.social.oauth.OAuthService;
 import org.jboss.seam.social.oauth.OAuthSession;
 
 /**
@@ -44,13 +44,13 @@ public interface MultiServicesManager extends Serializable {
      * @param serviceName the name of the service
      * @return the Bean of the new service
      * 
-     *         public OAuthBaseService getService(String serviceName);
+     *         public OAuthService getService(String serviceName);
      */
 
     /**
      * @return the current service
      */
-    public OAuthBaseService getCurrentService();
+    public OAuthService getCurrentService();
 
     /**
      * @return the status of the current service.

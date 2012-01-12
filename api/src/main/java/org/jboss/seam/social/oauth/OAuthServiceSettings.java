@@ -20,11 +20,11 @@ import java.io.Serializable;
 import java.lang.annotation.Annotation;
 
 /**
- * Interface for model containing settings needed to access to an OAuth 1.0a service It's used by {@link OAuthBaseService} to setup
+ * Interface for model containing settings needed to access to an OAuth 1.0a service It's used by {@link OAuthService} to setup
  * connection to OAuth Service
  * 
  * @author Antoine Sabot-Durand
- * @see OAuthBaseService
+ * @see OAuthService
  */
 public interface OAuthServiceSettings extends Serializable {
 

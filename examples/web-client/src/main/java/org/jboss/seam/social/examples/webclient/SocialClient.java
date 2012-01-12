@@ -35,7 +35,7 @@ import javax.inject.Named;
 import org.jboss.seam.social.MultiServicesManager;
 import org.jboss.seam.social.SocialEvent;
 import org.jboss.seam.social.StatusUpdated;
-import org.jboss.seam.social.oauth.OAuthBaseService;
+import org.jboss.seam.social.oauth.OAuthService;
 import org.jboss.seam.social.oauth.OAuthSession;
 import org.jboss.seam.social.oauth.OAuthToken;
 import org.jboss.solder.logging.Logger;
@@ -98,7 +98,7 @@ public class SocialClient implements Serializable {
 
     @Produces
     @Named
-    public OAuthBaseService getCurrentService() {
+    public OAuthService getCurrentService() {
         return manager.getCurrentService();
     }
 

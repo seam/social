@@ -24,7 +24,7 @@ import org.jboss.seam.social.UserProfile;
 import org.jboss.seam.social.linkedin.LinkedInService;
 import org.jboss.seam.social.linkedin.model.LinkedInProfile;
 import org.jboss.seam.social.linkedin.model.Update;
-import org.jboss.seam.social.oauth.OAuthBaseServiceImpl;
+import org.jboss.seam.social.oauth.OAuthServiceImpl;
 import org.jboss.seam.social.oauth.OAuthRequest;
 import org.jboss.seam.social.rest.RestResponse;
 import org.jboss.seam.social.rest.RestVerb;
@@ -34,7 +34,7 @@ import org.jboss.seam.social.rest.RestVerb;
 * @author Craig Walls
 * @author Antoine Sabot-Durand
 */
-public class LinkedInServiceJackson extends OAuthBaseServiceImpl implements LinkedInService {
+public class LinkedInServiceJackson extends OAuthServiceImpl implements LinkedInService {
 
     private static final long serialVersionUID = -6718362913575146613L;
 
@@ -53,7 +53,7 @@ public class LinkedInServiceJackson extends OAuthBaseServiceImpl implements Link
     /*
      * (non-Javadoc)
      * 
-     * @see org.jboss.seam.social.oauth.OAuthBaseService#getServiceLogo()
+     * @see org.jboss.seam.social.oauth.OAuthService#getServiceLogo()
      */
     @Override
     public String getServiceLogo() {
@@ -63,7 +63,7 @@ public class LinkedInServiceJackson extends OAuthBaseServiceImpl implements Link
     /*
      * (non-Javadoc)
      * 
-     * @see org.jboss.seam.social.oauth.OAuthBaseService#getUserProfile()
+     * @see org.jboss.seam.social.oauth.OAuthService#getUserProfile()
      */
     @Override
     public UserProfile getMyProfile() {
@@ -127,7 +127,7 @@ public class LinkedInServiceJackson extends OAuthBaseServiceImpl implements Link
     /*
      * (non-Javadoc)
      * 
-     * @see org.jboss.seam.social.oauth.OAuthBaseServiceImpl#getApiRootUrl()
+     * @see org.jboss.seam.social.oauth.OAuthServiceImpl#getApiRootUrl()
      */
     @Override
     public String getApiRootUrl() {

@@ -28,7 +28,7 @@ import org.jboss.solder.bean.generic.GenericType;
  * 
  */
 @Retention(RUNTIME)
-@GenericType(OAuthBaseService.class)
+@GenericType(OAuthService.class)
 public @interface OAuthApplication {
     String apiKey();
 

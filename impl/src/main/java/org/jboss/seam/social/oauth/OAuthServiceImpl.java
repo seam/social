@@ -43,13 +43,13 @@ import org.jboss.solder.logging.Logger;
 import com.google.common.collect.Multimap;
 
 /**
- * This Abstract implementation of {@link OAuthBaseService} uses an {@link OAuthProvider} to deal with remote OAuth Services
+ * This Abstract implementation of {@link OAuthService} uses an {@link OAuthProvider} to deal with remote OAuth Services
  * 
  * 
  * @author Antoine Sabot-Durand
  */
 
-public abstract class OAuthBaseServiceImpl implements OAuthBaseService {
+public abstract class OAuthServiceImpl implements OAuthService {
 
     private static final long serialVersionUID = -8423894021913341674L;
     private static final String VERIFIER_PARAM_NAME = "oauth_verifier";

@@ -29,8 +29,8 @@ import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.seam.social.MultiServicesManagerImpl;
 import org.jboss.seam.social.UserProfile;
-import org.jboss.seam.social.oauth.OAuthBaseService;
-import org.jboss.seam.social.oauth.OAuthBaseServiceImpl;
+import org.jboss.seam.social.oauth.OAuthService;
+import org.jboss.seam.social.oauth.OAuthServiceImpl;
 import org.jboss.shrinkwrap.api.Archive;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -51,8 +51,8 @@ public class MultiServicesManagerImplTest {
     static UserProfile u1;
     static UserProfile u2;
 
-    static OAuthBaseService serv1;
-    static OAuthBaseService serv2;
+    static OAuthService serv1;
+    static OAuthService serv2;
 
     @BeforeClass
     public static void initClass() {
@@ -64,8 +64,8 @@ public class MultiServicesManagerImplTest {
         when(u2.getId()).thenReturn("u2");
         when(u2.getFullName()).thenReturn("User 2");
 
-        serv1 = mock(OAuthBaseServiceImpl.class);
-        serv2 = mock(OAuthBaseServiceImpl.class);
+        serv1 = mock(OAuthServiceImpl.class);
+        serv2 = mock(OAuthServiceImpl.class);
 
         when(serv1.getMyProfile()).thenReturn(u1);
         when(serv2.getMyProfile()).thenReturn(u2);

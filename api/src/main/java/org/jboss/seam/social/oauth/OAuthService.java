@@ -27,7 +27,7 @@ import org.jboss.seam.social.rest.RestVerb;
  * 
  * @author Antoine Sabot-Durand
  */
-public interface OAuthBaseService extends RestService {
+public interface OAuthService extends RestService {
 
     /**
      * @return the access token for the OAuth service

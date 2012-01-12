@@ -32,12 +32,9 @@ import org.jboss.seam.social.StatusUpdated;
 import org.jboss.seam.social.Twitter;
 import org.jboss.seam.social.TwitterLiteral;
 import org.jboss.seam.social.URLUtils;
-import org.jboss.seam.social.oauth.OAuthBaseServiceImpl;
-import org.jboss.seam.social.twitter.TwitterBlockService;
+import org.jboss.seam.social.oauth.OAuthServiceImpl;
 import org.jboss.seam.social.twitter.CursoredList;
 import org.jboss.seam.social.twitter.DirectMessage;
-import org.jboss.seam.social.twitter.TwitterDirectMessageService;
-import org.jboss.seam.social.twitter.TwitterFriendService;
 import org.jboss.seam.social.twitter.ImageSize;
 import org.jboss.seam.social.twitter.Place;
 import org.jboss.seam.social.twitter.PlacePrototype;
@@ -48,6 +45,9 @@ import org.jboss.seam.social.twitter.StatusDetails;
 import org.jboss.seam.social.twitter.SuggestionCategory;
 import org.jboss.seam.social.twitter.Tweet;
 import org.jboss.seam.social.twitter.TwitterBaseService;
+import org.jboss.seam.social.twitter.TwitterBlockService;
+import org.jboss.seam.social.twitter.TwitterDirectMessageService;
+import org.jboss.seam.social.twitter.TwitterFriendService;
 import org.jboss.seam.social.twitter.TwitterProfile;
 import org.jboss.seam.social.twitter.TwitterTimelineService;
 import org.jboss.seam.social.twitter.TwitterUserService;
@@ -61,7 +61,7 @@ import com.google.common.collect.Multimap;
  * @author Craig Walls
  * 
  */
-public class TwitterServiceImpl extends OAuthBaseServiceImpl implements TwitterBaseService, TwitterUserService,
+public class TwitterServiceImpl extends OAuthServiceImpl implements TwitterBaseService, TwitterUserService,
         TwitterTimelineService, TwitterFriendService, TwitterBlockService, TwitterDirectMessageService {
 
     private static final long serialVersionUID = 6806035986656777834L;

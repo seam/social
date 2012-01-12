@@ -16,14 +16,14 @@
  */
 package org.jboss.seam.social.twitter;
 
-import org.jboss.seam.social.oauth.OAuthBaseService;
+import org.jboss.seam.social.oauth.OAuthService;
 
 /**
- * A specialization of {@link OAuthBaseService} to add TwitterRelated specific methods
+ * A specialization of {@link OAuthService} to add TwitterRelated specific methods
  * 
  * @author Antoine Sabot-Durand
  */
 
-public interface TwitterBaseService extends OAuthBaseService {
+public interface TwitterBaseService extends OAuthService {
 
 }

@@ -18,7 +18,7 @@ package org.jboss.seam.social.twitter;
 
 import org.jboss.seam.social.ServiceConfiguration;
 import org.jboss.seam.social.Twitter;
-import org.jboss.seam.social.oauth.OAuthBaseService;
+import org.jboss.seam.social.oauth.OAuthService;
 
 /**
  * @author Antoine Sabot-Durand
@@ -33,7 +33,7 @@ public class TwitterConfiguration implements ServiceConfiguration {
      * @see org.jboss.seam.social.ServiceConfiguration#getServiceClass()
      */
     @Override
-    public Class<? extends OAuthBaseService> getServiceClass() {
+    public Class<? extends OAuthService> getServiceClass() {
         return TwitterBaseService.class;
     }
 

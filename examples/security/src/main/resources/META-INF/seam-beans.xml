@@ -25,14 +25,14 @@
         <security:authenticatorName>oauthAuthenticator</security:authenticatorName>
     </security:IdentityImpl>
 
-    <o:TwitterServiceJackson>
+     <o:TwitterServiceImpl>
         <s:modifies />
         <o:Twitter/>
         <s:ApplicationScoped />
         <o:OAuthApplication apiKey="FQzlQC49UhvbMZoxUIvHTQ"
             apiSecret="VQ5CZHG4qUoAkUUmckPn4iN4yyjBKcORTW0wnok4r1k"
             callback="http://localhost:8080/social-security/callback.jsf" />
-    </o:TwitterServiceJackson>
+    </o:TwitterServiceImpl>
 
     <o:LinkedInServiceJackson>
         <s:modifies />

@@ -39,7 +39,7 @@ public class OAuthGenericManager {
 
     @Inject
     @Generic
-    OAuthBaseService service;
+    OAuthService service;
 
     @Inject
     @Generic
@@ -57,7 +57,7 @@ public class OAuthGenericManager {
 
     @Produces
     @SessionScoped
-    protected OAuthSession produceSession() {
+    public OAuthSession produceSession() {
         return new OAuthSessionImpl(qual);
     }
 

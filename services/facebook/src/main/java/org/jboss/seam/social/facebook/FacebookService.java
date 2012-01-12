@@ -17,12 +17,12 @@
 
 package org.jboss.seam.social.facebook;
 
-import org.jboss.seam.social.oauth.OAuthBaseService;
+import org.jboss.seam.social.oauth.OAuthService;
 
 /**
- * A specialization of {@link OAuthBaseService} to add Facebook specific methods
+ * A specialization of {@link OAuthService} to add Facebook specific methods
  * 
  * @author Antoine Sabot-Durand
  */
-public interface FacebookService extends OAuthBaseService {
+public interface FacebookService extends OAuthService {
 }
