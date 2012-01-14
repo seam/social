@@ -15,17 +15,17 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<beans xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:s="urn:java:ee"
-    xmlns:o="urn:java:org.jboss.seam.social:org.jboss.seam.social.oauth:org.jboss.seam.social.twitter.jackson">
-
-
-<o:TwitterServiceImpl>
-    <s:modifies/>
-        <o:Twitter />
-        <o:OAuthApplication apiKey="FQzlQC49UhvbMZoxUIvHTQ"
-            apiSecret="VQ5CZHG4qUoAkUUmckPn4iN4yyjBKcORTW0wnok4r1k"
-            callback="http://localhost:8080/social-web-client/callback.jsf"/>
-    </o:TwitterServiceImpl>
-    
+<beans xmlns="http://java.sun.com/xml/ns/javaee"
+ xmlns:o="urn:java:org.jboss.seam.social:org.jboss.seam.social.oauth:org.jboss.seam.social.twitter.jackson"
+ xmlns:s="urn:java:ee"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://jboss.org/schema/cdi/beans_1_0.xsd">
+ <o:TwitterServiceImpl>
+  <s:modifies/>
+  <o:Twitter/>
+  <o:OAuthApplication apiKey="FQzlQC49UhvbMZoxUIvHTQ"
+   apiSecret="VQ5CZHG4qUoAkUUmckPn4iN4yyjBKcORTW0wnok4r1k" callback="http://localhost:8080/social-web-client/callback.jsf"/>
+ </o:TwitterServiceImpl>
+ <decorators>
+  <class>org.jboss.seam.social.twitter.event.TwitterTimelineServiceDecorator</class>
+ </decorators>
 </beans>

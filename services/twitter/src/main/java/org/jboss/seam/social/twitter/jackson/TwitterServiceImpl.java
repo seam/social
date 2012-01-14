@@ -21,15 +21,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javax.enterprise.event.Event;
 import javax.inject.Inject;
 
 import org.codehaus.jackson.annotate.JsonCreator;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
-import org.jboss.seam.social.SocialEvent.Status;
-import org.jboss.seam.social.StatusUpdated;
-import org.jboss.seam.social.Twitter;
 import org.jboss.seam.social.TwitterLiteral;
 import org.jboss.seam.social.URLUtils;
 import org.jboss.seam.social.oauth.OAuthServiceImpl;
@@ -225,10 +221,6 @@ public class TwitterServiceImpl extends OAuthServiceImpl implements TwitterBaseS
     private static final String USER_TIMELINE_URL = "statuses/user_timeline.json";
     private static final String HOME_TIMELINE_URL = "statuses/home_timeline.json";
     private static final String PUBLIC_TIMELINE_URL = "statuses/public_timeline.json";
-
-    @Inject
-    @Twitter
-    private Event<StatusUpdated> statusUpdateEventProducer;
 
     @Override
     public List<Tweet> getPublicTimeline() {
@@ -458,15 +450,11 @@ public class TwitterServiceImpl extends OAuthServiceImpl implements TwitterBaseS
     // }
 
     public Tweet updateStatus(String message, StatusDetails details) {
-        Tweet res;
         requireAuthorization();
         Multimap<String, Object> tweetParams = LinkedListMultimap.create();
         tweetParams.put("status", message);
         tweetParams.putAll(details.toParameterMap());
-        res = postObject(buildUri("statuses/update.json"), tweetParams, Tweet.class);
-        statusUpdateEventProducer.fire(new StatusUpdated(Status.SUCCESS, message, res));
-        return res;
-
+        return postObject(buildUri("statuses/update.json"), tweetParams, Tweet.class);
     }
 
     // public Tweet updateStatus(String message, Resource media, StatusDetails details) {
