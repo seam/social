@@ -22,7 +22,7 @@ import java.util.List;
  * Interface defining the operations for sending and retrieving tweets.
  * 
  * @author Craig Walls
- * @Author Antoine Sabot-Durand
+ * @author Antoine Sabot-Durand
  */
 public interface TwitterTimelineService {
 
