@@ -25,7 +25,4 @@
   <o:OAuthApplication apiKey="FQzlQC49UhvbMZoxUIvHTQ"
    apiSecret="VQ5CZHG4qUoAkUUmckPn4iN4yyjBKcORTW0wnok4r1k" callback="http://localhost:8080/social-web-client/callback.jsf"/>
  </o:TwitterServiceImpl>
- <decorators>
-  <class>org.jboss.seam.social.twitter.event.TwitterTimelineServiceDecorator</class>
- </decorators>
 </beans>
