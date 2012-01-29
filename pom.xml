@@ -139,7 +139,6 @@
                 <module>docs</module>
                 <module>dist</module>
                 <module>examples/web-client</module>
-                <module>examples/security</module>
             </modules>
         </profile>
     </profiles>
