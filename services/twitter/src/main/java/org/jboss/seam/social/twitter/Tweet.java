@@ -31,9 +31,11 @@ public class Tweet {
     private String fromUser;
     private String profileImageUrl;
     private Long toUserId;
+    private Long inReplyToStatusId;
     private long fromUserId;
     private String languageCode;
     private String source;
+    private Integer retweetCount;
 
     public Tweet(long id, String text, Date createdAt, String fromUser, String profileImageUrl, Long toUserId, long fromUserId,
             String languageCode, String source) {
@@ -100,6 +102,14 @@ public class Tweet {
         return fromUserId;
     }
 
+    public void setInReplyToStatusId(Long inReplyToStatusId) {
+        this.inReplyToStatusId = inReplyToStatusId;
+    }
+
+    public Long getInReplyToStatusId() {
+        return inReplyToStatusId;
+    }
+
     public void setFromUserId(long fromUserId) {
         this.fromUserId = fromUserId;
     }
@@ -118,5 +128,17 @@ public class Tweet {
 
     public void setSource(String source) {
         this.source = source;
+    }
+
+    public void setRetweetCount(Integer retweetCount) {
+        this.retweetCount = retweetCount;
+    }
+
+    /**
+     * The number of times this tweet has been retweeted. Only available in timeline results. getRetweetCount() will return null
+     * for Tweet objects returned in search results.
+     */
+    public Integer getRetweetCount() {
+        return retweetCount;
     }
 }
