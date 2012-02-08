@@ -87,7 +87,7 @@ public class TwitterServiceImpl extends OAuthServiceImpl implements TwitterBaseS
     @Override
     public TwitterProfile getUserProfile() {
         requireAuthorization();
-        return requestObject(buildUri(VERIFY_CREDENTIALS_URL), TwitterProfile.class);
+        return getForObject(buildUri(VERIFY_CREDENTIALS_URL), TwitterProfile.class);
     }
 
     @Override
@@ -156,12 +156,12 @@ public class TwitterServiceImpl extends OAuthServiceImpl implements TwitterBaseS
 
     @Override
     public TwitterProfile getUserProfile(String screenName) {
-        return requestObject(buildUri(GET_USER_PROFILE_URL, "screen_name", screenName), TwitterProfile.class);
+        return getForObject(buildUri(GET_USER_PROFILE_URL, "screen_name", screenName), TwitterProfile.class);
     }
 
     @Override
     public TwitterProfile getUserProfile(long userId) {
-        return requestObject(buildUri(GET_USER_PROFILE_URL, "user_id", String.valueOf(userId)), TwitterProfile.class);
+        return getForObject(buildUri(GET_USER_PROFILE_URL, "user_id", String.valueOf(userId)), TwitterProfile.class);
     }
 
     @Override
@@ -177,13 +177,13 @@ public class TwitterServiceImpl extends OAuthServiceImpl implements TwitterBaseS
     @Override
     public List<TwitterProfile> getUsers(String... userIds) {
         String joinedIds = URLUtils.commaJoiner.join(userIds);
-        return requestObject(buildUri(LOOKUP, "user_id", joinedIds), TwitterProfileList.class);
+        return getForObject(buildUri(LOOKUP, "user_id", joinedIds), TwitterProfileList.class);
     }
 
     @Override
     public List<TwitterProfile> getUsersByName(String... screenNames) {
         String joinedScreenNames = URLUtils.commaJoiner.join(screenNames);
-        return requestObject(buildUri(LOOKUP, "screen_name", joinedScreenNames), TwitterProfileList.class);
+        return getForObject(buildUri(LOOKUP, "screen_name", joinedScreenNames), TwitterProfileList.class);
     }
 
     @Override
@@ -196,22 +196,22 @@ public class TwitterServiceImpl extends OAuthServiceImpl implements TwitterBaseS
         requireAuthorization();
         Multimap<String, String> parameters = URLUtils.buildPagingParametersWithPerPage(page, pageSize, 0, 0);
         parameters.put("q", query);
-        return requestObject(buildUri(SEARCH_USER_URL, parameters), TwitterProfileList.class);
+        return getForObject(buildUri(SEARCH_USER_URL, parameters), TwitterProfileList.class);
     }
 
     @Override
     public List<SuggestionCategory> getSuggestionCategories() {
-        return requestObject(buildUri(SUGGESTION_CATEGORIES), SuggestionCategoryList.class);
+        return getForObject(buildUri(SUGGESTION_CATEGORIES), SuggestionCategoryList.class);
     }
 
     @Override
     public List<TwitterProfile> getSuggestions(String slug) {
-        return requestObject(buildUri("users/suggestions/" + slug + ".json"), TwitterProfileUsersList.class).getList();
+        return getForObject(buildUri("users/suggestions/" + slug + ".json"), TwitterProfileUsersList.class).getList();
     }
 
     @Override
     public RateLimitStatus getRateLimitStatus() {
-        return requestObject(buildUri(RATE_LIMIT_STATUS), RateLimitStatus.class);
+        return getForObject(buildUri(RATE_LIMIT_STATUS), RateLimitStatus.class);
     }
 
     // **********************************************
@@ -224,7 +224,7 @@ public class TwitterServiceImpl extends OAuthServiceImpl implements TwitterBaseS
 
     @Override
     public List<Tweet> getPublicTimeline() {
-        return requestObject(buildUri(PUBLIC_TIMELINE_URL), TweetList.class);
+        return getForObject(buildUri(PUBLIC_TIMELINE_URL), TweetList.class);
     }
 
     @Override
@@ -241,7 +241,7 @@ public class TwitterServiceImpl extends OAuthServiceImpl implements TwitterBaseS
     public List<Tweet> getHomeTimeline(int page, int pageSize, long sinceId, long maxId) {
         requireAuthorization();
         Multimap<String, String> parameters = URLUtils.buildPagingParametersWithCount(page, pageSize, sinceId, maxId);
-        return requestObject(buildUri(HOME_TIMELINE_URL, parameters), TweetList.class);
+        return getForObject(buildUri(HOME_TIMELINE_URL, parameters), TweetList.class);
     }
 
     @Override
@@ -258,7 +258,7 @@ public class TwitterServiceImpl extends OAuthServiceImpl implements TwitterBaseS
     public List<Tweet> getUserTimeline(int page, int pageSize, long sinceId, long maxId) {
         requireAuthorization();
         Multimap<String, String> parameters = URLUtils.buildPagingParametersWithCount(page, pageSize, sinceId, maxId);
-        return requestObject(buildUri(USER_TIMELINE_URL, parameters), TweetList.class);
+        return getForObject(buildUri(USER_TIMELINE_URL, parameters), TweetList.class);
     }
 
     @Override
@@ -275,7 +275,7 @@ public class TwitterServiceImpl extends OAuthServiceImpl implements TwitterBaseS
     public List<Tweet> getUserTimeline(String screenName, int page, int pageSize, long sinceId, long maxId) {
         Multimap<String, String> parameters = URLUtils.buildPagingParametersWithCount(page, pageSize, sinceId, maxId);
         parameters.put("screen_name", screenName);
-        return requestObject(buildUri(USER_TIMELINE_URL, parameters), TweetList.class);
+        return getForObject(buildUri(USER_TIMELINE_URL, parameters), TweetList.class);
     }
 
     @Override
@@ -292,7 +292,7 @@ public class TwitterServiceImpl extends OAuthServiceImpl implements TwitterBaseS
     public List<Tweet> getUserTimeline(long userId, int page, int pageSize, long sinceId, long maxId) {
         Multimap<String, String> parameters = URLUtils.buildPagingParametersWithCount(page, pageSize, sinceId, maxId);
         parameters.put("user_id", String.valueOf(userId));
-        return requestObject(buildUri(USER_TIMELINE_URL, parameters), TweetList.class);
+        return getForObject(buildUri(USER_TIMELINE_URL, parameters), TweetList.class);
     }
 
     @Override
@@ -309,7 +309,7 @@ public class TwitterServiceImpl extends OAuthServiceImpl implements TwitterBaseS
     public List<Tweet> getMentions(int page, int pageSize, long sinceId, long maxId) {
         requireAuthorization();
         Multimap<String, String> parameters = URLUtils.buildPagingParametersWithCount(page, pageSize, sinceId, maxId);
-        return requestObject(buildUri("statuses/mentions.json", parameters), TweetList.class);
+        return getForObject(buildUri("statuses/mentions.json", parameters), TweetList.class);
     }
 
     @Override
@@ -326,7 +326,7 @@ public class TwitterServiceImpl extends OAuthServiceImpl implements TwitterBaseS
     public List<Tweet> getRetweetedByMe(int page, int pageSize, long sinceId, long maxId) {
         requireAuthorization();
         Multimap<String, String> parameters = URLUtils.buildPagingParametersWithCount(page, pageSize, sinceId, maxId);
-        return requestObject(buildUri("statuses/retweeted_by_me.json", parameters), TweetList.class);
+        return getForObject(buildUri("statuses/retweeted_by_me.json", parameters), TweetList.class);
     }
 
     @Override
@@ -344,7 +344,7 @@ public class TwitterServiceImpl extends OAuthServiceImpl implements TwitterBaseS
         requireAuthorization();
         Multimap<String, String> parameters = URLUtils.buildPagingParametersWithCount(page, pageSize, sinceId, maxId);
         parameters.put("user_id", String.valueOf(userId));
-        return requestObject(buildUri("statuses/retweeted_by_user.json", parameters), TweetList.class);
+        return getForObject(buildUri("statuses/retweeted_by_user.json", parameters), TweetList.class);
     }
 
     @Override
@@ -362,7 +362,7 @@ public class TwitterServiceImpl extends OAuthServiceImpl implements TwitterBaseS
         requireAuthorization();
         Multimap<String, String> parameters = URLUtils.buildPagingParametersWithCount(page, pageSize, sinceId, maxId);
         parameters.put("screen_name", screenName);
-        return requestObject(buildUri("statuses/retweeted_by_user.json", parameters), TweetList.class);
+        return getForObject(buildUri("statuses/retweeted_by_user.json", parameters), TweetList.class);
     }
 
     @Override
@@ -379,7 +379,7 @@ public class TwitterServiceImpl extends OAuthServiceImpl implements TwitterBaseS
     public List<Tweet> getRetweetedToMe(int page, int pageSize, long sinceId, long maxId) {
         requireAuthorization();
         Multimap<String, String> parameters = URLUtils.buildPagingParametersWithCount(page, pageSize, sinceId, maxId);
-        return requestObject(buildUri("statuses/retweeted_to_me.json", parameters), TweetList.class);
+        return getForObject(buildUri("statuses/retweeted_to_me.json", parameters), TweetList.class);
     }
 
     @Override
@@ -397,7 +397,7 @@ public class TwitterServiceImpl extends OAuthServiceImpl implements TwitterBaseS
         requireAuthorization();
         Multimap<String, String> parameters = URLUtils.buildPagingParametersWithCount(page, pageSize, sinceId, maxId);
         parameters.put("user_id", String.valueOf(userId));
-        return requestObject(buildUri("statuses/retweeted_to_user.json", parameters), TweetList.class);
+        return getForObject(buildUri("statuses/retweeted_to_user.json", parameters), TweetList.class);
     }
 
     @Override
@@ -415,7 +415,7 @@ public class TwitterServiceImpl extends OAuthServiceImpl implements TwitterBaseS
         requireAuthorization();
         Multimap<String, String> parameters = URLUtils.buildPagingParametersWithCount(page, pageSize, sinceId, maxId);
         parameters.put("screen_name", screenName);
-        return requestObject(buildUri("statuses/retweeted_to_user.json", parameters), TweetList.class);
+        return getForObject(buildUri("statuses/retweeted_to_user.json", parameters), TweetList.class);
     }
 
     @Override
@@ -432,12 +432,12 @@ public class TwitterServiceImpl extends OAuthServiceImpl implements TwitterBaseS
     public List<Tweet> getRetweetsOfMe(int page, int pageSize, long sinceId, long maxId) {
         requireAuthorization();
         Multimap<String, String> parameters = URLUtils.buildPagingParametersWithCount(page, pageSize, sinceId, maxId);
-        return requestObject(buildUri("statuses/retweets_of_me.json", parameters), TweetList.class);
+        return getForObject(buildUri("statuses/retweets_of_me.json", parameters), TweetList.class);
     }
 
     @Override
     public Tweet getStatus(long tweetId) {
-        return requestObject(buildUri("statuses/show/" + tweetId + ".json"), Tweet.class);
+        return getForObject(buildUri("statuses/show/" + tweetId + ".json"), Tweet.class);
     }
 
     @Override
@@ -454,7 +454,7 @@ public class TwitterServiceImpl extends OAuthServiceImpl implements TwitterBaseS
         Multimap<String, Object> tweetParams = LinkedListMultimap.create();
         tweetParams.put("status", message);
         tweetParams.putAll(details.toParameterMap());
-        return postObject(buildUri("statuses/update.json"), tweetParams, Tweet.class);
+        return postForObject(buildUri("statuses/update.json"), tweetParams, Tweet.class);
     }
 
     // public Tweet updateStatus(String message, Resource media, StatusDetails details) {
@@ -477,7 +477,7 @@ public class TwitterServiceImpl extends OAuthServiceImpl implements TwitterBaseS
     public void retweet(long tweetId) {
         requireAuthorization();
         Multimap<String, Object> data = LinkedListMultimap.create();
-        postObject(buildUri("statuses/retweet/" + tweetId + ".json"), data, String.class);
+        postForObject(buildUri("statuses/retweet/" + tweetId + ".json"), data, String.class);
     }
 
     @Override
@@ -489,7 +489,7 @@ public class TwitterServiceImpl extends OAuthServiceImpl implements TwitterBaseS
     public List<Tweet> getRetweets(long tweetId, int count) {
         Multimap<String, String> parameters = LinkedListMultimap.create();
         parameters.put("count", String.valueOf(count));
-        return requestObject(buildUri("statuses/retweets/" + tweetId + ".json", parameters), TweetList.class);
+        return getForObject(buildUri("statuses/retweets/" + tweetId + ".json", parameters), TweetList.class);
     }
 
     @Override
@@ -500,7 +500,7 @@ public class TwitterServiceImpl extends OAuthServiceImpl implements TwitterBaseS
     @Override
     public List<TwitterProfile> getRetweetedBy(long tweetId, int page, int pageSize) {
         Multimap<String, String> parameters = URLUtils.buildPagingParametersWithCount(page, pageSize, 0, 0);
-        return requestObject(buildUri("statuses/" + tweetId + "/retweeted_by.json", parameters), TwitterProfileList.class);
+        return getForObject(buildUri("statuses/" + tweetId + "/retweeted_by.json", parameters), TwitterProfileList.class);
     }
 
     @Override
@@ -512,7 +512,7 @@ public class TwitterServiceImpl extends OAuthServiceImpl implements TwitterBaseS
     public List<Long> getRetweetedByIds(long tweetId, int page, int pageSize) {
         requireAuthorization(); // requires authentication, even though getRetweetedBy() does not.
         Multimap<String, String> parameters = URLUtils.buildPagingParametersWithCount(page, pageSize, 0, 0);
-        return requestObject(buildUri("statuses/" + tweetId + "/retweeted_by/ids.json", parameters), LongList.class);
+        return getForObject(buildUri("statuses/" + tweetId + "/retweeted_by/ids.json", parameters), LongList.class);
     }
 
     @Override
@@ -525,21 +525,21 @@ public class TwitterServiceImpl extends OAuthServiceImpl implements TwitterBaseS
         requireAuthorization(); // Note: The documentation for favorites.json doesn't list the count parameter, but it works
                                 // anyway.
         Multimap<String, String> parameters = URLUtils.buildPagingParametersWithCount(page, pageSize, 0, 0);
-        return requestObject(buildUri("favorites.json", parameters), TweetList.class);
+        return getForObject(buildUri("favorites.json", parameters), TweetList.class);
     }
 
     @Override
     public void addToFavorites(long tweetId) {
         requireAuthorization();
         Multimap<String, Object> data = LinkedListMultimap.create();
-        postObject(buildUri("favorites/create/" + tweetId + ".json"), data, String.class);
+        postForObject(buildUri("favorites/create/" + tweetId + ".json"), data, String.class);
     }
 
     @Override
     public void removeFromFavorites(long tweetId) {
         requireAuthorization();
         Multimap<String, Object> data = LinkedListMultimap.create();
-        postObject(buildUri("favorites/destroy/" + tweetId + ".json"), data, String.class);
+        postForObject(buildUri("favorites/destroy/" + tweetId + ".json"), data, String.class);
     }
 
     @SuppressWarnings("serial")
@@ -593,7 +593,7 @@ public class TwitterServiceImpl extends OAuthServiceImpl implements TwitterBaseS
     @Override
     public CursoredList<Long> getFriendIdsInCursor(long cursor) {
         requireAuthorization();
-        return requestObject(buildUri("friends/ids.json", "cursor", String.valueOf(cursor)), CursoredLongList.class).getList();
+        return getForObject(buildUri("friends/ids.json", "cursor", String.valueOf(cursor)), CursoredLongList.class).getList();
     }
 
     @Override
@@ -606,7 +606,7 @@ public class TwitterServiceImpl extends OAuthServiceImpl implements TwitterBaseS
         Multimap<String, String> parameters = LinkedListMultimap.create();
         parameters.put("cursor", String.valueOf(cursor));
         parameters.put("user_id", String.valueOf(userId));
-        return requestObject(buildUri("friends/ids.json", parameters), CursoredLongList.class).getList();
+        return getForObject(buildUri("friends/ids.json", parameters), CursoredLongList.class).getList();
     }
 
     @Override
@@ -619,7 +619,7 @@ public class TwitterServiceImpl extends OAuthServiceImpl implements TwitterBaseS
         Multimap<String, String> parameters = LinkedListMultimap.create();
         parameters.put("cursor", String.valueOf(cursor));
         parameters.put("screen_name", screenName);
-        return requestObject(buildUri("friends/ids.json", parameters), CursoredLongList.class).getList();
+        return getForObject(buildUri("friends/ids.json", parameters), CursoredLongList.class).getList();
     }
 
     @Override
@@ -663,7 +663,7 @@ public class TwitterServiceImpl extends OAuthServiceImpl implements TwitterBaseS
     @Override
     public CursoredList<Long> getFollowerIdsInCursor(long cursor) {
         requireAuthorization();
-        return requestObject(buildUri("followers/ids.json", "cursor", String.valueOf(cursor)), CursoredLongList.class)
+        return getForObject(buildUri("followers/ids.json", "cursor", String.valueOf(cursor)), CursoredLongList.class)
                 .getList();
     }
 
@@ -677,7 +677,7 @@ public class TwitterServiceImpl extends OAuthServiceImpl implements TwitterBaseS
         Multimap<String, String> parameters = LinkedListMultimap.create();
         parameters.put("cursor", String.valueOf(cursor));
         parameters.put("user_id", String.valueOf(userId));
-        return requestObject(buildUri("followers/ids.json", parameters), CursoredLongList.class).getList();
+        return getForObject(buildUri("followers/ids.json", parameters), CursoredLongList.class).getList();
     }
 
     @Override
@@ -690,61 +690,61 @@ public class TwitterServiceImpl extends OAuthServiceImpl implements TwitterBaseS
         Multimap<String, String> parameters = LinkedListMultimap.create();
         parameters.put("cursor", String.valueOf(cursor));
         parameters.put("screen_name", screenName);
-        return requestObject(buildUri("followers/ids.json", parameters), CursoredLongList.class).getList();
+        return getForObject(buildUri("followers/ids.json", parameters), CursoredLongList.class).getList();
     }
 
     @Override
     public String follow(long userId) {
         requireAuthorization();
-        return (String) postObject(buildUri("friendships/create.json", "user_id", String.valueOf(userId)), EMPTY_DATA,
+        return (String) postForObject(buildUri("friendships/create.json", "user_id", String.valueOf(userId)), EMPTY_DATA,
                 Map.class).get("screen_name");
     }
 
     @Override
     public String follow(String screenName) {
         requireAuthorization();
-        return (String) postObject(buildUri("friendships/create.json", "screen_name", screenName), EMPTY_DATA, Map.class).get(
+        return (String) postForObject(buildUri("friendships/create.json", "screen_name", screenName), EMPTY_DATA, Map.class).get(
                 "screen_name");
     }
 
     @Override
     public String unfollow(long userId) {
         requireAuthorization();
-        return (String) postObject(buildUri("friendships/destroy.json", "user_id", String.valueOf(userId)), EMPTY_DATA,
+        return (String) postForObject(buildUri("friendships/destroy.json", "user_id", String.valueOf(userId)), EMPTY_DATA,
                 Map.class).get("screen_name");
     }
 
     @Override
     public String unfollow(String screenName) {
         requireAuthorization();
-        return (String) postObject(buildUri("friendships/destroy.json", "screen_name", screenName), EMPTY_DATA, Map.class).get(
+        return (String) postForObject(buildUri("friendships/destroy.json", "screen_name", screenName), EMPTY_DATA, Map.class).get(
                 "screen_name");
     }
 
     @Override
     public TwitterProfile enableNotifications(long userId) {
         requireAuthorization();
-        return postObject(buildUri("notifications/follow.json", "user_id", String.valueOf(userId)), EMPTY_DATA,
+        return postForObject(buildUri("notifications/follow.json", "user_id", String.valueOf(userId)), EMPTY_DATA,
                 TwitterProfile.class);
     }
 
     @Override
     public TwitterProfile enableNotifications(String screenName) {
         requireAuthorization();
-        return postObject(buildUri("notifications/follow.json", "screen_name", screenName), EMPTY_DATA, TwitterProfile.class);
+        return postForObject(buildUri("notifications/follow.json", "screen_name", screenName), EMPTY_DATA, TwitterProfile.class);
     }
 
     @Override
     public TwitterProfile disableNotifications(long userId) {
         requireAuthorization();
-        return postObject(buildUri("notifications/leave.json", "user_id", String.valueOf(userId)), EMPTY_DATA,
+        return postForObject(buildUri("notifications/leave.json", "user_id", String.valueOf(userId)), EMPTY_DATA,
                 TwitterProfile.class);
     }
 
     @Override
     public TwitterProfile disableNotifications(String screenName) {
         requireAuthorization();
-        return postObject(buildUri("notifications/leave.json", "screen_name", screenName), EMPTY_DATA, TwitterProfile.class);
+        return postForObject(buildUri("notifications/leave.json", "screen_name", screenName), EMPTY_DATA, TwitterProfile.class);
     }
 
     // doesn't require authentication
@@ -753,7 +753,7 @@ public class TwitterServiceImpl extends OAuthServiceImpl implements TwitterBaseS
         Multimap<String, String> params = LinkedListMultimap.create();
         params.put("user_a", userA);
         params.put("user_b", userB);
-        return requestObject(buildUri("friendships/exists.json", params), boolean.class);
+        return getForObject(buildUri("friendships/exists.json", params), boolean.class);
     }
 
     @Override
@@ -764,7 +764,7 @@ public class TwitterServiceImpl extends OAuthServiceImpl implements TwitterBaseS
     @Override
     public CursoredList<Long> getIncomingFriendships(long cursor) {
         requireAuthorization();
-        return requestObject(buildUri("friendships/incoming.json", "cursor", String.valueOf(cursor)), CursoredLongList.class)
+        return getForObject(buildUri("friendships/incoming.json", "cursor", String.valueOf(cursor)), CursoredLongList.class)
                 .getList();
     }
 
@@ -776,7 +776,7 @@ public class TwitterServiceImpl extends OAuthServiceImpl implements TwitterBaseS
     @Override
     public CursoredList<Long> getOutgoingFriendships(long cursor) {
         requireAuthorization();
-        return requestObject(buildUri("friendships/outgoing.json", "cursor", String.valueOf(cursor)), CursoredLongList.class)
+        return getForObject(buildUri("friendships/outgoing.json", "cursor", String.valueOf(cursor)), CursoredLongList.class)
                 .getList();
     }
 
@@ -786,7 +786,7 @@ public class TwitterServiceImpl extends OAuthServiceImpl implements TwitterBaseS
         CursoredList<TwitterProfile> users = new CursoredList<TwitterProfile>(userIds.size(), previousCursor, nextCursor);
         for (List<Long> userIdChunk : chunks) {
             String joinedIds = URLUtils.commaJoiner.join(userIdChunk);
-            users.addAll(requestObject(buildUri("users/lookup.json", "user_id", joinedIds), TwitterProfileList.class));
+            users.addAll(getForObject(buildUri("users/lookup.json", "user_id", joinedIds), TwitterProfileList.class));
         }
         return users;
     }
@@ -811,7 +811,7 @@ public class TwitterServiceImpl extends OAuthServiceImpl implements TwitterBaseS
         requireAuthorization();
         Multimap<String, String> request = LinkedListMultimap.create();
         request.put("user_id", String.valueOf(userId));
-        return postObject(buildUri("blocks/create.json"), request, TwitterProfile.class);
+        return postForObject(buildUri("blocks/create.json"), request, TwitterProfile.class);
     }
 
     @Override
@@ -819,7 +819,7 @@ public class TwitterServiceImpl extends OAuthServiceImpl implements TwitterBaseS
         requireAuthorization();
         Multimap<String, String> request = LinkedListMultimap.create();
         request.put("screen_name", screenName);
-        return postObject(buildUri("blocks/create.json"), request, TwitterProfile.class);
+        return postForObject(buildUri("blocks/create.json"), request, TwitterProfile.class);
     }
 
     @Override
@@ -827,7 +827,7 @@ public class TwitterServiceImpl extends OAuthServiceImpl implements TwitterBaseS
         requireAuthorization();
         Multimap<String, String> request = LinkedListMultimap.create();
         request.put("user_id", String.valueOf(userId));
-        return postObject(buildUri("blocks/destroy.json"), request, TwitterProfile.class);
+        return postForObject(buildUri("blocks/destroy.json"), request, TwitterProfile.class);
     }
 
     @Override
@@ -835,7 +835,7 @@ public class TwitterServiceImpl extends OAuthServiceImpl implements TwitterBaseS
         requireAuthorization();
         Multimap<String, String> request = LinkedListMultimap.create();
         request.put("screen_name", screenName);
-        return postObject(buildUri("blocks/destroy.json"), request, TwitterProfile.class);
+        return postForObject(buildUri("blocks/destroy.json"), request, TwitterProfile.class);
     }
 
     @Override
@@ -847,13 +847,13 @@ public class TwitterServiceImpl extends OAuthServiceImpl implements TwitterBaseS
     public List<TwitterProfile> getBlockedUsers(int page, int pageSize) {
         requireAuthorization();
         Multimap<String, String> parameters = URLUtils.buildPagingParametersWithPerPage(page, pageSize, 0, 0);
-        return requestObject(buildUri("blocks/blocking.json", parameters), TwitterProfileList.class);
+        return getForObject(buildUri("blocks/blocking.json", parameters), TwitterProfileList.class);
     }
 
     @Override
     public List<Long> getBlockedUserIds() {
         requireAuthorization();
-        return requestObject(buildUri("blocks/blocking/ids.json"), LongList.class);
+        return getForObject(buildUri("blocks/blocking/ids.json"), LongList.class);
     }
 
     @Override
@@ -884,7 +884,7 @@ public class TwitterServiceImpl extends OAuthServiceImpl implements TwitterBaseS
     public List<DirectMessage> getDirectMessagesReceived(int page, int pageSize, long sinceId, long maxId) {
         requireAuthorization();
         Multimap<String, String> parameters = URLUtils.buildPagingParametersWithCount(page, pageSize, sinceId, maxId);
-        return requestObject(buildUri("direct_messages.json", parameters), DirectMessageList.class);
+        return getForObject(buildUri("direct_messages.json", parameters), DirectMessageList.class);
     }
 
     @Override
@@ -901,13 +901,13 @@ public class TwitterServiceImpl extends OAuthServiceImpl implements TwitterBaseS
     public List<DirectMessage> getDirectMessagesSent(int page, int pageSize, long sinceId, long maxId) {
         requireAuthorization();
         Multimap<String, String> parameters = URLUtils.buildPagingParametersWithCount(page, pageSize, sinceId, maxId);
-        return requestObject(buildUri("direct_messages/sent.json", parameters), DirectMessageList.class);
+        return getForObject(buildUri("direct_messages/sent.json", parameters), DirectMessageList.class);
     }
 
     @Override
     public DirectMessage getDirectMessage(long id) {
         requireAuthorization();
-        return requestObject(buildUri("direct_messages/show/" + id + ".json"), DirectMessage.class);
+        return getForObject(buildUri("direct_messages/show/" + id + ".json"), DirectMessage.class);
     }
 
     @Override
@@ -916,7 +916,7 @@ public class TwitterServiceImpl extends OAuthServiceImpl implements TwitterBaseS
         Multimap<String, Object> data = LinkedListMultimap.create();
         data.put("screen_name", String.valueOf(toScreenName));
         data.put("text", text);
-        return postObject(buildUri("direct_messages/new.json"), data, DirectMessage.class);
+        return postForObject(buildUri("direct_messages/new.json"), data, DirectMessage.class);
     }
 
     @Override
@@ -925,7 +925,7 @@ public class TwitterServiceImpl extends OAuthServiceImpl implements TwitterBaseS
         Multimap<String, Object> data = LinkedListMultimap.create();
         data.put("user_id", String.valueOf(toUserId));
         data.put("text", text);
-        return postObject(buildUri("direct_messages/new.json"), data, DirectMessage.class);
+        return postForObject(buildUri("direct_messages/new.json"), data, DirectMessage.class);
     }
 
     @Override
@@ -939,7 +939,7 @@ public class TwitterServiceImpl extends OAuthServiceImpl implements TwitterBaseS
     // ****************************************
 
     public Place getPlace(String placeId) {
-        return requestObject(buildUri("geo/id/" + placeId + ".json"), Place.class);
+        return getForObject(buildUri("geo/id/" + placeId + ".json"), Place.class);
     }
 
     public List<Place> reverseGeoCode(double latitude, double longitude) {
@@ -948,7 +948,7 @@ public class TwitterServiceImpl extends OAuthServiceImpl implements TwitterBaseS
 
     public List<Place> reverseGeoCode(double latitude, double longitude, PlaceType granularity, String accuracy) {
         Multimap<String, String> parameters = buildGeoParameters(latitude, longitude, granularity, accuracy, null);
-        return requestObject(buildUri("geo/reverse_geocode.json", parameters), PlacesList.class).getList();
+        return getForObject(buildUri("geo/reverse_geocode.json", parameters), PlacesList.class).getList();
     }
 
     public List<Place> search(double latitude, double longitude) {
@@ -957,7 +957,7 @@ public class TwitterServiceImpl extends OAuthServiceImpl implements TwitterBaseS
 
     public List<Place> search(double latitude, double longitude, PlaceType granularity, String accuracy, String query) {
         Multimap<String, String> parameters = buildGeoParameters(latitude, longitude, granularity, accuracy, query);
-        return requestObject(buildUri("geo/search.json", parameters), PlacesList.class).getList();
+        return getForObject(buildUri("geo/search.json", parameters), PlacesList.class).getList();
     }
 
     public SimilarPlaces findSimilarPlaces(double latitude, double longitude, String name) {
@@ -967,7 +967,7 @@ public class TwitterServiceImpl extends OAuthServiceImpl implements TwitterBaseS
     public SimilarPlaces findSimilarPlaces(double latitude, double longitude, String name, String streetAddress,
             String containedWithin) {
         Multimap<String, String> parameters = buildPlaceParameters(latitude, longitude, name, streetAddress, containedWithin);
-        SimilarPlacesResponse response = requestObject(buildUri("geo/similar_places.json", parameters),
+        SimilarPlacesResponse response = getForObject(buildUri("geo/similar_places.json", parameters),
                 SimilarPlacesResponse.class);
         PlacePrototype placePrototype = new PlacePrototype(response.getToken(), latitude, longitude, name, streetAddress,
                 containedWithin);
@@ -979,7 +979,7 @@ public class TwitterServiceImpl extends OAuthServiceImpl implements TwitterBaseS
         Multimap<String, String> request = buildPlaceParameters(placePrototype.getLatitude(), placePrototype.getLongitude(),
                 placePrototype.getName(), placePrototype.getStreetAddress(), placePrototype.getContainedWithin());
         request.put("token", placePrototype.getCreateToken());
-        return postObject("https://api.twitter.com/1/geo/place.json", request, Place.class);
+        return postForObject("https://api.twitter.com/1/geo/place.json", request, Place.class);
     }
 
     // private helpers

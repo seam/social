@@ -231,23 +231,23 @@ public abstract class OAuthServiceImpl implements OAuthService {
     }
 
     @Override
-    public <T> T requestObject(String uri, Class<T> clazz) {
-        return jsonService.requestObject(sendSignedRequest(GET, uri), clazz);
+    public <T> T getForObject(String uri, Class<T> clazz) {
+        return jsonService.mapToObject(sendSignedRequest(GET, uri), clazz);
     }
 
     @Override
-    public <T> T requestObject(String uri, Class<T> clazz, Map<String, ? extends Object> params) {
-        return jsonService.requestObject(sendSignedRequest(GET, uri, params), clazz);
+    public <T> T getForObject(String uri, Class<T> clazz, Map<String, ? extends Object> params) {
+        return jsonService.mapToObject(sendSignedRequest(GET, uri, params), clazz);
     }
 
     @Override
-    public <T> T postObject(String uri, Multimap<String, ? extends Object> params, Class<T> clazz) {
+    public <T> T postForObject(String uri, Multimap<String, ? extends Object> params, Class<T> clazz) {
         OAuthRequest request = getProvider().requestFactory(POST, uri);
         Map<String, String> reqParams = request.getBodyParams();
         Map<String, String> unifiedParams = URLUtils.multimapToMap(params);
         reqParams.putAll(unifiedParams);
 
-        return jsonService.requestObject(sendSignedRequest(request), clazz);
+        return jsonService.mapToObject(sendSignedRequest(request), clazz);
     }
 
     public void delete(String uri) {

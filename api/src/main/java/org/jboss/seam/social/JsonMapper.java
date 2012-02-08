@@ -37,6 +37,6 @@ public interface JsonMapper extends Serializable {
      * @param clazz the target class of the object
      * @return an object of the given Class with fields coming from the response
      */
-    public <T> T requestObject(RestResponse resp, Class<T> clazz);
+    public <T> T mapToObject(RestResponse resp, Class<T> clazz);
 
 }

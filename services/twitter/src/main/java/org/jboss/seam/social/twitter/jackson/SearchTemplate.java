@@ -58,24 +58,24 @@ class SearchTemplate extends TwitterServiceImpl implements SearchService {
             searchUrl += "&max_id={max}";
             parameters.put("max", String.valueOf(maxId));
         }
-        return requestObject(searchUrl, SearchResults.class, parameters);
+        return getForObject(searchUrl, SearchResults.class, parameters);
     }
 
     public List<SavedSearch> getSavedSearches() {
         requireAuthorization();
-        return requestObject(buildUri("saved_searches.json"), SavedSearchList.class);
+        return getForObject(buildUri("saved_searches.json"), SavedSearchList.class);
     }
 
     public SavedSearch getSavedSearch(long searchId) {
         requireAuthorization();
-        return requestObject(buildUri("saved_searches/show/" + searchId + ".json"), SavedSearch.class);
+        return getForObject(buildUri("saved_searches/show/" + searchId + ".json"), SavedSearch.class);
     }
 
     public SavedSearch createSavedSearch(String query) {
         requireAuthorization();
         Multimap<String, Object> data = LinkedListMultimap.create();
         data.put("query", query);
-        return postObject(buildUri("saved_searches/create.json"), data, SavedSearch.class);
+        return postForObject(buildUri("saved_searches/create.json"), data, SavedSearch.class);
     }
 
     public void deleteSavedSearch(long searchId) {
@@ -95,7 +95,7 @@ class SearchTemplate extends TwitterServiceImpl implements SearchService {
 
     public List<Trends> getDailyTrends(boolean excludeHashtags, String startDate) {
         String path = makeTrendPath("trends/daily.json", excludeHashtags, startDate);
-        return requestObject(buildUri(path), DailyTrendsList.class).getList();
+        return getForObject(buildUri(path), DailyTrendsList.class).getList();
     }
 
     public List<Trends> getWeeklyTrends() {
@@ -108,7 +108,7 @@ class SearchTemplate extends TwitterServiceImpl implements SearchService {
 
     public List<Trends> getWeeklyTrends(boolean excludeHashtags, String startDate) {
         String path = makeTrendPath("trends/weekly.json", excludeHashtags, startDate);
-        return requestObject(buildUri(path), WeeklyTrendsList.class).getList();
+        return getForObject(buildUri(path), WeeklyTrendsList.class).getList();
     }
 
     public Trends getLocalTrends(long whereOnEarthId) {
@@ -120,7 +120,7 @@ class SearchTemplate extends TwitterServiceImpl implements SearchService {
         if (excludeHashtags) {
             parameters.put("exclude", "hashtags");
         }
-        return requestObject(buildUri("trends/" + whereOnEarthId + ".json", parameters), LocalTrendsHolder.class).getTrends();
+        return getForObject(buildUri("trends/" + whereOnEarthId + ".json", parameters), LocalTrendsHolder.class).getTrends();
     }
 
     private String makeTrendPath(String basePath, boolean excludeHashtags, String startDate) {

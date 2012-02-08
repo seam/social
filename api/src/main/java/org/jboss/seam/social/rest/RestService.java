@@ -94,7 +94,7 @@ public interface RestService extends Serializable {
      * @param clazz
      * @return
      */
-    public <T> T requestObject(String uri, Class<T> clazz);
+    public <T> T getForObject(String uri, Class<T> clazz);
 
     /**
      * @param uri
@@ -102,7 +102,7 @@ public interface RestService extends Serializable {
      * @param clazz
      * @return
      */
-    public <T> T postObject(String uri, Multimap<String, ? extends Object> params, Class<T> clazz);
+    public <T> T postForObject(String uri, Multimap<String, ? extends Object> params, Class<T> clazz);
 
     /**
      * @param uri
@@ -110,6 +110,6 @@ public interface RestService extends Serializable {
      * @param params
      * @return
      */
-    public <T> T requestObject(String uri, Class<T> clazz, Map<String, ? extends Object> params);
+    public <T> T getForObject(String uri, Class<T> clazz, Map<String, ? extends Object> params);
 
 }

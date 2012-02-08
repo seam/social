@@ -35,7 +35,7 @@ public class JsonMapperJacksonTest {
 
     @Test(expected = NullPointerException.class)
     public void testReadNullResponse() {
-        jm.requestObject(null, Object.class);
+        jm.mapToObject(null, Object.class);
     }
 
     @Test(expected = SeamSocialException.class)
@@ -43,7 +43,7 @@ public class JsonMapperJacksonTest {
         RestResponse resp = mock(RestResponse.class);
         when(resp.getBody()).thenReturn("");
 
-        jm.requestObject(resp, Object.class);
+        jm.mapToObject(resp, Object.class);
     }
 
     @Test(expected = NullPointerException.class)
@@ -51,7 +51,7 @@ public class JsonMapperJacksonTest {
         RestResponse resp = mock(RestResponse.class);
         when(resp.getBody()).thenReturn(null);
 
-        jm.requestObject(resp, Object.class);
+        jm.mapToObject(resp, Object.class);
     }
 
     @Test(expected = NullPointerException.class)

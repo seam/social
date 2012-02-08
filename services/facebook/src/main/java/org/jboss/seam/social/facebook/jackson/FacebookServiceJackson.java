@@ -89,7 +89,7 @@ public class FacebookServiceJackson extends OAuthServiceImpl implements Facebook
     @Override
     protected void initMyProfile() {
         getSession().setUserProfile(
-                jsonService.requestObject(sendSignedRequest(RestVerb.GET, USER_PROFILE_URL), UserJackson.class));
+                jsonService.mapToObject(sendSignedRequest(RestVerb.GET, USER_PROFILE_URL), UserJackson.class));
 
     }
 

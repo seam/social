@@ -51,7 +51,7 @@ public class JsonMapperJackson implements JsonMapper {
      * @see org.jboss.seam.social.JsonMapper#requestObject(org.jboss.seam.social.rest.RestResponse, java.lang.Class)
      */
     @Override
-    public <T> T requestObject(RestResponse resp, Class<T> clazz) {
+    public <T> T mapToObject(RestResponse resp, Class<T> clazz) {
         try {
             String msg = resp.getBody();
             return delegate.readValue(msg, clazz);
