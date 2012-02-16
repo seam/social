@@ -76,6 +76,7 @@ public abstract class OAuthServiceImpl implements OAuthService {
 
     private String type;
 
+    @Override
     public String getType() {
         if (StringUtils.isEmpty(type))
             type = getServicesToQualifier().get(getQualifier());
