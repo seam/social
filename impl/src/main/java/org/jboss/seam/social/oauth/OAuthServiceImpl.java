@@ -33,15 +33,16 @@ import javax.inject.Inject;
 import org.apache.commons.lang3.StringUtils;
 import org.jboss.seam.social.Current;
 import org.jboss.seam.social.JsonMapper;
-import org.jboss.seam.social.SeamSocialException;
 import org.jboss.seam.social.SeamSocialExtension;
 import org.jboss.seam.social.UserProfile;
+import org.jboss.seam.social.exception.SeamSocialException;
 import org.jboss.seam.social.rest.RestResponse;
 import org.jboss.seam.social.rest.RestVerb;
 import org.jboss.seam.social.utils.URLUtils;
 import org.jboss.solder.logging.Logger;
 
 import com.google.common.collect.Multimap;
+
 
 /**
  * This Abstract implementation of {@link OAuthService} uses an {@link OAuthProvider} to deal with remote OAuth Services
@@ -110,7 +111,7 @@ public abstract class OAuthServiceImpl implements OAuthService {
             initMyProfile();
             // TODO Should we fire an event ?
         } else {
-            // FIXME Launch an exception !!
+            // FIXME Launch an org.jboss.seam.social.exception !!
         }
 
     }

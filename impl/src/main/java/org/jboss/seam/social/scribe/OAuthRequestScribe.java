@@ -16,11 +16,9 @@
  */
 package org.jboss.seam.social.scribe;
 
-import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import org.jboss.seam.social.SeamSocialException;
 import org.jboss.seam.social.oauth.OAuthRequest;
 import org.jboss.seam.social.rest.RestResponse;
 import org.jboss.seam.social.rest.RestVerb;
@@ -36,7 +34,7 @@ public class OAuthRequestScribe implements OAuthRequest {
      * 
      */
     private static final long serialVersionUID = 6560621737726192278L;
-    private org.scribe.model.OAuthRequest request;
+    private final org.scribe.model.OAuthRequest request;
 
     org.scribe.model.OAuthRequest getDelegate() {
         return request;
@@ -72,11 +70,7 @@ public class OAuthRequestScribe implements OAuthRequest {
      */
     @Override
     public RestResponse send() {
-        try {
-            return new RestResponseScribe(request.send());
-        } catch (IOException e) {
-            throw new SeamSocialException("Unable to send Scribe request", e);
-        }
+        return new RestResponseScribe(request.send(), request.getUrl());
     }
 
     /*
@@ -89,10 +83,12 @@ public class OAuthRequestScribe implements OAuthRequest {
         return request.getOauthParameters();
     }
 
+    @Override
     public String toString() {
         return request.toString();
     }
 
+    @Override
     public int hashCode() {
         return request.hashCode();
     }
@@ -147,6 +143,7 @@ public class OAuthRequestScribe implements OAuthRequest {
         return request.getQueryStringParams();
     }
 
+    @Override
     public boolean equals(Object obj) {
         return request.equals(obj);
     }

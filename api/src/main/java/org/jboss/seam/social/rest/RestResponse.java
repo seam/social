@@ -52,4 +52,10 @@ public interface RestResponse {
      */
     public String getHeader(String name);
 
+    /**
+     * 
+     * @return The url which this object is a response
+     */
+    public String getUrl();
+
 }

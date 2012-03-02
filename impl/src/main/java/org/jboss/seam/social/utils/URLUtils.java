@@ -29,7 +29,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.beanutils.BeanMap;
-import org.jboss.seam.social.SeamSocialException;
+import org.jboss.seam.social.exception.SeamSocialException;
 
 import com.google.common.base.Function;
 import com.google.common.base.Joiner;
@@ -37,6 +37,7 @@ import com.google.common.base.Joiner.MapJoiner;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Multimap;
+
 
 /**
  * Utils to deal with URL and url-encodings

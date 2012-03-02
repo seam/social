@@ -26,6 +26,8 @@ import javax.inject.Inject;
 
 import org.codehaus.jackson.map.Module;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.jboss.seam.social.exception.SeamSocialException;
+import org.jboss.seam.social.exception.SeamSocialRestException;
 import org.jboss.seam.social.rest.RestResponse;
 
 /**
@@ -54,6 +56,9 @@ public class JsonMapperJackson implements JsonMapper {
     public <T> T mapToObject(RestResponse resp, Class<T> clazz) {
         try {
             String msg = resp.getBody();
+            if (resp.getCode() != 200) {
+                throw new SeamSocialRestException(resp.getCode(), resp.getUrl());
+            }
             return delegate.readValue(msg, clazz);
         } catch (IOException e) {
             throw new SeamSocialException("Unable to map Json response", e);

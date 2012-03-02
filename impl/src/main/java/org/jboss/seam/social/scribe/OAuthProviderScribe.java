@@ -16,7 +16,7 @@
  */
 package org.jboss.seam.social.scribe;
 
-import org.jboss.seam.social.SeamSocialException;
+import org.jboss.seam.social.exception.SeamSocialException;
 import org.jboss.seam.social.oauth.OAuthProvider;
 import org.jboss.seam.social.oauth.OAuthRequest;
 import org.jboss.seam.social.oauth.OAuthServiceSettings;
@@ -26,6 +26,7 @@ import org.scribe.builder.ServiceBuilder;
 import org.scribe.builder.api.Api;
 import org.scribe.model.Token;
 import org.scribe.model.Verifier;
+
 
 /**
  * @author Antoine Sabot-Durand

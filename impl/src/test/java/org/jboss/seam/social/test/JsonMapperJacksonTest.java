@@ -20,10 +20,11 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import org.jboss.seam.social.JsonMapperJackson;
-import org.jboss.seam.social.SeamSocialException;
+import org.jboss.seam.social.exception.SeamSocialException;
 import org.jboss.seam.social.rest.RestResponse;
 import org.junit.Before;
 import org.junit.Test;
+
 
 public class JsonMapperJacksonTest {
     JsonMapperJackson jm;

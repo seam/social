@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social;
+package org.jboss.seam.social.exception;
 
 /**
  * Exception linked to the framework
@@ -25,10 +25,6 @@ package org.jboss.seam.social;
 public class SeamSocialException extends RuntimeException {
 
     private static final long serialVersionUID = 8149354996979746574L;
-
-    SeamSocialException() {
-        super();
-    }
 
     public SeamSocialException(String message, Throwable cause) {
         super(message, cause);

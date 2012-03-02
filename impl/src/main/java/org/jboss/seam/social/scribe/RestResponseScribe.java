@@ -16,7 +16,6 @@
  */
 package org.jboss.seam.social.scribe;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
 
@@ -35,10 +34,16 @@ public class RestResponseScribe implements RestResponse {
         return delegate;
     }
 
-    private Response delegate;
+    private final Response delegate;
+    private String url;
 
-    protected RestResponseScribe(Response response) throws IOException {
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    protected RestResponseScribe(Response response, String url) {
         delegate = response;
+        this.url = url;
     }
 
     /*
@@ -61,6 +66,7 @@ public class RestResponseScribe implements RestResponse {
         return getDelegate().getStream();
     }
 
+    @Override
     public int hashCode() {
         return getDelegate().hashCode();
     }
@@ -95,12 +101,19 @@ public class RestResponseScribe implements RestResponse {
         return getDelegate().getHeader(name);
     }
 
+    @Override
     public boolean equals(Object obj) {
         return getDelegate().equals(obj);
     }
 
+    @Override
     public String toString() {
         return getDelegate().toString();
+    }
+
+    @Override
+    public String getUrl() {
+        return url;
     }
 
 }
