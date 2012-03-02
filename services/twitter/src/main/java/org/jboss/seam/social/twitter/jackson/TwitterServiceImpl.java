@@ -27,7 +27,6 @@ import org.codehaus.jackson.annotate.JsonCreator;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.jboss.seam.social.TwitterLiteral;
-import org.jboss.seam.social.URLUtils;
 import org.jboss.seam.social.oauth.OAuthServiceImpl;
 import org.jboss.seam.social.twitter.CursoredList;
 import org.jboss.seam.social.twitter.DirectMessage;
@@ -47,6 +46,7 @@ import org.jboss.seam.social.twitter.TwitterFriendService;
 import org.jboss.seam.social.twitter.TwitterProfile;
 import org.jboss.seam.social.twitter.TwitterTimelineService;
 import org.jboss.seam.social.twitter.TwitterUserService;
+import org.jboss.seam.social.utils.URLUtils;
 import org.jboss.solder.logging.Logger;
 
 import com.google.common.collect.LinkedListMultimap;
