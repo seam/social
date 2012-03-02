@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social;
+package org.jboss.seam.social.utils;
 
 import static com.google.common.collect.HashMultimap.create;
 
@@ -27,6 +27,9 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+
+import org.apache.commons.beanutils.BeanMap;
+import org.jboss.seam.social.SeamSocialException;
 
 import com.google.common.base.Function;
 import com.google.common.base.Joiner;
@@ -263,5 +266,36 @@ public class URLUtils {
             parameters.put("max_id", String.valueOf(maxId));
         }
         return parameters;
+    }
+
+    /**
+     * This methods looks for place holders with the format {placeholder} in a given String and replace it with the value
+     * associated to the corresponding key in a given map
+     * 
+     * @param in
+     * @param values
+     * @return
+     */
+    public static String processPlaceHolders(String in, Map<String, ? extends Object> values) {
+        String out = new String(in);
+    
+        for (String key : values.keySet()) {
+            String toLook = "{" + key + "}";
+            String value = values.get(key).toString();
+            try {
+                out.replace(toLook, URLEncoder.encode(value, "UTF-8"));
+            } catch (UnsupportedEncodingException e) {
+                throw new SeamSocialException("unable to encode " + value, e);
+            }
+    
+        }
+        return out;
+    }
+
+    public static String processPlaceHolders(String in, Object pojo) {
+        @SuppressWarnings("unchecked")
+        Map<String, ? extends Object> paramMap = new BeanMap(pojo);
+        return processPlaceHolders(in, paramMap);
+    
     }
 }

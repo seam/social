@@ -112,4 +112,12 @@ public interface RestService extends Serializable {
      */
     public <T> T getForObject(String uri, Class<T> clazz, Map<String, ? extends Object> params);
 
+    /**
+     * @param uri
+     * @param clazz
+     * @param urlParams
+     * @return
+     */
+    public <T> T getForObject(String uri, Class<T> clazz, Object... urlParams);
+
 }

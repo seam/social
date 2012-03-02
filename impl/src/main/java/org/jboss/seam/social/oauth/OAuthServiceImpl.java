@@ -21,6 +21,7 @@ import static org.jboss.seam.social.rest.RestVerb.GET;
 import static org.jboss.seam.social.rest.RestVerb.POST;
 
 import java.lang.annotation.Annotation;
+import java.text.MessageFormat;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -34,10 +35,10 @@ import org.jboss.seam.social.Current;
 import org.jboss.seam.social.JsonMapper;
 import org.jboss.seam.social.SeamSocialException;
 import org.jboss.seam.social.SeamSocialExtension;
-import org.jboss.seam.social.URLUtils;
 import org.jboss.seam.social.UserProfile;
 import org.jboss.seam.social.rest.RestResponse;
 import org.jboss.seam.social.rest.RestVerb;
+import org.jboss.seam.social.utils.URLUtils;
 import org.jboss.solder.logging.Logger;
 
 import com.google.common.collect.Multimap;
@@ -239,6 +240,12 @@ public abstract class OAuthServiceImpl implements OAuthService {
     @Override
     public <T> T getForObject(String uri, Class<T> clazz, Map<String, ? extends Object> params) {
         return jsonService.mapToObject(sendSignedRequest(GET, uri, params), clazz);
+    }
+
+    @Override
+    public <T> T getForObject(String uri, Class<T> clazz, Object... urlParams) {
+        String url = MessageFormat.format(uri, urlParams);
+        return jsonService.mapToObject(sendSignedRequest(GET, url), clazz);
     }
 
     @Override
