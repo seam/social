@@ -16,23 +16,26 @@
  */
 package org.jboss.seam.social.test;
 
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import org.jboss.seam.social.JsonMapperJackson;
 import org.jboss.seam.social.exception.SeamSocialException;
+import org.jboss.seam.social.exception.SeamSocialRestException;
 import org.jboss.seam.social.rest.RestResponse;
-import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
-
+@RunWith(MockitoJUnitRunner.class)
 public class JsonMapperJacksonTest {
+
+    @InjectMocks
     JsonMapperJackson jm;
 
-    @Before
-    public void setUp() {
-        jm = new JsonMapperJackson();
-    }
+    @Mock
+    RestResponse resp;
 
     @Test(expected = NullPointerException.class)
     public void testReadNullResponse() {
@@ -41,15 +44,24 @@ public class JsonMapperJacksonTest {
 
     @Test(expected = SeamSocialException.class)
     public void testReadEmptyBody() {
-        RestResponse resp = mock(RestResponse.class);
         when(resp.getBody()).thenReturn("");
+        when(resp.getCode()).thenReturn(200);
+
+        jm.mapToObject(resp, Object.class);
+    }
+
+    @Test(expected = SeamSocialRestException.class)
+    public void testErrorReturnCode() {
+        when(resp.getBody()).thenReturn("");
+        when(resp.getCode()).thenReturn(400);
+        when(resp.getBody()).thenReturn("An error\nMessage");
 
         jm.mapToObject(resp, Object.class);
     }
 
     @Test(expected = NullPointerException.class)
     public void testReadNullBody() {
-        RestResponse resp = mock(RestResponse.class);
+        when(resp.getCode()).thenReturn(200);
         when(resp.getBody()).thenReturn(null);
 
         jm.mapToObject(resp, Object.class);

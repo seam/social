@@ -19,9 +19,11 @@ package org.jboss.seam.social.scribe;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import org.jboss.seam.social.exception.SeamSocialRestException;
 import org.jboss.seam.social.oauth.OAuthRequest;
 import org.jboss.seam.social.rest.RestResponse;
 import org.jboss.seam.social.rest.RestVerb;
+import org.scribe.exceptions.OAuthException;
 import org.scribe.model.Verb;
 
 /**
@@ -70,7 +72,12 @@ public class OAuthRequestScribe implements OAuthRequest {
      */
     @Override
     public RestResponse send() {
-        return new RestResponseScribe(request.send(), request.getUrl());
+
+        try {
+            return new RestResponseScribe(request.send(), request.getUrl());
+        } catch (OAuthException e) {
+            throw new SeamSocialRestException(request.getUrl(), e);
+        }
     }
 
     /*

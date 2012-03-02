@@ -55,6 +55,8 @@
         <scribe.version>1.2.3</scribe.version>
         <jackson.version>1.9.2</jackson.version>
         <guava.version>10.0.1</guava.version>
+        <beanutils.version>1.8.3</beanutils.version>
+        <mockito.version>1.9.0</mockito.version>
     </properties>
 
     <dependencyManagement>
@@ -113,6 +115,11 @@
                 <artifactId>jackson-mapper-asl</artifactId>
                 <version>${jackson.version}</version>
             </dependency>
+            <dependency>
+           <groupId>commons-beanutils</groupId>
+           <artifactId>commons-beanutils</artifactId>
+           <version>${beanutils.version}</version>
+       </dependency>
         </dependencies>
     </dependencyManagement>
 

@@ -43,7 +43,6 @@ import org.jboss.solder.logging.Logger;
 
 import com.google.common.collect.Multimap;
 
-
 /**
  * This Abstract implementation of {@link OAuthService} uses an {@link OAuthProvider} to deal with remote OAuth Services
  * 

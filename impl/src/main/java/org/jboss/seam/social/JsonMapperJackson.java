@@ -57,7 +57,7 @@ public class JsonMapperJackson implements JsonMapper {
         try {
             String msg = resp.getBody();
             if (resp.getCode() != 200) {
-                throw new SeamSocialRestException(resp.getCode(), resp.getUrl());
+                throw new SeamSocialRestException(resp.getCode(), resp.getUrl(), msg);
             }
             return delegate.readValue(msg, clazz);
         } catch (IOException e) {
