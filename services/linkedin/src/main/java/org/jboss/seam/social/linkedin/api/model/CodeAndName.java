@@ -14,10 +14,35 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social.linkedin.model;
+package org.jboss.seam.social.linkedin.api.model;
+
+import java.io.Serializable;
 
 /**
- * This package contains API elements to represent data or concepts in LinkedInRelated
+ * Contains LinkedIn structure which contains a code and a name for that code
  * 
+ * @author Robert Drysdale
  * @author Antoine Sabot-Durand
  */
+public class CodeAndName implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    private final String code;
+
+    private final String name;
+
+    public CodeAndName(String code, String name) {
+        this.code = code;
+        this.name = name;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+}

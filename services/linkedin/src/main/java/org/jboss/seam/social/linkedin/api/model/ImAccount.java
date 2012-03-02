@@ -14,10 +14,35 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social.linkedin.model;
+package org.jboss.seam.social.linkedin.api.model;
+
+import java.io.Serializable;
 
 /**
- * This package contains API elements to represent data or concepts in LinkedInRelated
+ * Model class representing IM (Instance Message) Account Details for a Profile on LinkedIn
  * 
+ * @author Robert Drysdale
  * @author Antoine Sabot-Durand
  */
+public class ImAccount implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    private final String imAccountType;
+
+    private final String imAccountName;
+
+    public ImAccount(String imAccountType, String imAccountName) {
+        this.imAccountType = imAccountType;
+        this.imAccountName = imAccountName;
+    }
+
+    public String getImAccountType() {
+        return imAccountType;
+    }
+
+    public String getImAccountName() {
+        return imAccountName;
+    }
+
+}

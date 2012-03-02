@@ -14,10 +14,35 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social.linkedin.model;
+package org.jboss.seam.social.linkedin.api.model;
+
+import java.io.Serializable;
 
 /**
- * This package contains API elements to represent data or concepts in LinkedInRelated
+ * Twitter account
  * 
+ * @author Robert Drysdale
  * @author Antoine Sabot-Durand
  */
+public class TwitterAccount implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    private final String providerAccountId;
+
+    private final String providerAccountName;
+
+    public TwitterAccount(String providerAccountId, String providerAccountName) {
+        this.providerAccountId = providerAccountId;
+        this.providerAccountName = providerAccountName;
+    }
+
+    public String getProviderAccountId() {
+        return providerAccountId;
+    }
+
+    public String getProviderAccountName() {
+        return providerAccountName;
+    }
+
+}

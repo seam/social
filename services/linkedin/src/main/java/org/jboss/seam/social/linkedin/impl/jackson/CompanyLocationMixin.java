@@ -14,10 +14,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social.linkedin.model;
+package org.jboss.seam.social.linkedin.impl.jackson;
+
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.codehaus.jackson.annotate.JsonProperty;
+import org.jboss.seam.social.linkedin.api.model.Company.CompanyAddress;
+import org.jboss.seam.social.linkedin.api.model.Company.CompanyContactInfo;
 
 /**
- * This package contains API elements to represent data or concepts in LinkedInRelated
  * 
  * @author Antoine Sabot-Durand
+ * 
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
+abstract class CompanyLocationMixin {
+
+    CompanyLocationMixin(@JsonProperty(value = "address") CompanyAddress address,
+            @JsonProperty(value = "contactInfo") CompanyContactInfo contactInfo) {
+    }
+
+}

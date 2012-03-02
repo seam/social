@@ -14,10 +14,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social.linkedin.model;
+package org.jboss.seam.social.linkedin.impl.jackson;
+
+import java.util.Date;
+
+import org.codehaus.jackson.annotate.JsonCreator;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.codehaus.jackson.annotate.JsonProperty;
+import org.jboss.seam.social.linkedin.api.model.Job;
 
 /**
- * This package contains API elements to represent data or concepts in LinkedInRelated
  * 
  * @author Antoine Sabot-Durand
+ * 
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
+abstract class JobBookmarkMixin {
+
+    @JsonCreator
+    JobBookmarkMixin(@JsonProperty("isApplied") boolean isApplied, @JsonProperty("isSaved") boolean isSaved,
+            @JsonProperty("job") Job job, @JsonProperty("savedTimestamp") Date savedTimestamp) {
+    }
+
+}

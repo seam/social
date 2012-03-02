@@ -14,10 +14,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social.linkedin.model;
+package org.jboss.seam.social.linkedin.api.model;
+
+import java.io.Serializable;
+import java.util.List;
 
 /**
- * This package contains API elements to represent data or concepts in LinkedInRelated
+ * Model class representing a list of comments
  * 
+ * @author Robert Drysdale
  * @author Antoine Sabot-Durand
  */
+public class Comments implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    private final List<Comment> comments;
+
+    public Comments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+}

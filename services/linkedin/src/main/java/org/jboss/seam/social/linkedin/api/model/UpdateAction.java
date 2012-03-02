@@ -14,10 +14,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social.linkedin.model;
+package org.jboss.seam.social.linkedin.api.model;
+
+import java.util.Date;
+import java.util.List;
 
 /**
- * This package contains API elements to represent data or concepts in LinkedInRelated
+ * Update Action
  * 
+ * @author Robert Drysdale
  * @author Antoine Sabot-Durand
  */
+public class UpdateAction extends LinkedInNetworkUpdate {
+    private static final long serialVersionUID = 1L;
+
+    private String action;
+
+    private List<Comment> updateComments;
+
+    public UpdateAction(Date timestamp, String updateKey, UpdateType updateType) {
+        super(timestamp, updateKey, updateType);
+    }
+
+    public String getAction() {
+        return action;
+    }
+
+    public List<Comment> getUpdateComments() {
+        return updateComments;
+    }
+
+}

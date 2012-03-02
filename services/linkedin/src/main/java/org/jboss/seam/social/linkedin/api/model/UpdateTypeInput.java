@@ -14,10 +14,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social.linkedin.model;
+package org.jboss.seam.social.linkedin.api.model;
 
 /**
- * This package contains API elements to represent data or concepts in LinkedInRelated
+ * Update Type for input to search
  * 
+ * @author Robert Drysdale
  * @author Antoine Sabot-Durand
  */
+public enum UpdateTypeInput {
+    ANSW, APPS, CMPY, CONN, JOBS, JGRP, PICT, PRFX, RECU, PRFU, QSTN, SHAR, VIRL
+}

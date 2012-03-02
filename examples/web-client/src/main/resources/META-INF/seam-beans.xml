@@ -17,7 +17,7 @@
 -->
 <beans xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:s="urn:java:ee"
-    xmlns:o="urn:java:org.jboss.seam.social:org.jboss.seam.social.oauth:org.jboss.seam.social.twitter.jackson:org.jboss.seam.social.linkedin.jackson:org.jboss.seam.social.facebook.jackson">
+    xmlns:o="urn:java:org.jboss.seam.social:org.jboss.seam.social.oauth:org.jboss.seam.social.twitter.jackson:org.jboss.seam.social.linkedin.impl:org.jboss.seam.social.facebook.jackson">
 
 
     <o:TwitterServiceImpl>
@@ -29,7 +29,7 @@
             callback="http://localhost:8080/social-web-client/callback.jsf" />
     </o:TwitterServiceImpl>
 
-    <o:LinkedInServiceJackson>
+    <o:LinkedInServiceImpl>
         <s:modifies />
         <o:LinkedIn/>
         <s:ApplicationScoped />
@@ -37,7 +37,7 @@
             apiKey="ympq1JR_oxeC3qZE4VwiDEr-9Rc9Am0YE1AJwwXJNREfqaF7J6hXfsncu_JFd13W"
             apiSecret="RwDk21M6qQeGT_zi2icmZV6tc5VsjRZPm7DWDIVt0Wsqu2eYBXt4Csg-FUbBZIIH"
             callback="http://localhost:8080/social-web-client/callback.jsf" />
-    </o:LinkedInServiceJackson>
+    </o:LinkedInServiceImpl>
 
     <o:FacebookServiceJackson>
         <s:modifies />

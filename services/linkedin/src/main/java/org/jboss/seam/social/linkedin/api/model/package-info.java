@@ -14,10 +14,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social.linkedin.model;
 
 /**
- * This package contains API elements to represent data or concepts in LinkedInRelated
+ * LinkedIn model for Seam Social
  * 
  * @author Antoine Sabot-Durand
  */
+package org.jboss.seam.social.linkedin.api.model;
+

@@ -14,10 +14,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social.linkedin.model;
+package org.jboss.seam.social.linkedin.impl.jackson;
+
+import java.util.List;
+
+import org.codehaus.jackson.annotate.JsonCreator;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.codehaus.jackson.annotate.JsonProperty;
+import org.jboss.seam.social.linkedin.api.model.Job;
 
 /**
- * This package contains API elements to represent data or concepts in LinkedInRelated
  * 
  * @author Antoine Sabot-Durand
+ * 
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
+abstract class JobsMixin {
+
+    @JsonCreator
+    JobsMixin(@JsonProperty("_count") int count, @JsonProperty("_start") int start, @JsonProperty("_total") int total) {
+    }
+
+    @JsonProperty("values")
+    List<Job> jobs;
+
+}

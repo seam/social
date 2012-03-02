@@ -14,10 +14,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social.linkedin.model;
+package org.jboss.seam.social.linkedin.api.services;
+
+import java.util.List;
+
+import org.jboss.seam.social.linkedin.api.model.LinkedInProfile;
+import org.jboss.seam.social.linkedin.api.model.NetworkStatistics;
 
 /**
- * This package contains API elements to represent data or concepts in LinkedInRelated
+ * Operations related to User Connections on LinkedIn
  * 
+ * @author Robert Drysdale
  * @author Antoine Sabot-Durand
  */
+public interface ConnectionService {
+
+    /**
+     * Retrieves the 1st-degree connections from the current user's network.
+     * 
+     * @return the user's connections
+     */
+    List<LinkedInProfile> getConnections();
+
+    /**
+     * Retrieve Network Statistics for User Contains Count of First Degree and Second Degree Connections
+     * 
+     * @return Network Statistics
+     */
+    NetworkStatistics getNetworkStatistics();
+
+}

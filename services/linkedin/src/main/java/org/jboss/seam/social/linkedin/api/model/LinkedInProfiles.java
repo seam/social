@@ -14,10 +14,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social.linkedin.model;
+package org.jboss.seam.social.linkedin.api.model;
+
+import java.util.List;
 
 /**
- * This package contains API elements to represent data or concepts in LinkedInRelated
+ * Search result for querying profiles
  * 
+ * @author Robert Drysdale
  * @author Antoine Sabot-Durand
  */
+public class LinkedInProfiles extends SearchResult {
+
+    private static final long serialVersionUID = 1L;
+
+    public LinkedInProfiles(int count, int start, int total) {
+        super(count, start, total);
+    }
+
+    private List<LinkedInProfile> people;
+
+    public List<LinkedInProfile> getPeople() {
+        return people;
+    }
+
+}

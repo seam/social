@@ -14,10 +14,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social.linkedin.model;
+package org.jboss.seam.social.linkedin.api.model;
+
+import java.util.List;
 
 /**
- * This package contains API elements to represent data or concepts in LinkedInRelated
+ * A model class containing a list of a user's network updates on LinkedIn.
  * 
+ * @author Robert Drysdale
  * @author Antoine Sabot-Durand
  */
+public class LinkedInNetworkUpdates {
+
+    private final List<LinkedInNetworkUpdate> updates;
+
+    public LinkedInNetworkUpdates(List<LinkedInNetworkUpdate> updates) {
+        this.updates = updates;
+    }
+
+    /**
+     * Retrieves the list of network updates
+     * 
+     * @return a list of network updates
+     */
+    public List<LinkedInNetworkUpdate> getUpdates() {
+        return updates;
+    }
+
+}

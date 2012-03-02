@@ -14,10 +14,35 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social.linkedin.model;
+package org.jboss.seam.social.linkedin.api.model;
+
+import java.io.Serializable;
 
 /**
- * This package contains API elements to represent data or concepts in LinkedInRelated
+ * Url Resource
  * 
+ * @author Robert Drysdale
  * @author Antoine Sabot-Durand
  */
+public class UrlResource implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    private final String name;
+
+    private final String url;
+
+    public UrlResource(String name, String url) {
+        this.name = name;
+        this.url = url;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+}

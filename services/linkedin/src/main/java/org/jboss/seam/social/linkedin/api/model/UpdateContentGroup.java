@@ -14,10 +14,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social.linkedin.model;
+package org.jboss.seam.social.linkedin.api.model;
+
+import java.util.List;
 
 /**
- * This package contains API elements to represent data or concepts in LinkedInRelated
+ * A group update
  * 
+ * @author Robert Drysdale
  * @author Antoine Sabot-Durand
  */
+public class UpdateContentGroup extends UpdateContent {
+
+    private static final long serialVersionUID = 1L;
+
+    private List<MemberGroup> memberGroups;
+
+    public UpdateContentGroup(String id, String firstName, String lastName, String headline, String industry,
+            String publicProfileUrl, UrlResource siteStandardProfileRequest, String profilePictureUrl) {
+        super(id, firstName, lastName, headline, industry, publicProfileUrl, siteStandardProfileRequest, profilePictureUrl);
+    }
+
+    public List<MemberGroup> getMemberGroups() {
+        return memberGroups;
+    }
+
+}

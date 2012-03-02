@@ -14,10 +14,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social.linkedin.model;
+package org.jboss.seam.social.linkedin.api.model;
+
+import java.util.List;
 
 /**
- * This package contains API elements to represent data or concepts in LinkedInRelated
+ * A model class containing a list of a user's connections on LinkedIn.
  * 
+ * @author Craig Walls
  * @author Antoine Sabot-Durand
  */
+public class LinkedInConnections {
+
+    private final List<LinkedInProfile> connections;
+
+    public LinkedInConnections(List<LinkedInProfile> connections) {
+        this.connections = connections;
+    }
+
+    /**
+     * Retrieves the list of connected profiles.
+     * 
+     * @return a list of connected profiles
+     */
+    public List<LinkedInProfile> getConnections() {
+        return connections;
+    }
+
+}

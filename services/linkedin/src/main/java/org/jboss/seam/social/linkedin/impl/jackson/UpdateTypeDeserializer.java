@@ -14,10 +14,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social.linkedin.model;
+package org.jboss.seam.social.linkedin.impl.jackson;
+
+import java.io.IOException;
+
+import org.codehaus.jackson.JsonParser;
+import org.codehaus.jackson.JsonProcessingException;
+import org.codehaus.jackson.map.DeserializationContext;
+import org.codehaus.jackson.map.JsonDeserializer;
+import org.jboss.seam.social.linkedin.api.model.UpdateType;
 
 /**
- * This package contains API elements to represent data or concepts in LinkedInRelated
  * 
  * @author Antoine Sabot-Durand
+ * 
  */
+class UpdateTypeDeserializer extends JsonDeserializer<UpdateType> {
+
+    @Override
+    public UpdateType deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+        try {
+            return UpdateType.valueOf(jp.getText().toUpperCase());
+        } catch (IllegalArgumentException e) {
+            return UpdateType.UNKNOWN;
+        }
+    }
+
+}

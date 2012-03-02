@@ -14,10 +14,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social.linkedin.model;
+package org.jboss.seam.social.linkedin.api.model;
+
+import java.io.Serializable;
 
 /**
- * This package contains API elements to represent data or concepts in LinkedInRelated
  * 
  * @author Antoine Sabot-Durand
+ * 
  */
+public class ApiStandardProfileRequest implements Serializable {
+
+    private static final long serialVersionUID = -4957171160371820101L;
+
+    private final String name;
+    private final String value;
+
+    public ApiStandardProfileRequest(String name, String value) {
+        this.name = name;
+        this.value = value;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+}

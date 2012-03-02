@@ -14,10 +14,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social.linkedin.model;
+package org.jboss.seam.social.linkedin.api.model;
+
+import java.util.List;
 
 /**
- * This package contains API elements to represent data or concepts in LinkedInRelated
+ * Model class representing group memberships on LinkedIn
  * 
+ * @author Robert Drysdale
  * @author Antoine Sabot-Durand
  */
+public class GroupMemberships extends SearchResult {
+
+    private static final long serialVersionUID = 1L;
+
+    private List<GroupSettings> memberships;
+
+    public GroupMemberships(int count, int start, int total) {
+        super(count, start, total);
+    }
+
+    public List<GroupSettings> getMemberships() {
+        return memberships;
+    }
+
+}

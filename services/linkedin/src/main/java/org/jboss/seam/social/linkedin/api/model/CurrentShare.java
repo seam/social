@@ -14,10 +14,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social.linkedin.model;
+package org.jboss.seam.social.linkedin.api.model;
+
+import java.util.Date;
 
 /**
- * This package contains API elements to represent data or concepts in LinkedInRelated
+ * Model class representing details of the last thing that User shared on LinkedIn
  * 
+ * @author Robert Drysdale
  * @author Antoine Sabot-Durand
  */
+public class CurrentShare extends Share {
+
+    private static final long serialVersionUID = 1L;
+
+    private LinkedInProfile author;
+
+    public CurrentShare(String comment, ShareContent content, String id, ShareSource source, Date timestamp, String visibility) {
+        super(comment, content, id, source, timestamp, visibility);
+    }
+
+    public LinkedInProfile getAuthor() {
+        return author;
+    }
+
+}

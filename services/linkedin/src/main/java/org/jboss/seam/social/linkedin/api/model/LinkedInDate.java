@@ -14,10 +14,37 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social.linkedin.model;
+package org.jboss.seam.social.linkedin.api.model;
 
 /**
- * This package contains API elements to represent data or concepts in LinkedInRelated
+ * LinkedIn Date which just contains year, month and day
  * 
+ * @author Robert Drysdale
  * @author Antoine Sabot-Durand
  */
+public class LinkedInDate {
+
+    private final int year;
+
+    private final int month;
+
+    private final int day;
+
+    public LinkedInDate(int year, int month, int day) {
+        this.year = year;
+        this.month = month;
+        this.day = day;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public int getMonth() {
+        return month;
+    }
+
+    public int getDay() {
+        return day;
+    }
+}

@@ -14,10 +14,35 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social.linkedin.model;
+package org.jboss.seam.social.linkedin.api.model;
+
+import java.io.Serializable;
 
 /**
- * This package contains API elements to represent data or concepts in LinkedInRelated
+ * Phone Number
  * 
+ * @author Robert Drysdale
  * @author Antoine Sabot-Durand
  */
+public class PhoneNumber implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    private final String phoneType;
+
+    private final String phoneNumber;
+
+    public PhoneNumber(String phoneType, String phoneNumber) {
+        this.phoneType = phoneType;
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getPhoneType() {
+        return phoneType;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+}

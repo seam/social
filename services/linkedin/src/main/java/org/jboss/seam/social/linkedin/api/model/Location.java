@@ -14,10 +14,35 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social.linkedin.model;
+package org.jboss.seam.social.linkedin.api.model;
+
+import java.io.Serializable;
 
 /**
- * This package contains API elements to represent data or concepts in LinkedInRelated
+ * Location
  * 
+ * @author Robert Drysdale
  * @author Antoine Sabot-Durand
  */
+public class Location implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    private final String country;
+
+    private final String name;
+
+    public Location(String country, String name) {
+        this.country = country;
+        this.name = name;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+}

@@ -14,10 +14,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social.linkedin.model;
+package org.jboss.seam.social.linkedin.api.model;
+
+import java.util.List;
 
 /**
- * This package contains API elements to represent data or concepts in LinkedInRelated
+ * Model class representing results returned from querying Job Bookmarks
  * 
+ * @author Robert Drysdale
  * @author Antoine Sabot-Durand
  */
+public class JobBookmarks extends SearchResult {
+
+    private static final long serialVersionUID = 1L;
+
+    private List<JobBookmark> jobBookmarks;
+
+    public JobBookmarks(int count, int start, int total) {
+        super(count, start, total);
+    }
+
+    public List<JobBookmark> getJobBookmarks() {
+        return jobBookmarks;
+    }
+
+}

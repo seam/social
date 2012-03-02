@@ -14,10 +14,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social.linkedin.model;
+package org.jboss.seam.social.linkedin.api.model;
+
+import java.io.Serializable;
+import java.util.List;
 
 /**
- * This package contains API elements to represent data or concepts in LinkedInRelated
+ * List of likes
  * 
+ * @author Robert Drysdale
  * @author Antoine Sabot-Durand
  */
+public class Likes implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    private final List<LinkedInProfile> likes;
+
+    public Likes(List<LinkedInProfile> likes) {
+        this.likes = likes;
+    }
+
+    public List<LinkedInProfile> getLikes() {
+        return likes;
+    }
+
+}

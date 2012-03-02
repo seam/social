@@ -14,10 +14,39 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social.linkedin.model;
+package org.jboss.seam.social.linkedin.api.model;
+
+import java.io.Serializable;
 
 /**
- * This package contains API elements to represent data or concepts in LinkedInRelated
+ * Network Statistics
  * 
+ * @author Robert Drysdale
  * @author Antoine Sabot-Durand
  */
+public class NetworkStatistics implements Serializable {
+    private static final long serialVersionUID = 1L;
+
+    private final int firstDegreeCount;
+
+    private final int secondDegreeCount;
+
+    public NetworkStatistics(int[] counts) {
+        this.firstDegreeCount = counts[0];
+        this.secondDegreeCount = counts[1];
+    }
+
+    public NetworkStatistics(int firstDegreeCount, int secondDegreeCount) {
+        this.firstDegreeCount = firstDegreeCount;
+        this.secondDegreeCount = secondDegreeCount;
+    }
+
+    public int getFirstDegreeCount() {
+        return firstDegreeCount;
+    }
+
+    public int getSecondDegreeCount() {
+        return secondDegreeCount;
+    }
+
+}

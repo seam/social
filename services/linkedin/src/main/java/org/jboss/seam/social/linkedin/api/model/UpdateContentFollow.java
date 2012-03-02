@@ -14,10 +14,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social.linkedin.model;
+package org.jboss.seam.social.linkedin.api.model;
 
 /**
- * This package contains API elements to represent data or concepts in LinkedInRelated
+ * A follow update
  * 
+ * @author Robert Drysdale
  * @author Antoine Sabot-Durand
  */
+public class UpdateContentFollow extends UpdateContent {
+
+    private static final long serialVersionUID = 1L;
+
+    private String action;
+
+    private Company following;
+
+    public UpdateContentFollow(String id, String firstName, String lastName, String headline, String industry,
+            String publicProfileUrl, UrlResource siteStandardProfileRequest, String profilePictureUrl) {
+        super(id, firstName, lastName, headline, industry, publicProfileUrl, siteStandardProfileRequest, profilePictureUrl);
+    }
+
+    public String getAction() {
+        return action;
+    }
+
+    public Company getFollowing() {
+        return following;
+    }
+
+}

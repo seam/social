@@ -14,10 +14,42 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social.linkedin.model;
+package org.jboss.seam.social.linkedin.api.model;
+
+import java.io.Serializable;
 
 /**
- * This package contains API elements to represent data or concepts in LinkedInRelated
+ * Member Group
  * 
+ * @author Robert Drysdale
  * @author Antoine Sabot-Durand
  */
+public class MemberGroup implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    private final String id;
+
+    private final String name;
+
+    private final UrlResource siteGroupRequest;
+
+    public MemberGroup(String id, String name, UrlResource siteGroupRequest) {
+        this.id = id;
+        this.name = name;
+        this.siteGroupRequest = siteGroupRequest;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public UrlResource getSiteGroupRequest() {
+        return siteGroupRequest;
+    }
+
+}

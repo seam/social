@@ -14,10 +14,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social.linkedin.model;
+package org.jboss.seam.social.linkedin.api.model;
+
+import java.util.List;
 
 /**
- * This package contains API elements to represent data or concepts in LinkedInRelated
+ * Product Result
  * 
+ * @author Robert Drysdale
  * @author Antoine Sabot-Durand
  */
+public class Products extends SearchResult {
+
+    private static final long serialVersionUID = 1L;
+
+    private List<Product> products;
+
+    public Products(int count, int start, int total) {
+        super(count, start, total);
+    }
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+}

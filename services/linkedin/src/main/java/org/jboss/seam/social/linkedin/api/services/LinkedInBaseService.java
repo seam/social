@@ -14,10 +14,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social.linkedin.model;
+package org.jboss.seam.social.linkedin.api.services;
+
+import org.jboss.seam.social.oauth.OAuthService;
 
 /**
- * This package contains API elements to represent data or concepts in LinkedInRelated
+ * A specialization of {@link OAuthService} to add LinkedIn specific methods
  * 
  * @author Antoine Sabot-Durand
  */
+public interface LinkedInBaseService extends OAuthService {
+}

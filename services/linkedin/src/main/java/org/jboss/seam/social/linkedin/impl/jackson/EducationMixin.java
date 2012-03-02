@@ -14,10 +14,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social.linkedin.model;
+package org.jboss.seam.social.linkedin.impl.jackson;
+
+import org.codehaus.jackson.annotate.JsonCreator;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.codehaus.jackson.annotate.JsonProperty;
+import org.jboss.seam.social.linkedin.api.model.LinkedInDate;
 
 /**
- * This package contains API elements to represent data or concepts in LinkedInRelated
  * 
  * @author Antoine Sabot-Durand
+ * 
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
+abstract class EducationMixin {
+
+    @JsonCreator
+    EducationMixin(@JsonProperty("activities") String activities, @JsonProperty("degree") String degree,
+            @JsonProperty("fieldOfStudy") String fieldOfStudy, @JsonProperty("id") String id,
+            @JsonProperty("notes") String notes, @JsonProperty("schoolName") String schoolName,
+            @JsonProperty("startDate") LinkedInDate startDate, @JsonProperty("endDate") LinkedInDate endDte) {
+    }
+
+}

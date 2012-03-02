@@ -14,10 +14,41 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social.linkedin.model;
+package org.jboss.seam.social.linkedin.api.model;
+
+import java.io.Serializable;
 
 /**
- * This package contains API elements to represent data or concepts in LinkedInRelated
+ * Abstract class for Search and certain other types of query list results
  * 
+ * @author Robert Drysdale
  * @author Antoine Sabot-Durand
  */
+public abstract class SearchResult implements Serializable {
+    private static final long serialVersionUID = 1L;
+
+    private final int count;
+
+    private final int start;
+
+    private final int total;
+
+    public SearchResult(int count, int start, int total) {
+        this.count = count;
+        this.start = start;
+        this.total = total;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public int getStart() {
+        return start;
+    }
+
+    public int getTotal() {
+        return total;
+    }
+
+}

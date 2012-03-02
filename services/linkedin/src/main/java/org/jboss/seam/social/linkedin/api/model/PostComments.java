@@ -14,10 +14,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social.linkedin.model;
+package org.jboss.seam.social.linkedin.api.model;
+
+import java.util.List;
 
 /**
- * This package contains API elements to represent data or concepts in LinkedInRelated
+ * Structure which contains list of post comments inside
  * 
+ * @author Robert Drysdale
  * @author Antoine Sabot-Durand
  */
+public class PostComments extends SearchResult {
+
+    private static final long serialVersionUID = 1L;
+
+    private List<PostComment> comments;
+
+    public PostComments(int count, int start, int total) {
+        super(count, start, total);
+    }
+
+    public List<PostComment> getComments() {
+        return comments;
+    }
+
+}
