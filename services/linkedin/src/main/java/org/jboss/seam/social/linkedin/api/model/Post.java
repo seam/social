@@ -22,6 +22,9 @@ import java.util.List;
 
 /**
  * 
+ * Model class representing a Post.
+ * 
+ * @author Robert Drysdale
  * @author Antoine Sabot-Durand
  * 
  */

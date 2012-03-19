@@ -17,12 +17,9 @@
 package org.jboss.seam.social.rest;
 
 import java.io.Serializable;
-import java.lang.annotation.Annotation;
 import java.util.Map;
 
 import org.jboss.seam.social.UserProfile;
-
-import com.google.common.collect.Multimap;
 
 /**
  * @author antoine
@@ -34,13 +31,6 @@ public interface RestService extends Serializable {
      * @return
      */
     public UserProfile getMyProfile();
-
-    /**
-     * Returns the logo of the service
-     * 
-     * @return the URL of the logo for the service
-     */
-    public String getServiceLogo();
 
     /**
      * Returns the status of this ServiceHndler
@@ -57,36 +47,9 @@ public interface RestService extends Serializable {
     public String getType();
 
     /**
-     * Returns the Qualifier used for this social network
-     * 
-     * @return Annotation being a Qualifier
-     */
-    public Annotation getQualifier();
-
-    /**
      * Close connexion if needed
      */
     public void resetConnection();
-
-    /**
-     * @return
-     */
-    public String getApiRootUrl();
-
-    /**
-     * @param url
-     * @param key
-     * @param value
-     * @return
-     */
-    public String buildUri(String url, String key, String value);
-
-    /**
-     * @param url
-     * @param parameters
-     * @return
-     */
-    public String buildUri(String url, Multimap<String, ? extends Object> parameters);
 
     /**
      * @param <T>
@@ -102,7 +65,7 @@ public interface RestService extends Serializable {
      * @param clazz
      * @return
      */
-    public <T> T postForObject(String uri, Multimap<String, ? extends Object> params, Class<T> clazz);
+    public <T> T postForObject(String uri, Map<String, ? extends Object> params, Class<T> clazz);
 
     /**
      * @param uri
@@ -119,5 +82,34 @@ public interface RestService extends Serializable {
      * @return
      */
     public <T> T getForObject(String uri, Class<T> clazz, Object... urlParams);
+
+    /**
+     * @param uri
+     * @param toPost
+     * @param queryStringData
+     * @param urlVariables
+     * @return
+     */
+    String postForLocation(String uri, Object toPost, Map<String, String> queryStringData, Object... urlParams);
+
+    /**
+     * @param uri
+     * @param toPost
+     * @param urlVariables
+     * @return
+     */
+    String postForLocation(String uri, Object toPost, Object... urlParams);
+
+    /**
+     * @param uri
+     * @param toPut
+     * @param urlParams
+     */
+    void put(String uri, Object toPut, Object... urlParams);
+
+    /**
+     * @param uri
+     */
+    void delete(String uri);
 
 }

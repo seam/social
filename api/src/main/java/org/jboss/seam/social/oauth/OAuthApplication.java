@@ -20,6 +20,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 import java.lang.annotation.Retention;
 
+import org.jboss.seam.social.SocialNetworkServicesHub;
 import org.jboss.solder.bean.generic.GenericType;
 
 /**
@@ -28,7 +29,7 @@ import org.jboss.solder.bean.generic.GenericType;
  * 
  */
 @Retention(RUNTIME)
-@GenericType(OAuthService.class)
+@GenericType(SocialNetworkServicesHub.class)
 public @interface OAuthApplication {
     String apiKey();
 

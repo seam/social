@@ -19,7 +19,7 @@ package org.jboss.seam.social.linkedin.api.model;
 import java.io.Serializable;
 
 /**
- * Search parameters to search for jobs. Leave parameters as null to turn off.
+ * Search parameters to search for jobs. Null parameters will not be used as search criteria.
  * 
  * @author Robert Drysdale
  * @author Antoine Sabot-Durand

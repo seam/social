@@ -33,7 +33,7 @@ import org.codehaus.jackson.type.TypeReference;
 import org.jboss.seam.social.twitter.Place;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-class PlacesList {
+public class PlacesList {
 
     private final List<Place> list;
 

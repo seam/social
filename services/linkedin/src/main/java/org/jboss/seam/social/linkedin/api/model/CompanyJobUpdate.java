@@ -20,6 +20,7 @@ import java.io.Serializable;
 
 /**
  * 
+ * @author Robert Drysdale
  * @author Antoine Sabot-Durand
  * 
  */

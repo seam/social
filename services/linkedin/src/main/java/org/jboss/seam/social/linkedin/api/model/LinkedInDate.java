@@ -16,13 +16,17 @@
  */
 package org.jboss.seam.social.linkedin.api.model;
 
+import java.io.Serializable;
+
 /**
  * LinkedIn Date which just contains year, month and day
  * 
  * @author Robert Drysdale
  * @author Antoine Sabot-Durand
  */
-public class LinkedInDate {
+public class LinkedInDate implements Serializable {
+
+    private static final long serialVersionUID = 179873120573450544L;
 
     private final int year;
 

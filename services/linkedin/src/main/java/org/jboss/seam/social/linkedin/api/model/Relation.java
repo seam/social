@@ -19,14 +19,14 @@ package org.jboss.seam.social.linkedin.api.model;
 import java.io.Serializable;
 
 /**
- * Relation
+ * Model Class representing a Relation
  * 
  * @author Robert Drysdale
  * @author Antoine Sabot-Durand
  */
 public class Relation implements Serializable {
 
-    private static final long serialVersionUID = -3045269758643542427L;
+    private static final long serialVersionUID = -4616023947304092275L;
 
     private final int distance;
 

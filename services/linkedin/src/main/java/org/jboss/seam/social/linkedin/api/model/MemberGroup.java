@@ -19,7 +19,7 @@ package org.jboss.seam.social.linkedin.api.model;
 import java.io.Serializable;
 
 /**
- * Member Group
+ * Model class representing a Member Group
  * 
  * @author Robert Drysdale
  * @author Antoine Sabot-Durand

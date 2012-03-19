@@ -16,6 +16,7 @@
  */
 package org.jboss.seam.social.linkedin.api.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -24,7 +25,9 @@ import java.util.List;
  * @author Craig Walls
  * @author Antoine Sabot-Durand
  */
-public class LinkedInConnections {
+public class LinkedInConnections implements Serializable {
+
+    private static final long serialVersionUID = -7227377144254629506L;
 
     private final List<LinkedInProfile> connections;
 

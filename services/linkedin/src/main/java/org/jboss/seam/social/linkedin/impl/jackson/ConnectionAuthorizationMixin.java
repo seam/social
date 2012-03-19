@@ -14,22 +14,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social;
+package org.jboss.seam.social.linkedin.impl.jackson;
+
+import org.codehaus.jackson.annotate.JsonProperty;
 
 /**
+ * 
  * @author Antoine Sabot-Durand
  * 
  */
-public interface SocialEvent {
+abstract class ConnectionAuthorizationMixin {
 
-    public enum Status {
-        SUCCESS, FAILURE
+    ConnectionAuthorizationMixin(@JsonProperty("name") String name, @JsonProperty("value") String value) {
     }
-
-    public Status getStatus();
-
-    public String getMessage();
-
-    public Object getPayload();
 
 }

@@ -19,7 +19,7 @@ package org.jboss.seam.social.linkedin.api.model;
 import java.io.Serializable;
 
 /**
- * Twitter account
+ * Model class representing a Twitter account
  * 
  * @author Robert Drysdale
  * @author Antoine Sabot-Durand

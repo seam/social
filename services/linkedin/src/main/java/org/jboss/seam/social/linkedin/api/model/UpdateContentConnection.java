@@ -19,7 +19,7 @@ package org.jboss.seam.social.linkedin.api.model;
 import java.util.List;
 
 /**
- * A connection update
+ * Model class representing a connection update
  * 
  * @author Robert Drysdale
  * @author Antoine Sabot-Durand

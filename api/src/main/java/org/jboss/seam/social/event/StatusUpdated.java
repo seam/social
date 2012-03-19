@@ -14,18 +14,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social.linkedin.impl.jackson;
+package org.jboss.seam.social.event;
 
-import org.codehaus.jackson.annotate.JsonProperty;
 
 /**
- * 
- * @author Antoine Sabot-Durand
+ * @author antoine
  * 
  */
-abstract class ApiStandardProfileRequestMixin {
+public class StatusUpdated extends SocialEvent<Object> {
 
-    ApiStandardProfileRequestMixin(@JsonProperty("name") String name, @JsonProperty("value") String value) {
+    /**
+     * @param status
+     * @param message
+     * @param payload
+     */
+    public StatusUpdated(Status status, String message, Object payload) {
+        super(status, message, payload);
     }
 
 }

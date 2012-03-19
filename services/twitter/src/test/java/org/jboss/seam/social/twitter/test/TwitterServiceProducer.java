@@ -5,9 +5,9 @@ package org.jboss.seam.social.twitter.test;
 
 import javax.enterprise.inject.Produces;
 
+import org.jboss.seam.social.SocialNetworkServicesHub;
 import org.jboss.seam.social.Twitter;
-import org.jboss.seam.social.oauth.OAuthApplication;
-import org.jboss.seam.social.twitter.TwitterBaseService;
+import org.jboss.seam.social.TwitterServicesHub;
 
 /**
  * @author antoine
@@ -15,11 +15,11 @@ import org.jboss.seam.social.twitter.TwitterBaseService;
  */
 public class TwitterServiceProducer {
 
-    @OAuthApplication(apiKey = "FQzlQC49UhvbMZoxUIvHTQ", apiSecret = "VQ5CZHG4qUoAkUUmckPn4iN4yyjBKcORTW0wnok4r1k")
     @Twitter
+    // @OAuthApplication(apiKey = "FQzlQC49UhvbMZoxUIvHTQ", apiSecret = "VQ5CZHG4qUoAkUUmckPn4iN4yyjBKcORTW0wnok4r1k")
     @Produces
-    TwitterBaseService twitterServiceProducer(TwitterBaseService ts) {
-        return ts;
+    public SocialNetworkServicesHub OAuthSettinsProducer(TwitterServicesHub service) {
+        return service;
     }
 
 }

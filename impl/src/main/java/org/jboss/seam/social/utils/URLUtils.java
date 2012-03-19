@@ -16,12 +16,11 @@
  */
 package org.jboss.seam.social.utils;
 
-import static com.google.common.collect.HashMultimap.create;
+import static com.google.common.collect.Maps.newHashMap;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -34,10 +33,7 @@ import org.jboss.seam.social.exception.SeamSocialException;
 import com.google.common.base.Function;
 import com.google.common.base.Joiner;
 import com.google.common.base.Joiner.MapJoiner;
-import com.google.common.collect.Collections2;
 import com.google.common.collect.Maps;
-import com.google.common.collect.Multimap;
-
 
 /**
  * Utils to deal with URL and url-encodings
@@ -81,39 +77,16 @@ public class URLUtils {
     /**
      * Turns a map into a form-urlencoded string
      * 
-     * @param params any map
+     * @param parameters any map
      * @return form-url-encoded string
      */
-    public static String formURLEncodeMap(Multimap<String, ? extends Object> params) {
-        return (params.size() <= 0) ? EMPTY_STRING : doFormUrlEncode(params);
+    public static String formURLEncodeMap(Map<String, ? extends Object> parameters) {
+        return (parameters.size() <= 0) ? EMPTY_STRING : doFormUrlEncode(parameters);
     }
 
-    private static String doFormUrlEncode(Multimap<String, ? extends Object> params) {
-        Map<String, String> urlEncodedMap = multimapToMap(params);
-        return queryMapJoiner.join(urlEncodedMap);
-    }
-
-    /**
-     * @param params
-     * @return
-     */
-    public static Map<String, String> multimapToMap(Multimap<String, ? extends Object> params) {
-        Map<String, String> res = Maps.newHashMap();
-        String vstring;
-        for (String key : params.keySet()) {
-
-            Collection<String> values = Collections2.transform(params.get(key), new Function<Object, String>() {
-
-                @Override
-                public String apply(Object input) {
-                    return input.toString();
-                }
-            });
-            vstring = commaJoiner.join(values);
-            res.put(key, vstring);
-        }
-        // Map<String, String> urlEncodedMap = Maps.transformValues(res, new formUrlEncodeFunc());
-        return res;
+    public static String doFormUrlEncode(Map<String, ? extends Object> params) {
+        Map<String, String> urlEncodeMap = Maps.transformValues(params, new formUrlEncodeFunc());
+        return queryMapJoiner.join(urlEncodeMap);
     }
 
     /**
@@ -162,11 +135,11 @@ public class URLUtils {
      * Append given parameters to the query string of the url
      * 
      * @param url the url to append parameters to
-     * @param params any map
+     * @param parameters any map
      * @return new url with parameters on query string
      */
-    public static String buildUri(String url, Multimap<String, ? extends Object> params) {
-        String queryString = URLUtils.formURLEncodeMap(params);
+    public static String buildUri(String url, Map<String, ? extends Object> parameters) {
+        String queryString = URLUtils.formURLEncodeMap(parameters);
         if (queryString.equals(EMPTY_STRING)) {
             return url;
         } else {
@@ -243,8 +216,8 @@ public class URLUtils {
         }
     }
 
-    public static Multimap<String, String> buildPagingParametersWithCount(int page, int pageSize, long sinceId, long maxId) {
-        Multimap<String, String> parameters = create();
+    public static Map<String, String> buildPagingParametersWithCount(int page, int pageSize, long sinceId, long maxId) {
+        Map<String, String> parameters = newHashMap();
         parameters.put("page", String.valueOf(page));
         parameters.put("count", String.valueOf(pageSize));
         if (sinceId > 0) {
@@ -256,8 +229,8 @@ public class URLUtils {
         return parameters;
     }
 
-    public static Multimap<String, String> buildPagingParametersWithPerPage(int page, int pageSize, long sinceId, long maxId) {
-        Multimap<String, String> parameters = create();
+    public static Map<String, String> buildPagingParametersWithPerPage(int page, int pageSize, long sinceId, long maxId) {
+        Map<String, String> parameters = newHashMap();
         parameters.put("page", String.valueOf(page));
         parameters.put("per_page", String.valueOf(pageSize));
         if (sinceId > 0) {
@@ -279,7 +252,7 @@ public class URLUtils {
      */
     public static String processPlaceHolders(String in, Map<String, ? extends Object> values) {
         String out = new String(in);
-    
+
         for (String key : values.keySet()) {
             String toLook = "{" + key + "}";
             String value = values.get(key).toString();
@@ -288,7 +261,7 @@ public class URLUtils {
             } catch (UnsupportedEncodingException e) {
                 throw new SeamSocialException("unable to encode " + value, e);
             }
-    
+
         }
         return out;
     }
@@ -297,6 +270,6 @@ public class URLUtils {
         @SuppressWarnings("unchecked")
         Map<String, ? extends Object> paramMap = new BeanMap(pojo);
         return processPlaceHolders(in, paramMap);
-    
+
     }
 }

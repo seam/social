@@ -44,7 +44,7 @@ public class LinkedInProfile extends UserProfile {
 
     private String summary;
 
-    private ApiStandardProfileRequest apiStandardProfileRequest;
+    private ConnectionAuthorization connectionAuthorization;
 
     public LinkedInProfile(String id, String firstName, String lastName, String headline, String industry,
             String publicProfileUrl, UrlResource siteStandardProfileRequest, String profilePictureUrl) {
@@ -125,10 +125,10 @@ public class LinkedInProfile extends UserProfile {
     }
 
     /**
-     * @return auth information required for connecting to user
+     * @return Authorization information required for connecting to this user.
      */
-    public ApiStandardProfileRequest getApiStandardProfileRequest() {
-        return apiStandardProfileRequest;
+    public ConnectionAuthorization getConnectionAuthorization() {
+        return connectionAuthorization;
     }
 
     /**

@@ -19,12 +19,14 @@ package org.jboss.seam.social.oauth;
 import static org.jboss.seam.social.SeamSocialExtension.getServicesToQualifier;
 import static org.jboss.seam.social.rest.RestVerb.GET;
 import static org.jboss.seam.social.rest.RestVerb.POST;
+import static org.jboss.seam.social.rest.RestVerb.PUT;
 
 import java.lang.annotation.Annotation;
 import java.text.MessageFormat;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import javax.enterprise.event.Event;
 import javax.enterprise.inject.Any;
 import javax.enterprise.inject.Instance;
 import javax.enterprise.util.AnnotationLiteral;
@@ -35,13 +37,13 @@ import org.jboss.seam.social.Current;
 import org.jboss.seam.social.JsonMapper;
 import org.jboss.seam.social.SeamSocialExtension;
 import org.jboss.seam.social.UserProfile;
+import org.jboss.seam.social.event.OAuthComplete;
+import org.jboss.seam.social.event.SocialEvent;
 import org.jboss.seam.social.exception.SeamSocialException;
 import org.jboss.seam.social.rest.RestResponse;
 import org.jboss.seam.social.rest.RestVerb;
 import org.jboss.seam.social.utils.URLUtils;
 import org.jboss.solder.logging.Logger;
-
-import com.google.common.collect.Multimap;
 
 /**
  * This Abstract implementation of {@link OAuthService} uses an {@link OAuthProvider} to deal with remote OAuth Services
@@ -50,7 +52,7 @@ import com.google.common.collect.Multimap;
  * @author Antoine Sabot-Durand
  */
 
-public abstract class OAuthServiceImpl implements OAuthService {
+public class OAuthServiceImpl implements OAuthService {
 
     private static final long serialVersionUID = -8423894021913341674L;
     private static final String VERIFIER_PARAM_NAME = "oauth_verifier";
@@ -61,6 +63,16 @@ public abstract class OAuthServiceImpl implements OAuthService {
     @Inject
     @Any
     private Instance<OAuthProvider> providers;
+
+    @Inject
+    @Any
+    private Event<OAuthComplete> completeEventProducer;
+
+    private Annotation qualifier;
+
+    void setQualifier(Annotation qualifier) {
+        this.qualifier = qualifier;
+    }
 
     @Inject
     protected JsonMapper jsonService;
@@ -107,15 +119,12 @@ public abstract class OAuthServiceImpl implements OAuthService {
             session.setAccessToken(getProvider().getAccessToken(getRequestToken(), session.getVerifier()));
         if (session.getAccessToken() != null) {
             session.setRequestToken(null);
-            initMyProfile();
-            // TODO Should we fire an event ?
+            completeEventProducer.select(getQualifier()).fire(new OAuthComplete(SocialEvent.Status.SUCCESS, "", session));
         } else {
-            // FIXME Launch an org.jboss.seam.social.exception !!
+            // FIXME Launch an exception !!
         }
 
     }
-
-    abstract protected void initMyProfile();
 
     @Override
     public void resetConnection() {
@@ -249,39 +258,55 @@ public abstract class OAuthServiceImpl implements OAuthService {
     }
 
     @Override
-    public <T> T postForObject(String uri, Multimap<String, ? extends Object> params, Class<T> clazz) {
+    public <T> T postForObject(String uri, Map<String, ? extends Object> params, Class<T> clazz) {
         OAuthRequest request = getProvider().requestFactory(POST, uri);
-        Map<String, String> reqParams = request.getBodyParams();
-        Map<String, String> unifiedParams = URLUtils.multimapToMap(params);
-        reqParams.putAll(unifiedParams);
-
+        request.addBodyParameters(params);
         return jsonService.mapToObject(sendSignedRequest(request), clazz);
     }
 
+    @Override
+    public String postForLocation(String uri, Object toPost, Object... urlParams) {
+
+        uri = MessageFormat.format(uri, urlParams);
+        OAuthRequest request = getProvider().requestFactory(POST, uri);
+
+        request.addPayload(jsonService.ObjectToJsonString(toPost));
+        RestResponse response = sendSignedRequest(request);
+        return response.getHeader("Location");
+    }
+
+    @Override
+    public String postForLocation(String uri, Object toPost, Map<String, String> queryStringData, Object... urlParams) {
+        if (queryStringData != null && !queryStringData.isEmpty()) {
+            String encodedParams = URLUtils.doFormUrlEncode(queryStringData);
+            if (uri.indexOf('?') == uri.length() - 1)
+                uri += encodedParams;
+            else if (uri.indexOf('?') == -1)
+                uri += "?" + encodedParams;
+            else
+                uri += "&" + encodedParams;
+        }
+        return postForLocation(uri, toPost);
+    }
+
+    @Override
+    public void put(String uri, Object toPut, Object... urlParams) {
+        uri = MessageFormat.format(uri, urlParams);
+        OAuthRequest request = getProvider().requestFactory(PUT, uri);
+
+        request.addPayload(jsonService.ObjectToJsonString(toPut));
+        sendSignedRequest(request);
+
+    }
+
+    @Override
     public void delete(String uri) {
         sendSignedRequest(RestVerb.DELETE, uri);
     }
 
     @Override
-    public String buildUri(String url) {
-        return getApiRootUrl() + url;
+    public Annotation getQualifier() {
+        return qualifier;
     }
 
-    @Override
-    public String buildUri(String url, String key, String value) {
-        return URLUtils.buildUri(buildUri(url), key, value);
-    }
-
-    /**
-     * @param searchUserUrl
-     * @param parameters
-     * @return
-     */
-    @Override
-    public String buildUri(String url, Multimap<String, ? extends Object> parameters) {
-        return URLUtils.buildUri(buildUri(url), parameters);
-    }
-
-    @Override
-    public abstract String getApiRootUrl();
 }

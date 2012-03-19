@@ -39,4 +39,10 @@ public interface JsonMapper extends Serializable {
      */
     public <T> T mapToObject(RestResponse resp, Class<T> clazz);
 
+    /**
+     * @param obj
+     * @return
+     */
+    public String ObjectToJsonString(Object obj);
+
 }

@@ -19,10 +19,11 @@
  xmlns:o="urn:java:org.jboss.seam.social:org.jboss.seam.social.oauth:org.jboss.seam.social.twitter.jackson"
  xmlns:s="urn:java:ee"
  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://jboss.org/schema/cdi/beans_1_0.xsd">
- <o:TwitterServiceImpl>
+ <o:TwitterServicesHub>
   <s:modifies/>
+  <s:ApplicationScoped/>
   <o:Twitter/>
   <o:OAuthApplication apiKey="FQzlQC49UhvbMZoxUIvHTQ"
    apiSecret="VQ5CZHG4qUoAkUUmckPn4iN4yyjBKcORTW0wnok4r1k" callback="http://localhost:8080/social-web-client/callback.jsf"/>
- </o:TwitterServiceImpl>
+ </o:TwitterServicesHub>
 </beans>

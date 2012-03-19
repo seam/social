@@ -25,14 +25,12 @@ import javax.inject.Inject;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.seam.social.SocialNetworkServicesHub;
 import org.jboss.seam.social.Twitter;
-import org.jboss.seam.social.oauth.OAuthProvider;
-import org.jboss.seam.social.oauth.OAuthSession;
 import org.jboss.seam.social.oauth.OAuthToken;
 import org.jboss.seam.social.scribe.OAuthTokenScribe;
 import org.jboss.seam.social.twitter.SuggestionCategory;
 import org.jboss.seam.social.twitter.Tweet;
-import org.jboss.seam.social.twitter.TwitterBaseService;
 import org.jboss.seam.social.twitter.TwitterProfile;
 import org.jboss.seam.social.twitter.TwitterTimelineService;
 import org.jboss.seam.social.twitter.TwitterUserService;
@@ -54,21 +52,13 @@ public class TwitterTest {
 
     @Inject
     @Twitter
-    OAuthSession session;
-
-    @Inject
-    @Twitter
-    TwitterBaseService twitterBaseService;
+    SocialNetworkServicesHub serviceHub;
 
     @Inject
     TwitterTimelineService tl;
 
     @Inject
     TwitterUserService userService;
-
-    @Inject
-    @Twitter
-    OAuthProvider provider;
 
     @Deployment
     public static Archive<?> createTestArchive() throws FileNotFoundException {
@@ -86,20 +76,21 @@ public class TwitterTest {
                                 .importFrom(new File("../../impl/target/seam-social.jar")).as(JavaArchive.class),
                         ShrinkWrap.create(ZipImporter.class, "seam-social-twitter.jar")
                                 .importFrom(new File("target/seam-social-twitter.jar")).as(JavaArchive.class))
+                // .addAsResource(EmptyAsset.INSTANCE, "META-INF/beans.xml").addClass(TwitterServiceProducer.class);
                 .addAsResource(beanFile, "META-INF/beans.xml");
 
-        if ("weld-ee-embedded-1.1".equals(System.getProperty("arquillian"))) {
-            // Don't embed dependencies that are already in the CL in the embedded container from surefire
-            ret.addAsLibraries(DependencyResolvers.use(MavenDependencyResolver.class).configureFrom("../../settings.xml")
-                    .loadMetadataFromPom("../../impl/pom.xml").artifact("org.jboss.solder:solder-impl")
-                    .resolveAs(GenericArchive.class));
-        } else {
-            ret.addAsLibraries(DependencyResolvers.use(MavenDependencyResolver.class).configureFrom("../../settings.xml")
-                    .loadMetadataFromPom("../../impl/pom.xml").artifact("org.jboss.solder:solder-impl")
-                    .artifact("org.scribe:scribe").artifact("org.apache.commons:commons-lang3")
-                    .artifact("org.codehaus.jackson:jackson-mapper-asl").artifact("com.google.guava:guava")
-                    .resolveAs(GenericArchive.class));
-        }
+        // if ("weld-ee-embedded-1.1".equals(System.getProperty("arquillian"))) {
+        // // Don't embed dependencies that are already in the CL in the embedded container from surefire
+        // ret.addAsLibraries(DependencyResolvers.use(MavenDependencyResolver.class).configureFrom("../../settings.xml")
+        // .loadMetadataFromPom("../../impl/pom.xml").artifact("org.jboss.solder:solder-impl")
+        // .resolveAs(GenericArchive.class));
+        // } else {
+        ret.addAsLibraries(DependencyResolvers.use(MavenDependencyResolver.class).configureFrom("../../settings.xml")
+                .loadMetadataFromPom("../../impl/pom.xml").artifact("org.jboss.solder:solder-impl")
+                .artifact("org.scribe:scribe").artifact("org.apache.commons:commons-lang3")
+                .artifact("org.codehaus.jackson:jackson-mapper-asl").artifact("com.google.guava:guava")
+                .resolveAs(GenericArchive.class));
+        // }
         return ret;
     }
 
@@ -107,13 +98,13 @@ public class TwitterTest {
     public void init() {
         OAuthToken token = new OAuthTokenScribe("334872715-u75bjYqWyQSYjFMnKeTDZUn8i0QAExjUQ4ENZXH3",
                 "08QG7HVqDjkr1oH1YfBRWmd0n8EG73CuzJgTjFI0sk");
-        session.setAccessToken(token);
-        twitterBaseService.initAccessToken();
+        serviceHub.getSession().setAccessToken(token);
+        serviceHub.getService().initAccessToken();
     }
 
     @Test
     public void authorizationUrlTest() {
-        Assert.assertTrue(twitterBaseService.getAuthorizationUrl().startsWith("http"));
+        Assert.assertTrue(serviceHub.getService().getAuthorizationUrl().startsWith("http"));
     }
 
     @Test

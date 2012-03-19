@@ -20,7 +20,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Update Action
+ * Model class representing an Update Action
  * 
  * @author Robert Drysdale
  * @author Antoine Sabot-Durand

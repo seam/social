@@ -27,7 +27,7 @@ import org.jboss.seam.social.twitter.CursoredList;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonIgnoreType
-class CursoredLongList {
+public class CursoredLongList {
 
     private final CursoredList<Long> list;
 

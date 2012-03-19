@@ -21,7 +21,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Product
+ * Model class representing a Product
  * 
  * @author Robert Drysdale
  * @author Antoine Sabot-Durand

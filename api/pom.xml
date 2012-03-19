@@ -52,11 +52,7 @@
         <dependency>
             <groupId>org.jboss.solder</groupId>
             <artifactId>solder-impl</artifactId>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 

@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class LinkedInNetworkUpdate implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 6365350899307042635L;
 
     private final Date timestamp;
 

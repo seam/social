@@ -65,6 +65,15 @@ public class JsonMapperJackson implements JsonMapper {
         }
     }
 
+    @Override
+    public String ObjectToJsonString(Object obj) {
+        try {
+            return delegate.writeValueAsString(obj);
+        } catch (Exception e) {
+            throw new SeamSocialException("Unable to map a " + obj.getClass().getName() + " to json", e);
+        }
+    }
+
     /**
      * 
      * Register a Jackson configuration {@link Module} to set special rules for de-serialization

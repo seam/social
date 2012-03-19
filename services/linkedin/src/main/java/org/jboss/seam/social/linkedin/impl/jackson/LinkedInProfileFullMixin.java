@@ -31,7 +31,7 @@ import org.codehaus.jackson.map.JsonDeserializer;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.codehaus.jackson.type.TypeReference;
-import org.jboss.seam.social.linkedin.api.model.ApiStandardProfileRequest;
+import org.jboss.seam.social.linkedin.api.model.ConnectionAuthorization;
 import org.jboss.seam.social.linkedin.api.model.CurrentShare;
 import org.jboss.seam.social.linkedin.api.model.Education;
 import org.jboss.seam.social.linkedin.api.model.ImAccount;
@@ -145,9 +145,9 @@ abstract class LinkedInProfileFullMixin {
     @JsonProperty
     Relation relationToViewer;
 
-    @JsonProperty("apiStandardProfileRequest")
-    @JsonDeserialize(using = ApiStandardProfileRequestDeserializer.class)
-    ApiStandardProfileRequest apiStandardProfileRequest;
+    @JsonProperty("connectionAuthorization")
+    @JsonDeserialize(using = ConnectionAuthorizationDeserializer.class)
+    ConnectionAuthorization connectionAuthorization;
 
     private static final class PositionListDeserializer extends JsonDeserializer<List<Position>> {
         @Override

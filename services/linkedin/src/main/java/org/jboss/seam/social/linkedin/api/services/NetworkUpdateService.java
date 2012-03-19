@@ -16,7 +16,6 @@
  */
 package org.jboss.seam.social.linkedin.api.services;
 
-import java.net.URI;
 import java.util.List;
 
 import org.jboss.seam.social.linkedin.api.model.Comment;
@@ -139,6 +138,6 @@ public interface NetworkUpdateService {
      * @param share
      * @return URI to share location
      */
-    URI share(NewShare share);
+    String share(NewShare share);
 
 }

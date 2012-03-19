@@ -16,10 +16,9 @@
  */
 package org.jboss.seam.social.twitter;
 
-import java.util.Map;
+import static com.google.common.collect.Maps.newHashMap;
 
-import com.google.common.collect.LinkedHashMultimap;
-import com.google.common.collect.Multimap;
+import java.util.Map;
 
 /**
  * Carries optional metadata pertaining to a Twitter status update.
@@ -92,8 +91,8 @@ public class StatusDetails {
      * 
      * @return A {@link Map} of parameters to be passed along in the status update post to Twitter.
      */
-    public Multimap<String, Object> toParameterMap() {
-        LinkedHashMultimap<String, Object> parameterMap = LinkedHashMultimap.create();
+    public Map<String, Object> toParameterMap() {
+        Map<String, Object> parameterMap = newHashMap();
         if (latitude != null && longitude != null) {
             parameterMap.put("lat", latitude.toString());
             parameterMap.put("long", longitude.toString());

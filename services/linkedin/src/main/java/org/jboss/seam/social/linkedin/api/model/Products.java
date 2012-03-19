@@ -19,7 +19,7 @@ package org.jboss.seam.social.linkedin.api.model;
 import java.util.List;
 
 /**
- * Product Result
+ * Model Class representing a list of Products
  * 
  * @author Robert Drysdale
  * @author Antoine Sabot-Durand

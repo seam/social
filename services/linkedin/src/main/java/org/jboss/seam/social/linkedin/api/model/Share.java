@@ -20,7 +20,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * Share
+ * Model Class representing a Share
  * 
  * @author Robert Drysdale
  * @author Antoine Sabot-Durand

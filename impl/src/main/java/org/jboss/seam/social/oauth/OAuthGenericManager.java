@@ -23,10 +23,12 @@ import javax.enterprise.context.SessionScoped;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 
+import org.jboss.seam.social.SocialNetworkServicesHub;
 import org.jboss.seam.social.scribe.OAuthProviderScribe;
 import org.jboss.solder.bean.generic.ApplyScope;
 import org.jboss.solder.bean.generic.Generic;
 import org.jboss.solder.bean.generic.GenericConfiguration;
+import org.jboss.solder.logging.Logger;
 
 /**
  * @author Antoine
@@ -39,11 +41,21 @@ public class OAuthGenericManager {
 
     @Inject
     @Generic
-    OAuthService service;
+    SocialNetworkServicesHub servicesHub;
 
     @Inject
     @Generic
     OAuthApplication app;
+
+    @Inject
+    Logger log;
+
+    @Produces
+    @ApplyScope
+    protected OAuthService produceService(OAuthServiceImpl service) {
+        service.setQualifier(qual);
+        return service;
+    }
 
     @Produces
     @ApplyScope
@@ -63,11 +75,12 @@ public class OAuthGenericManager {
 
     @PostConstruct
     void init() {
+        log.info("****** in OAuthGenericManager ");
         String apiKey = app.apiKey();
         String apiSecret = app.apiSecret();
         String callback = app.callback();
         String scope = app.scope();
-        qual = service.getQualifier();
+        qual = servicesHub.getQualifier();
         settings = new OAuthServiceSettingsImpl(qual, apiKey, apiSecret, callback, scope);
     }
 

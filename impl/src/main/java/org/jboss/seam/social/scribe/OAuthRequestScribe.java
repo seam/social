@@ -21,6 +21,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.jboss.seam.social.exception.SeamSocialRestException;
 import org.jboss.seam.social.oauth.OAuthRequest;
+import org.jboss.seam.social.rest.RestParameterList;
 import org.jboss.seam.social.rest.RestResponse;
 import org.jboss.seam.social.rest.RestVerb;
 import org.scribe.exceptions.OAuthException;
@@ -146,8 +147,8 @@ public class OAuthRequestScribe implements OAuthRequest {
      * @see org.jboss.seam.social.oauth.OAuthRequest#getQueryStringParams()
      */
     @Override
-    public Map<String, String> getQueryStringParams() {
-        return request.getQueryStringParams();
+    public RestParameterList getQueryStringParams() {
+        return new ParameterListScribe(request.getQueryStringParams());
     }
 
     @Override
@@ -161,8 +162,8 @@ public class OAuthRequestScribe implements OAuthRequest {
      * @see org.jboss.seam.social.oauth.OAuthRequest#getBodyParams()
      */
     @Override
-    public Map<String, String> getBodyParams() {
-        return request.getBodyParams();
+    public RestParameterList getBodyParams() {
+        return new ParameterListScribe(request.getBodyParams());
     }
 
     /*
@@ -233,6 +234,44 @@ public class OAuthRequestScribe implements OAuthRequest {
     @Override
     public void setReadTimeout(int duration, TimeUnit unit) {
         request.setReadTimeout(duration, unit);
+    }
+
+    @Override
+    public String getCompleteUrl() {
+        return request.getCompleteUrl();
+    }
+
+    @Override
+    public void addPayload(byte[] payload) {
+        request.addPayload(payload);
+    }
+
+    @Override
+    public String getCharset() {
+        return request.getCharset();
+    }
+
+    @Override
+    public void setCharset(String charsetName) {
+        request.setCharset(charsetName);
+    }
+
+    @Override
+    public void setConnectionKeepAlive(boolean connectionKeepAlive) {
+        request.setConnectionKeepAlive(connectionKeepAlive);
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.jboss.seam.social.rest.RestRequest#addBodyParameters(java.util.Map)
+     */
+    @Override
+    public void addBodyParameters(Map<String, ? extends Object> toAdd) {
+        for (String key : toAdd.keySet()) {
+            addBodyParameter(key, toAdd.get(key).toString());
+
+        }
     }
 
 }

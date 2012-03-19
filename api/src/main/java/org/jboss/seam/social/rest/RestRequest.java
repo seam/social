@@ -50,6 +50,8 @@ public interface RestRequest extends Serializable {
      */
     public void addBodyParameter(String key, String value);
 
+    public void addBodyParameters(Map<String, ? extends Object> toAdd);
+
     /**
      * Add a QueryString parameter
      * 
@@ -73,14 +75,14 @@ public interface RestRequest extends Serializable {
      * @return a map containing the query string parameters
      * @throws OAuthException if the URL is not valid
      */
-    public Map<String, String> getQueryStringParams();
+    public RestParameterList getQueryStringParams();
 
     /**
      * Obtains a {@link Map} of the body parameters.
      * 
      * @return a map containing the body parameters.
      */
-    public Map<String, String> getBodyParams();
+    public RestParameterList getBodyParams();
 
     /**
      * Obtains the URL of the HTTP Request.
@@ -132,5 +134,30 @@ public interface RestRequest extends Serializable {
      * @param unit unit of time (milliseconds, seconds, etc)
      */
     public void setReadTimeout(int duration, TimeUnit unit);
+
+    /**
+     * @return
+     */
+    String getCompleteUrl();
+
+    /**
+     * @param payload
+     */
+    void addPayload(byte[] payload);
+
+    /**
+     * @return
+     */
+    String getCharset();
+
+    /**
+     * @param charsetName
+     */
+    void setCharset(String charsetName);
+
+    /**
+     * @param connectionKeepAlive
+     */
+    void setConnectionKeepAlive(boolean connectionKeepAlive);
 
 }

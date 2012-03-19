@@ -19,7 +19,7 @@ package org.jboss.seam.social.linkedin.api.model;
 import java.io.Serializable;
 
 /**
- * Location
+ * Model Class representing a Location
  * 
  * @author Robert Drysdale
  * @author Antoine Sabot-Durand

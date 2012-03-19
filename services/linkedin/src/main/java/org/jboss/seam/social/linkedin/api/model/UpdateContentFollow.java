@@ -17,7 +17,7 @@
 package org.jboss.seam.social.linkedin.api.model;
 
 /**
- * A follow update
+ * Model class repreenting a follow update
  * 
  * @author Robert Drysdale
  * @author Antoine Sabot-Durand

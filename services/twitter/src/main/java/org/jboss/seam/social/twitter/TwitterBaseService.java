@@ -16,6 +16,10 @@
  */
 package org.jboss.seam.social.twitter;
 
+import java.lang.annotation.Annotation;
+
+import org.jboss.seam.social.AbstractSocialNetworkService;
+import org.jboss.seam.social.TwitterLiteral;
 import org.jboss.seam.social.oauth.OAuthService;
 
 /**
@@ -24,6 +28,18 @@ import org.jboss.seam.social.oauth.OAuthService;
  * @author Antoine Sabot-Durand
  */
 
-public interface TwitterBaseService extends OAuthService {
+public abstract class TwitterBaseService extends AbstractSocialNetworkService {
+
+    static final String API_ROOT = "https://api.twitter.com/1/";
+
+    @Override
+    public Annotation getQualifier() {
+        return TwitterLiteral.INSTANCE;
+    }
+
+    @Override
+    public String getApiRootUrl() {
+        return API_ROOT;
+    }
 
 }

@@ -27,7 +27,7 @@ import org.jboss.seam.social.twitter.Place;
  * @author Craig Walls
  * @author Antoine Sabot-Durand
  */
-class SimilarPlacesResponse {
+public class SimilarPlacesResponse {
 
     private final String token;
     private final List<Place> places;

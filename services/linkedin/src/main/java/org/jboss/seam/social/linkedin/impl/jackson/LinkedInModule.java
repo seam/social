@@ -19,7 +19,7 @@ package org.jboss.seam.social.linkedin.impl.jackson;
 import org.codehaus.jackson.Version;
 import org.codehaus.jackson.map.module.SimpleModule;
 import org.jboss.seam.social.LinkedIn;
-import org.jboss.seam.social.linkedin.api.model.ApiStandardProfileRequest;
+import org.jboss.seam.social.linkedin.api.model.ConnectionAuthorization;
 import org.jboss.seam.social.linkedin.api.model.CodeAndName;
 import org.jboss.seam.social.linkedin.api.model.Comment;
 import org.jboss.seam.social.linkedin.api.model.Comments;
@@ -137,7 +137,7 @@ public class LinkedInModule extends SimpleModule {
         context.setMixInAnnotations(Product.class, ProductMixin.class);
         context.setMixInAnnotations(ProductRecommendation.class, ProductRecommendationMixin.class);
         context.setMixInAnnotations(Products.class, ProductsMixin.class);
-        context.setMixInAnnotations(ApiStandardProfileRequest.class, ApiStandardProfileRequestMixin.class);
+        context.setMixInAnnotations(ConnectionAuthorization.class, ConnectionAuthorizationMixin.class);
         context.setMixInAnnotations(LinkedInNetworkUpdate.class, LinkedInNetworkUpdateMixin.class);
         context.setMixInAnnotations(LinkedInNetworkUpdates.class, LinkedInNetworkUpdatesMixin.class);
         context.setMixInAnnotations(UpdateContent.class, UpdateContentMixin.class);

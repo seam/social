@@ -25,17 +25,17 @@ import org.codehaus.jackson.map.DeserializationContext;
 import org.codehaus.jackson.map.JsonDeserializer;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
-import org.jboss.seam.social.linkedin.api.model.ApiStandardProfileRequest;
+import org.jboss.seam.social.linkedin.api.model.ConnectionAuthorization;
 
 /**
  * 
  * @author Antoine Sabot-Durand
  * 
  */
-final class ApiStandardProfileRequestDeserializer extends JsonDeserializer<ApiStandardProfileRequest> {
+final class ConnectionAuthorizationDeserializer extends JsonDeserializer<ConnectionAuthorization> {
 
     @Override
-    public ApiStandardProfileRequest deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException,
+    public ConnectionAuthorization deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException,
             JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         mapper.setDeserializationConfig(ctxt.getConfig());
@@ -43,7 +43,7 @@ final class ApiStandardProfileRequestDeserializer extends JsonDeserializer<ApiSt
         if (jp.hasCurrentToken()) {
             JsonNode dataNode = jp.readValueAsTree().path("headers").path("values").get(0);
             if (dataNode != null) {
-                return mapper.readValue(dataNode, new TypeReference<ApiStandardProfileRequest>() {
+                return mapper.readValue(dataNode, new TypeReference<ConnectionAuthorization>() {
                 });
             }
         }

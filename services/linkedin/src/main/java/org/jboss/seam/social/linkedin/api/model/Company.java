@@ -22,6 +22,7 @@ import java.util.List;
 /**
  * Model class representing a Company
  * 
+ * @author Robert Drysdale
  * @author Antoine Sabot-Durand
  * 
  */

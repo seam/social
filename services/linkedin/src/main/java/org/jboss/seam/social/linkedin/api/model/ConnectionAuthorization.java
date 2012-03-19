@@ -14,21 +14,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social;
+package org.jboss.seam.social.linkedin.api.model;
+
+import java.io.Serializable;
 
 /**
- * @author antoine
+ * Carries authorization information required for connecting to another LinkedIn user by their ID. Obtained via a
+ * {@link LinkedInProfile} after a user profile search.
  * 
+ * @author Robert Drysdale
+ * @author habuma
+ * @author Antoine Sabot-Durand
  */
-public class StatusUpdated extends AbstractSocialEvent {
+public class ConnectionAuthorization implements Serializable {
 
-    /**
-     * @param status
-     * @param message
-     * @param payload
-     */
-    public StatusUpdated(Status status, String message, Object payload) {
-        super(status, message, payload);
+    private static final long serialVersionUID = -4957171160371820101L;
+
+    private final String name;
+    private final String value;
+
+    public ConnectionAuthorization(String name, String value) {
+        this.name = name;
+        this.value = value;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getValue() {
+        return value;
     }
 
 }

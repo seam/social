@@ -47,8 +47,8 @@ import com.google.common.collect.HashBiMap;
 @ApplicationScoped
 public class SeamSocialExtension implements Extension {
 
-    private Set<String> servicesNames = newHashSet();
-    private Set<Annotation> servicesQualifiersConfigured = newHashSet();
+    private final Set<String> servicesNames = newHashSet();
+    private final Set<Annotation> servicesQualifiersConfigured = newHashSet();
     private static Set<Annotation> servicesQualifiersAvailable = newHashSet();
     private static BiMap<Annotation, String> servicesToQualifier = HashBiMap.create();
     private boolean multiSession = false;
@@ -71,6 +71,24 @@ public class SeamSocialExtension implements Extension {
         }
     }
 
+    // public void processApplyQualifierBeans(@Observes ProcessBean<OAuthService> pbean, BeanManager beanManager) {
+    //
+    // log.info("Looking for Injection Point to Qualify");
+    // Bean<OAuthService> bean = pbean.getBean();
+    // Set<Annotation> qualifiers = AnnotationInspector.getAnnotations(pbean.getAnnotated(), ServiceRelated.class);
+    // Set<InjectionPoint> ips = bean.getInjectionPoints();
+    // for (InjectionPoint ip : ips) {
+    // if (ip.getAnnotated().isAnnotationPresent(ApplyQualifier.class))
+    // ip.getQualifiers().addAll(qualifiers);
+    //
+    // }
+    //
+    // Annotated annotated = pbean.getAnnotated();
+    // if (annotated.isAnnotationPresent(OAuthApplication.class)) {
+    // servicesQualifiersConfigured.addAll(AnnotationInspector.getAnnotations(annotated, ServiceRelated.class));
+    // }
+    // }
+
     /**
      * This Listener build the List of existing OAuthServices with a Qualifier having the meta annotation @ServiceRelated
      * 
@@ -78,7 +96,7 @@ public class SeamSocialExtension implements Extension {
      * @throws IllegalAccessException
      * @throws InstantiationException
      */
-    public void processServicesBeans(@Observes ProcessBean<ServiceConfiguration> pbean) throws InstantiationException,
+    public void processServicesBeans(@Observes ProcessBean<SocialNetworkServicesHub> pbean) throws InstantiationException,
             IllegalAccessException {
         Set<Annotation> qualifiers = AnnotationInspector.getAnnotations(pbean.getAnnotated(), ServiceRelated.class);
         servicesQualifiersAvailable.addAll(qualifiers);

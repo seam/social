@@ -19,7 +19,9 @@ package org.jboss.seam.social.linkedin.api.model;
 import java.io.Serializable;
 
 /**
- * Contains LinkedIn structure which contains a code and a name for that code
+ * Contains LinkedIn structure which contains a code and a name for that code. The LinkedIn API returns a code/name pair for
+ * several of its fields (e.g., product category, company type, etc). This class generically captures the code/name pair for a
+ * field.
  * 
  * @author Robert Drysdale
  * @author Antoine Sabot-Durand

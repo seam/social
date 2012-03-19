@@ -20,7 +20,7 @@ import org.codehaus.jackson.annotate.JsonCreator;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
-import org.jboss.seam.social.linkedin.api.model.ApiStandardProfileRequest;
+import org.jboss.seam.social.linkedin.api.model.ConnectionAuthorization;
 import org.jboss.seam.social.linkedin.api.model.UrlResource;
 
 /**
@@ -42,8 +42,8 @@ abstract class LinkedInProfileMixin {
     @JsonProperty("summary")
     String summary;
 
-    @JsonProperty("apiStandardProfileRequest")
-    @JsonDeserialize(using = ApiStandardProfileRequestDeserializer.class)
-    ApiStandardProfileRequest apiStandardProfileRequest;
+    @JsonProperty("connectionAuthorization")
+    @JsonDeserialize(using = ConnectionAuthorizationDeserializer.class)
+    ConnectionAuthorization connectionAuthorization;
 
 }

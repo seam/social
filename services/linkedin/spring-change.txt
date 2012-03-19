@@ -1,0 +1,64 @@
+{master//spring-social-linkedin} $ git pull                                                                                        (antoine@mbpasd-2:..g-social-linkedin/)
+From https://github.com/SpringSource/spring-social-linkedin
+   88cff8e..ab7103a  master     -> origin/master
+ * [new tag]         v1.0.0.RC1 -> v1.0.0.RC1
+Updating 88cff8e..ab7103a
+Fast-forward
+ docs/src/info/changelog.txt                        |   13 +++++++
+ .../social/linkedin/api/CodeAndName.java           |    5 +--
+ .../linkedin/api/CommunicationOperations.java      |   10 +++---
+ .../social/linkedin/api/Companies.java             |    2 +-
+ .../social/linkedin/api/Company.java               |    2 ++
+ .../social/linkedin/api/CompanyJobUpdate.java      |    7 ++++
+ .../social/linkedin/api/CompanyOperations.java     |    9 ++++-
+ ...leRequest.java => ConnectionAuthorization.java} |   16 ++++++---
+ .../social/linkedin/api/ConnectionOperations.java  |   12 +++++--
+ .../social/linkedin/api/GroupSettings.java         |    1 +
+ .../social/linkedin/api/ImAccount.java             |    1 -
+ .../social/linkedin/api/JobSearchParameters.java   |    2 +-
+ .../social/linkedin/api/LinkedIn.java              |   13 ++-----
+ .../social/linkedin/api/LinkedInConnections.java   |    5 ++-
+ .../social/linkedin/api/LinkedInDate.java          |    7 ++--
+ .../social/linkedin/api/LinkedInNetworkUpdate.java |    1 +
+ .../linkedin/api/LinkedInNetworkUpdates.java       |    5 ++-
+ .../social/linkedin/api/LinkedInProfile.java       |    9 ++---
+ .../social/linkedin/api/Location.java              |    2 +-
+ .../social/linkedin/api/MemberGroup.java           |    2 +-
+ .../social/linkedin/api/NetworkStatistics.java     |    2 +-
+ .../linkedin/api/NetworkUpdateParameters.java      |    2 +-
+ .../social/linkedin/api/PhoneNumber.java           |    1 -
+ .../springframework/social/linkedin/api/Post.java  |    8 +++--
+ .../social/linkedin/api/Product.java               |    4 +--
+ .../social/linkedin/api/Products.java              |    2 +-
+ .../social/linkedin/api/Recommendation.java        |    1 +
+ .../social/linkedin/api/Relation.java              |    4 +--
+ .../social/linkedin/api/SearchParameters.java      |    1 +
+ .../social/linkedin/api/SearchResult.java          |    1 +
+ .../springframework/social/linkedin/api/Share.java |    3 +-
+ .../social/linkedin/api/TwitterAccount.java        |    2 +-
+ .../social/linkedin/api/UpdateAction.java          |    3 +-
+ .../social/linkedin/api/UpdateContentCompany.java  |    1 -
+ .../linkedin/api/UpdateContentConnection.java      |    2 +-
+ .../social/linkedin/api/UpdateContentFollow.java   |    3 +-
+ .../social/linkedin/api/UpdateContentGroup.java    |    1 +
+ .../linkedin/api/UpdateContentPersonActivity.java  |    1 +
+ .../linkedin/api/UpdateContentRecommendation.java  |    2 +-
+ .../social/linkedin/api/UpdateContentShare.java    |    1 +
+ .../social/linkedin/api/UpdateTypeInput.java       |    1 +
+ .../linkedin/api/impl/CommunicationTemplate.java   |   15 +++++---
+ .../linkedin/api/impl/ConnectionTemplate.java      |   15 ++++++--
+ .../linkedin/api/impl/NetworkUpdateTemplate.java   |   21 +++++-------
+ ...va => ConnectionAuthorizationDeserializer.java} |    8 ++---
+ ...ixin.java => ConnectionAuthorizationMixin.java} |    4 +--
+ .../linkedin/api/impl/json/LinkedInModule.java     |    4 +--
+ .../api/impl/json/LinkedInProfileFullMixin.java    |    6 ++--
+ .../api/impl/json/LinkedInProfileMixin.java        |    6 ++--
+ .../api/impl/json/SearchResultWrapperMixin.java    |   30 ----------------
+ .../api/impl/CommunicationTemplateTest.java        |    8 ++---
+ .../linkedin/api/impl/ConnectionTemplateTest.java  |   36 ++++++++++++++------
+ .../api/impl/NetworkUpdateTemplateTest.java        |   20 +++++++++--
+ 53 files changed, 208 insertions(+), 135 deletions(-)
+ rename spring-social-linkedin/src/main/java/org/springframework/social/linkedin/api/{ApiStandardProfileRequest.java => ConnectionAuthorization.java} (69%)
+ rename spring-social-linkedin/src/main/java/org/springframework/social/linkedin/api/impl/json/{ApiStandardProfileRequestDeserializer.java => ConnectionAuthorizationDeserializer.java} (76%)
+ rename spring-social-linkedin/src/main/java/org/springframework/social/linkedin/api/impl/json/{ApiStandardProfileRequestMixin.java => ConnectionAuthorizationMixin.java} (91%)
+ delete mode 100644 spring-social-linkedin/src/main/java/org/springframework/social/linkedin/api/impl/json/SearchResultWrapperMixin.java

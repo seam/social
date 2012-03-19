@@ -18,6 +18,7 @@ package org.jboss.seam.social.oauth;
 
 import java.util.Map;
 
+import org.jboss.seam.social.QualifierAware;
 import org.jboss.seam.social.rest.RestResponse;
 import org.jboss.seam.social.rest.RestService;
 import org.jboss.seam.social.rest.RestVerb;
@@ -27,7 +28,7 @@ import org.jboss.seam.social.rest.RestVerb;
  * 
  * @author Antoine Sabot-Durand
  */
-public interface OAuthService extends RestService {
+public interface OAuthService extends RestService, QualifierAware {
 
     /**
      * @return the access token for the OAuth service
@@ -124,12 +125,6 @@ public interface OAuthService extends RestService {
      * @return the session settings of the given service
      */
     public OAuthSession getSession();
-
-    /**
-     * @param url
-     * @return
-     */
-    public String buildUri(String url);
 
     /**
      * 

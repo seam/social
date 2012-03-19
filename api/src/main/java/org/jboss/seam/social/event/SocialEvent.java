@@ -14,44 +14,45 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.social;
+package org.jboss.seam.social.event;
 
 /**
  * @author Antoine Sabot-Durand
  * 
  */
-public abstract class AbstractSocialEvent implements SocialEvent {
+public class SocialEvent<T> {
+
+    public enum Status {
+        SUCCESS, FAILURE
+    }
 
     private final Status status;
 
     private final String message;
 
-    private final Object payload;
+    private final T eventData;
 
-    public AbstractSocialEvent(Status status, String message) {
+    public SocialEvent(Status status, String message) {
         this(status, message, null);
     }
 
-    public AbstractSocialEvent(Status status, String message, Object payload) {
+    public SocialEvent(Status status, String message, T payload) {
         super();
         this.status = status;
         this.message = message;
-        this.payload = payload;
+        this.eventData = payload;
     }
 
-    @Override
     public Status getStatus() {
         return status;
     }
 
-    @Override
     public String getMessage() {
         return message;
     }
 
-    @Override
-    public Object getPayload() {
-        return payload;
+    public T getEventData() {
+        return eventData;
     }
 
 }
