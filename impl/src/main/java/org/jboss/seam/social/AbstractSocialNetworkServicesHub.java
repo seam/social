@@ -3,7 +3,6 @@
  */
 package org.jboss.seam.social;
 
-import org.jboss.seam.social.event.OAuthComplete;
 import org.jboss.seam.social.oauth.OAuthSession;
 
 /**
@@ -33,6 +32,6 @@ public abstract class AbstractSocialNetworkServicesHub extends AbstractOAuthServ
         return getSession().isConnected();
     }
 
-    protected abstract void initMyProfile(OAuthComplete oauthComplete);
+    // public abstract void initMyProfile(OAuthComplete oauthComplete);
 
 }

@@ -32,4 +32,8 @@ public abstract class AbstractSocialNetworkService extends AbstractOAuthServiceA
         return getApiRootUrl() + url;
     }
 
+    public String buildUri(String url, Object pojo) {
+        return URLUtils.buildUri(buildUri(url), pojo);
+    }
+
 }

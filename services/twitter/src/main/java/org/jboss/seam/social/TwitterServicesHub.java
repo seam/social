@@ -13,14 +13,17 @@ import org.jboss.seam.social.event.OAuthComplete;
 import org.jboss.seam.social.event.SocialEvent.Status;
 import org.jboss.seam.social.twitter.TwitterBaseService;
 import org.jboss.seam.social.twitter.impl.TwitterUserServiceImpl;
+import org.jboss.solder.logging.Logger;
 
 /**
  * @author Antoine Sabot-Durand
  * 
  */
 
-// @Twitter
 public class TwitterServicesHub extends AbstractSocialNetworkServicesHub {
+
+    @Inject
+    Logger log;
 
     @Inject
     Instance<TwitterBaseService> services;
@@ -30,8 +33,8 @@ public class TwitterServicesHub extends AbstractSocialNetworkServicesHub {
         return TwitterLiteral.INSTANCE;
     }
 
-    @Override
-    protected void initMyProfile(@Observes @Twitter OAuthComplete oauthComplete) {
+    public void initMyProfile(@Observes @Twitter OAuthComplete oauthComplete) {
+        log.info("**** Initializing Twitter profile ****");
         if (oauthComplete.getStatus() == Status.SUCCESS)
             oauthComplete.getEventData().setUserProfile(services.select(TwitterUserServiceImpl.class).get().getUserProfile());
 

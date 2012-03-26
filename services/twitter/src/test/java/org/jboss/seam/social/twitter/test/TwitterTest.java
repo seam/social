@@ -79,18 +79,18 @@ public class TwitterTest {
                 // .addAsResource(EmptyAsset.INSTANCE, "META-INF/beans.xml").addClass(TwitterServiceProducer.class);
                 .addAsResource(beanFile, "META-INF/beans.xml");
 
-        // if ("weld-ee-embedded-1.1".equals(System.getProperty("arquillian"))) {
-        // // Don't embed dependencies that are already in the CL in the embedded container from surefire
-        // ret.addAsLibraries(DependencyResolvers.use(MavenDependencyResolver.class).configureFrom("../../settings.xml")
-        // .loadMetadataFromPom("../../impl/pom.xml").artifact("org.jboss.solder:solder-impl")
-        // .resolveAs(GenericArchive.class));
-        // } else {
-        ret.addAsLibraries(DependencyResolvers.use(MavenDependencyResolver.class).configureFrom("../../settings.xml")
-                .loadMetadataFromPom("../../impl/pom.xml").artifact("org.jboss.solder:solder-impl")
-                .artifact("org.scribe:scribe").artifact("org.apache.commons:commons-lang3")
-                .artifact("org.codehaus.jackson:jackson-mapper-asl").artifact("com.google.guava:guava")
-                .resolveAs(GenericArchive.class));
-        // }
+        if ("weld-ee-embedded-1.1".equals(System.getProperty("arquillian"))) {
+            // Don't embed dependencies that are already in the CL in the embedded container from surefire
+            ret.addAsLibraries(DependencyResolvers.use(MavenDependencyResolver.class).configureFrom("../../settings.xml")
+                    .loadMetadataFromPom("../../impl/pom.xml").artifact("org.jboss.solder:solder-impl")
+                    .resolveAs(GenericArchive.class));
+        } else {
+            ret.addAsLibraries(DependencyResolvers.use(MavenDependencyResolver.class).configureFrom("../../settings.xml")
+                    .loadMetadataFromPom("../../impl/pom.xml").artifact("org.jboss.solder:solder-impl")
+                    .artifact("org.scribe:scribe").artifact("org.apache.commons:commons-lang3")
+                    .artifact("org.codehaus.jackson:jackson-mapper-asl").artifact("com.google.guava:guava")
+                    .resolveAs(GenericArchive.class));
+        }
         return ret;
     }
 

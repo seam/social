@@ -21,6 +21,7 @@ import static com.google.common.collect.Maps.newHashMap;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -33,7 +34,10 @@ import org.jboss.seam.social.exception.SeamSocialException;
 import com.google.common.base.Function;
 import com.google.common.base.Joiner;
 import com.google.common.base.Joiner.MapJoiner;
+import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Maps;
+import com.google.common.collect.Multimap;
+import com.google.common.collect.Multimaps;
 
 /**
  * Utils to deal with URL and url-encodings
@@ -147,6 +151,59 @@ public class URLUtils {
             url += queryString;
             return url;
         }
+    }
+
+    public static String buildUri(String url, Object pojo) {
+        Multimap<String, Object> pojoMap = pojoToMultiMap(pojo);
+        String queryString = URLUtils.formURLEncodeMap(pojoMap);
+        if (queryString.equals(EMPTY_STRING)) {
+            return url;
+        } else {
+            url += url.indexOf(QUERY_STRING_SEPARATOR) != -1 ? PARAM_SEPARATOR : QUERY_STRING_SEPARATOR;
+            url += queryString;
+            return url;
+        }
+    }
+
+    /**
+     * @param pojoMap
+     * @return
+     */
+    private static String formURLEncodeMap(Multimap<String, Object> parameters) {
+        return (parameters.size() <= 0) ? EMPTY_STRING : doFormUrlEncode(parameters);
+    }
+
+    /**
+     * @param parameters
+     * @return
+     */
+    private static String doFormUrlEncode(Multimap<String, Object> parameters) {
+        Multimap<String, String> urlEncodeMap = Multimaps.transformValues(parameters, new formUrlEncodeFunc());
+        return queryMapJoiner.join(urlEncodeMap.entries());
+    }
+
+    /**
+     * @param pojo
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+    private static Multimap<String, Object> pojoToMultiMap(Object pojo) {
+        Map<String, ? extends Object> pojoMap = new BeanMap(pojo);
+        Multimap<String, Object> res = HashMultimap.create();
+        for (String key : pojoMap.keySet()) {
+            if (!"class".equals(key)) {
+                Object value = pojoMap.get(key);
+                if (value instanceof Map)
+                    throw new IllegalArgumentException("Cannot convert Pojo containing a Map to a Multimap");
+                if (value instanceof Collection) {
+                    for (Object elt : (Collection<Object>) value) {
+                        res.put(key, elt);
+                    }
+                } else
+                    res.put(key, value);
+            }
+        }
+        return res;
     }
 
     /**

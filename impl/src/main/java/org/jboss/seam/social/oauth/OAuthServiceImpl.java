@@ -119,7 +119,12 @@ public class OAuthServiceImpl implements OAuthService {
             session.setAccessToken(getProvider().getAccessToken(getRequestToken(), session.getVerifier()));
         if (session.getAccessToken() != null) {
             session.setRequestToken(null);
-            completeEventProducer.select(getQualifier()).fire(new OAuthComplete(SocialEvent.Status.SUCCESS, "", session));
+            log.info("firing event for " + getQualifier() + " OAuth complete cycle");
+            Event<OAuthComplete> event = completeEventProducer.select(getQualifier());
+
+            event.fire(new OAuthComplete(SocialEvent.Status.SUCCESS, "", session));
+            log.info("After OAuth cycle completion");
+
         } else {
             // FIXME Launch an exception !!
         }
@@ -136,7 +141,8 @@ public class OAuthServiceImpl implements OAuthService {
 
     }
 
-    protected RestResponse sendSignedRequest(OAuthRequest request) {
+    @Override
+    public RestResponse sendSignedRequest(OAuthRequest request) {
         getProvider().signRequest(getAccessToken(), request);
         return request.send();
     }

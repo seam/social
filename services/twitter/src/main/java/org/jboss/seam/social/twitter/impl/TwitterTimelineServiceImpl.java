@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.inject.Named;
+
 import org.jboss.seam.social.twitter.StatusDetails;
 import org.jboss.seam.social.twitter.Tweet;
 import org.jboss.seam.social.twitter.TwitterBaseService;
@@ -22,6 +24,7 @@ import org.jboss.seam.social.utils.URLUtils;
  * @author Craig Walls
  * 
  */
+@Named
 public class TwitterTimelineServiceImpl extends TwitterBaseService implements TwitterTimelineService {
 
     private static final String USER_TIMELINE_URL = "statuses/user_timeline.json";

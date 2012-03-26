@@ -33,7 +33,6 @@ import javax.enterprise.inject.spi.ProcessBean;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jboss.seam.social.oauth.OAuthApplication;
-import org.jboss.seam.social.oauth.OAuthService;
 import org.jboss.solder.logging.Logger;
 import org.jboss.solder.reflection.AnnotationInspector;
 
@@ -62,7 +61,7 @@ public class SeamSocialExtension implements Extension {
      * @param pbean
      * @param beanManager
      */
-    public void processSettingsBeans(@Observes ProcessBean<OAuthService> pbean, BeanManager beanManager) {
+    public void processSettingsBeans(@Observes ProcessBean<SocialNetworkServicesHub> pbean, BeanManager beanManager) {
 
         log.info("Starting enumeration of existing service settings");
         Annotated annotated = pbean.getAnnotated();

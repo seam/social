@@ -16,11 +16,13 @@
  */
 package org.jboss.seam.social.event;
 
+import java.io.Serializable;
+
 /**
  * @author Antoine Sabot-Durand
  * 
  */
-public class SocialEvent<T> {
+public class SocialEvent<T> implements Serializable {
 
     public enum Status {
         SUCCESS, FAILURE

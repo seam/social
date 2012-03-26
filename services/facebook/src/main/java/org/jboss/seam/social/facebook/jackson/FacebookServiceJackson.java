@@ -25,7 +25,6 @@ import javax.inject.Inject;
 
 import org.jboss.seam.social.UserProfile;
 import org.jboss.seam.social.facebook.FacebookService;
-import org.jboss.seam.social.facebook.model.UserJackson;
 import org.jboss.seam.social.oauth.OAuthServiceImpl;
 import org.jboss.seam.social.rest.RestResponse;
 import org.jboss.seam.social.rest.RestVerb;
@@ -53,11 +52,6 @@ public class FacebookServiceJackson extends OAuthServiceImpl implements Facebook
      * 
      * @see org.jboss.seam.social.oauth.OAuthService#getServiceLogo()
      */
-    @Override
-    public String getServiceLogo() {
-        return LOGO_URL;
-    }
-
     /*
      * (non-Javadoc)
      * 
@@ -86,12 +80,12 @@ public class FacebookServiceJackson extends OAuthServiceImpl implements Facebook
      * 
      * @see org.jboss.seam.social.OAuthServiceBase#initMyProfile()
      */
-    @Override
-    protected void initMyProfile() {
-        getSession().setUserProfile(
-                jsonService.mapToObject(sendSignedRequest(RestVerb.GET, USER_PROFILE_URL), UserJackson.class));
-
-    }
+    // @Override
+    // protected void initMyProfile() {
+    // getSession().setUserProfile(
+    // jsonService.mapToObject(sendSignedRequest(RestVerb.GET, USER_PROFILE_URL), UserJackson.class));
+    //
+    // }
 
     @Override
     public String getVerifierParamName() {
@@ -113,10 +107,10 @@ public class FacebookServiceJackson extends OAuthServiceImpl implements Facebook
      * 
      * @see org.jboss.seam.social.oauth.OAuthServiceImpl#getApiRootUrl()
      */
-    @Override
-    public String getApiRootUrl() {
-        // TODO Auto-generated method stub
-        return null;
-    }
+    // @Override
+    // public String getApiRootUrl() {
+    // // TODO Auto-generated method stub
+    // return null;
+    // }
 
 }

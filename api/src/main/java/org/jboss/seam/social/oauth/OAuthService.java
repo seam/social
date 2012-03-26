@@ -131,4 +131,10 @@ public interface OAuthService extends RestService, QualifierAware {
      */
     void requireAuthorization();
 
+    /**
+     * @param request
+     * @return
+     */
+    RestResponse sendSignedRequest(OAuthRequest request);
+
 }

@@ -33,7 +33,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.jboss.seam.social.MultiServicesManager;
-import org.jboss.seam.social.SocialEvent;
+import org.jboss.seam.social.event.SocialEvent;
 import org.jboss.seam.social.event.StatusUpdated;
 import org.jboss.seam.social.oauth.OAuthService;
 import org.jboss.seam.social.oauth.OAuthSession;
