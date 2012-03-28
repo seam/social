@@ -112,4 +112,14 @@ public interface RestService extends Serializable {
      */
     void delete(String uri);
 
+    /**
+     * @return
+     */
+    Map<String, String> getRequestHeader();
+
+    /**
+     * @param requestHeader
+     */
+    void setRequestHeader(Map<String, String> requestHeader);
+
 }

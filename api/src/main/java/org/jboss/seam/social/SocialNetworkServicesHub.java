@@ -3,6 +3,7 @@
  */
 package org.jboss.seam.social;
 
+import org.jboss.seam.social.oauth.OAuthService;
 import org.jboss.seam.social.oauth.OAuthSession;
 
 /**
@@ -30,5 +31,10 @@ public interface SocialNetworkServicesHub extends OAuthServiceAware, QualifierAw
      * @return
      */
     boolean isConnected();
+
+    /**
+     * @param service
+     */
+    public void configureService(OAuthService service);
 
 }

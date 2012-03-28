@@ -16,6 +16,9 @@
  */
 package org.jboss.seam.social;
 
+import static org.codehaus.jackson.map.DeserializationConfig.Feature.READ_ENUMS_USING_TO_STRING;
+import static org.codehaus.jackson.map.SerializationConfig.Feature.WRITE_ENUMS_USING_TO_STRING;
+
 import java.io.IOException;
 
 import javax.annotation.PostConstruct;
@@ -26,6 +29,7 @@ import javax.inject.Inject;
 
 import org.codehaus.jackson.map.Module;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
 import org.jboss.seam.social.exception.SeamSocialException;
 import org.jboss.seam.social.exception.SeamSocialRestException;
 import org.jboss.seam.social.rest.RestResponse;
@@ -86,9 +90,11 @@ public class JsonMapperJackson implements JsonMapper {
 
     @PostConstruct
     protected void init() {
+        delegate.enable(WRITE_ENUMS_USING_TO_STRING).setSerializationInclusion(Inclusion.NON_NULL);
+        delegate.enable(READ_ENUMS_USING_TO_STRING);
         for (Module module : moduleInstances) {
             registerModule(module);
         }
-    }
 
+    }
 }

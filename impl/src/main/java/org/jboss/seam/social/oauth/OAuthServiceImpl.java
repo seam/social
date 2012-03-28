@@ -70,6 +70,8 @@ public class OAuthServiceImpl implements OAuthService {
 
     private Annotation qualifier;
 
+    private Map<String, String> requestHeader;
+
     void setQualifier(Annotation qualifier) {
         this.qualifier = qualifier;
     }
@@ -119,11 +121,10 @@ public class OAuthServiceImpl implements OAuthService {
             session.setAccessToken(getProvider().getAccessToken(getRequestToken(), session.getVerifier()));
         if (session.getAccessToken() != null) {
             session.setRequestToken(null);
-            log.info("firing event for " + getQualifier() + " OAuth complete cycle");
+            log.debug("firing event for " + getQualifier() + " OAuth complete cycle");
             Event<OAuthComplete> event = completeEventProducer.select(getQualifier());
-
             event.fire(new OAuthComplete(SocialEvent.Status.SUCCESS, "", session));
-            log.info("After OAuth cycle completion");
+            log.debug("After OAuth cycle completion");
 
         } else {
             // FIXME Launch an exception !!
@@ -143,6 +144,8 @@ public class OAuthServiceImpl implements OAuthService {
 
     @Override
     public RestResponse sendSignedRequest(OAuthRequest request) {
+        if (getRequestHeader() != null)
+            request.getHeaders().putAll(getRequestHeader());
         getProvider().signRequest(getAccessToken(), request);
         return request.send();
     }
@@ -313,6 +316,22 @@ public class OAuthServiceImpl implements OAuthService {
     @Override
     public Annotation getQualifier() {
         return qualifier;
+    }
+
+    /**
+     * @return the requestHeader
+     */
+    @Override
+    public Map<String, String> getRequestHeader() {
+        return requestHeader;
+    }
+
+    /**
+     * @param requestHeader the requestHeader to set
+     */
+    @Override
+    public void setRequestHeader(Map<String, String> requestHeader) {
+        this.requestHeader = requestHeader;
     }
 
 }

@@ -3,6 +3,7 @@
  */
 package org.jboss.seam.social;
 
+import org.jboss.seam.social.oauth.OAuthService;
 import org.jboss.seam.social.oauth.OAuthSession;
 
 /**
@@ -30,6 +31,10 @@ public abstract class AbstractSocialNetworkServicesHub extends AbstractOAuthServ
     @Override
     public boolean isConnected() {
         return getSession().isConnected();
+    }
+
+    @Override
+    public void configureService(OAuthService service) {
     }
 
     // public abstract void initMyProfile(OAuthComplete oauthComplete);

@@ -34,7 +34,7 @@ public class TwitterServicesHub extends AbstractSocialNetworkServicesHub {
     }
 
     public void initMyProfile(@Observes @Twitter OAuthComplete oauthComplete) {
-        log.info("**** Initializing Twitter profile ****");
+        log.debug("**** Initializing Twitter profile ****");
         if (oauthComplete.getStatus() == Status.SUCCESS)
             oauthComplete.getEventData().setUserProfile(services.select(TwitterUserServiceImpl.class).get().getUserProfile());
 

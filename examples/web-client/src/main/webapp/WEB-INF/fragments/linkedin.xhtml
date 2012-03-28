@@ -8,8 +8,8 @@
     <h:panelGroup id="linkedintl" layout="block">
         <img src="#{currentSession.userProfile.profileImageUrl}"/>
         <br/>
-        <h:inputTextarea value="#{socialClient.status}" cols="60" rows="5"/>
-        <h:commandButton action="#{socialClient.updateStatus}"
+        <h:inputTextarea value="#{linkedInShare.comment}" cols="60" rows="5"/>
+        <h:commandButton action="#{linkedInController.sendUpdate()}"
                          value="Update your status">
             <f:ajax render="linkedintl" execute="linkedintl"/>
         </h:commandButton>

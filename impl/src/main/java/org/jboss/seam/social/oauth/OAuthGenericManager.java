@@ -54,6 +54,7 @@ public class OAuthGenericManager {
     @ApplyScope
     protected OAuthService produceService(OAuthServiceImpl service) {
         service.setQualifier(qual);
+        servicesHub.configureService(service);
         return service;
     }
 
@@ -75,12 +76,12 @@ public class OAuthGenericManager {
 
     @PostConstruct
     void init() {
-        log.info("****** in OAuthGenericManager ");
+        qual = servicesHub.getQualifier();
+        log.debugf("in OAuthGenericManager creating Hub for %s", qual.toString());
         String apiKey = app.apiKey();
         String apiSecret = app.apiSecret();
         String callback = app.callback();
         String scope = app.scope();
-        qual = servicesHub.getQualifier();
         settings = new OAuthServiceSettingsImpl(qual, apiKey, apiSecret, callback, scope);
     }
 

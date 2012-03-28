@@ -10,6 +10,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.inject.Named;
+
 import org.jboss.seam.social.linkedin.LinkedInBaseService;
 import org.jboss.seam.social.linkedin.api.model.Comment;
 import org.jboss.seam.social.linkedin.api.model.Comments;
@@ -28,6 +30,7 @@ import org.jboss.seam.social.linkedin.api.services.NetworkUpdateService;
  * @author Antoine Sabot-Durand
  * 
  */
+@Named
 public class NetworkUpdateServiceImpl extends LinkedInBaseService implements NetworkUpdateService {
 
     static {

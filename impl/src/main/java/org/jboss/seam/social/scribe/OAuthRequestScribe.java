@@ -74,11 +74,15 @@ public class OAuthRequestScribe implements OAuthRequest {
     @Override
     public RestResponse send() {
 
+        RestResponse resp = null;
         try {
-            return new RestResponseScribe(request.send(), request.getUrl());
+            resp = new RestResponseScribe(request.send(), request.getUrl());
         } catch (OAuthException e) {
             throw new SeamSocialRestException(request.getUrl(), e);
         }
+        if (resp.getCode() >= 400)
+            throw new SeamSocialRestException(resp.getCode(), request.getUrl(), resp.getHeaders().toString());
+        return resp;
     }
 
     /*

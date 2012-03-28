@@ -63,30 +63,14 @@ public class SeamSocialExtension implements Extension {
      */
     public void processSettingsBeans(@Observes ProcessBean<SocialNetworkServicesHub> pbean, BeanManager beanManager) {
 
-        log.info("Starting enumeration of existing service settings");
+        log.infof("Found services hub %s", pbean.getAnnotated().getBaseType());
+
         Annotated annotated = pbean.getAnnotated();
         if (annotated.isAnnotationPresent(OAuthApplication.class)) {
+            log.debug("Bean is configured");
             servicesQualifiersConfigured.addAll(AnnotationInspector.getAnnotations(annotated, ServiceRelated.class));
         }
     }
-
-    // public void processApplyQualifierBeans(@Observes ProcessBean<OAuthService> pbean, BeanManager beanManager) {
-    //
-    // log.info("Looking for Injection Point to Qualify");
-    // Bean<OAuthService> bean = pbean.getBean();
-    // Set<Annotation> qualifiers = AnnotationInspector.getAnnotations(pbean.getAnnotated(), ServiceRelated.class);
-    // Set<InjectionPoint> ips = bean.getInjectionPoints();
-    // for (InjectionPoint ip : ips) {
-    // if (ip.getAnnotated().isAnnotationPresent(ApplyQualifier.class))
-    // ip.getQualifiers().addAll(qualifiers);
-    //
-    // }
-    //
-    // Annotated annotated = pbean.getAnnotated();
-    // if (annotated.isAnnotationPresent(OAuthApplication.class)) {
-    // servicesQualifiersConfigured.addAll(AnnotationInspector.getAnnotations(annotated, ServiceRelated.class));
-    // }
-    // }
 
     /**
      * This Listener build the List of existing OAuthServices with a Qualifier having the meta annotation @ServiceRelated
