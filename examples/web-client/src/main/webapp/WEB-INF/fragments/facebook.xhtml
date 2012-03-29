@@ -9,7 +9,7 @@
         <img src="#{currentSession.userProfile.profileImageUrl}"/>
         <br/>
   <h:inputTextarea value="#{socialClient.status}" cols="60" rows="5"/>
-        <h:commandButton action="#{socialClient.updateStatus}"
+        <h:commandButton action="#{facebookFeed.updateStatus(socialClient.status)}"
                          value="Update your status">
                 <f:ajax render="facebooktl" execute="facebooktl"/>
             </h:commandButton>

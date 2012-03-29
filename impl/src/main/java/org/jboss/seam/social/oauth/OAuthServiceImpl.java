@@ -55,7 +55,6 @@ import org.jboss.solder.logging.Logger;
 public class OAuthServiceImpl implements OAuthService {
 
     private static final long serialVersionUID = -8423894021913341674L;
-    private static final String VERIFIER_PARAM_NAME = "oauth_verifier";
     private static Annotation currentLiteral = new AnnotationLiteral<Current>() {
         private static final long serialVersionUID = -2929657732814790025L;
     };
@@ -115,7 +114,7 @@ public class OAuthServiceImpl implements OAuthService {
     }
 
     @Override
-    public void initAccessToken() {
+    public synchronized void initAccessToken() {
         OAuthSession session = getSession();
         if (session.getAccessToken() == null)
             session.setAccessToken(getProvider().getAccessToken(getRequestToken(), session.getVerifier()));
@@ -227,11 +226,6 @@ public class OAuthServiceImpl implements OAuthService {
         OAuthSession session = getSession();
         session.setAccessToken(token);
 
-    }
-
-    @Override
-    public String getVerifierParamName() {
-        return VERIFIER_PARAM_NAME;
     }
 
     @Override

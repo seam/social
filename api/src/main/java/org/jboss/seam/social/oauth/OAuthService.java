@@ -117,11 +117,6 @@ public interface OAuthService extends RestService, QualifierAware {
     public RestResponse sendSignedXmlRequest(RestVerb verb, String uri, String payload);
 
     /**
-     * @return the name of the URL param name containing verifier code sent bakc by the remote service
-     */
-    public String getVerifierParamName();
-
-    /**
      * @return the session settings of the given service
      */
     public OAuthSession getSession();

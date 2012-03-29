@@ -25,6 +25,7 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Any;
 import javax.enterprise.inject.Instance;
+import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 
 import org.codehaus.jackson.map.Module;
@@ -45,7 +46,8 @@ public class JsonMapperJackson implements JsonMapper {
 
     private static final long serialVersionUID = -2012295612034078749L;
 
-    private final ObjectMapper delegate = new ObjectMapper();
+    @Produces
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     @Inject
     @Any
@@ -63,7 +65,7 @@ public class JsonMapperJackson implements JsonMapper {
             if (resp.getCode() != 200) {
                 throw new SeamSocialRestException(resp.getCode(), resp.getUrl(), msg);
             }
-            return delegate.readValue(msg, clazz);
+            return objectMapper.readValue(msg, clazz);
         } catch (IOException e) {
             throw new SeamSocialException("Unable to map Json response", e);
         }
@@ -72,7 +74,7 @@ public class JsonMapperJackson implements JsonMapper {
     @Override
     public String ObjectToJsonString(Object obj) {
         try {
-            return delegate.writeValueAsString(obj);
+            return objectMapper.writeValueAsString(obj);
         } catch (Exception e) {
             throw new SeamSocialException("Unable to map a " + obj.getClass().getName() + " to json", e);
         }
@@ -85,13 +87,13 @@ public class JsonMapperJackson implements JsonMapper {
      * @param module to register
      */
     public void registerModule(Module module) {
-        delegate.registerModule(module);
+        objectMapper.registerModule(module);
     }
 
     @PostConstruct
     protected void init() {
-        delegate.enable(WRITE_ENUMS_USING_TO_STRING).setSerializationInclusion(Inclusion.NON_NULL);
-        delegate.enable(READ_ENUMS_USING_TO_STRING);
+        objectMapper.enable(WRITE_ENUMS_USING_TO_STRING).setSerializationInclusion(Inclusion.NON_NULL);
+        objectMapper.enable(READ_ENUMS_USING_TO_STRING);
         for (Module module : moduleInstances) {
             registerModule(module);
         }

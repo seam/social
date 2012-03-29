@@ -55,11 +55,15 @@ public class MultiServicesManagerImpl implements MultiServicesManager, Serializa
     private Instance<OAuthService> serviceInstances;
 
     @Inject
+    @Any
+    private Instance<SocialNetworkServicesHub> hubInstances;
+
+    @Inject
     private SeamSocialExtension socialConfig;
 
     private List<String> listOfServices;
 
-    private Set<OAuthSession> activeSessions;
+    private final Set<OAuthSession> activeSessions;
 
     @Produces
     @Named
@@ -88,12 +92,17 @@ public class MultiServicesManagerImpl implements MultiServicesManager, Serializa
     }
 
     @Override
+    public SocialNetworkServicesHub getCurrentServiceHub() {
+        return hubInstances.select(getCurrentSession().getServiceQualifier()).get();
+    }
+
+    @Override
     public boolean isCurrentServiceConnected() {
         return getCurrentService() != null && getCurrentService().isConnected();
     }
 
     @Override
-    public void connectCurrentService() {
+    public synchronized void connectCurrentService() {
         getCurrentService().initAccessToken();
         activeSessions.add(currentSession);
     }

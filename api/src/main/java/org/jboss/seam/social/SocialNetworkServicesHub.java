@@ -37,4 +37,6 @@ public interface SocialNetworkServicesHub extends OAuthServiceAware, QualifierAw
      */
     public void configureService(OAuthService service);
 
+    public String getVerifierParamName();
+
 }

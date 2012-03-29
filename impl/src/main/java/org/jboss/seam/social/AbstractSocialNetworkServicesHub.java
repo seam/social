@@ -13,6 +13,8 @@ import org.jboss.seam.social.oauth.OAuthSession;
 public abstract class AbstractSocialNetworkServicesHub extends AbstractOAuthServiceAwareImpl implements
         SocialNetworkServicesHub {
 
+    private static final String VERIFIER_PARAM_NAME = "oauth_verifier";
+
     @Override
     public UserProfile getMyProfile() {
         return getSession().getUserProfile();
@@ -37,6 +39,9 @@ public abstract class AbstractSocialNetworkServicesHub extends AbstractOAuthServ
     public void configureService(OAuthService service) {
     }
 
-    // public abstract void initMyProfile(OAuthComplete oauthComplete);
+    @Override
+    public String getVerifierParamName() {
+        return VERIFIER_PARAM_NAME;
+    }
 
 }

@@ -20,7 +20,7 @@
       http://java.sun.com/xml/ns/javaee
       http://java.sun.com/xml/ns/javaee/beans_1_0.xsd">
     <decorators>
-        <class>org.jboss.seam.social.twitter.event.TwitterTimelineServiceDecorator</class>
+        <class>org.jboss.seam.social.twitter.cdi.TwitterTimelineServiceDecorator</class>
     </decorators>
 
 </beans>

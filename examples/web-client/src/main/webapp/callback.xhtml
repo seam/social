@@ -6,7 +6,7 @@
                 template="/WEB-INF/templates/default.xhtml">
     <ui:define name="content">
         <f:metadata>
-            <f:viewParam name="#{currentService.verifierParamName}" value="#{currentSession.verifier}"
+            <f:viewParam name="#{currentHub.verifierParamName}" value="#{currentSession.verifier}"
                          required="true"
                          requiredMessage="We didn't get the authorization from #{currentService.type}. Please go back and Try Again !"/>
             <f:event type="preRenderView" listener="#{socialClient.connectCurrentService()}"/>

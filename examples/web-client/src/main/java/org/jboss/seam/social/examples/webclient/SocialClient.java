@@ -33,6 +33,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.jboss.seam.social.MultiServicesManager;
+import org.jboss.seam.social.SocialNetworkServicesHub;
 import org.jboss.seam.social.event.SocialEvent;
 import org.jboss.seam.social.event.StatusUpdated;
 import org.jboss.seam.social.oauth.OAuthService;
@@ -100,6 +101,12 @@ public class SocialClient implements Serializable {
     @Named
     public OAuthService getCurrentService() {
         return manager.getCurrentService();
+    }
+
+    @Produces
+    @Named
+    public SocialNetworkServicesHub getCurrentHub() {
+        return manager.getCurrentServiceHub();
     }
 
     public List<OAuthSession> getSessions() {

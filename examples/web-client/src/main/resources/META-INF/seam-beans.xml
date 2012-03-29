@@ -38,14 +38,14 @@
             callback="http://localhost:8080/social-web-client/callback.jsf" />
     </o:LinkedInServicesHub>
 
-<!--     <o:FacebookServiceJackson> -->
-<!--         <s:modifies /> -->
-<!--         <o:Facebook/> -->
-<!--         <s:ApplicationScoped /> -->
-<!--         <o:OAuthApplication apiKey="204631749555557" -->
-<!--             apiSecret="5d3132b1448a66d28e5c420b267cd65e" -->
-<!--             callback="http://localhost:8080/social-web-client/callback.jsf" /> -->
-<!--     </o:FacebookServiceJackson> -->
+    <o:FacebookServicesHub>
+        <s:modifies />
+        <o:Facebook/>
+        <s:ApplicationScoped />
+        <o:OAuthApplication apiKey="204631749555557"
+            apiSecret="5d3132b1448a66d28e5c420b267cd65e"
+            callback="http://localhost:8080/social-web-client/callback.jsf" />
+    </o:FacebookServicesHub>
 
 
 </beans>

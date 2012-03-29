@@ -90,4 +90,9 @@ public interface MultiServicesManager extends Serializable {
      */
     Set<OAuthSession> getActiveSessions();
 
+    /**
+     * @return
+     */
+    SocialNetworkServicesHub getCurrentServiceHub();
+
 }
