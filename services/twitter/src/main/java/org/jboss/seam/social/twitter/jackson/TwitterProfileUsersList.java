@@ -21,7 +21,7 @@ import java.util.List;
 import org.codehaus.jackson.annotate.JsonCreator;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
-import org.jboss.seam.social.twitter.TwitterProfile;
+import org.jboss.seam.social.twitter.model.TwitterProfile;
 
 /**
  * Holder for list of TwitterProfile objects pulled from a JSON object's "users" property.

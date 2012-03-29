@@ -29,8 +29,8 @@ import org.codehaus.jackson.JsonParser;
 import org.codehaus.jackson.JsonProcessingException;
 import org.codehaus.jackson.map.DeserializationContext;
 import org.codehaus.jackson.map.JsonDeserializer;
-import org.jboss.seam.social.twitter.Trend;
-import org.jboss.seam.social.twitter.Trends;
+import org.jboss.seam.social.twitter.model.Trend;
+import org.jboss.seam.social.twitter.model.Trends;
 
 /**
  * Deserializer to read local trends data into a LocalTrendsHolder object.

@@ -9,9 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.jboss.seam.social.twitter.DirectMessage;
-import org.jboss.seam.social.twitter.TwitterBaseService;
+import org.jboss.seam.social.TwitterBaseService;
 import org.jboss.seam.social.twitter.TwitterDirectMessageService;
+import org.jboss.seam.social.twitter.model.DirectMessage;
 import org.jboss.seam.social.utils.URLUtils;
 
 /**

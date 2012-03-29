@@ -18,6 +18,10 @@ package org.jboss.seam.social.twitter;
 
 import java.util.List;
 
+import org.jboss.seam.social.twitter.model.DirectMessage;
+import org.jboss.seam.social.twitter.model.InvalidMessageRecipientException;
+import org.jboss.seam.social.twitter.model.MessageTooLongException;
+
 /**
  * Interface defining the Twitter operations for working with direct messages.
  * 

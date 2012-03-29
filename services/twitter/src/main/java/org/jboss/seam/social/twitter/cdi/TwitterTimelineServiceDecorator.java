@@ -25,8 +25,8 @@ import javax.inject.Inject;
 import org.jboss.seam.social.Twitter;
 import org.jboss.seam.social.event.SocialEvent.Status;
 import org.jboss.seam.social.event.StatusUpdated;
-import org.jboss.seam.social.twitter.Tweet;
 import org.jboss.seam.social.twitter.TwitterTimelineService;
+import org.jboss.seam.social.twitter.model.Tweet;
 
 @Decorator
 /**

@@ -27,8 +27,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.jboss.seam.social.twitter.Trend;
-import org.jboss.seam.social.twitter.Trends;
+import org.jboss.seam.social.twitter.model.Trend;
+import org.jboss.seam.social.twitter.model.Trends;
+
 
 /**
  * Abstract model class representing a list of trends.

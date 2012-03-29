@@ -19,17 +19,18 @@ package org.jboss.seam.social.twitter.jackson;
 import org.codehaus.jackson.Version;
 import org.codehaus.jackson.map.module.SimpleModule;
 import org.jboss.seam.social.Twitter;
-import org.jboss.seam.social.twitter.DirectMessage;
-import org.jboss.seam.social.twitter.Place;
-import org.jboss.seam.social.twitter.RateLimitStatus;
-import org.jboss.seam.social.twitter.SavedSearch;
-import org.jboss.seam.social.twitter.SearchResults;
-import org.jboss.seam.social.twitter.SuggestionCategory;
-import org.jboss.seam.social.twitter.Trend;
-import org.jboss.seam.social.twitter.Trends;
-import org.jboss.seam.social.twitter.Tweet;
-import org.jboss.seam.social.twitter.TwitterProfile;
-import org.jboss.seam.social.twitter.UserList;
+import org.jboss.seam.social.twitter.model.DirectMessage;
+import org.jboss.seam.social.twitter.model.Place;
+import org.jboss.seam.social.twitter.model.RateLimitStatus;
+import org.jboss.seam.social.twitter.model.SavedSearch;
+import org.jboss.seam.social.twitter.model.SearchResults;
+import org.jboss.seam.social.twitter.model.SimilarPlacesResponse;
+import org.jboss.seam.social.twitter.model.SuggestionCategory;
+import org.jboss.seam.social.twitter.model.Trend;
+import org.jboss.seam.social.twitter.model.Trends;
+import org.jboss.seam.social.twitter.model.Tweet;
+import org.jboss.seam.social.twitter.model.TwitterProfile;
+import org.jboss.seam.social.twitter.model.UserList;
 
 /**
  * Jackson module for registering mixin annotations against Twitter model classes.

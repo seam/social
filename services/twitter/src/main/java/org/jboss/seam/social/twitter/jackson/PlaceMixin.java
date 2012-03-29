@@ -27,7 +27,7 @@ import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.DeserializationContext;
 import org.codehaus.jackson.map.JsonDeserializer;
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
-import org.jboss.seam.social.twitter.PlaceType;
+import org.jboss.seam.social.twitter.model.PlaceType;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 class PlaceMixin {

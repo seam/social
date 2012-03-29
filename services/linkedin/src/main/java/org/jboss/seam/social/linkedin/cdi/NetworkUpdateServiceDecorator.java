@@ -12,8 +12,8 @@ import javax.inject.Inject;
 import org.jboss.seam.social.LinkedIn;
 import org.jboss.seam.social.event.SocialEvent.Status;
 import org.jboss.seam.social.event.StatusUpdated;
-import org.jboss.seam.social.linkedin.api.model.NewShare;
-import org.jboss.seam.social.linkedin.api.services.NetworkUpdateService;
+import org.jboss.seam.social.linkedin.NetworkUpdateService;
+import org.jboss.seam.social.linkedin.model.NewShare;
 
 @Decorator
 /**
@@ -38,7 +38,7 @@ public abstract class NetworkUpdateServiceDecorator implements NetworkUpdateServ
      * (non-Javadoc)
      * 
      * @see
-     * org.jboss.seam.social.linkedin.api.services.NetworkUpdateService#share(org.jboss.seam.social.linkedin.api.model.NewShare)
+     * org.jboss.seam.social.linkedin.api.services.NetworkUpdateService#share(org.jboss.seam.social.linkedin.model.NewShare)
      */
     @Override
     public String share(NewShare share) {

@@ -11,12 +11,12 @@ import java.util.Map;
 
 import javax.inject.Named;
 
-import org.jboss.seam.social.twitter.StatusDetails;
-import org.jboss.seam.social.twitter.Tweet;
-import org.jboss.seam.social.twitter.TwitterBaseService;
-import org.jboss.seam.social.twitter.TwitterProfile;
+import org.jboss.seam.social.TwitterBaseService;
 import org.jboss.seam.social.twitter.TwitterTimelineService;
 import org.jboss.seam.social.twitter.impl.TwitterUserServiceImpl.TwitterProfileList;
+import org.jboss.seam.social.twitter.model.StatusDetails;
+import org.jboss.seam.social.twitter.model.Tweet;
+import org.jboss.seam.social.twitter.model.TwitterProfile;
 import org.jboss.seam.social.utils.URLUtils;
 
 /**

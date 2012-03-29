@@ -11,7 +11,6 @@ import javax.inject.Inject;
 
 import org.jboss.seam.social.event.OAuthComplete;
 import org.jboss.seam.social.event.SocialEvent.Status;
-import org.jboss.seam.social.twitter.TwitterBaseService;
 import org.jboss.seam.social.twitter.impl.TwitterUserServiceImpl;
 import org.jboss.solder.logging.Logger;
 

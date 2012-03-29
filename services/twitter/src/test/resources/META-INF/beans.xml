@@ -16,7 +16,7 @@
   limitations under the License.
 -->
 <beans xmlns="http://java.sun.com/xml/ns/javaee"
-    xmlns:o="urn:java:org.jboss.seam.social:org.jboss.seam.social.oauth:org.jboss.seam.social.twitter.jackson"
+    xmlns:o="urn:java:org.jboss.seam.social:org.jboss.seam.social.oauth:org.jboss.seam.social.twitter.model.jackson"
     xmlns:s="urn:java:ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://jboss.org/schema/cdi/beans_1_0.xsd">
     <o:TwitterServicesHub>

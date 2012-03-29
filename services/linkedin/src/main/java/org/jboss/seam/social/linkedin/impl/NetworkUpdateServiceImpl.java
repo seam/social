@@ -12,19 +12,19 @@ import java.util.Map;
 
 import javax.inject.Named;
 
-import org.jboss.seam.social.linkedin.LinkedInBaseService;
-import org.jboss.seam.social.linkedin.api.model.Comment;
-import org.jboss.seam.social.linkedin.api.model.Comments;
-import org.jboss.seam.social.linkedin.api.model.CurrentShare;
-import org.jboss.seam.social.linkedin.api.model.Likes;
-import org.jboss.seam.social.linkedin.api.model.LinkedInNetworkUpdate;
-import org.jboss.seam.social.linkedin.api.model.LinkedInNetworkUpdates;
-import org.jboss.seam.social.linkedin.api.model.LinkedInProfile;
-import org.jboss.seam.social.linkedin.api.model.NetworkUpdateParameters;
-import org.jboss.seam.social.linkedin.api.model.NewShare;
-import org.jboss.seam.social.linkedin.api.model.UpdateContentShare;
-import org.jboss.seam.social.linkedin.api.model.UpdateTypeInput;
-import org.jboss.seam.social.linkedin.api.services.NetworkUpdateService;
+import org.jboss.seam.social.LinkedInBaseService;
+import org.jboss.seam.social.linkedin.NetworkUpdateService;
+import org.jboss.seam.social.linkedin.model.Comment;
+import org.jboss.seam.social.linkedin.model.Comments;
+import org.jboss.seam.social.linkedin.model.CurrentShare;
+import org.jboss.seam.social.linkedin.model.Likes;
+import org.jboss.seam.social.linkedin.model.LinkedInNetworkUpdate;
+import org.jboss.seam.social.linkedin.model.LinkedInNetworkUpdates;
+import org.jboss.seam.social.linkedin.model.LinkedInProfile;
+import org.jboss.seam.social.linkedin.model.NetworkUpdateParameters;
+import org.jboss.seam.social.linkedin.model.NewShare;
+import org.jboss.seam.social.linkedin.model.UpdateContentShare;
+import org.jboss.seam.social.linkedin.model.UpdateTypeInput;
 
 /**
  * @author Antoine Sabot-Durand

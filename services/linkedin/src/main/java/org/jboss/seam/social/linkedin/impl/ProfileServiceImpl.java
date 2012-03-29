@@ -3,13 +3,13 @@
  */
 package org.jboss.seam.social.linkedin.impl;
 
-import org.jboss.seam.social.linkedin.LinkedInBaseService;
-import org.jboss.seam.social.linkedin.api.model.LinkedInProfile;
-import org.jboss.seam.social.linkedin.api.model.LinkedInProfileFull;
-import org.jboss.seam.social.linkedin.api.model.LinkedInProfiles;
-import org.jboss.seam.social.linkedin.api.model.ProfileField;
-import org.jboss.seam.social.linkedin.api.model.SearchParameters;
-import org.jboss.seam.social.linkedin.api.services.ProfileService;
+import org.jboss.seam.social.LinkedInBaseService;
+import org.jboss.seam.social.linkedin.ProfileService;
+import org.jboss.seam.social.linkedin.model.LinkedInProfile;
+import org.jboss.seam.social.linkedin.model.LinkedInProfileFull;
+import org.jboss.seam.social.linkedin.model.LinkedInProfiles;
+import org.jboss.seam.social.linkedin.model.ProfileField;
+import org.jboss.seam.social.linkedin.model.SearchParameters;
 
 /**
  * @author Antoine Sabot-Durand

@@ -10,12 +10,12 @@ import java.util.Map;
 import org.codehaus.jackson.annotate.JsonCreator;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
-import org.jboss.seam.social.twitter.ImageSize;
-import org.jboss.seam.social.twitter.RateLimitStatus;
-import org.jboss.seam.social.twitter.SuggestionCategory;
-import org.jboss.seam.social.twitter.TwitterBaseService;
-import org.jboss.seam.social.twitter.TwitterProfile;
+import org.jboss.seam.social.TwitterBaseService;
 import org.jboss.seam.social.twitter.TwitterUserService;
+import org.jboss.seam.social.twitter.model.ImageSize;
+import org.jboss.seam.social.twitter.model.RateLimitStatus;
+import org.jboss.seam.social.twitter.model.SuggestionCategory;
+import org.jboss.seam.social.twitter.model.TwitterProfile;
 import org.jboss.seam.social.utils.URLUtils;
 
 /**

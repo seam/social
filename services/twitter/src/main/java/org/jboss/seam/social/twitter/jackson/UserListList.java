@@ -22,8 +22,8 @@ import org.codehaus.jackson.annotate.JsonCreator;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
-import org.jboss.seam.social.twitter.CursoredList;
-import org.jboss.seam.social.twitter.UserList;
+import org.jboss.seam.social.twitter.model.CursoredList;
+import org.jboss.seam.social.twitter.model.UserList;
 
 /**
  * Holder for list of UserList, pulled from JSON object's "lists" property.

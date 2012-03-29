@@ -18,6 +18,11 @@ package org.jboss.seam.social.twitter;
 
 import java.util.List;
 
+import org.jboss.seam.social.twitter.model.Place;
+import org.jboss.seam.social.twitter.model.PlacePrototype;
+import org.jboss.seam.social.twitter.model.PlaceType;
+import org.jboss.seam.social.twitter.model.SimilarPlaces;
+
 /**
  * Interface defining the Twitter operations for working with locations.
  * 

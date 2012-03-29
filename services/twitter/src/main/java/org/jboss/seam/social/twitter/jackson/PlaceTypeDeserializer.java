@@ -22,7 +22,7 @@ import org.codehaus.jackson.JsonParser;
 import org.codehaus.jackson.JsonProcessingException;
 import org.codehaus.jackson.map.DeserializationContext;
 import org.codehaus.jackson.map.JsonDeserializer;
-import org.jboss.seam.social.twitter.PlaceType;
+import org.jboss.seam.social.twitter.model.PlaceType;
 
 class PlaceTypeDeserializer extends JsonDeserializer<PlaceType> {
 

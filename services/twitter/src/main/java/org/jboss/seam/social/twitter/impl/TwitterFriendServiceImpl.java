@@ -9,11 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.jboss.seam.social.twitter.CursoredList;
-import org.jboss.seam.social.twitter.TwitterBaseService;
-import org.jboss.seam.social.twitter.TwitterProfile;
+import org.jboss.seam.social.TwitterBaseService;
 import org.jboss.seam.social.twitter.impl.TwitterUserServiceImpl.TwitterProfileList;
-import org.jboss.seam.social.twitter.jackson.CursoredLongList;
+import org.jboss.seam.social.twitter.model.CursoredList;
+import org.jboss.seam.social.twitter.model.CursoredLongList;
+import org.jboss.seam.social.twitter.model.TwitterProfile;
 import org.jboss.seam.social.utils.URLUtils;
 
 /**

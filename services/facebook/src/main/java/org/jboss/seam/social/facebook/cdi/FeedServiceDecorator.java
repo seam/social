@@ -12,7 +12,7 @@ import javax.inject.Inject;
 import org.jboss.seam.social.Facebook;
 import org.jboss.seam.social.event.SocialEvent.Status;
 import org.jboss.seam.social.event.StatusUpdated;
-import org.jboss.seam.social.facebook.service.FeedService;
+import org.jboss.seam.social.facebook.FeedService;
 
 @Decorator
 /**

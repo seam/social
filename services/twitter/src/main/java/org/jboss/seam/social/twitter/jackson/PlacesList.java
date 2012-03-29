@@ -30,7 +30,7 @@ import org.codehaus.jackson.map.JsonDeserializer;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.codehaus.jackson.type.TypeReference;
-import org.jboss.seam.social.twitter.Place;
+import org.jboss.seam.social.twitter.model.Place;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PlacesList {

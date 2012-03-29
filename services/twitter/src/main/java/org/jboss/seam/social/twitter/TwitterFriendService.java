@@ -16,6 +16,9 @@
  */
 package org.jboss.seam.social.twitter;
 
+import org.jboss.seam.social.twitter.model.CursoredList;
+import org.jboss.seam.social.twitter.model.TwitterProfile;
+
 /**
  * Interface defining the operations for working with a user's friends and followers.
  * 

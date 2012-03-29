@@ -11,8 +11,7 @@ import javax.inject.Inject;
 
 import org.jboss.seam.social.event.OAuthComplete;
 import org.jboss.seam.social.event.SocialEvent.Status;
-import org.jboss.seam.social.facebook.FacebookBaseService;
-import org.jboss.seam.social.facebook.service.impl.UserServiceImpl;
+import org.jboss.seam.social.facebook.impl.UserServiceImpl;
 import org.jboss.solder.logging.Logger;
 
 /**

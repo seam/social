@@ -18,7 +18,7 @@ package org.jboss.seam.social.facebook.model;
 import java.util.Date;
 import java.util.List;
 
-import org.jboss.seam.social.facebook.service.LikeService;
+import org.jboss.seam.social.facebook.LikeService;
 
 
 

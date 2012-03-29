@@ -26,7 +26,8 @@ import org.codehaus.jackson.map.DeserializationContext;
 import org.codehaus.jackson.map.JsonDeserializer;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
-import org.jboss.seam.social.twitter.Place;
+import org.jboss.seam.social.twitter.model.Place;
+import org.jboss.seam.social.twitter.model.SimilarPlacesResponse;
 
 class SimilarPlacesDeserializer extends JsonDeserializer<SimilarPlacesResponse> {
     @Override

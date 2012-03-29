@@ -8,14 +8,14 @@ import static com.google.common.collect.Maps.newHashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.jboss.seam.social.twitter.Place;
-import org.jboss.seam.social.twitter.PlacePrototype;
-import org.jboss.seam.social.twitter.PlaceType;
-import org.jboss.seam.social.twitter.SimilarPlaces;
-import org.jboss.seam.social.twitter.TwitterBaseService;
+import org.jboss.seam.social.TwitterBaseService;
 import org.jboss.seam.social.twitter.TwitterGeoService;
 import org.jboss.seam.social.twitter.jackson.PlacesList;
-import org.jboss.seam.social.twitter.jackson.SimilarPlacesResponse;
+import org.jboss.seam.social.twitter.model.Place;
+import org.jboss.seam.social.twitter.model.PlacePrototype;
+import org.jboss.seam.social.twitter.model.PlaceType;
+import org.jboss.seam.social.twitter.model.SimilarPlaces;
+import org.jboss.seam.social.twitter.model.SimilarPlacesResponse;
 
 /**
  * @author Antoine Sabot-Durand

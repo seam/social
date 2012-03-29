@@ -23,7 +23,7 @@ import org.codehaus.jackson.annotate.JsonCreator;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
-import org.jboss.seam.social.twitter.Trend;
+import org.jboss.seam.social.twitter.model.Trend;
 
 /**
  * Mixin class for adding Jackson annotations to Trends.

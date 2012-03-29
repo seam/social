@@ -27,7 +27,6 @@ import javax.inject.Inject;
 
 import org.jboss.seam.social.event.OAuthComplete;
 import org.jboss.seam.social.event.SocialEvent.Status;
-import org.jboss.seam.social.linkedin.LinkedInBaseService;
 import org.jboss.seam.social.linkedin.impl.ProfileServiceImpl;
 import org.jboss.seam.social.oauth.OAuthService;
 import org.jboss.solder.logging.Logger;

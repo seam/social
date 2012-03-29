@@ -18,7 +18,7 @@ package org.jboss.seam.social.twitter.jackson;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
-import org.jboss.seam.social.twitter.Trends;
+import org.jboss.seam.social.twitter.model.Trends;
 
 /**
  * Holds a Trends object deserialized from Twitter's local trends JSON structure. Provides a convenient place to hang the @JsonDeserialize
