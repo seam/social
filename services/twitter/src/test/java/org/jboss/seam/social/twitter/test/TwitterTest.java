@@ -37,6 +37,7 @@ import org.jboss.seam.social.twitter.model.TwitterProfile;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.GenericArchive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.importer.ZipImporter;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
@@ -63,9 +64,9 @@ public class TwitterTest {
     @Deployment
     public static Archive<?> createTestArchive() throws FileNotFoundException {
 
-        File beanFile = new File("src/test/resources/META-INF/beans.xml");
-        if (!beanFile.exists())
-            throw new FileNotFoundException();
+        // File beanFile = new File("src/test/resources/META-INF/beans.xml");
+        // if (!beanFile.exists())
+        // throw new FileNotFoundException();
 
         WebArchive ret = ShrinkWrap
                 .create(WebArchive.class, "test.war")
@@ -76,21 +77,20 @@ public class TwitterTest {
                                 .importFrom(new File("../../impl/target/seam-social.jar")).as(JavaArchive.class),
                         ShrinkWrap.create(ZipImporter.class, "seam-social-twitter.jar")
                                 .importFrom(new File("target/seam-social-twitter.jar")).as(JavaArchive.class))
-                // .addAsResource(EmptyAsset.INSTANCE, "META-INF/beans.xml").addClass(TwitterServiceProducer.class);
-                .addAsResource(beanFile, "META-INF/beans.xml");
+                .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml").addClass(TwitterServiceProducer.class);
 
-        if ("weld-ee-embedded-1.1".equals(System.getProperty("arquillian"))) {
-            // Don't embed dependencies that are already in the CL in the embedded container from surefire
-            ret.addAsLibraries(DependencyResolvers.use(MavenDependencyResolver.class).configureFrom("../../settings.xml")
-                    .loadMetadataFromPom("../../impl/pom.xml").artifact("org.jboss.solder:solder-impl")
-                    .resolveAs(GenericArchive.class));
-        } else {
-            ret.addAsLibraries(DependencyResolvers.use(MavenDependencyResolver.class).configureFrom("../../settings.xml")
-                    .loadMetadataFromPom("../../impl/pom.xml").artifact("org.jboss.solder:solder-impl")
-                    .artifact("org.scribe:scribe").artifact("org.apache.commons:commons-lang3")
-                    .artifact("org.codehaus.jackson:jackson-mapper-asl").artifact("com.google.guava:guava")
-                    .resolveAs(GenericArchive.class));
-        }
+        // if ("weld-ee-embedded-1.1".equals(System.getProperty("arquillian"))) {
+        // // Don't embed dependencies that are already in the CL in the embedded container from surefire
+        // ret.addAsLibraries(DependencyResolvers.use(MavenDependencyResolver.class).configureFrom("../../settings.xml")
+        // .loadMetadataFromPom("../../impl/pom.xml").artifact("org.jboss.solder:solder-impl")
+        // .resolveAs(GenericArchive.class));
+        // } else {
+        ret.addAsLibraries(DependencyResolvers.use(MavenDependencyResolver.class).configureFrom("../../settings.xml")
+                .loadMetadataFromPom("../../impl/pom.xml").artifact("org.jboss.solder:solder-impl")
+                .artifact("org.scribe:scribe").artifact("org.apache.commons:commons-lang3")
+                .artifact("org.codehaus.jackson:jackson-mapper-asl").artifact("com.google.guava:guava")
+                .resolveAs(GenericArchive.class));
+        // }
         return ret;
     }
 

@@ -30,6 +30,7 @@ import javax.enterprise.inject.spi.Annotated;
 import javax.enterprise.inject.spi.BeanManager;
 import javax.enterprise.inject.spi.Extension;
 import javax.enterprise.inject.spi.ProcessBean;
+import javax.enterprise.inject.spi.ProcessProducer;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jboss.seam.social.oauth.OAuthApplication;
@@ -61,11 +62,11 @@ public class SeamSocialExtension implements Extension {
      * @param pbean
      * @param beanManager
      */
-    public void processSettingsBeans(@Observes ProcessBean<SocialNetworkServicesHub> pbean, BeanManager beanManager) {
-
-        log.infof("Found services hub %s", pbean.getAnnotated().getBaseType());
-
-        Annotated annotated = pbean.getAnnotated();
+    public void processHubProducer(@Observes ProcessProducer<?, SocialNetworkServicesHub> pbean, BeanManager beanManager) {
+        Annotated annotated = pbean.getAnnotatedMember();
+        log.infof("Found services hub %s", annotated.getBaseType());
+        Set<Annotation> qualifiers = AnnotationInspector.getAnnotations(annotated, ServiceRelated.class);
+        servicesQualifiersAvailable.addAll(qualifiers);
         if (annotated.isAnnotationPresent(OAuthApplication.class)) {
             log.debug("Bean is configured");
             servicesQualifiersConfigured.addAll(AnnotationInspector.getAnnotations(annotated, ServiceRelated.class));
@@ -73,16 +74,21 @@ public class SeamSocialExtension implements Extension {
     }
 
     /**
-     * This Listener build the List of existing OAuthServices with a Qualifier having the meta annotation @ServiceRelated
+     * This observer methods build the list of existing Qualifiers having the ServiceRelated meta Annotation on configured
+     * service (having the {@link OAuthApplication} Annotation)
      * 
      * @param pbean
-     * @throws IllegalAccessException
-     * @throws InstantiationException
+     * @param beanManager
      */
-    public void processServicesBeans(@Observes ProcessBean<SocialNetworkServicesHub> pbean) throws InstantiationException,
-            IllegalAccessException {
-        Set<Annotation> qualifiers = AnnotationInspector.getAnnotations(pbean.getAnnotated(), ServiceRelated.class);
+    public void processSettingsBeans(@Observes ProcessBean<SocialNetworkServicesHub> pbean, BeanManager beanManager) {
+        Annotated annotated = pbean.getAnnotated();
+        log.infof("Found services hub %s", annotated.getBaseType());
+        Set<Annotation> qualifiers = AnnotationInspector.getAnnotations(annotated, ServiceRelated.class);
         servicesQualifiersAvailable.addAll(qualifiers);
+        if (annotated.isAnnotationPresent(OAuthApplication.class)) {
+            log.debug("Bean is configured");
+            servicesQualifiersConfigured.addAll(AnnotationInspector.getAnnotations(annotated, ServiceRelated.class));
+        }
     }
 
     public Set<String> getSocialRelated() {
