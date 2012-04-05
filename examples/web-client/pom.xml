@@ -118,12 +118,12 @@
         <dependency>
         <groupId>org.jboss.seam.social</groupId>
             <artifactId>seam-social-twitter</artifactId>
-            <scope>runtime</scope>
+            <scope>compile</scope>
         </dependency>
         <dependency>
         <groupId>org.jboss.seam.social</groupId>
             <artifactId>seam-social-facebook</artifactId>
-            <scope>runtime</scope>
+            <scope>compile</scope>
         </dependency>
         <dependency>
         <groupId>org.jboss.seam.social</groupId>
