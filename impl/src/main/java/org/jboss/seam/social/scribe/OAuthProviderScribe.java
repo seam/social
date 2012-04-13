@@ -27,7 +27,6 @@ import org.scribe.builder.api.Api;
 import org.scribe.model.Token;
 import org.scribe.model.Verifier;
 
-
 /**
  * @author Antoine Sabot-Durand
  * 
@@ -37,7 +36,7 @@ public class OAuthProviderScribe implements OAuthProvider {
     private static final String SCRIBE_API_PREFIX = "org.scribe.builder.api.";
     private static final String SCRIBE_API_SUFFIX = "Api";
 
-    private org.scribe.oauth.OAuthService service;
+    private final org.scribe.oauth.OAuthService service;
 
     org.scribe.oauth.OAuthService getService() {
         if (service == null)
@@ -62,6 +61,7 @@ public class OAuthProviderScribe implements OAuthProvider {
      */
     @Override
     public OAuthToken getAccessToken(OAuthToken requestToken, String verifier) {
+        // TODO: catch exception from Scribe if the remote service is unavailabe
         return createToken(getService().getAccessToken(extractToken(requestToken), new Verifier(verifier)));
     }
 
