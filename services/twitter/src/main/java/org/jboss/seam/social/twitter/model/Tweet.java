@@ -33,6 +33,7 @@ public class Tweet {
     private Long toUserId;
     private Long inReplyToStatusId;
     private long fromUserId;
+    private boolean favorited;
     private String languageCode;
     private String source;
     private Integer retweetCount;
@@ -140,5 +141,19 @@ public class Tweet {
      */
     public Integer getRetweetCount() {
         return retweetCount;
+    }
+
+    /**
+     * @return the favorited
+     */
+    public boolean isFavorited() {
+        return favorited;
+    }
+
+    /**
+     * @param favorited the favorited to set
+     */
+    public void setFavorited(boolean favorited) {
+        this.favorited = favorited;
     }
 }
