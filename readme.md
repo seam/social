@@ -1,5 +1,7 @@
 #Seam Social
 
+#THIS PROJECT IS NO MORE UNDER ACTVE DEVELOPMENT. THE INITIATIVE HAS MOVED TO [AGORAVA PROJECT](https://github.com/agorava)
+
 ##Changelog
 
 3.2.0-SNAPSHOT includes a lot of new features
